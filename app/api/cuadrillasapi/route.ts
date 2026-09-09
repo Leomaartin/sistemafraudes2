@@ -85,7 +85,7 @@ export async function DELETE(req: NextRequest) {
 
     // Verificar si hay usuarios asociados
     const usuariosAsociados = await prisma.usuario.count({
-      where: { idCuadrilla: id },
+      where: { cuadrillas: { some: { id } } },
     });
 
     if (usuariosAsociados > 0) {

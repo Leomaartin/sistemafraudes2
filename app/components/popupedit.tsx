@@ -20,7 +20,6 @@ export default function PopupEdit({
   usuarioId,
   onClose,
   onUserUpdated,
-  
 }: PopupEditProps) {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -30,17 +29,25 @@ export default function PopupEdit({
   const [estados, setEstados] = useState<CatalogoItem[]>([]);
   const [tarifas, setTarifas] = useState<CatalogoItem[]>([]);
 
+  const [selectedCuadrillas, setSelectedCuadrillas] = useState<number[]>([]);
+
   const [formData, setFormData] = useState({
     nroUsuario: "",
     nombre: "",
     domicilio: "",
+    medidor: "",
     ruta: "",
     observaciones: "",
     maps: "",
-    idCuadrilla: "",
     idEstado: "",
     idTarifa: "",
   });
+
+  const toggleCuadrilla = (id: number) => {
+    setSelectedCuadrillas((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
 
   const loadData = async () => {
     setLoading(true);
@@ -71,19 +78,23 @@ export default function PopupEdit({
       setEstados(estadosData);
       setTarifas(tarifasData);
 
+      // Pre-cargar las cuadrillas asignadas al usuario
+      let userCuadrillaIds: number[] = [];
+      if (Array.isArray(userData.cuadrillas)) {
+        userCuadrillaIds = userData.cuadrillas.map((c: any) => c.id);
+      } else if (userData.idCuadrilla) {
+        userCuadrillaIds = [userData.idCuadrilla];
+      }
+      setSelectedCuadrillas(userCuadrillaIds);
+
       setFormData({
         nroUsuario: userData.nroUsuario || "",
         nombre: userData.nombre || "",
         domicilio: userData.domicilio || "",
+        medidor: userData.medidor || "",
         ruta: userData.ruta || "",
         observaciones: userData.observaciones || "",
         maps: userData.maps || "",
-        idCuadrilla:
-          userData.idCuadrilla != null
-            ? String(userData.idCuadrilla)
-            : userData.cuadrilla?.id != null
-            ? String(userData.cuadrilla.id)
-            : "",
         idEstado:
           userData.idEstado != null
             ? String(userData.idEstado)
@@ -142,10 +153,11 @@ export default function PopupEdit({
           nroUsuario: formData.nroUsuario.trim(),
           nombre: formData.nombre.trim(),
           domicilio: formData.domicilio.trim() || null,
+          medidor: formData.medidor.trim() || null,
           ruta: formData.ruta.trim() || null,
           observaciones: formData.observaciones.trim() || null,
           maps: formData.maps.trim() || null,
-          idCuadrilla: formData.idCuadrilla ? parseInt(formData.idCuadrilla, 10) : null,
+          cuadrillaIds: selectedCuadrillas,
           idEstado: formData.idEstado ? parseInt(formData.idEstado, 10) : null,
           idTarifa: formData.idTarifa ? parseInt(formData.idTarifa, 10) : null,
         }),
@@ -219,7 +231,7 @@ export default function PopupEdit({
         <div>
           <h2 className="crud-title">Editar Usuario</h2>
           <p className="crud-subtitle">
-            Modifica la información y asignaciones del usuario ID #{usuarioId}
+            Modifica la información, medidor y asignación de múltiples cuadrillas del usuario #{usuarioId}
           </p>
         </div>
       </div>
@@ -228,7 +240,7 @@ export default function PopupEdit({
         {/* Sección 1: Información Personal y de Suministro */}
         <div className="form-section">
           <h4 className="section-title">
-            <span className="section-num" style={{ background: "#0284c7" }}>1</span> Información Personal y de Suministro
+            <span className="section-num" style={{ background: "#0284c7" }}>1</span> Información Personal y Medidor
           </h4>
           <div className="form-grid">
             <div className="input-group">
@@ -270,6 +282,18 @@ export default function PopupEdit({
             </div>
 
             <div className="input-group">
+              <label htmlFor="edit-medidor">N° de Medidor (1:1)</label>
+              <input
+                id="edit-medidor"
+                name="medidor"
+                type="text"
+                placeholder="Ej: MED-883920"
+                value={formData.medidor}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="input-group form-col-span-2">
               <label htmlFor="edit-ruta">Ruta / Sector</label>
               <input
                 id="edit-ruta"
@@ -286,27 +310,42 @@ export default function PopupEdit({
         {/* Sección 2: Parámetros y Asignación Operativa */}
         <div className="form-section">
           <h4 className="section-title">
-            <span className="section-num" style={{ background: "#0284c7" }}>2</span> Parámetros y Asignación Operativa
+            <span className="section-num" style={{ background: "#0284c7" }}>2</span> Selección de Múltiples Cuadrillas
           </h4>
-          <div className="form-grid form-grid-3">
-            <div className="input-group">
-              <label htmlFor="edit-cuadrilla">Cuadrilla Asignada</label>
-              <select
-                id="edit-cuadrilla"
-                name="idCuadrilla"
-                value={formData.idCuadrilla}
-                onChange={handleChange}
-                className="select-custom"
-              >
-                <option value="">-- Sin asignar --</option>
-                {cuadrillas.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.nombre} (ID: {item.id})
-                  </option>
-                ))}
-              </select>
+          <div className="input-group">
+            <label>Cuadrillas Asignadas:</label>
+            <div className="cuadrillas-checkbox-grid" style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "6px" }}>
+              {cuadrillas.map((item) => {
+                const isSelected = selectedCuadrillas.includes(item.id);
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => toggleCuadrilla(item.id)}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      padding: "8px 14px",
+                      borderRadius: "20px",
+                      border: isSelected ? "2px solid #0284c7" : "1px solid #cbd5e1",
+                      backgroundColor: isSelected ? "#e0f2fe" : "#ffffff",
+                      color: isSelected ? "#0369a1" : "#475569",
+                      fontWeight: isSelected ? 700 : 500,
+                      cursor: "pointer",
+                      transition: "all 0.15s ease-in-out",
+                      fontSize: "13px",
+                    }}
+                  >
+                    <span>{isSelected ? "✓" : "+"}</span>
+                    <span>{item.nombre}</span>
+                  </button>
+                );
+              })}
             </div>
+          </div>
 
+          <div className="form-grid" style={{ marginTop: "12px" }}>
             <div className="input-group">
               <label htmlFor="edit-estado">Estado del Fraude</label>
               <select
@@ -359,7 +398,7 @@ export default function PopupEdit({
                     href={formData.maps}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ fontSize: "12px", color: "#2563eb", textDecoration: "none", fontWeight: 600 }}
+                    style={{ fontSize: "12px", color: "#dc2626", textDecoration: "none", fontWeight: 600 }}
                   >
                     ↗ Abrir mapa actual
                   </a>

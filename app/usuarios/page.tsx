@@ -25,13 +25,13 @@ export interface UsuarioItem {
   nroUsuario: string;
   nombre: string;
   domicilio: string | null;
+  medidor: string | null;
   ruta: string | null;
   observaciones: string | null;
   maps: string | null;
-  idCuadrilla: number | null;
   idEstado: number | null;
   idTarifa: number | null;
-  cuadrilla?: CatalogoItem | null;
+  cuadrillas?: CatalogoItem[];
   estado?: CatalogoItem | null;
   tarifa?: CatalogoItem | null;
   imagenes?: ImagenItem[];
@@ -61,16 +61,16 @@ export default function Home() {
   // Control del menú desplegable de filtros
   const [mostrarFiltros, setMostrarFiltros] = useState(false);
 
-
-  //Funcion exportar excel
+  // Funcion exportar excel
   const exportarExcel = () => {
     const datos = filteredUsers.map((user) => ({
       "N° Usuario": user.nroUsuario,
       "Nombre": user.nombre,
       "Domicilio": user.domicilio || "",
+      "Medidor": user.medidor || "",
       "Ruta": user.ruta || "",
       "Estado": user.estado?.nombre || "",
-      "Cuadrilla": user.cuadrilla?.nombre || "",
+      "Cuadrillas": user.cuadrillas?.map((c) => c.nombre).join(", ") || "",
       "Tarifa": user.tarifa?.nombre || "",
       "Google Maps": user.maps || "",
       "Observaciones": user.observaciones || "",
@@ -83,6 +83,7 @@ export default function Home() {
 
     XLSX.writeFile(workbook, "usuarios_filtrados.xlsx");
   };
+
   // Función para recargar los usuarios tras editar o eliminar
   const fetchAllUsers = useCallback(async () => {
     try {
@@ -97,7 +98,7 @@ export default function Home() {
     }
   }, []);
 
-  // Carga inicial unificada para evitar renders en cascada y warnings
+  // Carga inicial unificada
   useEffect(() => {
     let isMounted = true;
 
@@ -195,10 +196,10 @@ export default function Home() {
         nroUsuario: "",
         nombre: "",
         domicilio: null,
+        medidor: null,
         ruta: null,
         observaciones: null,
         maps: null,
-        idCuadrilla: null,
         idEstado: null,
         idTarifa: null,
       });
@@ -242,7 +243,7 @@ export default function Home() {
     (user.nroUsuario || "").toString().includes(searchNumber) &&
     (user.domicilio || "").toLowerCase().includes(searchDomicilio.toLowerCase()) &&
     (user.ruta || "").toLowerCase().includes(searchRuta.toLowerCase()) &&
-    (searchCuadrilla === "" || user.cuadrilla?.nombre === searchCuadrilla) &&
+    (searchCuadrilla === "" || (user.cuadrillas && user.cuadrillas.some((c) => c.nombre === searchCuadrilla))) &&
     (searchTarifas === "" || user.tarifa?.nombre === searchTarifas) &&
     (searchEstados === "" || user.estado?.nombre === searchEstados)
   );
@@ -276,19 +277,33 @@ export default function Home() {
       />
 
       <main>
-
         <h3>
-          Bienvenidos al sistema para deudas
-          <Link href="/admin" className="administrar-button">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
-            </svg>
-            Administrar
-          </Link>
+          Sistema de Gestión de Deudas y Usuarios
+          <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+            {/* Botón de Excel con logo oficial de Excel */}
+            <button
+              onClick={exportarExcel}
+              className="btn-exportar-excel"
+              title="Exportar usuarios filtrados a Excel"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" fill="#ffffff" fillOpacity="0.25"/>
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="#ffffff" strokeWidth="2"/>
+                <path d="M14 2v6h6" stroke="#ffffff" strokeWidth="2"/>
+                <path d="M9.5 12.5l5 5M14.5 12.5l-5 5" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round"/>
+              </svg>
+              <span>Exportar Excel</span>
+            </button>
+            <Link href="/admin" className="administrar-button">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
+              </svg>
+              Administrar
+            </Link>
+          </div>
         </h3>
 
-
-        {/* Sección de Filtros con Menú Desplegable */}
+        {/* Sección de Filtros */}
         <div className="search-container">
           <div className="filtros-control-bar">
             {/* Input de búsqueda rápida */}
@@ -367,8 +382,7 @@ export default function Home() {
               </svg>
             </button>
 
-
-            {/* Botón para limpiar todos los filtros cuando hay alguno activo */}
+            {/* Botón para limpiar todos los filtros */}
             {activeFiltersCount > 0 && (
               <button
                 type="button"
@@ -393,7 +407,7 @@ export default function Home() {
             )}
           </div>
 
-          {/* Menú desplegable de filtros con className="filtros" */}
+          {/* Menú desplegable de filtros */}
           <div className={`filtros ${mostrarFiltros ? "filtros-open" : "filtros-closed"}`}>
             <div className="filtros-header">
               <div className="filtros-header-info">
@@ -530,7 +544,6 @@ export default function Home() {
                 </div>
               </div>
 
-
               {/* Filtro: Ruta */}
               <div className={`filtro-field ${searchRuta ? "has-value" : ""}`}>
                 <label htmlFor="filtro-input-ruta">
@@ -562,7 +575,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Filtro: Cuadrilla (Menú Desplegable) */}
+              {/* Filtro: Cuadrilla */}
               <div className={`filtro-field ${searchCuadrilla ? "has-value" : ""}`}>
                 <label htmlFor="filtro-select-cuadrilla">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -599,7 +612,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Filtro: Estados (Menú Desplegable) */}
+              {/* Filtro: Estados */}
               <div className={`filtro-field ${searchEstados ? "has-value" : ""}`}>
                 <label htmlFor="filtro-select-estado">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -634,7 +647,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Filtro: Tarifas (Menú Desplegable) */}
+              {/* Filtro: Tarifas */}
               <div className={`filtro-field ${searchTarifas ? "has-value" : ""}`}>
                 <label htmlFor="filtro-select-tarifa">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -695,7 +708,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Chips de filtros activos para visualización rápida */}
+          {/* Chips de filtros activos */}
           <div className="filtros-status-bar">
             <div className="filtros-status-count">
               <span>{filteredUsers.length} {filteredUsers.length === 1 ? "usuario encontrado" : "usuarios encontrados"}</span>
@@ -774,254 +787,133 @@ export default function Home() {
           </div>
         )}
 
-        {/* Grilla de Usuarios */}
-        <section>
-
+        {/* Lista Vertical de Usuarios (Renglones/Filas: Uno abajo del otro) */}
+        <section className="user-list-container">
           {filteredUsers.map((user) => (
-            <div className="user-card" key={user.id}>
-              <div className="user-card-top">
-                <div className="user-card-badges">
-                  <span className="badge-user-nro">
-                    #{user.nroUsuario}
-                  </span>
+            <div className="user-list-row" key={user.id}>
 
-                  <span className="badge-user-status">
-                    <span className="status-dot"></span>
-                    {user.estado?.nombre || "Sin estado"}
-                  </span>
-                </div>
-
-                <div className="user-card-actions">
-                  <button
-                    type="button"
-                    className="btn-card-action btn-edit"
-                    onClick={() => abrirPopupEdit(user.id)}
-                    title="Editar usuario"
-                    aria-label="Editar"
-                  >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                    >
-                      <path d="M12 20h9" />
-                      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-                    </svg>
-                  </button>
-
-                  <button
-                    type="button"
-                    className="btn-card-action btn-delete"
-                    onClick={() => setUsuarioAEliminar(user)}
-                    title="Eliminar usuario"
-                    aria-label="Eliminar"
-                  >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                    >
-                      <polyline points="3 6 5 6 21 6" />
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                      <line x1="10" y1="11" x2="10" y2="17" />
-                      <line x1="14" y1="11" x2="14" y2="17" />
-                    </svg>
-                  </button>
-                </div>
+              {/* N° + Nombre */}
+              <div className="row-col-main">
+                <span className="val-user-nro">N° {user.nroUsuario}</span>
+                <span className="row-user-name">{user.nombre}</span>
               </div>
 
-              {/* Cabecera de la tarjeta: Badges y Acciones */}
-              <div className="user-card-top">
-
-                <div className="user-card-profile">
-                  <div className="user-name-title">
-                    {user.nombre}
-                  </div>
-                </div>
-
-                <div className="user-card-actions">
-
-
-                </div>
+              {/* Domicilio — EN NEGRO */}
+              <div className="row-col-item">
+                <span className="label-mini">Domicilio</span>
+                <span className="val-domicilio">{user.domicilio || "—"}</span>
               </div>
 
-              {/* Detalles Estructurados */}
-              <div className="user-card-details">
-
-                {/* Domicilio */}
-                <div className="user-detail-row domicilio">
-                  <svg
-                    className="detail-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                    <polyline points="9 22 9 12 15 12 15 22" />
-                  </svg>
-
-                  <div className="detail-info">
-                    <span className="detail-label">Domicilio</span>
-                    <span className="detail-value">
-                      {user.domicilio || "Sin domicilio"}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Ruta */}
-                <div className="user-detail-row ruta">
-                  <svg
-                    className="detail-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-                  </svg>
-
-                  <div className="detail-info">
-                    <span className="detail-label">Ruta</span>
-                    <span className="detail-value">
-                      {user.ruta || "Sin ruta"}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Google Maps */}
-                <div className="user-detail-row maps">
-                  <svg
-                    className="detail-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-
-                  <div className="detail-info">
-                    <span className="detail-label">Google Maps</span>
-
-                    {user.maps ? (
-                      <a
-                        href={user.maps}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="detail-value maps-link"
-                      >
-                        Ir a Google Maps
-                      </a>
-                    ) : (
-                      <span className="detail-value">
-                        Sin ubicación
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Observaciones */}
-                {user.observaciones ? (
-                  <div className="user-note-box">
-                    <div className="note-header">
-                      <svg
-                        className="note-icon"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      >
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" />
-                      </svg>
-
-                      <span className="note-label">Observaciones</span>
-                    </div>
-
-                    <p
-                      className="note-content"
-                      title={user.observaciones}
-                    >
-                      {user.observaciones}
-                    </p>
-                  </div>
-                ) : null}
-
-              </div>
-
-              {/* Etiquetas: Cuadrilla y Tarifa */}
-              <div className="user-card-tags">
-
-                <span
-                  className="user-tag tag-cuadrilla"
-                  title="Cuadrilla asignada"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                  </svg>
-
-                  <span>
-                    {user.cuadrilla?.nombre || "Sin cuadrilla"}
-                  </span>
+              {/* Estado — SIN FONDO */}
+              <div className="row-col-item">
+                <span className="label-mini">Estado</span>
+                <span className="val-estado-texto">
+                  {user.estado?.nombre || "—"}
                 </span>
-
-                <span
-                  className="user-tag tag-tarifa"
-                  title="Tarifa asignada"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <line x1="12" y1="1" x2="12" y2="23" />
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                  </svg>
-
-                  <span>
-                    {user.tarifa?.nombre || "Sin tarifa"}
-                  </span>
-                </span>
-
               </div>
 
-              {/* Pie de la tarjeta */}
-              <div className="user-card-footer">
+              {/* Ruta — SOLO LETRA EN AZUL */}
+              <div className="row-col-item">
+                <span className="label-mini">Ruta</span>
+                <span className="val-ruta">{user.ruta || "—"}</span>
+              </div>
+
+              {/* Google Maps — SOLO LETRA EN ROJO */}
+              <div className="row-col-item">
+                <span className="label-mini">Ubicación</span>
+                {user.maps ? (
+                  <a
+                    href={user.maps}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="maps-link-rojo"
+                  >
+                    Ir a Google Maps
+                  </a>
+                ) : (
+                  <span className="val-no-maps">—</span>
+                )}
+              </div>
+
+              {/* Medidor y Tarifa */}
+              <div className="row-col-item">
+                <span className="label-mini">Medidor / Tarifa</span>
+                {user.medidor ? (
+                  <span className="val-medidor">{user.medidor}</span>
+                ) : (
+                  <span className="val-no-maps">—</span>
+                )}
+                <span className="val-tarifa">{user.tarifa?.nombre || "—"}</span>
+              </div>
+
+              {/* Cuadrillas */}
+              <div className="row-col-item">
+                <span className="label-mini">Cuadrillas</span>
+                <div className="cuadrillas-chips-container">
+                  {user.cuadrillas && user.cuadrillas.length > 0 ? (
+                    user.cuadrillas.map((c) => (
+                      <span key={c.id} className="chip-cuadrilla">{c.nombre}</span>
+                    ))
+                  ) : (
+                    <span className="val-no-maps">—</span>
+                  )}
+                </div>
+              </div>
+
+              {/* Acciones */}
+              <div className="row-col-actions">
                 <button
                   type="button"
-                  className="btn-view-images"
+                  className="btn-action-text btn-edit-text"
+                  onClick={() => abrirPopupEdit(user.id)}
+                  title="Editar usuario"
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M12 20h9" />
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                  </svg>
+                  <span>Editar</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="btn-action-text btn-delete-text"
+                  onClick={() => setUsuarioAEliminar(user)}
+                  title="Eliminar usuario"
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <polyline points="3 6 5 6 21 6" />
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                  </svg>
+                  <span>Eliminar</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="btn-view-images-row"
                   onClick={() => abrirPopup(user.id)}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
+                  <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
                   </svg>
-
-                  <span>Ver imágenes</span>
+                  <span>Imágenes</span>
                 </button>
               </div>
+
+              {/* Observaciones — pie de card, ancho completo */}
+              {user.observaciones && (
+                <div className="row-obs-footer">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" />
+                  </svg>
+                  <span><strong>Observaciones:</strong> {user.observaciones}</span>
+                </div>
+              )}
+
             </div>
           ))}
 
-
+          {/* Modal Ver Imágenes */}
           {showPopup && usuarioSeleccionado && (
             <div className="popup-overlay" onClick={cerrarPopup}>
               <div className="popup-content" onClick={(e) => e.stopPropagation()}>
@@ -1037,6 +929,7 @@ export default function Home() {
             </div>
           )}
 
+          {/* Modal Editar Usuario */}
           {showPopupEdit && usuarioSeleccionado && (
             <div className="popup-overlay" onClick={cerrarPopupEdit}>
               <div
@@ -1074,6 +967,7 @@ export default function Home() {
             </div>
           )}
 
+          {/* Modal Eliminar Usuario */}
           {usuarioAEliminar && (
             <div
               className="popup-overlay"

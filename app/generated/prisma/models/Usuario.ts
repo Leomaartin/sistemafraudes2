@@ -28,14 +28,12 @@ export type AggregateUsuario = {
 
 export type UsuarioAvgAggregateOutputType = {
   id: number | null
-  idCuadrilla: number | null
   idEstado: number | null
   idTarifa: number | null
 }
 
 export type UsuarioSumAggregateOutputType = {
   id: number | null
-  idCuadrilla: number | null
   idEstado: number | null
   idTarifa: number | null
 }
@@ -48,7 +46,7 @@ export type UsuarioMinAggregateOutputType = {
   ruta: string | null
   observaciones: string | null
   maps: string | null
-  idCuadrilla: number | null
+  medidor: string | null
   idEstado: number | null
   idTarifa: number | null
 }
@@ -61,7 +59,7 @@ export type UsuarioMaxAggregateOutputType = {
   ruta: string | null
   observaciones: string | null
   maps: string | null
-  idCuadrilla: number | null
+  medidor: string | null
   idEstado: number | null
   idTarifa: number | null
 }
@@ -74,7 +72,7 @@ export type UsuarioCountAggregateOutputType = {
   ruta: number
   observaciones: number
   maps: number
-  idCuadrilla: number
+  medidor: number
   idEstado: number
   idTarifa: number
   _all: number
@@ -83,14 +81,12 @@ export type UsuarioCountAggregateOutputType = {
 
 export type UsuarioAvgAggregateInputType = {
   id?: true
-  idCuadrilla?: true
   idEstado?: true
   idTarifa?: true
 }
 
 export type UsuarioSumAggregateInputType = {
   id?: true
-  idCuadrilla?: true
   idEstado?: true
   idTarifa?: true
 }
@@ -103,7 +99,7 @@ export type UsuarioMinAggregateInputType = {
   ruta?: true
   observaciones?: true
   maps?: true
-  idCuadrilla?: true
+  medidor?: true
   idEstado?: true
   idTarifa?: true
 }
@@ -116,7 +112,7 @@ export type UsuarioMaxAggregateInputType = {
   ruta?: true
   observaciones?: true
   maps?: true
-  idCuadrilla?: true
+  medidor?: true
   idEstado?: true
   idTarifa?: true
 }
@@ -129,7 +125,7 @@ export type UsuarioCountAggregateInputType = {
   ruta?: true
   observaciones?: true
   maps?: true
-  idCuadrilla?: true
+  medidor?: true
   idEstado?: true
   idTarifa?: true
   _all?: true
@@ -229,7 +225,7 @@ export type UsuarioGroupByOutputType = {
   ruta: string | null
   observaciones: string | null
   maps: string | null
-  idCuadrilla: number | null
+  medidor: string | null
   idEstado: number | null
   idTarifa: number | null
   _count: UsuarioCountAggregateOutputType | null
@@ -265,11 +261,11 @@ export type UsuarioWhereInput = {
   ruta?: Prisma.StringNullableFilter<"Usuario"> | string | null
   observaciones?: Prisma.StringNullableFilter<"Usuario"> | string | null
   maps?: Prisma.StringNullableFilter<"Usuario"> | string | null
-  idCuadrilla?: Prisma.IntNullableFilter<"Usuario"> | number | null
+  medidor?: Prisma.StringNullableFilter<"Usuario"> | string | null
   idEstado?: Prisma.IntNullableFilter<"Usuario"> | number | null
   idTarifa?: Prisma.IntNullableFilter<"Usuario"> | number | null
   imagenes?: Prisma.ImagenListRelationFilter
-  cuadrilla?: Prisma.XOR<Prisma.CuadrillaNullableScalarRelationFilter, Prisma.CuadrillaWhereInput> | null
+  cuadrillas?: Prisma.CuadrillaListRelationFilter
   estado?: Prisma.XOR<Prisma.EstadoNullableScalarRelationFilter, Prisma.EstadoWhereInput> | null
   tarifa?: Prisma.XOR<Prisma.TarifaNullableScalarRelationFilter, Prisma.TarifaWhereInput> | null
 }
@@ -282,11 +278,11 @@ export type UsuarioOrderByWithRelationInput = {
   ruta?: Prisma.SortOrderInput | Prisma.SortOrder
   observaciones?: Prisma.SortOrderInput | Prisma.SortOrder
   maps?: Prisma.SortOrderInput | Prisma.SortOrder
-  idCuadrilla?: Prisma.SortOrderInput | Prisma.SortOrder
+  medidor?: Prisma.SortOrderInput | Prisma.SortOrder
   idEstado?: Prisma.SortOrderInput | Prisma.SortOrder
   idTarifa?: Prisma.SortOrderInput | Prisma.SortOrder
   imagenes?: Prisma.ImagenOrderByRelationAggregateInput
-  cuadrilla?: Prisma.CuadrillaOrderByWithRelationInput
+  cuadrillas?: Prisma.CuadrillaOrderByRelationAggregateInput
   estado?: Prisma.EstadoOrderByWithRelationInput
   tarifa?: Prisma.TarifaOrderByWithRelationInput
 }
@@ -302,11 +298,11 @@ export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
   ruta?: Prisma.StringNullableFilter<"Usuario"> | string | null
   observaciones?: Prisma.StringNullableFilter<"Usuario"> | string | null
   maps?: Prisma.StringNullableFilter<"Usuario"> | string | null
-  idCuadrilla?: Prisma.IntNullableFilter<"Usuario"> | number | null
+  medidor?: Prisma.StringNullableFilter<"Usuario"> | string | null
   idEstado?: Prisma.IntNullableFilter<"Usuario"> | number | null
   idTarifa?: Prisma.IntNullableFilter<"Usuario"> | number | null
   imagenes?: Prisma.ImagenListRelationFilter
-  cuadrilla?: Prisma.XOR<Prisma.CuadrillaNullableScalarRelationFilter, Prisma.CuadrillaWhereInput> | null
+  cuadrillas?: Prisma.CuadrillaListRelationFilter
   estado?: Prisma.XOR<Prisma.EstadoNullableScalarRelationFilter, Prisma.EstadoWhereInput> | null
   tarifa?: Prisma.XOR<Prisma.TarifaNullableScalarRelationFilter, Prisma.TarifaWhereInput> | null
 }, "id" | "nroUsuario">
@@ -319,7 +315,7 @@ export type UsuarioOrderByWithAggregationInput = {
   ruta?: Prisma.SortOrderInput | Prisma.SortOrder
   observaciones?: Prisma.SortOrderInput | Prisma.SortOrder
   maps?: Prisma.SortOrderInput | Prisma.SortOrder
-  idCuadrilla?: Prisma.SortOrderInput | Prisma.SortOrder
+  medidor?: Prisma.SortOrderInput | Prisma.SortOrder
   idEstado?: Prisma.SortOrderInput | Prisma.SortOrder
   idTarifa?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UsuarioCountOrderByAggregateInput
@@ -340,7 +336,7 @@ export type UsuarioScalarWhereWithAggregatesInput = {
   ruta?: Prisma.StringNullableWithAggregatesFilter<"Usuario"> | string | null
   observaciones?: Prisma.StringNullableWithAggregatesFilter<"Usuario"> | string | null
   maps?: Prisma.StringNullableWithAggregatesFilter<"Usuario"> | string | null
-  idCuadrilla?: Prisma.IntNullableWithAggregatesFilter<"Usuario"> | number | null
+  medidor?: Prisma.StringNullableWithAggregatesFilter<"Usuario"> | string | null
   idEstado?: Prisma.IntNullableWithAggregatesFilter<"Usuario"> | number | null
   idTarifa?: Prisma.IntNullableWithAggregatesFilter<"Usuario"> | number | null
 }
@@ -352,8 +348,9 @@ export type UsuarioCreateInput = {
   ruta?: string | null
   observaciones?: string | null
   maps?: string | null
+  medidor?: string | null
   imagenes?: Prisma.ImagenCreateNestedManyWithoutUsuarioInput
-  cuadrilla?: Prisma.CuadrillaCreateNestedOneWithoutUsuariosInput
+  cuadrillas?: Prisma.CuadrillaCreateNestedManyWithoutUsuariosInput
   estado?: Prisma.EstadoCreateNestedOneWithoutUsuariosInput
   tarifa?: Prisma.TarifaCreateNestedOneWithoutUsuariosInput
 }
@@ -366,10 +363,11 @@ export type UsuarioUncheckedCreateInput = {
   ruta?: string | null
   observaciones?: string | null
   maps?: string | null
-  idCuadrilla?: number | null
+  medidor?: string | null
   idEstado?: number | null
   idTarifa?: number | null
   imagenes?: Prisma.ImagenUncheckedCreateNestedManyWithoutUsuarioInput
+  cuadrillas?: Prisma.CuadrillaUncheckedCreateNestedManyWithoutUsuariosInput
 }
 
 export type UsuarioUpdateInput = {
@@ -379,8 +377,9 @@ export type UsuarioUpdateInput = {
   ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagenes?: Prisma.ImagenUpdateManyWithoutUsuarioNestedInput
-  cuadrilla?: Prisma.CuadrillaUpdateOneWithoutUsuariosNestedInput
+  cuadrillas?: Prisma.CuadrillaUpdateManyWithoutUsuariosNestedInput
   estado?: Prisma.EstadoUpdateOneWithoutUsuariosNestedInput
   tarifa?: Prisma.TarifaUpdateOneWithoutUsuariosNestedInput
 }
@@ -393,10 +392,11 @@ export type UsuarioUncheckedUpdateInput = {
   ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idCuadrilla?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imagenes?: Prisma.ImagenUncheckedUpdateManyWithoutUsuarioNestedInput
+  cuadrillas?: Prisma.CuadrillaUncheckedUpdateManyWithoutUsuariosNestedInput
 }
 
 export type UsuarioCreateManyInput = {
@@ -407,7 +407,7 @@ export type UsuarioCreateManyInput = {
   ruta?: string | null
   observaciones?: string | null
   maps?: string | null
-  idCuadrilla?: number | null
+  medidor?: string | null
   idEstado?: number | null
   idTarifa?: number | null
 }
@@ -419,6 +419,7 @@ export type UsuarioUpdateManyMutationInput = {
   ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UsuarioUncheckedUpdateManyInput = {
@@ -429,7 +430,7 @@ export type UsuarioUncheckedUpdateManyInput = {
   ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idCuadrilla?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -442,14 +443,13 @@ export type UsuarioCountOrderByAggregateInput = {
   ruta?: Prisma.SortOrder
   observaciones?: Prisma.SortOrder
   maps?: Prisma.SortOrder
-  idCuadrilla?: Prisma.SortOrder
+  medidor?: Prisma.SortOrder
   idEstado?: Prisma.SortOrder
   idTarifa?: Prisma.SortOrder
 }
 
 export type UsuarioAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  idCuadrilla?: Prisma.SortOrder
   idEstado?: Prisma.SortOrder
   idTarifa?: Prisma.SortOrder
 }
@@ -462,7 +462,7 @@ export type UsuarioMaxOrderByAggregateInput = {
   ruta?: Prisma.SortOrder
   observaciones?: Prisma.SortOrder
   maps?: Prisma.SortOrder
-  idCuadrilla?: Prisma.SortOrder
+  medidor?: Prisma.SortOrder
   idEstado?: Prisma.SortOrder
   idTarifa?: Prisma.SortOrder
 }
@@ -475,14 +475,13 @@ export type UsuarioMinOrderByAggregateInput = {
   ruta?: Prisma.SortOrder
   observaciones?: Prisma.SortOrder
   maps?: Prisma.SortOrder
-  idCuadrilla?: Prisma.SortOrder
+  medidor?: Prisma.SortOrder
   idEstado?: Prisma.SortOrder
   idTarifa?: Prisma.SortOrder
 }
 
 export type UsuarioSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  idCuadrilla?: Prisma.SortOrder
   idEstado?: Prisma.SortOrder
   idTarifa?: Prisma.SortOrder
 }
@@ -526,45 +525,41 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type UsuarioCreateNestedManyWithoutCuadrillaInput = {
-  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutCuadrillaInput, Prisma.UsuarioUncheckedCreateWithoutCuadrillaInput> | Prisma.UsuarioCreateWithoutCuadrillaInput[] | Prisma.UsuarioUncheckedCreateWithoutCuadrillaInput[]
-  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutCuadrillaInput | Prisma.UsuarioCreateOrConnectWithoutCuadrillaInput[]
-  createMany?: Prisma.UsuarioCreateManyCuadrillaInputEnvelope
+export type UsuarioCreateNestedManyWithoutCuadrillasInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutCuadrillasInput, Prisma.UsuarioUncheckedCreateWithoutCuadrillasInput> | Prisma.UsuarioCreateWithoutCuadrillasInput[] | Prisma.UsuarioUncheckedCreateWithoutCuadrillasInput[]
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutCuadrillasInput | Prisma.UsuarioCreateOrConnectWithoutCuadrillasInput[]
   connect?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
 }
 
-export type UsuarioUncheckedCreateNestedManyWithoutCuadrillaInput = {
-  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutCuadrillaInput, Prisma.UsuarioUncheckedCreateWithoutCuadrillaInput> | Prisma.UsuarioCreateWithoutCuadrillaInput[] | Prisma.UsuarioUncheckedCreateWithoutCuadrillaInput[]
-  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutCuadrillaInput | Prisma.UsuarioCreateOrConnectWithoutCuadrillaInput[]
-  createMany?: Prisma.UsuarioCreateManyCuadrillaInputEnvelope
+export type UsuarioUncheckedCreateNestedManyWithoutCuadrillasInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutCuadrillasInput, Prisma.UsuarioUncheckedCreateWithoutCuadrillasInput> | Prisma.UsuarioCreateWithoutCuadrillasInput[] | Prisma.UsuarioUncheckedCreateWithoutCuadrillasInput[]
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutCuadrillasInput | Prisma.UsuarioCreateOrConnectWithoutCuadrillasInput[]
   connect?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
 }
 
-export type UsuarioUpdateManyWithoutCuadrillaNestedInput = {
-  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutCuadrillaInput, Prisma.UsuarioUncheckedCreateWithoutCuadrillaInput> | Prisma.UsuarioCreateWithoutCuadrillaInput[] | Prisma.UsuarioUncheckedCreateWithoutCuadrillaInput[]
-  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutCuadrillaInput | Prisma.UsuarioCreateOrConnectWithoutCuadrillaInput[]
-  upsert?: Prisma.UsuarioUpsertWithWhereUniqueWithoutCuadrillaInput | Prisma.UsuarioUpsertWithWhereUniqueWithoutCuadrillaInput[]
-  createMany?: Prisma.UsuarioCreateManyCuadrillaInputEnvelope
+export type UsuarioUpdateManyWithoutCuadrillasNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutCuadrillasInput, Prisma.UsuarioUncheckedCreateWithoutCuadrillasInput> | Prisma.UsuarioCreateWithoutCuadrillasInput[] | Prisma.UsuarioUncheckedCreateWithoutCuadrillasInput[]
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutCuadrillasInput | Prisma.UsuarioCreateOrConnectWithoutCuadrillasInput[]
+  upsert?: Prisma.UsuarioUpsertWithWhereUniqueWithoutCuadrillasInput | Prisma.UsuarioUpsertWithWhereUniqueWithoutCuadrillasInput[]
   set?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
   disconnect?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
   delete?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
   connect?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
-  update?: Prisma.UsuarioUpdateWithWhereUniqueWithoutCuadrillaInput | Prisma.UsuarioUpdateWithWhereUniqueWithoutCuadrillaInput[]
-  updateMany?: Prisma.UsuarioUpdateManyWithWhereWithoutCuadrillaInput | Prisma.UsuarioUpdateManyWithWhereWithoutCuadrillaInput[]
+  update?: Prisma.UsuarioUpdateWithWhereUniqueWithoutCuadrillasInput | Prisma.UsuarioUpdateWithWhereUniqueWithoutCuadrillasInput[]
+  updateMany?: Prisma.UsuarioUpdateManyWithWhereWithoutCuadrillasInput | Prisma.UsuarioUpdateManyWithWhereWithoutCuadrillasInput[]
   deleteMany?: Prisma.UsuarioScalarWhereInput | Prisma.UsuarioScalarWhereInput[]
 }
 
-export type UsuarioUncheckedUpdateManyWithoutCuadrillaNestedInput = {
-  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutCuadrillaInput, Prisma.UsuarioUncheckedCreateWithoutCuadrillaInput> | Prisma.UsuarioCreateWithoutCuadrillaInput[] | Prisma.UsuarioUncheckedCreateWithoutCuadrillaInput[]
-  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutCuadrillaInput | Prisma.UsuarioCreateOrConnectWithoutCuadrillaInput[]
-  upsert?: Prisma.UsuarioUpsertWithWhereUniqueWithoutCuadrillaInput | Prisma.UsuarioUpsertWithWhereUniqueWithoutCuadrillaInput[]
-  createMany?: Prisma.UsuarioCreateManyCuadrillaInputEnvelope
+export type UsuarioUncheckedUpdateManyWithoutCuadrillasNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutCuadrillasInput, Prisma.UsuarioUncheckedCreateWithoutCuadrillasInput> | Prisma.UsuarioCreateWithoutCuadrillasInput[] | Prisma.UsuarioUncheckedCreateWithoutCuadrillasInput[]
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutCuadrillasInput | Prisma.UsuarioCreateOrConnectWithoutCuadrillasInput[]
+  upsert?: Prisma.UsuarioUpsertWithWhereUniqueWithoutCuadrillasInput | Prisma.UsuarioUpsertWithWhereUniqueWithoutCuadrillasInput[]
   set?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
   disconnect?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
   delete?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
   connect?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
-  update?: Prisma.UsuarioUpdateWithWhereUniqueWithoutCuadrillaInput | Prisma.UsuarioUpdateWithWhereUniqueWithoutCuadrillaInput[]
-  updateMany?: Prisma.UsuarioUpdateManyWithWhereWithoutCuadrillaInput | Prisma.UsuarioUpdateManyWithWhereWithoutCuadrillaInput[]
+  update?: Prisma.UsuarioUpdateWithWhereUniqueWithoutCuadrillasInput | Prisma.UsuarioUpdateWithWhereUniqueWithoutCuadrillasInput[]
+  updateMany?: Prisma.UsuarioUpdateManyWithWhereWithoutCuadrillasInput | Prisma.UsuarioUpdateManyWithWhereWithoutCuadrillasInput[]
   deleteMany?: Prisma.UsuarioScalarWhereInput | Prisma.UsuarioScalarWhereInput[]
 }
 
@@ -666,19 +661,20 @@ export type UsuarioUpdateOneRequiredWithoutImagenesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutImagenesInput, Prisma.UsuarioUpdateWithoutImagenesInput>, Prisma.UsuarioUncheckedUpdateWithoutImagenesInput>
 }
 
-export type UsuarioCreateWithoutCuadrillaInput = {
+export type UsuarioCreateWithoutCuadrillasInput = {
   nroUsuario: string
   nombre: string
   domicilio?: string | null
   ruta?: string | null
   observaciones?: string | null
   maps?: string | null
+  medidor?: string | null
   imagenes?: Prisma.ImagenCreateNestedManyWithoutUsuarioInput
   estado?: Prisma.EstadoCreateNestedOneWithoutUsuariosInput
   tarifa?: Prisma.TarifaCreateNestedOneWithoutUsuariosInput
 }
 
-export type UsuarioUncheckedCreateWithoutCuadrillaInput = {
+export type UsuarioUncheckedCreateWithoutCuadrillasInput = {
   id?: number
   nroUsuario: string
   nombre: string
@@ -686,35 +682,31 @@ export type UsuarioUncheckedCreateWithoutCuadrillaInput = {
   ruta?: string | null
   observaciones?: string | null
   maps?: string | null
+  medidor?: string | null
   idEstado?: number | null
   idTarifa?: number | null
   imagenes?: Prisma.ImagenUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
-export type UsuarioCreateOrConnectWithoutCuadrillaInput = {
+export type UsuarioCreateOrConnectWithoutCuadrillasInput = {
   where: Prisma.UsuarioWhereUniqueInput
-  create: Prisma.XOR<Prisma.UsuarioCreateWithoutCuadrillaInput, Prisma.UsuarioUncheckedCreateWithoutCuadrillaInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutCuadrillasInput, Prisma.UsuarioUncheckedCreateWithoutCuadrillasInput>
 }
 
-export type UsuarioCreateManyCuadrillaInputEnvelope = {
-  data: Prisma.UsuarioCreateManyCuadrillaInput | Prisma.UsuarioCreateManyCuadrillaInput[]
-  skipDuplicates?: boolean
-}
-
-export type UsuarioUpsertWithWhereUniqueWithoutCuadrillaInput = {
+export type UsuarioUpsertWithWhereUniqueWithoutCuadrillasInput = {
   where: Prisma.UsuarioWhereUniqueInput
-  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutCuadrillaInput, Prisma.UsuarioUncheckedUpdateWithoutCuadrillaInput>
-  create: Prisma.XOR<Prisma.UsuarioCreateWithoutCuadrillaInput, Prisma.UsuarioUncheckedCreateWithoutCuadrillaInput>
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutCuadrillasInput, Prisma.UsuarioUncheckedUpdateWithoutCuadrillasInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutCuadrillasInput, Prisma.UsuarioUncheckedCreateWithoutCuadrillasInput>
 }
 
-export type UsuarioUpdateWithWhereUniqueWithoutCuadrillaInput = {
+export type UsuarioUpdateWithWhereUniqueWithoutCuadrillasInput = {
   where: Prisma.UsuarioWhereUniqueInput
-  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutCuadrillaInput, Prisma.UsuarioUncheckedUpdateWithoutCuadrillaInput>
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutCuadrillasInput, Prisma.UsuarioUncheckedUpdateWithoutCuadrillasInput>
 }
 
-export type UsuarioUpdateManyWithWhereWithoutCuadrillaInput = {
+export type UsuarioUpdateManyWithWhereWithoutCuadrillasInput = {
   where: Prisma.UsuarioScalarWhereInput
-  data: Prisma.XOR<Prisma.UsuarioUpdateManyMutationInput, Prisma.UsuarioUncheckedUpdateManyWithoutCuadrillaInput>
+  data: Prisma.XOR<Prisma.UsuarioUpdateManyMutationInput, Prisma.UsuarioUncheckedUpdateManyWithoutCuadrillasInput>
 }
 
 export type UsuarioScalarWhereInput = {
@@ -728,7 +720,7 @@ export type UsuarioScalarWhereInput = {
   ruta?: Prisma.StringNullableFilter<"Usuario"> | string | null
   observaciones?: Prisma.StringNullableFilter<"Usuario"> | string | null
   maps?: Prisma.StringNullableFilter<"Usuario"> | string | null
-  idCuadrilla?: Prisma.IntNullableFilter<"Usuario"> | number | null
+  medidor?: Prisma.StringNullableFilter<"Usuario"> | string | null
   idEstado?: Prisma.IntNullableFilter<"Usuario"> | number | null
   idTarifa?: Prisma.IntNullableFilter<"Usuario"> | number | null
 }
@@ -740,8 +732,9 @@ export type UsuarioCreateWithoutEstadoInput = {
   ruta?: string | null
   observaciones?: string | null
   maps?: string | null
+  medidor?: string | null
   imagenes?: Prisma.ImagenCreateNestedManyWithoutUsuarioInput
-  cuadrilla?: Prisma.CuadrillaCreateNestedOneWithoutUsuariosInput
+  cuadrillas?: Prisma.CuadrillaCreateNestedManyWithoutUsuariosInput
   tarifa?: Prisma.TarifaCreateNestedOneWithoutUsuariosInput
 }
 
@@ -753,9 +746,10 @@ export type UsuarioUncheckedCreateWithoutEstadoInput = {
   ruta?: string | null
   observaciones?: string | null
   maps?: string | null
-  idCuadrilla?: number | null
+  medidor?: string | null
   idTarifa?: number | null
   imagenes?: Prisma.ImagenUncheckedCreateNestedManyWithoutUsuarioInput
+  cuadrillas?: Prisma.CuadrillaUncheckedCreateNestedManyWithoutUsuariosInput
 }
 
 export type UsuarioCreateOrConnectWithoutEstadoInput = {
@@ -791,8 +785,9 @@ export type UsuarioCreateWithoutTarifaInput = {
   ruta?: string | null
   observaciones?: string | null
   maps?: string | null
+  medidor?: string | null
   imagenes?: Prisma.ImagenCreateNestedManyWithoutUsuarioInput
-  cuadrilla?: Prisma.CuadrillaCreateNestedOneWithoutUsuariosInput
+  cuadrillas?: Prisma.CuadrillaCreateNestedManyWithoutUsuariosInput
   estado?: Prisma.EstadoCreateNestedOneWithoutUsuariosInput
 }
 
@@ -804,9 +799,10 @@ export type UsuarioUncheckedCreateWithoutTarifaInput = {
   ruta?: string | null
   observaciones?: string | null
   maps?: string | null
-  idCuadrilla?: number | null
+  medidor?: string | null
   idEstado?: number | null
   imagenes?: Prisma.ImagenUncheckedCreateNestedManyWithoutUsuarioInput
+  cuadrillas?: Prisma.CuadrillaUncheckedCreateNestedManyWithoutUsuariosInput
 }
 
 export type UsuarioCreateOrConnectWithoutTarifaInput = {
@@ -842,7 +838,8 @@ export type UsuarioCreateWithoutImagenesInput = {
   ruta?: string | null
   observaciones?: string | null
   maps?: string | null
-  cuadrilla?: Prisma.CuadrillaCreateNestedOneWithoutUsuariosInput
+  medidor?: string | null
+  cuadrillas?: Prisma.CuadrillaCreateNestedManyWithoutUsuariosInput
   estado?: Prisma.EstadoCreateNestedOneWithoutUsuariosInput
   tarifa?: Prisma.TarifaCreateNestedOneWithoutUsuariosInput
 }
@@ -855,9 +852,10 @@ export type UsuarioUncheckedCreateWithoutImagenesInput = {
   ruta?: string | null
   observaciones?: string | null
   maps?: string | null
-  idCuadrilla?: number | null
+  medidor?: string | null
   idEstado?: number | null
   idTarifa?: number | null
+  cuadrillas?: Prisma.CuadrillaUncheckedCreateNestedManyWithoutUsuariosInput
 }
 
 export type UsuarioCreateOrConnectWithoutImagenesInput = {
@@ -883,7 +881,8 @@ export type UsuarioUpdateWithoutImagenesInput = {
   ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  cuadrilla?: Prisma.CuadrillaUpdateOneWithoutUsuariosNestedInput
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cuadrillas?: Prisma.CuadrillaUpdateManyWithoutUsuariosNestedInput
   estado?: Prisma.EstadoUpdateOneWithoutUsuariosNestedInput
   tarifa?: Prisma.TarifaUpdateOneWithoutUsuariosNestedInput
 }
@@ -896,36 +895,26 @@ export type UsuarioUncheckedUpdateWithoutImagenesInput = {
   ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idCuadrilla?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  cuadrillas?: Prisma.CuadrillaUncheckedUpdateManyWithoutUsuariosNestedInput
 }
 
-export type UsuarioCreateManyCuadrillaInput = {
-  id?: number
-  nroUsuario: string
-  nombre: string
-  domicilio?: string | null
-  ruta?: string | null
-  observaciones?: string | null
-  maps?: string | null
-  idEstado?: number | null
-  idTarifa?: number | null
-}
-
-export type UsuarioUpdateWithoutCuadrillaInput = {
+export type UsuarioUpdateWithoutCuadrillasInput = {
   nroUsuario?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   domicilio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagenes?: Prisma.ImagenUpdateManyWithoutUsuarioNestedInput
   estado?: Prisma.EstadoUpdateOneWithoutUsuariosNestedInput
   tarifa?: Prisma.TarifaUpdateOneWithoutUsuariosNestedInput
 }
 
-export type UsuarioUncheckedUpdateWithoutCuadrillaInput = {
+export type UsuarioUncheckedUpdateWithoutCuadrillasInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nroUsuario?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
@@ -933,12 +922,13 @@ export type UsuarioUncheckedUpdateWithoutCuadrillaInput = {
   ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imagenes?: Prisma.ImagenUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
-export type UsuarioUncheckedUpdateManyWithoutCuadrillaInput = {
+export type UsuarioUncheckedUpdateManyWithoutCuadrillasInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nroUsuario?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
@@ -946,6 +936,7 @@ export type UsuarioUncheckedUpdateManyWithoutCuadrillaInput = {
   ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -958,7 +949,7 @@ export type UsuarioCreateManyEstadoInput = {
   ruta?: string | null
   observaciones?: string | null
   maps?: string | null
-  idCuadrilla?: number | null
+  medidor?: string | null
   idTarifa?: number | null
 }
 
@@ -969,8 +960,9 @@ export type UsuarioUpdateWithoutEstadoInput = {
   ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagenes?: Prisma.ImagenUpdateManyWithoutUsuarioNestedInput
-  cuadrilla?: Prisma.CuadrillaUpdateOneWithoutUsuariosNestedInput
+  cuadrillas?: Prisma.CuadrillaUpdateManyWithoutUsuariosNestedInput
   tarifa?: Prisma.TarifaUpdateOneWithoutUsuariosNestedInput
 }
 
@@ -982,9 +974,10 @@ export type UsuarioUncheckedUpdateWithoutEstadoInput = {
   ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idCuadrilla?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imagenes?: Prisma.ImagenUncheckedUpdateManyWithoutUsuarioNestedInput
+  cuadrillas?: Prisma.CuadrillaUncheckedUpdateManyWithoutUsuariosNestedInput
 }
 
 export type UsuarioUncheckedUpdateManyWithoutEstadoInput = {
@@ -995,7 +988,7 @@ export type UsuarioUncheckedUpdateManyWithoutEstadoInput = {
   ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idCuadrilla?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -1007,7 +1000,7 @@ export type UsuarioCreateManyTarifaInput = {
   ruta?: string | null
   observaciones?: string | null
   maps?: string | null
-  idCuadrilla?: number | null
+  medidor?: string | null
   idEstado?: number | null
 }
 
@@ -1018,8 +1011,9 @@ export type UsuarioUpdateWithoutTarifaInput = {
   ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagenes?: Prisma.ImagenUpdateManyWithoutUsuarioNestedInput
-  cuadrilla?: Prisma.CuadrillaUpdateOneWithoutUsuariosNestedInput
+  cuadrillas?: Prisma.CuadrillaUpdateManyWithoutUsuariosNestedInput
   estado?: Prisma.EstadoUpdateOneWithoutUsuariosNestedInput
 }
 
@@ -1031,9 +1025,10 @@ export type UsuarioUncheckedUpdateWithoutTarifaInput = {
   ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idCuadrilla?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imagenes?: Prisma.ImagenUncheckedUpdateManyWithoutUsuarioNestedInput
+  cuadrillas?: Prisma.CuadrillaUncheckedUpdateManyWithoutUsuariosNestedInput
 }
 
 export type UsuarioUncheckedUpdateManyWithoutTarifaInput = {
@@ -1044,7 +1039,7 @@ export type UsuarioUncheckedUpdateManyWithoutTarifaInput = {
   ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idCuadrilla?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -1055,10 +1050,12 @@ export type UsuarioUncheckedUpdateManyWithoutTarifaInput = {
 
 export type UsuarioCountOutputType = {
   imagenes: number
+  cuadrillas: number
 }
 
 export type UsuarioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   imagenes?: boolean | UsuarioCountOutputTypeCountImagenesArgs
+  cuadrillas?: boolean | UsuarioCountOutputTypeCountCuadrillasArgs
 }
 
 /**
@@ -1078,6 +1075,13 @@ export type UsuarioCountOutputTypeCountImagenesArgs<ExtArgs extends runtime.Type
   where?: Prisma.ImagenWhereInput
 }
 
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountCuadrillasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CuadrillaWhereInput
+}
+
 
 export type UsuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1087,11 +1091,11 @@ export type UsuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   ruta?: boolean
   observaciones?: boolean
   maps?: boolean
-  idCuadrilla?: boolean
+  medidor?: boolean
   idEstado?: boolean
   idTarifa?: boolean
   imagenes?: boolean | Prisma.Usuario$imagenesArgs<ExtArgs>
-  cuadrilla?: boolean | Prisma.Usuario$cuadrillaArgs<ExtArgs>
+  cuadrillas?: boolean | Prisma.Usuario$cuadrillasArgs<ExtArgs>
   estado?: boolean | Prisma.Usuario$estadoArgs<ExtArgs>
   tarifa?: boolean | Prisma.Usuario$tarifaArgs<ExtArgs>
   _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
@@ -1105,10 +1109,9 @@ export type UsuarioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   ruta?: boolean
   observaciones?: boolean
   maps?: boolean
-  idCuadrilla?: boolean
+  medidor?: boolean
   idEstado?: boolean
   idTarifa?: boolean
-  cuadrilla?: boolean | Prisma.Usuario$cuadrillaArgs<ExtArgs>
   estado?: boolean | Prisma.Usuario$estadoArgs<ExtArgs>
   tarifa?: boolean | Prisma.Usuario$tarifaArgs<ExtArgs>
 }, ExtArgs["result"]["usuario"]>
@@ -1121,10 +1124,9 @@ export type UsuarioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   ruta?: boolean
   observaciones?: boolean
   maps?: boolean
-  idCuadrilla?: boolean
+  medidor?: boolean
   idEstado?: boolean
   idTarifa?: boolean
-  cuadrilla?: boolean | Prisma.Usuario$cuadrillaArgs<ExtArgs>
   estado?: boolean | Prisma.Usuario$estadoArgs<ExtArgs>
   tarifa?: boolean | Prisma.Usuario$tarifaArgs<ExtArgs>
 }, ExtArgs["result"]["usuario"]>
@@ -1137,26 +1139,24 @@ export type UsuarioSelectScalar = {
   ruta?: boolean
   observaciones?: boolean
   maps?: boolean
-  idCuadrilla?: boolean
+  medidor?: boolean
   idEstado?: boolean
   idTarifa?: boolean
 }
 
-export type UsuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nroUsuario" | "nombre" | "domicilio" | "ruta" | "observaciones" | "maps" | "idCuadrilla" | "idEstado" | "idTarifa", ExtArgs["result"]["usuario"]>
+export type UsuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nroUsuario" | "nombre" | "domicilio" | "ruta" | "observaciones" | "maps" | "medidor" | "idEstado" | "idTarifa", ExtArgs["result"]["usuario"]>
 export type UsuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   imagenes?: boolean | Prisma.Usuario$imagenesArgs<ExtArgs>
-  cuadrilla?: boolean | Prisma.Usuario$cuadrillaArgs<ExtArgs>
+  cuadrillas?: boolean | Prisma.Usuario$cuadrillasArgs<ExtArgs>
   estado?: boolean | Prisma.Usuario$estadoArgs<ExtArgs>
   tarifa?: boolean | Prisma.Usuario$tarifaArgs<ExtArgs>
   _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UsuarioIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  cuadrilla?: boolean | Prisma.Usuario$cuadrillaArgs<ExtArgs>
   estado?: boolean | Prisma.Usuario$estadoArgs<ExtArgs>
   tarifa?: boolean | Prisma.Usuario$tarifaArgs<ExtArgs>
 }
 export type UsuarioIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  cuadrilla?: boolean | Prisma.Usuario$cuadrillaArgs<ExtArgs>
   estado?: boolean | Prisma.Usuario$estadoArgs<ExtArgs>
   tarifa?: boolean | Prisma.Usuario$tarifaArgs<ExtArgs>
 }
@@ -1165,7 +1165,7 @@ export type $UsuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   name: "Usuario"
   objects: {
     imagenes: Prisma.$ImagenPayload<ExtArgs>[]
-    cuadrilla: Prisma.$CuadrillaPayload<ExtArgs> | null
+    cuadrillas: Prisma.$CuadrillaPayload<ExtArgs>[]
     estado: Prisma.$EstadoPayload<ExtArgs> | null
     tarifa: Prisma.$TarifaPayload<ExtArgs> | null
   }
@@ -1177,7 +1177,7 @@ export type $UsuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     ruta: string | null
     observaciones: string | null
     maps: string | null
-    idCuadrilla: number | null
+    medidor: string | null
     idEstado: number | null
     idTarifa: number | null
   }, ExtArgs["result"]["usuario"]>
@@ -1575,7 +1575,7 @@ readonly fields: UsuarioFieldRefs;
 export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   imagenes<T extends Prisma.Usuario$imagenesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$imagenesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ImagenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  cuadrilla<T extends Prisma.Usuario$cuadrillaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$cuadrillaArgs<ExtArgs>>): Prisma.Prisma__CuadrillaClient<runtime.Types.Result.GetResult<Prisma.$CuadrillaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  cuadrillas<T extends Prisma.Usuario$cuadrillasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$cuadrillasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CuadrillaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   estado<T extends Prisma.Usuario$estadoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$estadoArgs<ExtArgs>>): Prisma.Prisma__EstadoClient<runtime.Types.Result.GetResult<Prisma.$EstadoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   tarifa<T extends Prisma.Usuario$tarifaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$tarifaArgs<ExtArgs>>): Prisma.Prisma__TarifaClient<runtime.Types.Result.GetResult<Prisma.$TarifaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1614,7 +1614,7 @@ export interface UsuarioFieldRefs {
   readonly ruta: Prisma.FieldRef<"Usuario", 'String'>
   readonly observaciones: Prisma.FieldRef<"Usuario", 'String'>
   readonly maps: Prisma.FieldRef<"Usuario", 'String'>
-  readonly idCuadrilla: Prisma.FieldRef<"Usuario", 'Int'>
+  readonly medidor: Prisma.FieldRef<"Usuario", 'String'>
   readonly idEstado: Prisma.FieldRef<"Usuario", 'Int'>
   readonly idTarifa: Prisma.FieldRef<"Usuario", 'Int'>
 }
@@ -2042,9 +2042,9 @@ export type Usuario$imagenesArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * Usuario.cuadrilla
+ * Usuario.cuadrillas
  */
-export type Usuario$cuadrillaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Usuario$cuadrillasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Cuadrilla
    */
@@ -2058,6 +2058,11 @@ export type Usuario$cuadrillaArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   include?: Prisma.CuadrillaInclude<ExtArgs> | null
   where?: Prisma.CuadrillaWhereInput
+  orderBy?: Prisma.CuadrillaOrderByWithRelationInput | Prisma.CuadrillaOrderByWithRelationInput[]
+  cursor?: Prisma.CuadrillaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CuadrillaScalarFieldEnum | Prisma.CuadrillaScalarFieldEnum[]
 }
 
 /**

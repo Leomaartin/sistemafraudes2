@@ -913,7 +913,7 @@ export const UsuarioScalarFieldEnum = {
   ruta: 'ruta',
   observaciones: 'observaciones',
   maps: 'maps',
-  idCuadrilla: 'idCuadrilla',
+  medidor: 'medidor',
   idEstado: 'idEstado',
   idTarifa: 'idTarifa'
 } as const

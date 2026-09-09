@@ -26,22 +26,30 @@ export default function CrudUsers({
   const [nombre, setNombre] = useState("");
   const [nroUsuario, setNroUsuario] = useState("");
   const [domicilio, setDomicilio] = useState("");
+  const [medidor, setMedidor] = useState("");
   const [ruta, setRuta] = useState("");
   const [observaciones, setObservaciones] = useState("");
   const [maps, setMaps] = useState("");
-  const [cuadrillaId, setCuadrillaId] = useState("");
+  const [selectedCuadrillas, setSelectedCuadrillas] = useState<number[]>([]);
   const [estadoId, setEstadoId] = useState("");
   const [tarifaId, setTarifaId] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const toggleCuadrilla = (id: number) => {
+    setSelectedCuadrillas((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
 
   const resetForm = () => {
     setNombre("");
     setNroUsuario("");
     setDomicilio("");
+    setMedidor("");
     setRuta("");
     setObservaciones("");
     setMaps("");
-    setCuadrillaId("");
+    setSelectedCuadrillas([]);
     setEstadoId("");
     setTarifaId("");
   };
@@ -54,8 +62,13 @@ export default function CrudUsers({
       return;
     }
 
-    if (!cuadrillaId || !estadoId || !tarifaId) {
-      toast.warning("Por favor, selecciona una cuadrilla, un estado y una tarifa.");
+    if (selectedCuadrillas.length === 0) {
+      toast.warning("Por favor, selecciona al menos una cuadrilla.");
+      return;
+    }
+
+    if (!estadoId || !tarifaId) {
+      toast.warning("Por favor, selecciona un estado y una tarifa.");
       return;
     }
 
@@ -71,15 +84,13 @@ export default function CrudUsers({
           nombre: nombre.trim(),
           nroUsuario: nroUsuario.trim(),
           domicilio: domicilio.trim() || null,
+          medidor: medidor.trim() || null,
           ruta: ruta.trim() || null,
           observaciones: observaciones.trim() || null,
           maps: maps.trim() || null,
-          idCuadrilla: parseInt(cuadrillaId, 10),
+          cuadrillaIds: selectedCuadrillas,
           idEstado: parseInt(estadoId, 10),
           idTarifa: parseInt(tarifaId, 10),
-          cuadrillaId: parseInt(cuadrillaId, 10),
-          estadoId: parseInt(estadoId, 10),
-          tarifaId: parseInt(tarifaId, 10),
         }),
       });
 
@@ -91,7 +102,7 @@ export default function CrudUsers({
         return;
       }
 
-      toast.success("¡Usuario creado exitosamente con sus cuadrilla, estado y tarifa asignados!");
+      toast.success("¡Usuario creado exitosamente con sus cuadrillas, medidor, estado y tarifa!");
       resetForm();
 
       if (onUserCreated) {
@@ -124,7 +135,7 @@ export default function CrudUsers({
         </div>
         <div>
           <h2 className="crud-title">Nuevo Usuario con Fraude</h2>
-          <p className="crud-subtitle">Completa los datos del usuario y sus asignaciones correspondientes</p>
+          <p className="crud-subtitle">Completa los datos del usuario, medidor y asignación de múltiples cuadrillas</p>
         </div>
       </div>
 
@@ -132,7 +143,7 @@ export default function CrudUsers({
         {/* Sección: Datos del Usuario */}
         <div className="form-section">
           <h4 className="section-title">
-            <span className="section-num">1</span> Información Personal y de Suministro
+            <span className="section-num">1</span> Información Personal y Medidor
           </h4>
           <div className="form-grid">
             <div className="input-group">
@@ -171,6 +182,17 @@ export default function CrudUsers({
             </div>
 
             <div className="input-group">
+              <label htmlFor="medidor">N° de Medidor (1:1)</label>
+              <input
+                id="medidor"
+                type="text"
+                placeholder="Ej: MED-883920"
+                value={medidor}
+                onChange={(e) => setMedidor(e.target.value)}
+              />
+            </div>
+
+            <div className="input-group form-col-span-2">
               <label htmlFor="ruta">Ruta / Sector</label>
               <input
                 id="ruta"
@@ -186,27 +208,42 @@ export default function CrudUsers({
         {/* Sección: Asignaciones */}
         <div className="form-section">
           <h4 className="section-title">
-            <span className="section-num">2</span> Parámetros y Asignación Operativa *
+            <span className="section-num">2</span> Selección de Múltiples Cuadrillas *
           </h4>
-          <div className="form-grid form-grid-3">
-            <div className="input-group">
-              <label htmlFor="cuadrillaSelect">Cuadrilla Asignada *</label>
-              <select
-                id="cuadrillaSelect"
-                value={cuadrillaId}
-                onChange={(e) => setCuadrillaId(e.target.value)}
-                required
-                className="select-custom"
-              >
-                <option value="">-- Seleccionar cuadrilla --</option>
-                {cuadrillas.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.nombre} (ID: {item.id})
-                  </option>
-                ))}
-              </select>
+          <div className="input-group">
+            <label>Selecciona una o más cuadrillas para este usuario:</label>
+            <div className="cuadrillas-checkbox-grid" style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "6px" }}>
+              {cuadrillas.map((item) => {
+                const isSelected = selectedCuadrillas.includes(item.id);
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => toggleCuadrilla(item.id)}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      padding: "8px 14px",
+                      borderRadius: "20px",
+                      border: isSelected ? "2px solid #2563eb" : "1px solid #cbd5e1",
+                      backgroundColor: isSelected ? "#eff6ff" : "#ffffff",
+                      color: isSelected ? "#1d4ed8" : "#475569",
+                      fontWeight: isSelected ? 700 : 500,
+                      cursor: "pointer",
+                      transition: "all 0.15s ease-in-out",
+                      fontSize: "13px",
+                    }}
+                  >
+                    <span>{isSelected ? "✓" : "+"}</span>
+                    <span>{item.nombre}</span>
+                  </button>
+                );
+              })}
             </div>
+          </div>
 
+          <div className="form-grid" style={{ marginTop: "12px" }}>
             <div className="input-group">
               <label htmlFor="estadoSelect">Estado del Fraude *</label>
               <select

@@ -13,7 +13,7 @@ export async function DELETE(req: NextRequest) {
         const usuario = await prisma.usuario.delete({
             where: { id },
             include: {
-                cuadrilla: true,
+                cuadrillas: true,
                 estado: true,
                 tarifa: true,
             }
@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
         const usuario = await prisma.usuario.findUnique({
             where: { id: Number(req.nextUrl.searchParams.get("id")) },
             include: {
-                cuadrilla: true,
+                cuadrillas: true,
                 estado: true,
                 tarifa: true,
             }
@@ -55,8 +55,6 @@ export async function GET(req: NextRequest) {
     }
 }
 
-
-
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
@@ -67,7 +65,18 @@ export async function POST(req: NextRequest) {
             return isNaN(num) ? null : num;
         };
 
-        const idCuadrilla = parseId(body.idCuadrilla ?? body.cuadrillaId ?? body.cuadrilla);
+        const parseCuadrillaIds = (b: any): number[] => {
+            if (Array.isArray(b.cuadrillaIds)) {
+                return b.cuadrillaIds.map(Number).filter((n: number) => !isNaN(n));
+            }
+            if (Array.isArray(b.idCuadrillas)) {
+                return b.idCuadrillas.map(Number).filter((n: number) => !isNaN(n));
+            }
+            const single = parseId(b.idCuadrilla ?? b.cuadrillaId ?? b.cuadrilla);
+            return single !== null ? [single] : [];
+        };
+
+        const cuadrillaIds = parseCuadrillaIds(body);
         const idEstado = parseId(body.idEstado ?? body.estadoId ?? body.estado);
         const idTarifa = parseId(body.idTarifa ?? body.tarifaId ?? body.tarifa);
 
@@ -79,12 +88,15 @@ export async function POST(req: NextRequest) {
                 ruta: body.ruta ? String(body.ruta).trim() : null,
                 observaciones: body.observaciones ? String(body.observaciones).trim() : null,
                 maps: body.maps ? String(body.maps).trim() : null,
-                idCuadrilla,
+                medidor: body.medidor ? String(body.medidor).trim() : null,
                 idEstado,
                 idTarifa,
+                cuadrillas: cuadrillaIds.length > 0 ? {
+                    connect: cuadrillaIds.map((id) => ({ id }))
+                } : undefined,
             },
             include: {
-                cuadrilla: true,
+                cuadrillas: true,
                 estado: true,
                 tarifa: true,
             }
@@ -142,13 +154,20 @@ export async function PUT(req: NextRequest) {
             return isNaN(num) ? null : num;
         };
 
-        const hasCuadrillaKey = "idCuadrilla" in body || "cuadrillaId" in body || "cuadrilla" in body;
+        let cuadrillaConnectSet: { set: { id: number }[] } | undefined = undefined;
+        if (Array.isArray(body.cuadrillaIds) || Array.isArray(body.idCuadrillas)) {
+            const raw = body.cuadrillaIds ?? body.idCuadrillas;
+            const ids = (raw as any[]).map(Number).filter((n) => !isNaN(n));
+            cuadrillaConnectSet = { set: ids.map((cid) => ({ id: cid })) };
+        } else if ("idCuadrilla" in body || "cuadrillaId" in body || "cuadrilla" in body) {
+            const single = parseOptionalId(body.idCuadrilla ?? body.cuadrillaId ?? body.cuadrilla);
+            if (single !== undefined) {
+                cuadrillaConnectSet = { set: single ? [{ id: single }] : [] };
+            }
+        }
+
         const hasEstadoKey = "idEstado" in body || "estadoId" in body || "estado" in body;
         const hasTarifaKey = "idTarifa" in body || "tarifaId" in body || "tarifa" in body;
-
-        const idCuadrilla = hasCuadrillaKey
-            ? parseOptionalId(body.idCuadrilla ?? body.cuadrillaId ?? body.cuadrilla)
-            : undefined;
 
         const idEstado = hasEstadoKey
             ? parseOptionalId(body.idEstado ?? body.estadoId ?? body.estado)
@@ -167,12 +186,13 @@ export async function PUT(req: NextRequest) {
                 ruta: body.ruta !== undefined ? (body.ruta ? String(body.ruta).trim() : null) : undefined,
                 observaciones: body.observaciones !== undefined ? (body.observaciones ? String(body.observaciones).trim() : null) : undefined,
                 maps: body.maps !== undefined ? (body.maps ? String(body.maps).trim() : null) : undefined,
-                idCuadrilla,
+                medidor: body.medidor !== undefined ? (body.medidor ? String(body.medidor).trim() : null) : undefined,
+                cuadrillas: cuadrillaConnectSet,
                 idEstado,
                 idTarifa,
             },
             include: {
-                cuadrilla: true,
+                cuadrillas: true,
                 estado: true,
                 tarifa: true,
             }

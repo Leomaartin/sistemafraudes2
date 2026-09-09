@@ -230,24 +230,24 @@ export type CuadrillaScalarWhereWithAggregatesInput = {
 
 export type CuadrillaCreateInput = {
   nombre: string
-  usuarios?: Prisma.UsuarioCreateNestedManyWithoutCuadrillaInput
+  usuarios?: Prisma.UsuarioCreateNestedManyWithoutCuadrillasInput
 }
 
 export type CuadrillaUncheckedCreateInput = {
   id?: number
   nombre: string
-  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutCuadrillaInput
+  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutCuadrillasInput
 }
 
 export type CuadrillaUpdateInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  usuarios?: Prisma.UsuarioUpdateManyWithoutCuadrillaNestedInput
+  usuarios?: Prisma.UsuarioUpdateManyWithoutCuadrillasNestedInput
 }
 
 export type CuadrillaUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutCuadrillaNestedInput
+  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutCuadrillasNestedInput
 }
 
 export type CuadrillaCreateManyInput = {
@@ -264,9 +264,14 @@ export type CuadrillaUncheckedUpdateManyInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
-export type CuadrillaNullableScalarRelationFilter = {
-  is?: Prisma.CuadrillaWhereInput | null
-  isNot?: Prisma.CuadrillaWhereInput | null
+export type CuadrillaListRelationFilter = {
+  every?: Prisma.CuadrillaWhereInput
+  some?: Prisma.CuadrillaWhereInput
+  none?: Prisma.CuadrillaWhereInput
+}
+
+export type CuadrillaOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type CuadrillaCountOrderByAggregateInput = {
@@ -292,20 +297,42 @@ export type CuadrillaSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
-export type CuadrillaCreateNestedOneWithoutUsuariosInput = {
-  create?: Prisma.XOR<Prisma.CuadrillaCreateWithoutUsuariosInput, Prisma.CuadrillaUncheckedCreateWithoutUsuariosInput>
-  connectOrCreate?: Prisma.CuadrillaCreateOrConnectWithoutUsuariosInput
-  connect?: Prisma.CuadrillaWhereUniqueInput
+export type CuadrillaCreateNestedManyWithoutUsuariosInput = {
+  create?: Prisma.XOR<Prisma.CuadrillaCreateWithoutUsuariosInput, Prisma.CuadrillaUncheckedCreateWithoutUsuariosInput> | Prisma.CuadrillaCreateWithoutUsuariosInput[] | Prisma.CuadrillaUncheckedCreateWithoutUsuariosInput[]
+  connectOrCreate?: Prisma.CuadrillaCreateOrConnectWithoutUsuariosInput | Prisma.CuadrillaCreateOrConnectWithoutUsuariosInput[]
+  connect?: Prisma.CuadrillaWhereUniqueInput | Prisma.CuadrillaWhereUniqueInput[]
 }
 
-export type CuadrillaUpdateOneWithoutUsuariosNestedInput = {
-  create?: Prisma.XOR<Prisma.CuadrillaCreateWithoutUsuariosInput, Prisma.CuadrillaUncheckedCreateWithoutUsuariosInput>
-  connectOrCreate?: Prisma.CuadrillaCreateOrConnectWithoutUsuariosInput
-  upsert?: Prisma.CuadrillaUpsertWithoutUsuariosInput
-  disconnect?: Prisma.CuadrillaWhereInput | boolean
-  delete?: Prisma.CuadrillaWhereInput | boolean
-  connect?: Prisma.CuadrillaWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.CuadrillaUpdateToOneWithWhereWithoutUsuariosInput, Prisma.CuadrillaUpdateWithoutUsuariosInput>, Prisma.CuadrillaUncheckedUpdateWithoutUsuariosInput>
+export type CuadrillaUncheckedCreateNestedManyWithoutUsuariosInput = {
+  create?: Prisma.XOR<Prisma.CuadrillaCreateWithoutUsuariosInput, Prisma.CuadrillaUncheckedCreateWithoutUsuariosInput> | Prisma.CuadrillaCreateWithoutUsuariosInput[] | Prisma.CuadrillaUncheckedCreateWithoutUsuariosInput[]
+  connectOrCreate?: Prisma.CuadrillaCreateOrConnectWithoutUsuariosInput | Prisma.CuadrillaCreateOrConnectWithoutUsuariosInput[]
+  connect?: Prisma.CuadrillaWhereUniqueInput | Prisma.CuadrillaWhereUniqueInput[]
+}
+
+export type CuadrillaUpdateManyWithoutUsuariosNestedInput = {
+  create?: Prisma.XOR<Prisma.CuadrillaCreateWithoutUsuariosInput, Prisma.CuadrillaUncheckedCreateWithoutUsuariosInput> | Prisma.CuadrillaCreateWithoutUsuariosInput[] | Prisma.CuadrillaUncheckedCreateWithoutUsuariosInput[]
+  connectOrCreate?: Prisma.CuadrillaCreateOrConnectWithoutUsuariosInput | Prisma.CuadrillaCreateOrConnectWithoutUsuariosInput[]
+  upsert?: Prisma.CuadrillaUpsertWithWhereUniqueWithoutUsuariosInput | Prisma.CuadrillaUpsertWithWhereUniqueWithoutUsuariosInput[]
+  set?: Prisma.CuadrillaWhereUniqueInput | Prisma.CuadrillaWhereUniqueInput[]
+  disconnect?: Prisma.CuadrillaWhereUniqueInput | Prisma.CuadrillaWhereUniqueInput[]
+  delete?: Prisma.CuadrillaWhereUniqueInput | Prisma.CuadrillaWhereUniqueInput[]
+  connect?: Prisma.CuadrillaWhereUniqueInput | Prisma.CuadrillaWhereUniqueInput[]
+  update?: Prisma.CuadrillaUpdateWithWhereUniqueWithoutUsuariosInput | Prisma.CuadrillaUpdateWithWhereUniqueWithoutUsuariosInput[]
+  updateMany?: Prisma.CuadrillaUpdateManyWithWhereWithoutUsuariosInput | Prisma.CuadrillaUpdateManyWithWhereWithoutUsuariosInput[]
+  deleteMany?: Prisma.CuadrillaScalarWhereInput | Prisma.CuadrillaScalarWhereInput[]
+}
+
+export type CuadrillaUncheckedUpdateManyWithoutUsuariosNestedInput = {
+  create?: Prisma.XOR<Prisma.CuadrillaCreateWithoutUsuariosInput, Prisma.CuadrillaUncheckedCreateWithoutUsuariosInput> | Prisma.CuadrillaCreateWithoutUsuariosInput[] | Prisma.CuadrillaUncheckedCreateWithoutUsuariosInput[]
+  connectOrCreate?: Prisma.CuadrillaCreateOrConnectWithoutUsuariosInput | Prisma.CuadrillaCreateOrConnectWithoutUsuariosInput[]
+  upsert?: Prisma.CuadrillaUpsertWithWhereUniqueWithoutUsuariosInput | Prisma.CuadrillaUpsertWithWhereUniqueWithoutUsuariosInput[]
+  set?: Prisma.CuadrillaWhereUniqueInput | Prisma.CuadrillaWhereUniqueInput[]
+  disconnect?: Prisma.CuadrillaWhereUniqueInput | Prisma.CuadrillaWhereUniqueInput[]
+  delete?: Prisma.CuadrillaWhereUniqueInput | Prisma.CuadrillaWhereUniqueInput[]
+  connect?: Prisma.CuadrillaWhereUniqueInput | Prisma.CuadrillaWhereUniqueInput[]
+  update?: Prisma.CuadrillaUpdateWithWhereUniqueWithoutUsuariosInput | Prisma.CuadrillaUpdateWithWhereUniqueWithoutUsuariosInput[]
+  updateMany?: Prisma.CuadrillaUpdateManyWithWhereWithoutUsuariosInput | Prisma.CuadrillaUpdateManyWithWhereWithoutUsuariosInput[]
+  deleteMany?: Prisma.CuadrillaScalarWhereInput | Prisma.CuadrillaScalarWhereInput[]
 }
 
 export type CuadrillaCreateWithoutUsuariosInput = {
@@ -322,15 +349,28 @@ export type CuadrillaCreateOrConnectWithoutUsuariosInput = {
   create: Prisma.XOR<Prisma.CuadrillaCreateWithoutUsuariosInput, Prisma.CuadrillaUncheckedCreateWithoutUsuariosInput>
 }
 
-export type CuadrillaUpsertWithoutUsuariosInput = {
+export type CuadrillaUpsertWithWhereUniqueWithoutUsuariosInput = {
+  where: Prisma.CuadrillaWhereUniqueInput
   update: Prisma.XOR<Prisma.CuadrillaUpdateWithoutUsuariosInput, Prisma.CuadrillaUncheckedUpdateWithoutUsuariosInput>
   create: Prisma.XOR<Prisma.CuadrillaCreateWithoutUsuariosInput, Prisma.CuadrillaUncheckedCreateWithoutUsuariosInput>
-  where?: Prisma.CuadrillaWhereInput
 }
 
-export type CuadrillaUpdateToOneWithWhereWithoutUsuariosInput = {
-  where?: Prisma.CuadrillaWhereInput
+export type CuadrillaUpdateWithWhereUniqueWithoutUsuariosInput = {
+  where: Prisma.CuadrillaWhereUniqueInput
   data: Prisma.XOR<Prisma.CuadrillaUpdateWithoutUsuariosInput, Prisma.CuadrillaUncheckedUpdateWithoutUsuariosInput>
+}
+
+export type CuadrillaUpdateManyWithWhereWithoutUsuariosInput = {
+  where: Prisma.CuadrillaScalarWhereInput
+  data: Prisma.XOR<Prisma.CuadrillaUpdateManyMutationInput, Prisma.CuadrillaUncheckedUpdateManyWithoutUsuariosInput>
+}
+
+export type CuadrillaScalarWhereInput = {
+  AND?: Prisma.CuadrillaScalarWhereInput | Prisma.CuadrillaScalarWhereInput[]
+  OR?: Prisma.CuadrillaScalarWhereInput[]
+  NOT?: Prisma.CuadrillaScalarWhereInput | Prisma.CuadrillaScalarWhereInput[]
+  id?: Prisma.IntFilter<"Cuadrilla"> | number
+  nombre?: Prisma.StringFilter<"Cuadrilla"> | string
 }
 
 export type CuadrillaUpdateWithoutUsuariosInput = {
@@ -338,6 +378,11 @@ export type CuadrillaUpdateWithoutUsuariosInput = {
 }
 
 export type CuadrillaUncheckedUpdateWithoutUsuariosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type CuadrillaUncheckedUpdateManyWithoutUsuariosInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
 }

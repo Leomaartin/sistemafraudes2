@@ -15,12 +15,12 @@ model Usuario {
   ruta          String?
   observaciones String?
   maps          String?
-  idCuadrilla   Int?
+  medidor       String?
   idEstado      Int?
   idTarifa      Int?
   imagenes      Imagen[]   
 
-  cuadrilla     Cuadrilla? @relation(fields: [idCuadrilla], references: [id])
+  cuadrillas    Cuadrilla[]
   estado        Estado?    @relation(fields: [idEstado], references: [id])
   tarifa        Tarifa?    @relation(fields: [idTarifa], references: [id])
 }
