@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Usuario {
+  id            Int       @id @default(autoincrement())
+  nroUsuario    String    @unique
+  nombre        String
+  domicilio     String?
+  ruta          String?
+  observaciones String?
+  maps          String?
+  idCuadrilla   Int?
+  idEstado      Int?
+  idTarifa      Int?
+  imagenes      Imagen[]   
+
+  cuadrilla     Cuadrilla? @relation(fields: [idCuadrilla], references: [id])
+  estado        Estado?    @relation(fields: [idEstado], references: [id])
+  tarifa        Tarifa?    @relation(fields: [idTarifa], references: [id])
+}
+
+model Cuadrilla {
+  id       Int       @id @default(autoincrement())
+  nombre   String
+  usuarios Usuario[]
+}
+
+model Estado {
+  id       Int       @id @default(autoincrement())
+  nombre   String
+  usuarios Usuario[]
+}
+
+model Tarifa {
+  id       Int       @id @default(autoincrement())
+  nombre   String
+  usuarios Usuario[]
+}
+model UsuarioSistema {
+  id       Int    @id @default(autoincrement())
+  usuario  String @unique
+  password String
+  nombre   String
+  activo   Boolean @default(true)
+}
+model Imagen {
+  id        Int      @id @default(autoincrement())
+  url       String
+  usuarioId Int
+  usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+}

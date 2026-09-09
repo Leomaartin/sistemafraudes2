@@ -1,0 +1,511 @@
+/* =========================
+   POPUP
+========================= */
+
+
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.65);
+
+  z-index: 1000;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Contenedor principal */
+.popup-content {
+  position: relative;
+
+  width: min(900px, 95vw);
+  max-height: 90vh;
+
+  background: #ffffff;
+  border-radius: 14px;
+
+  padding: 25px;
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+
+  overflow-y: auto;
+}
+
+/* Título */
+.popup-body h3 {
+  margin: 0 0 20px 0;
+
+  font-size: 24px;
+  font-weight: 600;
+
+  text-align: center;
+
+  color: #222;
+}
+
+/* Texto cuando no hay imágenes */
+.popup-body > p {
+  text-align: center;
+
+  color: #777;
+  font-size: 16px;
+
+  padding: 30px 0;
+}
+
+/* =========================
+   GALERÍA
+========================= */
+
+.images-container {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 15px;
+
+  width: 100%;
+}
+
+/* Cada imagen */
+.image-card {
+  width: 100%;
+  height: 200px;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  background: #f1f1f1;
+
+  border: 1px solid #ddd;
+}
+
+/* Imagen */
+.image-card img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+
+  transition: transform 0.25s ease;
+}
+
+/* Efecto al pasar el mouse */
+.image-card:hover img {
+  transform: scale(1.05);
+}
+
+/* =========================
+   BOTÓN CERRAR
+========================= */
+
+.close-button {
+  display: block;
+
+  margin: 25px auto 0;
+
+  padding: 10px 25px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #333;
+  color: white;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.close-button:hover {
+  background: #555;
+}
+
+
+/* =========================
+   CONTENEDOR E INPUT DE AGREGAR IMAGEN
+========================= */
+
+.add-image-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+/* Estilo general del input file */
+.add-image-button input[type="file"] {
+  font-size: 14px;
+  color: #555;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 4px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.add-image-button input[type="file"]:hover {
+  border-color: #bbb;
+}
+
+/* Estilo del botón interno nativo del selector de archivos */
+.add-image-button input[type="file"]::file-selector-button {
+  padding: 8px 14px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #e9ecef;
+  color: #333;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-image-button input[type="file"]::file-selector-button:hover {
+  background-color: #dee2e6;
+}
+
+/* Botón principal */
+.add-image-button button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 10px 22px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #222;
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.add-image-button button:hover {
+  background: #444;
+  transform: translateY(-1px);
+}
+
+.add-image-button button:active {
+  transform: translateY(0);
+}
+
+.add-icon {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* Modifica tu selector .image-card existente para asegurar position: relative */
+.image-card {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f1f1f1;
+  border: 1px solid #ddd;
+}
+
+/* =========================
+   OVERLAY Y ACCIONES EN HOVER
+========================= */
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 2;
+}
+
+.image-card:hover .image-overlay {
+  opacity: 1;
+}
+
+/* Botones circulares */
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: #ffffff;
+  color: #222222;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.15s ease, color 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.action-btn:hover {
+  transform: scale(1.1);
+}
+
+.download-btn:hover {
+  background: #0070f3;
+  color: #ffffff;
+}
+
+.delete-btn:hover {
+  background: #e63946;
+  color: #ffffff;
+}
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+  .popup-content {
+    width: 95vw;
+    padding: 18px;
+  }
+
+  .images-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .image-card {
+    height: 170px;
+  }
+}
+
+@media (max-width: 450px) {
+  .images-container {
+    grid-template-columns: 1fr;
+  }
+
+  .image-card {
+    height: 220px;
+  }
+}
+/* Ajuste del título para alinear horizontalmente con el botón */
+h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* El título a la izquierda, el botón a la derecha */
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: var(--green-primary, #1b5e20);
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid var(--green-secondary, #2e7d32);
+}
+
+/* Estilo del botón Administrar */
+.administrar-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--green-primary, #1b5e20);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Efectos al pasar el mouse y hacer clic */
+.administrar-button:hover {
+  background-color: var(--green-secondary, #2e7d32);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.administrar-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Tamaño del ícono dentro del botón (si usas ícono) */
+.administrar-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* =========================
+   BOTÓN CERRAR MODAL (ESQUINA)
+========================= */
+.modal-close-icon {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: #f1f5f9;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.modal-close-icon:hover {
+  background: #fee2e2;
+  color: #ef4444;
+  transform: rotate(90deg) scale(1.05);
+}
+
+.popup-edit-content {
+  max-width: 850px;
+  width: min(850px, 95vw);
+  max-height: 90vh;
+  padding: 0;
+  border-radius: 20px;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Scrollbar estilizado para el modal de edición */
+.popup-edit-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.popup-edit-content::-webkit-scrollbar-track {
+  background: #f8fafc;
+  border-radius: 10px;
+}
+
+.popup-edit-content::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.popup-edit-content::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* =========================
+   MODAL DE CONFIRMACIÓN DE ELIMINACIÓN
+========================= */
+.delete-modal-content {
+  max-width: 480px;
+  width: min(480px, 92vw);
+  padding: 30px 24px;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.delete-modal-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.delete-modal-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #fee2e2;
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.delete-modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+}
+
+.delete-modal-text {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.delete-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.delete-modal-actions .btn-cancel {
+  padding: 10px 20px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.delete-modal-actions .btn-cancel:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.delete-modal-actions .btn-confirm-delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.delete-modal-actions .btn-confirm-delete:hover:not(:disabled) {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+}
+
+.delete-modal-actions .btn-confirm-delete:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
