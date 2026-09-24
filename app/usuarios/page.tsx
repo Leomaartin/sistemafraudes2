@@ -1179,8 +1179,12 @@ export default function Home() {
                     </svg>
                     <span>Domicilio</span>
                   </div>
-                  <div className="attr-tile-value val-domicilio-text">
-                    {user.domicilio || "—"}
+                  <div className="attr-tile-value">
+                    {user.domicilio ? (
+                      <span className="badge-attr-domicilio">{user.domicilio}</span>
+                    ) : (
+                      <span className="val-muted">—</span>
+                    )}
                   </div>
                 </div>
 
@@ -1211,8 +1215,12 @@ export default function Home() {
                     </svg>
                     <span>Ruta / Sector</span>
                   </div>
-                  <div className="attr-tile-value val-ruta-text">
-                    {user.ruta || "—"}
+                  <div className="attr-tile-value">
+                    {user.ruta ? (
+                      <span className="badge-attr-ruta">{user.ruta}</span>
+                    ) : (
+                      <span className="val-muted">—</span>
+                    )}
                   </div>
                 </div>
 

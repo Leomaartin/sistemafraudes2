@@ -412,21 +412,21 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
           ${
             user.domicilio
               ? `<div class="popup-user-info-row">
-                  <span><strong>Domicilio:</strong> ${user.domicilio}</span>
+                  <span><strong>Domicilio:</strong> <span class="popup-attr-badge-domicilio">${user.domicilio}</span></span>
                 </div>`
               : ""
           }
           ${
             user.medidor
               ? `<div class="popup-user-info-row">
-                  <span><strong>Medidor:</strong> ${user.medidor}</span>
+                  <span><strong>Medidor:</strong> <span class="popup-attr-badge-medidor">${user.medidor}</span></span>
                 </div>`
               : ""
           }
           ${
             user.ruta
               ? `<div class="popup-user-info-row">
-                  <span><strong>Ruta:</strong> ${user.ruta}</span>
+                  <span><strong>Ruta:</strong> <span class="popup-attr-badge-ruta">${user.ruta}</span></span>
                 </div>`
               : ""
           }
@@ -554,14 +554,14 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
           ${
             usuario.domicilio
               ? `<div class="popup-user-info-row">
-                  <span><strong>Domicilio:</strong> ${usuario.domicilio}</span>
+                  <span><strong>Domicilio:</strong> <span class="popup-attr-badge-domicilio">${usuario.domicilio}</span></span>
                 </div>`
               : ""
           }
           ${
             usuario.medidor
               ? `<div class="popup-user-info-row">
-                  <span><strong>Medidor:</strong> ${usuario.medidor}</span>
+                  <span><strong>Medidor:</strong> <span class="popup-attr-badge-medidor">${usuario.medidor}</span></span>
                 </div>`
               : ""
           }
