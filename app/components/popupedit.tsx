@@ -4,6 +4,14 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "../css/popup.css";
 import "../css/crudUsers.css";
+import MapaSelector from "./mapaSelector";
+import { OPCIONES_DEPARTAMENTO, IDS_DEPARTAMENTO } from "@/lib/departamentoConfig";
+import {
+  ObservacionItem,
+  obtenerFechaActualFormateada,
+  parsearObservaciones,
+  formatearObservacionesParaGuardar,
+} from "@/lib/observaciones";
 
 export interface CatalogoItem {
   id: number;
@@ -31,22 +39,52 @@ export default function PopupEdit({
 
   const [selectedCuadrillas, setSelectedCuadrillas] = useState<number[]>([]);
 
+  // Estado para ¿Es departamento?
+  const [esDepartamento, setEsDepartamento] = useState(false);
+  const [idEstadoDepto, setIdEstadoDepto] = useState<number | null>(null);
+
+  // Múltiples observaciones con fecha
+  const [observacionesList, setObservacionesList] = useState<ObservacionItem[]>([]);
+
   const [formData, setFormData] = useState({
     nroUsuario: "",
     nombre: "",
     domicilio: "",
     medidor: "",
     ruta: "",
-    observaciones: "",
     maps: "",
+    latitud: null as number | null,
+    longitud: null as number | null,
     idEstado: "",
     idTarifa: "",
+    fechaVto: "",
   });
 
   const toggleCuadrilla = (id: number) => {
     setSelectedCuadrillas((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
+  };
+
+  const handleAddObservacion = () => {
+    setObservacionesList((prev) => [
+      ...prev,
+      {
+        id: `obs-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+        texto: "",
+        fecha: obtenerFechaActualFormateada(),
+      },
+    ]);
+  };
+
+  const handleUpdateObservacion = (id: string, texto: string) => {
+    setObservacionesList((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, texto } : item))
+    );
+  };
+
+  const handleRemoveObservacion = (id: string) => {
+    setObservacionesList((prev) => prev.filter((item) => item.id !== id));
   };
 
   const loadData = async () => {
@@ -87,26 +125,61 @@ export default function PopupEdit({
       }
       setSelectedCuadrillas(userCuadrillaIds);
 
+      // Determinar si es departamento
+      const isDepto = Boolean(
+        userData.esDepartamento ||
+        userData.idEstadoDepto ||
+        (userData.idEstado && IDS_DEPARTAMENTO.includes(Number(userData.idEstado)))
+      );
+      setEsDepartamento(isDepto);
+
+      const deptoId = userData.idEstadoDepto
+        ? Number(userData.idEstadoDepto)
+        : (userData.idEstado && IDS_DEPARTAMENTO.includes(Number(userData.idEstado)))
+        ? Number(userData.idEstado)
+        : null;
+      setIdEstadoDepto(deptoId);
+
+      // Regular estado ID (no departamento)
+      const regularEstadoId = (userData.idEstado && !IDS_DEPARTAMENTO.includes(Number(userData.idEstado)))
+        ? String(userData.idEstado)
+        : (userData.estado?.id && !IDS_DEPARTAMENTO.includes(Number(userData.estado.id)))
+        ? String(userData.estado.id)
+        : "";
+
+      // Parsear observaciones existentes
+      const parsedObs = parsearObservaciones(userData.observaciones);
+      setObservacionesList(
+        parsedObs.length > 0
+          ? parsedObs
+          : [{ id: "obs-1", texto: "", fecha: obtenerFechaActualFormateada() }]
+      );
+
       setFormData({
         nroUsuario: userData.nroUsuario || "",
         nombre: userData.nombre || "",
         domicilio: userData.domicilio || "",
         medidor: userData.medidor || "",
         ruta: userData.ruta || "",
-        observaciones: userData.observaciones || "",
         maps: userData.maps || "",
-        idEstado:
-          userData.idEstado != null
-            ? String(userData.idEstado)
-            : userData.estado?.id != null
-            ? String(userData.estado.id)
-            : "",
+        latitud:
+          userData.latitud !== undefined && userData.latitud !== null
+            ? Number(userData.latitud)
+            : null,
+        longitud:
+          userData.longitud !== undefined && userData.longitud !== null
+            ? Number(userData.longitud)
+            : null,
+        idEstado: regularEstadoId,
         idTarifa:
           userData.idTarifa != null
             ? String(userData.idTarifa)
             : userData.tarifa?.id != null
             ? String(userData.tarifa.id)
             : "",
+        fechaVto: userData.fechaVto
+          ? new Date(userData.fechaVto).toISOString().split("T")[0]
+          : "",
       });
     } catch (err: any) {
       console.error("Error al cargar datos del usuario:", err);
@@ -140,9 +213,16 @@ export default function PopupEdit({
       return;
     }
 
+    if (esDepartamento && !idEstadoDepto) {
+      toast.warning("Selecciona una opción de acceso para el departamento.");
+      return;
+    }
+
     setSaving(true);
 
     try {
+      const observacionesFormatted = formatearObservacionesParaGuardar(observacionesList);
+
       const res = await fetch("/api/users", {
         method: "PUT",
         headers: {
@@ -155,11 +235,20 @@ export default function PopupEdit({
           domicilio: formData.domicilio.trim() || null,
           medidor: formData.medidor.trim() || null,
           ruta: formData.ruta.trim() || null,
-          observaciones: formData.observaciones.trim() || null,
-          maps: formData.maps.trim() || null,
+          observaciones: observacionesFormatted,
+          maps:
+            formData.maps.trim() ||
+            (formData.latitud && formData.longitud
+              ? `https://www.google.com/maps?q=${formData.latitud},${formData.longitud}`
+              : null),
+          latitud: formData.latitud,
+          longitud: formData.longitud,
           cuadrillaIds: selectedCuadrillas,
           idEstado: formData.idEstado ? parseInt(formData.idEstado, 10) : null,
           idTarifa: formData.idTarifa ? parseInt(formData.idTarifa, 10) : null,
+          fechaVto: formData.fechaVto ? new Date(formData.fechaVto + "T12:00:00Z").toISOString() : null,
+          esDepartamento,
+          idEstadoDepto: esDepartamento ? idEstadoDepto : null,
         }),
       });
 
@@ -219,6 +308,9 @@ export default function PopupEdit({
     );
   }
 
+  // Filtrar estados normales para que no aparezcan los de departamento en el desplegable principal
+  const estadosPrincipales = estados.filter((item) => !IDS_DEPARTAMENTO.includes(item.id));
+
   return (
     <div className="crud-user-wrapper">
       <div className="crud-user-header">
@@ -240,7 +332,7 @@ export default function PopupEdit({
         {/* Sección 1: Información Personal y de Suministro */}
         <div className="form-section">
           <h4 className="section-title">
-            <span className="section-num" style={{ background: "#0284c7" }}>1</span> Información Personal y Medidor
+            <span className="section-num" style={{ background: "#0284c7" }}>1</span> Información Personal, Medidor y Tipo de Inmueble
           </h4>
           <div className="form-grid">
             <div className="input-group">
@@ -293,7 +385,7 @@ export default function PopupEdit({
               />
             </div>
 
-            <div className="input-group form-col-span-2">
+            <div className="input-group">
               <label htmlFor="edit-ruta">Ruta / Sector</label>
               <input
                 id="edit-ruta"
@@ -303,6 +395,76 @@ export default function PopupEdit({
                 value={formData.ruta}
                 onChange={handleChange}
               />
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="edit-fechavto">Fecha Vto (Plazo de Pago)</label>
+              <input
+                id="edit-fechavto"
+                name="fechaVto"
+                type="date"
+                value={formData.fechaVto}
+                onChange={handleChange}
+              />
+            </div>
+
+            {/* Clasificación de Departamento */}
+            <div
+              className={`depto-selection-box ${esDepartamento ? "active" : ""}`}
+              style={{ gridColumn: "span 2" }}
+            >
+              <label className="depto-checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={esDepartamento}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setEsDepartamento(checked);
+                    if (!checked) {
+                      setIdEstadoDepto(null);
+                    } else if (!idEstadoDepto) {
+                      setIdEstadoDepto(14); // Por defecto: SIN LLAVE (ID: 14)
+                    }
+                  }}
+                  className="depto-checkbox"
+                />
+                <div className="depto-label-text">
+                  <span className="depto-title">🏢 ¿Es departamento? (Edificio / PH)</span>
+                  <span className="depto-desc">
+                    Por defecto inactivo. Al marcarlo, podrás seleccionar la condición de llaves o portería.
+                  </span>
+                </div>
+              </label>
+
+              {esDepartamento && (
+                <div className="depto-options-container">
+                  <span className="depto-options-title">
+                    Selecciona la condición de acceso al departamento:
+                  </span>
+                  <div className="depto-radio-grid">
+                    {OPCIONES_DEPARTAMENTO.map((opcion) => {
+                      const isSelected = idEstadoDepto === opcion.id;
+                      return (
+                        <button
+                          key={opcion.id}
+                          type="button"
+                          className={`depto-card-option ${isSelected ? "selected" : ""}`}
+                          onClick={() => setIdEstadoDepto(opcion.id)}
+                        >
+                          <div className="depto-card-header">
+                            <span className="depto-card-icon">{opcion.icono}</span>
+                            <span className="depto-card-id">ID: #{opcion.id}</span>
+                          </div>
+                          <div className="depto-card-name">{opcion.nombre}</div>
+                          {opcion.descripcion && (
+                            <div className="depto-card-desc">{opcion.descripcion}</div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -356,7 +518,7 @@ export default function PopupEdit({
                 className="select-custom"
               >
                 <option value="">-- Sin asignar --</option>
-                {estados.map((item) => (
+                {estadosPrincipales.map((item) => (
                   <option key={item.id} value={item.id}>
                     {item.nombre} (ID: {item.id})
                   </option>
@@ -384,23 +546,41 @@ export default function PopupEdit({
           </div>
         </div>
 
-        {/* Sección 3: Ubicación Maps y Observaciones */}
+        {/* Sección 3: Ubicación Georreferenciada y Observaciones */}
         <div className="form-section">
           <h4 className="section-title">
-            <span className="section-num" style={{ background: "#0284c7" }}>3</span> Ubicación Maps y Observaciones
+            <span className="section-num" style={{ background: "#0284c7" }}>3</span> Ubicación en Zárate y Observaciones Técnicas
           </h4>
-          <div className="form-grid">
+
+          {/* Selector de Mapa interactivo con Leaflet + OpenStreetMap */}
+          <MapaSelector
+            latitud={formData.latitud}
+            longitud={formData.longitud}
+            onChange={(lat, lng) => {
+              setFormData((prev) => ({
+                ...prev,
+                latitud: lat,
+                longitud: lng,
+              }));
+            }}
+            domicilioSugerido={formData.domicilio}
+          />
+
+          <div className="form-grid" style={{ marginTop: "12px" }}>
             <div className="input-group form-col-span-2">
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <label htmlFor="edit-maps">Enlace de Google Maps</label>
-                {formData.maps && (
+                <label htmlFor="edit-maps">Enlace adicional de Google Maps</label>
+                {(formData.maps || (formData.latitud && formData.longitud)) && (
                   <a
-                    href={formData.maps}
+                    href={
+                      formData.maps ||
+                      `https://www.google.com/maps?q=${formData.latitud},${formData.longitud}`
+                    }
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ fontSize: "12px", color: "#dc2626", textDecoration: "none", fontWeight: 600 }}
                   >
-                    ↗ Abrir mapa actual
+                    ↗ Abrir en Google Maps
                   </a>
                 )}
               </div>
@@ -410,23 +590,69 @@ export default function PopupEdit({
                   id="edit-maps"
                   name="maps"
                   type="url"
-                  placeholder="https://maps.google.com/?q=..."
+                  placeholder={
+                    formData.latitud && formData.longitud
+                      ? `https://www.google.com/maps?q=${formData.latitud},${formData.longitud}`
+                      : "https://maps.google.com/?q=..."
+                  }
                   value={formData.maps}
                   onChange={handleChange}
                 />
               </div>
             </div>
 
+            {/* Múltiples observaciones con fecha automática */}
             <div className="input-group form-col-span-2">
-              <label htmlFor="edit-observaciones">Observaciones Técnicas / Detalle</label>
-              <textarea
-                id="edit-observaciones"
-                name="observaciones"
-                rows={3}
-                placeholder="Detalle técnico de irregularidad, notas de inspección, etc..."
-                value={formData.observaciones}
-                onChange={handleChange}
-              />
+              <div className="obs-builder-container">
+                <div className="obs-builder-header">
+                  <div className="obs-builder-title">
+                    <span>Observaciones Técnicas / Historial de Notas</span>
+                    <span className="obs-count-badge">
+                      {observacionesList.length} {observacionesList.length === 1 ? "observación" : "observaciones"}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    className="obs-add-btn"
+                    onClick={handleAddObservacion}
+                  >
+                    <span>+</span>
+                    <span>Agregar otra observación</span>
+                  </button>
+                </div>
+
+                {observacionesList.map((obs, index) => (
+                  <div key={obs.id} className="obs-builder-item">
+                    <div className="obs-item-topbar">
+                      <span className="obs-item-label">
+                        <span>📝</span> Observación #{index + 1}
+                      </span>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        <span className="obs-item-date-tag">
+                          📅 Fecha de carga: {obs.fecha} (automática)
+                        </span>
+                        {observacionesList.length > 1 && (
+                          <button
+                            type="button"
+                            className="obs-item-remove-btn"
+                            onClick={() => handleRemoveObservacion(obs.id)}
+                            title="Eliminar esta observación"
+                          >
+                            ✕ Quitar
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                    <textarea
+                      className="obs-item-textarea"
+                      rows={2}
+                      placeholder={`Detalle de la observación ${index + 1}...`}
+                      value={obs.texto}
+                      onChange={(e) => handleUpdateObservacion(obs.id, e.target.value)}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

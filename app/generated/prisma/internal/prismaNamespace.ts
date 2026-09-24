@@ -914,8 +914,13 @@ export const UsuarioScalarFieldEnum = {
   observaciones: 'observaciones',
   maps: 'maps',
   medidor: 'medidor',
+  latitud: 'latitud',
+  longitud: 'longitud',
+  fechaVto: 'fechaVto',
   idEstado: 'idEstado',
-  idTarifa: 'idTarifa'
+  idTarifa: 'idTarifa',
+  esDepartamento: 'esDepartamento',
+  idEstadoDepto: 'idEstadoDepto'
 } as const
 
 export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
@@ -950,6 +955,7 @@ export const UsuarioSistemaScalarFieldEnum = {
   usuario: 'usuario',
   password: 'password',
   nombre: 'nombre',
+  fechaVto: 'fechaVto',
   activo: 'activo'
 } as const
 
@@ -1024,13 +1030,6 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1041,6 +1040,27 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime'
+ */
+export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime[]'
+ */
+export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 /**

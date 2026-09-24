@@ -15,6 +15,7 @@ export async function DELETE(req: NextRequest) {
             include: {
                 cuadrillas: true,
                 estado: true,
+                estadoDepto: true,
                 tarifa: true,
             }
         });
@@ -42,6 +43,7 @@ export async function GET(req: NextRequest) {
             include: {
                 cuadrillas: true,
                 estado: true,
+                estadoDepto: true,
                 tarifa: true,
             }
         });
@@ -76,9 +78,20 @@ export async function POST(req: NextRequest) {
             return single !== null ? [single] : [];
         };
 
+        const parseCoord = (val: unknown): number | null | undefined => {
+            if (val === undefined) return undefined;
+            if (val === null || val === "") return null;
+            const num = Number(val);
+            return isNaN(num) ? null : num;
+        };
+
         const cuadrillaIds = parseCuadrillaIds(body);
         const idEstado = parseId(body.idEstado ?? body.estadoId ?? body.estado);
         const idTarifa = parseId(body.idTarifa ?? body.tarifaId ?? body.tarifa);
+        const esDepartamento = body.esDepartamento === true || body.esDepartamento === "true";
+        const idEstadoDepto = esDepartamento ? parseId(body.idEstadoDepto ?? body.idDepto) : null;
+        const latitud = parseCoord(body.latitud) ?? null;
+        const longitud = parseCoord(body.longitud) ?? null;
 
         const usuario = await prisma.usuario.create({
             data: {
@@ -89,8 +102,13 @@ export async function POST(req: NextRequest) {
                 observaciones: body.observaciones ? String(body.observaciones).trim() : null,
                 maps: body.maps ? String(body.maps).trim() : null,
                 medidor: body.medidor ? String(body.medidor).trim() : null,
+                latitud,
+                longitud,
+                fechaVto: body.fechaVto ? new Date(body.fechaVto) : null,
                 idEstado,
                 idTarifa,
+                esDepartamento,
+                idEstadoDepto,
                 cuadrillas: cuadrillaIds.length > 0 ? {
                     connect: cuadrillaIds.map((id) => ({ id }))
                 } : undefined,
@@ -98,6 +116,7 @@ export async function POST(req: NextRequest) {
             include: {
                 cuadrillas: true,
                 estado: true,
+                estadoDepto: true,
                 tarifa: true,
             }
         });
@@ -177,6 +196,17 @@ export async function PUT(req: NextRequest) {
             ? parseOptionalId(body.idTarifa ?? body.tarifaId ?? body.tarifa)
             : undefined;
 
+        const esDepartamento = body.esDepartamento !== undefined
+            ? (body.esDepartamento === true || body.esDepartamento === "true")
+            : undefined;
+
+        let idEstadoDepto: number | null | undefined = undefined;
+        if (esDepartamento === false) {
+            idEstadoDepto = null;
+        } else if ("idEstadoDepto" in body || "idDepto" in body) {
+            idEstadoDepto = parseOptionalId(body.idEstadoDepto ?? body.idDepto);
+        }
+
         const usuario = await prisma.usuario.update({
             where: { id },
             data: {
@@ -187,13 +217,19 @@ export async function PUT(req: NextRequest) {
                 observaciones: body.observaciones !== undefined ? (body.observaciones ? String(body.observaciones).trim() : null) : undefined,
                 maps: body.maps !== undefined ? (body.maps ? String(body.maps).trim() : null) : undefined,
                 medidor: body.medidor !== undefined ? (body.medidor ? String(body.medidor).trim() : null) : undefined,
+                latitud: body.latitud !== undefined ? (body.latitud !== null && body.latitud !== "" && !isNaN(Number(body.latitud)) ? Number(body.latitud) : null) : undefined,
+                longitud: body.longitud !== undefined ? (body.longitud !== null && body.longitud !== "" && !isNaN(Number(body.longitud)) ? Number(body.longitud) : null) : undefined,
+                fechaVto: body.fechaVto !== undefined ? (body.fechaVto ? new Date(body.fechaVto) : null) : undefined,
                 cuadrillas: cuadrillaConnectSet,
                 idEstado,
                 idTarifa,
+                esDepartamento,
+                idEstadoDepto,
             },
             include: {
                 cuadrillas: true,
                 estado: true,
+                estadoDepto: true,
                 tarifa: true,
             }
         });
@@ -216,6 +252,53 @@ export async function PUT(req: NextRequest) {
         }
         return NextResponse.json(
             { error: "Error al actualizar el usuario en el servidor" },
+            { status: 500 }
+        );
+    }
+}
+
+export async function PATCH(req: NextRequest) {
+    try {
+        const body = await req.json();
+        const { userIds, cuadrillaIds } = body;
+
+        if (!Array.isArray(userIds) || userIds.length === 0) {
+            return NextResponse.json(
+                { error: "Debe proporcionar una lista de IDs de usuarios" },
+                { status: 400 }
+            );
+        }
+
+        const cIds: number[] = Array.isArray(cuadrillaIds)
+            ? cuadrillaIds.map(Number).filter((n) => !isNaN(n))
+            : [];
+
+        // Sobreescribir las cuadrillas para cada usuario de la lista
+        const updates = userIds.map((id) =>
+            prisma.usuario.update({
+                where: { id: Number(id) },
+                data: {
+                    cuadrillas: {
+                        set: cIds.map((cid) => ({ id: cid })),
+                    },
+                },
+                include: {
+                    cuadrillas: true,
+                },
+            })
+        );
+
+        const actualizados = await prisma.$transaction(updates);
+
+        return NextResponse.json({
+            success: true,
+            actualizados: actualizados.length,
+            usuarios: actualizados,
+        });
+    } catch (error: unknown) {
+        console.error("Error en asignación masiva de cuadrillas:", error);
+        return NextResponse.json(
+            { error: "Error al actualizar las cuadrillas en el servidor" },
             { status: 500 }
         );
     }

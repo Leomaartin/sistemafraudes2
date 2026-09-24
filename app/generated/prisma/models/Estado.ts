@@ -193,12 +193,14 @@ export type EstadoWhereInput = {
   id?: Prisma.IntFilter<"Estado"> | number
   nombre?: Prisma.StringFilter<"Estado"> | string
   usuarios?: Prisma.UsuarioListRelationFilter
+  usuariosDepto?: Prisma.UsuarioListRelationFilter
 }
 
 export type EstadoOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
   usuarios?: Prisma.UsuarioOrderByRelationAggregateInput
+  usuariosDepto?: Prisma.UsuarioOrderByRelationAggregateInput
 }
 
 export type EstadoWhereUniqueInput = Prisma.AtLeast<{
@@ -208,6 +210,7 @@ export type EstadoWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.EstadoWhereInput | Prisma.EstadoWhereInput[]
   nombre?: Prisma.StringFilter<"Estado"> | string
   usuarios?: Prisma.UsuarioListRelationFilter
+  usuariosDepto?: Prisma.UsuarioListRelationFilter
 }, "id">
 
 export type EstadoOrderByWithAggregationInput = {
@@ -231,23 +234,27 @@ export type EstadoScalarWhereWithAggregatesInput = {
 export type EstadoCreateInput = {
   nombre: string
   usuarios?: Prisma.UsuarioCreateNestedManyWithoutEstadoInput
+  usuariosDepto?: Prisma.UsuarioCreateNestedManyWithoutEstadoDeptoInput
 }
 
 export type EstadoUncheckedCreateInput = {
   id?: number
   nombre: string
   usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutEstadoInput
+  usuariosDepto?: Prisma.UsuarioUncheckedCreateNestedManyWithoutEstadoDeptoInput
 }
 
 export type EstadoUpdateInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   usuarios?: Prisma.UsuarioUpdateManyWithoutEstadoNestedInput
+  usuariosDepto?: Prisma.UsuarioUpdateManyWithoutEstadoDeptoNestedInput
 }
 
 export type EstadoUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutEstadoNestedInput
+  usuariosDepto?: Prisma.UsuarioUncheckedUpdateManyWithoutEstadoDeptoNestedInput
 }
 
 export type EstadoCreateManyInput = {
@@ -298,6 +305,12 @@ export type EstadoCreateNestedOneWithoutUsuariosInput = {
   connect?: Prisma.EstadoWhereUniqueInput
 }
 
+export type EstadoCreateNestedOneWithoutUsuariosDeptoInput = {
+  create?: Prisma.XOR<Prisma.EstadoCreateWithoutUsuariosDeptoInput, Prisma.EstadoUncheckedCreateWithoutUsuariosDeptoInput>
+  connectOrCreate?: Prisma.EstadoCreateOrConnectWithoutUsuariosDeptoInput
+  connect?: Prisma.EstadoWhereUniqueInput
+}
+
 export type EstadoUpdateOneWithoutUsuariosNestedInput = {
   create?: Prisma.XOR<Prisma.EstadoCreateWithoutUsuariosInput, Prisma.EstadoUncheckedCreateWithoutUsuariosInput>
   connectOrCreate?: Prisma.EstadoCreateOrConnectWithoutUsuariosInput
@@ -308,18 +321,46 @@ export type EstadoUpdateOneWithoutUsuariosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EstadoUpdateToOneWithWhereWithoutUsuariosInput, Prisma.EstadoUpdateWithoutUsuariosInput>, Prisma.EstadoUncheckedUpdateWithoutUsuariosInput>
 }
 
+export type EstadoUpdateOneWithoutUsuariosDeptoNestedInput = {
+  create?: Prisma.XOR<Prisma.EstadoCreateWithoutUsuariosDeptoInput, Prisma.EstadoUncheckedCreateWithoutUsuariosDeptoInput>
+  connectOrCreate?: Prisma.EstadoCreateOrConnectWithoutUsuariosDeptoInput
+  upsert?: Prisma.EstadoUpsertWithoutUsuariosDeptoInput
+  disconnect?: Prisma.EstadoWhereInput | boolean
+  delete?: Prisma.EstadoWhereInput | boolean
+  connect?: Prisma.EstadoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EstadoUpdateToOneWithWhereWithoutUsuariosDeptoInput, Prisma.EstadoUpdateWithoutUsuariosDeptoInput>, Prisma.EstadoUncheckedUpdateWithoutUsuariosDeptoInput>
+}
+
 export type EstadoCreateWithoutUsuariosInput = {
   nombre: string
+  usuariosDepto?: Prisma.UsuarioCreateNestedManyWithoutEstadoDeptoInput
 }
 
 export type EstadoUncheckedCreateWithoutUsuariosInput = {
   id?: number
   nombre: string
+  usuariosDepto?: Prisma.UsuarioUncheckedCreateNestedManyWithoutEstadoDeptoInput
 }
 
 export type EstadoCreateOrConnectWithoutUsuariosInput = {
   where: Prisma.EstadoWhereUniqueInput
   create: Prisma.XOR<Prisma.EstadoCreateWithoutUsuariosInput, Prisma.EstadoUncheckedCreateWithoutUsuariosInput>
+}
+
+export type EstadoCreateWithoutUsuariosDeptoInput = {
+  nombre: string
+  usuarios?: Prisma.UsuarioCreateNestedManyWithoutEstadoInput
+}
+
+export type EstadoUncheckedCreateWithoutUsuariosDeptoInput = {
+  id?: number
+  nombre: string
+  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutEstadoInput
+}
+
+export type EstadoCreateOrConnectWithoutUsuariosDeptoInput = {
+  where: Prisma.EstadoWhereUniqueInput
+  create: Prisma.XOR<Prisma.EstadoCreateWithoutUsuariosDeptoInput, Prisma.EstadoUncheckedCreateWithoutUsuariosDeptoInput>
 }
 
 export type EstadoUpsertWithoutUsuariosInput = {
@@ -335,11 +376,35 @@ export type EstadoUpdateToOneWithWhereWithoutUsuariosInput = {
 
 export type EstadoUpdateWithoutUsuariosInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  usuariosDepto?: Prisma.UsuarioUpdateManyWithoutEstadoDeptoNestedInput
 }
 
 export type EstadoUncheckedUpdateWithoutUsuariosInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  usuariosDepto?: Prisma.UsuarioUncheckedUpdateManyWithoutEstadoDeptoNestedInput
+}
+
+export type EstadoUpsertWithoutUsuariosDeptoInput = {
+  update: Prisma.XOR<Prisma.EstadoUpdateWithoutUsuariosDeptoInput, Prisma.EstadoUncheckedUpdateWithoutUsuariosDeptoInput>
+  create: Prisma.XOR<Prisma.EstadoCreateWithoutUsuariosDeptoInput, Prisma.EstadoUncheckedCreateWithoutUsuariosDeptoInput>
+  where?: Prisma.EstadoWhereInput
+}
+
+export type EstadoUpdateToOneWithWhereWithoutUsuariosDeptoInput = {
+  where?: Prisma.EstadoWhereInput
+  data: Prisma.XOR<Prisma.EstadoUpdateWithoutUsuariosDeptoInput, Prisma.EstadoUncheckedUpdateWithoutUsuariosDeptoInput>
+}
+
+export type EstadoUpdateWithoutUsuariosDeptoInput = {
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  usuarios?: Prisma.UsuarioUpdateManyWithoutEstadoNestedInput
+}
+
+export type EstadoUncheckedUpdateWithoutUsuariosDeptoInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutEstadoNestedInput
 }
 
 
@@ -349,10 +414,12 @@ export type EstadoUncheckedUpdateWithoutUsuariosInput = {
 
 export type EstadoCountOutputType = {
   usuarios: number
+  usuariosDepto: number
 }
 
 export type EstadoCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   usuarios?: boolean | EstadoCountOutputTypeCountUsuariosArgs
+  usuariosDepto?: boolean | EstadoCountOutputTypeCountUsuariosDeptoArgs
 }
 
 /**
@@ -372,11 +439,19 @@ export type EstadoCountOutputTypeCountUsuariosArgs<ExtArgs extends runtime.Types
   where?: Prisma.UsuarioWhereInput
 }
 
+/**
+ * EstadoCountOutputType without action
+ */
+export type EstadoCountOutputTypeCountUsuariosDeptoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UsuarioWhereInput
+}
+
 
 export type EstadoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nombre?: boolean
   usuarios?: boolean | Prisma.Estado$usuariosArgs<ExtArgs>
+  usuariosDepto?: boolean | Prisma.Estado$usuariosDeptoArgs<ExtArgs>
   _count?: boolean | Prisma.EstadoCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["estado"]>
 
@@ -398,6 +473,7 @@ export type EstadoSelectScalar = {
 export type EstadoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre", ExtArgs["result"]["estado"]>
 export type EstadoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   usuarios?: boolean | Prisma.Estado$usuariosArgs<ExtArgs>
+  usuariosDepto?: boolean | Prisma.Estado$usuariosDeptoArgs<ExtArgs>
   _count?: boolean | Prisma.EstadoCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EstadoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -407,6 +483,7 @@ export type $EstadoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name: "Estado"
   objects: {
     usuarios: Prisma.$UsuarioPayload<ExtArgs>[]
+    usuariosDepto: Prisma.$UsuarioPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -806,6 +883,7 @@ readonly fields: EstadoFieldRefs;
 export interface Prisma__EstadoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   usuarios<T extends Prisma.Estado$usuariosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Estado$usuariosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  usuariosDepto<T extends Prisma.Estado$usuariosDeptoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Estado$usuariosDeptoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1233,6 +1311,30 @@ export type EstadoDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
  * Estado.usuarios
  */
 export type Estado$usuariosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Usuario
+   */
+  select?: Prisma.UsuarioSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Usuario
+   */
+  omit?: Prisma.UsuarioOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsuarioInclude<ExtArgs> | null
+  where?: Prisma.UsuarioWhereInput
+  orderBy?: Prisma.UsuarioOrderByWithRelationInput | Prisma.UsuarioOrderByWithRelationInput[]
+  cursor?: Prisma.UsuarioWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UsuarioScalarFieldEnum | Prisma.UsuarioScalarFieldEnum[]
+}
+
+/**
+ * Estado.usuariosDepto
+ */
+export type Estado$usuariosDeptoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Usuario
    */

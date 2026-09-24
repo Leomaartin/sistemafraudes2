@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../css/cuadrilla.css";
 import CrudUsers, { CatalogoItem } from "../components/crudUsers";
+import MapaGeneralZarate from "../components/mapaGeneralZarate";
 
 type CatalogType = "cuadrilla" | "estado" | "tarifa";
 
@@ -190,6 +191,7 @@ export default function AdminPage() {
   const [tarifa, setTarifa] = useState<CatalogoItem[]>([]);
   const [showAddPopup, setShowAddPopup] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [mapRefreshKey, setMapRefreshKey] = useState(0);
 
   // Estados para CRUD de catálogos (Cuadrilla / Estado / Tarifa)
   const [catalogModal, setCatalogModal] = useState<{
@@ -576,9 +578,12 @@ export default function AdminPage() {
             }
           />
         </section>
-
-
       </div>
+
+      {/* Mapa Completo de Zárate a pantalla completa (sin límites de contenedor) */}
+      <section className="admin-map-fullwidth-section">
+        <MapaGeneralZarate refreshKey={mapRefreshKey} />
+      </section>
 
       {/* Modal / Popup de Creación de Usuario */}
       {showAddPopup && (
@@ -601,7 +606,10 @@ export default function AdminPage() {
               estados={estado}
               tarifas={tarifa}
               onClose={() => setShowAddPopup(false)}
-              onUserCreated={fetchCatalogos}
+              onUserCreated={() => {
+                fetchCatalogos();
+                setMapRefreshKey((k) => k + 1);
+              }}
             />
           </div>
         </div>

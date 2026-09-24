@@ -8,6 +8,7 @@ export async function GET(req: NextRequest) {
         cuadrillas: true,
         tarifa: true,
         estado: true,
+        estadoDepto: true,
         imagenes: true,
       },
     });

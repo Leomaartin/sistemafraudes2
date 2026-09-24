@@ -16,12 +16,19 @@ model Usuario {
   observaciones String?
   maps          String?
   medidor       String?
+  latitud       Float?
+  longitud      Float?
+  fechaVto      DateTime?
   idEstado      Int?
   idTarifa      Int?
   imagenes      Imagen[]   
 
+  esDepartamento Boolean   @default(false)
+  idEstadoDepto  Int?
+
   cuadrillas    Cuadrilla[]
-  estado        Estado?    @relation(fields: [idEstado], references: [id])
+  estado        Estado?    @relation("EstadoUsuario", fields: [idEstado], references: [id])
+  estadoDepto   Estado?    @relation("EstadoDepto", fields: [idEstadoDepto], references: [id])
   tarifa        Tarifa?    @relation(fields: [idTarifa], references: [id])
 }
 
@@ -32,9 +39,10 @@ model Cuadrilla {
 }
 
 model Estado {
-  id       Int       @id @default(autoincrement())
-  nombre   String
-  usuarios Usuario[]
+  id            Int       @id @default(autoincrement())
+  nombre        String
+  usuarios      Usuario[] @relation("EstadoUsuario")
+  usuariosDepto Usuario[] @relation("EstadoDepto")
 }
 
 model Tarifa {
@@ -47,6 +55,7 @@ model UsuarioSistema {
   usuario  String @unique
   password String
   nombre   String
+  fechaVto DateTime
   activo   Boolean @default(true)
 }
 model Imagen {

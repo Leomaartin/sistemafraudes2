@@ -484,12 +484,14 @@ async function main() {
         password: "admin123",
         nombre: "Administrador",
         activo: true,
+        fechaVto: new Date("2030-12-31T00:00:00Z"),
       },
       {
         usuario: "operador",
         password: "operador123",
         nombre: "Operador de prueba",
         activo: true,
+        fechaVto: new Date("2030-12-31T00:00:00Z"),
       },
     ],
   });

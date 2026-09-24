@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 /* ==========================================================
    PANEL DE ADMINISTRACIÓN Y CONTROL - SISTEMA FRAUDE
    Diseño Moderno, Limpio y Profesional
    ========================================================== */
 
 :root {
-  --admin-bg: rgb(229, 248, 229);
+  --admin-bg: radial-gradient(circle at 50% 0%, #34966a 0%, #3eb187 60%, #3caf85 100%);
   --card-bg: #ffffff;
   --border-color: #e2e8f0;
   --border-focus: #3b82f6;
@@ -37,18 +39,25 @@
 /* Base Shell */
 .admin-shell {
   min-height: 100vh;
-  background-color: var(--admin-bg);
+  background: radial-gradient(circle at 50% 0%, #34966a 0%, #3eb187 60%, #3caf85 100%);
   color: var(--text-main);
-  padding: 32px 24px 60px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  padding: 32px 0 60px;
+  font-family: 'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
 }
 
 .admin-wrapper {
   max-width: 1240px;
   margin: 0 auto;
+  padding: 0 24px;
   display: flex;
   flex-direction: column;
   gap: 28px;
+}
+
+.admin-map-fullwidth-section {
+  width: 100%;
+  margin-top: 36px;
 }
 
 /* =========================
@@ -60,7 +69,7 @@
   justify-content: space-between;
   gap: 20px;
   padding-bottom: 24px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   flex-wrap: wrap;
 }
 
@@ -98,7 +107,7 @@
 .main-title {
   font-size: 30px;
   font-weight: 800;
-  color: var(--text-main);
+  color: #ffffff;
   letter-spacing: -0.02em;
   margin: 0;
   line-height: 1.2;
@@ -106,9 +115,10 @@
 
 .main-subtitle {
   font-size: 15px;
-  color: var(--text-secondary);
+  color: #ffffff;
   margin: 6px 0 0;
   line-height: 1.5;
+  opacity: 0.95;
 }
 
 /* Header Action Buttons */

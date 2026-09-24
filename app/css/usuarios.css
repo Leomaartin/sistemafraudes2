@@ -1,12 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 /* ==========================================================
-   SISTEMA DE GESTIÃ“N DE DEUDAS Y FRAUDES - USUARIOS LISTA
+   SISTEMA DE GESTIÓN DE DEUDAS Y FRAUDES - USUARIOS LISTA
    ========================================================== */
 
 main {
   max-width: 1400px;
   margin: 0 auto;
   padding: 32px 24px 60px;
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   color: #0f172a;
 }
 
@@ -14,13 +16,13 @@ main {
 main h3 {
   font-size: 24px;
   font-weight: 800;
-  color: #0f172a;
+  color: #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 28px;
   padding-bottom: 16px;
-  border-bottom: 2px solid #e2e8f0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   letter-spacing: -0.02em;
 }
 
@@ -80,8 +82,8 @@ main h3 {
   background: #ffffff;
   border-radius: 16px;
   padding: 16px 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(226, 232, 240, 0.8);
   margin-bottom: 28px;
 }
 
@@ -458,243 +460,160 @@ main h3 {
   width: 100%;
 }
 
-/* Cada renglón = grid horizontal con todas las columnas en una fila */
-.user-list-row {
-  background: #ffffff;
-  border-radius: 14px;
-  border: 1px solid #e2e8f0;
-  padding: 16px 20px;
-  display: grid;
-  /* N°+Nombre | Dom. | Estado | Ruta | Maps | Medidor/Tarifa | Cuadrillas | Acciones */
-  grid-template-columns:
-    minmax(170px, 1.6fr)
-    minmax(130px, 1.2fr)
-    minmax(100px, 0.9fr)
-    minmax(80px, 0.8fr)
-    minmax(120px, 1fr)
-    minmax(110px, 0.9fr)
-    minmax(130px, 1.1fr)
-    auto;
-  align-items: center;
-  gap: 0 18px;
-  transition: all 0.22s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  box-sizing: border-box;
-  width: 100%;
-  overflow: hidden;
-  /* El row-obs-footer va debajo del grid usando subgrid trick: lo ponemos como elemento normal y lo hacemos full-width */
-  padding-bottom: 0;
-}
-
-.user-list-row:hover {
-  border-color: #93c5fd;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
-}
-
-/* ---- Columna 1: NÂ° + Nombre ---- */
-.row-col-main {
+/* ==========================================================
+   LISTA VERTICAL DE USUARIOS - TARJETAS MODERNAS Y ORGANIZADAS
+   ========================================================== */
+.user-list-container {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  min-width: 0;
+  gap: 16px;
+  width: 100%;
 }
 
-.val-user-nro {
+/* Tarjeta de usuario */
+.user-list-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  padding: 18px 22px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-list-card:hover {
+  border-color: #38bdf8;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+
+/* CABECERA DE LA TARJETA */
+.user-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.user-card-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.badge-user-nro {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 11px;
-  font-weight: 700;
-  color: #94a3b8;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #ffffff;
+  background: #0f172a;
+  padding: 4px 10px;
+  border-radius: 8px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.2);
 }
 
-.row-user-name {
-  font-size: 15px;
+.user-card-name {
+  font-size: 17px;
   font-weight: 800;
   color: #0f172a;
   letter-spacing: -0.01em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin: 0;
 }
 
-/* ---- Columnas de datos ---- */
-.row-col-item {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  min-width: 0;
-  border-left: 1px solid #f1f5f9;
-  padding-left: 14px;
-}
-
-.label-mini {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #94a3b8;
-}
-
-/* REQUISITO: Domicilio en NEGRO */
-.val-domicilio {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: #000000 !important;
-  line-height: 1.3;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* REQUISITO: Estado SIN FONDO */
-.val-estado-texto {
+.badge-user-estado {
   display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #166534;
-  background: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-}
-
-.status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #22c55e;
-  flex-shrink: 0;
-}
-
-/* REQUISITO: Ruta SOLO LETRA EN AZUL */
-.val-ruta {
-  font-size: 13px;
-  font-weight: 700;
-  color: #2563eb !important;
-  background: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-}
-
-/* REQUISITO: Google Maps SOLO LETRA EN ROJO */
-.maps-link-rojo {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #dc2626 !important;
-  text-decoration: underline;
-  background: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-  transition: opacity 0.2s ease;
-}
-
-.maps-link-rojo svg {
-  stroke: #dc2626;
-  flex-shrink: 0;
-}
-
-.maps-link-rojo:hover {
-  opacity: 0.75;
-  color: #b91c1c !important;
-}
-
-.val-no-maps {
-  font-size: 12.5px;
-  color: #cbd5e1;
-  font-style: italic;
-}
-
-/* Medidor */
-.val-medidor {
-  font-size: 12.5px;
-  font-weight: 700;
-  color: #0f172a;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
-  padding: 2px 8px;
-  border-radius: 6px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  width: fit-content;
-}
-
-.val-tarifa {
-  font-size: 12px;
-  font-weight: 600;
-  color: #64748b;
-}
-
-/* Chips de cuadrillas */
-.cuadrillas-chips-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-
-.chip-cuadrilla {
-  font-size: 11px;
-  font-weight: 700;
-  background: #f0fdf4;
-  color: #15803d;
-  border: 1px solid #bbf7d0;
-  padding: 2px 8px;
-  border-radius: 10px;
-  display: inline-flex;
-  align-items: center;
-  white-space: nowrap;
-}
-
-/* Pie de card: Observaciones — ancho completo, texto NEGRO */
-.row-obs-footer {
-  grid-column: 1 / -1;
-  margin: 12px -20px -0px -20px;
-  padding: 10px 20px;
-  background: #fffbeb;
-  border-top: 1px solid #fde68a;
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 13px;
-  color: #000000;
-  line-height: 1.5;
-}
-
-.row-obs-footer svg {
-  stroke: #ca8a04;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.row-obs-footer strong {
-  color: #000000;
-  font-weight: 700;
-}
-
-/* Acciones al final */
-.row-col-actions {
-  display: flex;
   align-items: center;
   gap: 6px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  border-left: 1px solid #f1f5f9;
-  padding-left: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+  padding: 3px 10px;
+  border-radius: 20px;
 }
 
-.btn-action-text {
+.estado-bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+
+/* BLOQUE DE FECHA DE VENCIMIENTO EN CABECERA */
+.user-card-header-vto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.vto-mini-label {
+  font-size: 9.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #64748b;
+  letter-spacing: 0.06em;
+}
+
+.val-vto-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.val-vto-vencida,
+.val-vto-vence-hoy,
+.val-vto-por-vencer,
+.val-vto-vigente {
+  color: #dc2626 !important;
+  background: #fef2f2 !important;
+  border: 1.5px solid #fca5a5 !important;
+  padding: 4px 12px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(220, 38, 38, 0.08);
+}
+
+.val-vto-container svg {
+  stroke: #dc2626 !important;
+  color: #dc2626 !important;
+}
+
+.val-vto-sin-fecha {
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 600;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  padding: 3px 10px;
+  border-radius: 8px;
+}
+
+/* BOTONES DE ACCIÓN */
+.user-card-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-card-action {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 7px 11px;
+  padding: 7px 12px;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 700;
   cursor: pointer;
   border: 1.5px solid;
@@ -702,103 +621,310 @@ main h3 {
   white-space: nowrap;
 }
 
-.btn-edit-text {
+.btn-card-action.btn-edit {
   color: #0284c7;
   border-color: #bae6fd;
   background: #f0f9ff;
 }
 
-.btn-edit-text:hover {
+.btn-card-action.btn-edit:hover {
   background: #0284c7;
   color: #ffffff;
   border-color: #0284c7;
+  transform: translateY(-1px);
 }
 
-.btn-delete-text {
+.btn-card-action.btn-delete {
   color: #dc2626;
   border-color: #fecaca;
   background: #fef2f2;
 }
 
-.btn-delete-text:hover {
+.btn-card-action.btn-delete:hover {
   background: #dc2626;
   color: #ffffff;
   border-color: #dc2626;
+  transform: translateY(-1px);
 }
 
-.btn-view-images-row {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 7px 11px;
-  background: #f8fafc;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 8px;
+.btn-card-action.btn-images {
   color: #475569;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
+  border-color: #cbd5e1;
+  background: #f8fafc;
 }
 
-.btn-view-images-row:hover {
+.btn-card-action.btn-images:hover {
   background: #2563eb;
   color: #ffffff;
   border-color: #2563eb;
+  transform: translateY(-1px);
 }
 
-.btn-view-images-row svg {
-  width: 14px;
-  height: 14px;
+/* CUERPO DE LA TARJETA: GRID DE ATRIBUTOS */
+.user-card-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.attr-tile {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  transition: all 0.15s ease;
+}
+
+.attr-tile:hover {
+  border-color: #cbd5e1;
+  background: #f1f5f9;
+}
+
+.attr-tile-wide {
+  grid-column: span 2;
+}
+
+.attr-tile-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+}
+
+.attr-tile-title svg {
+  flex-shrink: 0;
+  stroke: #64748b;
+}
+
+.attr-tile-value {
+  font-size: 13.5px;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.val-domicilio-text {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.val-ruta-text {
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.badge-attr-medidor {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 800;
+  color: #059669;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+.badge-attr-tarifa {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #9333ea;
+  background: #faf5ff;
+  border: 1px solid #e9d5ff;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.attr-chips-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip-cuadrilla-modern {
+  font-size: 11px;
+  font-weight: 700;
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+  padding: 2px 8px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.maps-link-modern {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #e11d48;
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  padding: 3px 9px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.maps-link-modern:hover {
+  background: #ffe4e6;
+  color: #be123c;
+  transform: translateY(-1px);
+}
+
+.val-muted {
+  font-size: 12.5px;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* OBSERVACIONES AL PIE */
+.user-card-obs {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: #0f172a;
+  line-height: 1.4;
+}
+
+.obs-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #b45309;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.obs-content {
+  font-weight: 600;
+  color: #000000;
+}
+
+/* BADGE DEPARTAMENTO EN CHIQUITO EN LA TARJETA */
+.badge-depto-mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #4338ca;
+  background: #e0e7ff;
+  border: 1px solid #c7d2fe;
+  padding: 2.5px 8px;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(67, 56, 202, 0.08);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.depto-mini-icon {
+  font-size: 12px;
+}
+
+.depto-mini-text {
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.depto-mini-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  background: #c7d2fe;
+  color: #3730a3;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-weight: 800;
+}
+
+/* LISTA DE MÚLTIPLES OBSERVACIONES */
+.obs-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.obs-single-entry {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 13px;
+  background: #ffffff;
+  padding: 5px 9px;
+  border-radius: 6px;
+  border: 1px solid #fde68a;
+}
+
+.obs-entry-num {
+  font-size: 11px;
+  font-weight: 800;
+  color: #b45309;
+  text-transform: uppercase;
+  background: #fef3c7;
+  padding: 1px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.obs-entry-text {
+  font-weight: 600;
+  color: #1e293b;
+  flex: 1;
+}
+
+.obs-entry-date {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 600;
+  background: #f1f5f9;
+  padding: 1px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
 }
 
 /* === RESPONSIVE === */
-@media (max-width: 1300px) {
-  .user-list-row {
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 14px;
-    padding-bottom: 0;
+@media (max-width: 900px) {
+  .user-card-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .row-col-item,
-  .row-col-actions {
-    border-left: none;
-    padding-left: 0;
+  .user-card-header-vto {
+    align-items: flex-start;
   }
 
-  .row-col-actions {
-    grid-column: span 3;
-    justify-content: flex-start;
-    border-top: 1px solid #f1f5f9;
-    padding-top: 10px;
-    margin-top: 2px;
-  }
-
-  .row-obs-footer {
-    grid-column: span 3;
-    margin: 12px -20px 0 -20px;
+  .attr-tile-wide {
+    grid-column: span 1;
   }
 }
 
-@media (max-width: 640px) {
-  .user-list-row {
-    grid-template-columns: 1fr;
-    padding: 14px 16px 0;
-  }
-
-  .user-list-row:has(.row-col-obs) {
+@media (max-width: 600px) {
+  .user-card-body {
     grid-template-columns: 1fr;
   }
 
-  .row-col-actions {
-    grid-column: 1;
+  .user-card-header-actions {
+    width: 100%;
+    justify-content: flex-start;
     flex-wrap: wrap;
   }
-
-  .row-obs-footer {
-    grid-column: 1;
-    margin: 12px -16px 0 -16px;
-  }
 }
-

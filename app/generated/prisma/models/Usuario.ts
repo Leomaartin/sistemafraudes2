@@ -28,14 +28,20 @@ export type AggregateUsuario = {
 
 export type UsuarioAvgAggregateOutputType = {
   id: number | null
+  latitud: number | null
+  longitud: number | null
   idEstado: number | null
   idTarifa: number | null
+  idEstadoDepto: number | null
 }
 
 export type UsuarioSumAggregateOutputType = {
   id: number | null
+  latitud: number | null
+  longitud: number | null
   idEstado: number | null
   idTarifa: number | null
+  idEstadoDepto: number | null
 }
 
 export type UsuarioMinAggregateOutputType = {
@@ -47,8 +53,13 @@ export type UsuarioMinAggregateOutputType = {
   observaciones: string | null
   maps: string | null
   medidor: string | null
+  latitud: number | null
+  longitud: number | null
+  fechaVto: Date | null
   idEstado: number | null
   idTarifa: number | null
+  esDepartamento: boolean | null
+  idEstadoDepto: number | null
 }
 
 export type UsuarioMaxAggregateOutputType = {
@@ -60,8 +71,13 @@ export type UsuarioMaxAggregateOutputType = {
   observaciones: string | null
   maps: string | null
   medidor: string | null
+  latitud: number | null
+  longitud: number | null
+  fechaVto: Date | null
   idEstado: number | null
   idTarifa: number | null
+  esDepartamento: boolean | null
+  idEstadoDepto: number | null
 }
 
 export type UsuarioCountAggregateOutputType = {
@@ -73,22 +89,33 @@ export type UsuarioCountAggregateOutputType = {
   observaciones: number
   maps: number
   medidor: number
+  latitud: number
+  longitud: number
+  fechaVto: number
   idEstado: number
   idTarifa: number
+  esDepartamento: number
+  idEstadoDepto: number
   _all: number
 }
 
 
 export type UsuarioAvgAggregateInputType = {
   id?: true
+  latitud?: true
+  longitud?: true
   idEstado?: true
   idTarifa?: true
+  idEstadoDepto?: true
 }
 
 export type UsuarioSumAggregateInputType = {
   id?: true
+  latitud?: true
+  longitud?: true
   idEstado?: true
   idTarifa?: true
+  idEstadoDepto?: true
 }
 
 export type UsuarioMinAggregateInputType = {
@@ -100,8 +127,13 @@ export type UsuarioMinAggregateInputType = {
   observaciones?: true
   maps?: true
   medidor?: true
+  latitud?: true
+  longitud?: true
+  fechaVto?: true
   idEstado?: true
   idTarifa?: true
+  esDepartamento?: true
+  idEstadoDepto?: true
 }
 
 export type UsuarioMaxAggregateInputType = {
@@ -113,8 +145,13 @@ export type UsuarioMaxAggregateInputType = {
   observaciones?: true
   maps?: true
   medidor?: true
+  latitud?: true
+  longitud?: true
+  fechaVto?: true
   idEstado?: true
   idTarifa?: true
+  esDepartamento?: true
+  idEstadoDepto?: true
 }
 
 export type UsuarioCountAggregateInputType = {
@@ -126,8 +163,13 @@ export type UsuarioCountAggregateInputType = {
   observaciones?: true
   maps?: true
   medidor?: true
+  latitud?: true
+  longitud?: true
+  fechaVto?: true
   idEstado?: true
   idTarifa?: true
+  esDepartamento?: true
+  idEstadoDepto?: true
   _all?: true
 }
 
@@ -226,8 +268,13 @@ export type UsuarioGroupByOutputType = {
   observaciones: string | null
   maps: string | null
   medidor: string | null
+  latitud: number | null
+  longitud: number | null
+  fechaVto: Date | null
   idEstado: number | null
   idTarifa: number | null
+  esDepartamento: boolean
+  idEstadoDepto: number | null
   _count: UsuarioCountAggregateOutputType | null
   _avg: UsuarioAvgAggregateOutputType | null
   _sum: UsuarioSumAggregateOutputType | null
@@ -262,11 +309,17 @@ export type UsuarioWhereInput = {
   observaciones?: Prisma.StringNullableFilter<"Usuario"> | string | null
   maps?: Prisma.StringNullableFilter<"Usuario"> | string | null
   medidor?: Prisma.StringNullableFilter<"Usuario"> | string | null
+  latitud?: Prisma.FloatNullableFilter<"Usuario"> | number | null
+  longitud?: Prisma.FloatNullableFilter<"Usuario"> | number | null
+  fechaVto?: Prisma.DateTimeNullableFilter<"Usuario"> | Date | string | null
   idEstado?: Prisma.IntNullableFilter<"Usuario"> | number | null
   idTarifa?: Prisma.IntNullableFilter<"Usuario"> | number | null
+  esDepartamento?: Prisma.BoolFilter<"Usuario"> | boolean
+  idEstadoDepto?: Prisma.IntNullableFilter<"Usuario"> | number | null
   imagenes?: Prisma.ImagenListRelationFilter
   cuadrillas?: Prisma.CuadrillaListRelationFilter
   estado?: Prisma.XOR<Prisma.EstadoNullableScalarRelationFilter, Prisma.EstadoWhereInput> | null
+  estadoDepto?: Prisma.XOR<Prisma.EstadoNullableScalarRelationFilter, Prisma.EstadoWhereInput> | null
   tarifa?: Prisma.XOR<Prisma.TarifaNullableScalarRelationFilter, Prisma.TarifaWhereInput> | null
 }
 
@@ -279,11 +332,17 @@ export type UsuarioOrderByWithRelationInput = {
   observaciones?: Prisma.SortOrderInput | Prisma.SortOrder
   maps?: Prisma.SortOrderInput | Prisma.SortOrder
   medidor?: Prisma.SortOrderInput | Prisma.SortOrder
+  latitud?: Prisma.SortOrderInput | Prisma.SortOrder
+  longitud?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaVto?: Prisma.SortOrderInput | Prisma.SortOrder
   idEstado?: Prisma.SortOrderInput | Prisma.SortOrder
   idTarifa?: Prisma.SortOrderInput | Prisma.SortOrder
+  esDepartamento?: Prisma.SortOrder
+  idEstadoDepto?: Prisma.SortOrderInput | Prisma.SortOrder
   imagenes?: Prisma.ImagenOrderByRelationAggregateInput
   cuadrillas?: Prisma.CuadrillaOrderByRelationAggregateInput
   estado?: Prisma.EstadoOrderByWithRelationInput
+  estadoDepto?: Prisma.EstadoOrderByWithRelationInput
   tarifa?: Prisma.TarifaOrderByWithRelationInput
 }
 
@@ -299,11 +358,17 @@ export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
   observaciones?: Prisma.StringNullableFilter<"Usuario"> | string | null
   maps?: Prisma.StringNullableFilter<"Usuario"> | string | null
   medidor?: Prisma.StringNullableFilter<"Usuario"> | string | null
+  latitud?: Prisma.FloatNullableFilter<"Usuario"> | number | null
+  longitud?: Prisma.FloatNullableFilter<"Usuario"> | number | null
+  fechaVto?: Prisma.DateTimeNullableFilter<"Usuario"> | Date | string | null
   idEstado?: Prisma.IntNullableFilter<"Usuario"> | number | null
   idTarifa?: Prisma.IntNullableFilter<"Usuario"> | number | null
+  esDepartamento?: Prisma.BoolFilter<"Usuario"> | boolean
+  idEstadoDepto?: Prisma.IntNullableFilter<"Usuario"> | number | null
   imagenes?: Prisma.ImagenListRelationFilter
   cuadrillas?: Prisma.CuadrillaListRelationFilter
   estado?: Prisma.XOR<Prisma.EstadoNullableScalarRelationFilter, Prisma.EstadoWhereInput> | null
+  estadoDepto?: Prisma.XOR<Prisma.EstadoNullableScalarRelationFilter, Prisma.EstadoWhereInput> | null
   tarifa?: Prisma.XOR<Prisma.TarifaNullableScalarRelationFilter, Prisma.TarifaWhereInput> | null
 }, "id" | "nroUsuario">
 
@@ -316,8 +381,13 @@ export type UsuarioOrderByWithAggregationInput = {
   observaciones?: Prisma.SortOrderInput | Prisma.SortOrder
   maps?: Prisma.SortOrderInput | Prisma.SortOrder
   medidor?: Prisma.SortOrderInput | Prisma.SortOrder
+  latitud?: Prisma.SortOrderInput | Prisma.SortOrder
+  longitud?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaVto?: Prisma.SortOrderInput | Prisma.SortOrder
   idEstado?: Prisma.SortOrderInput | Prisma.SortOrder
   idTarifa?: Prisma.SortOrderInput | Prisma.SortOrder
+  esDepartamento?: Prisma.SortOrder
+  idEstadoDepto?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UsuarioCountOrderByAggregateInput
   _avg?: Prisma.UsuarioAvgOrderByAggregateInput
   _max?: Prisma.UsuarioMaxOrderByAggregateInput
@@ -337,8 +407,13 @@ export type UsuarioScalarWhereWithAggregatesInput = {
   observaciones?: Prisma.StringNullableWithAggregatesFilter<"Usuario"> | string | null
   maps?: Prisma.StringNullableWithAggregatesFilter<"Usuario"> | string | null
   medidor?: Prisma.StringNullableWithAggregatesFilter<"Usuario"> | string | null
+  latitud?: Prisma.FloatNullableWithAggregatesFilter<"Usuario"> | number | null
+  longitud?: Prisma.FloatNullableWithAggregatesFilter<"Usuario"> | number | null
+  fechaVto?: Prisma.DateTimeNullableWithAggregatesFilter<"Usuario"> | Date | string | null
   idEstado?: Prisma.IntNullableWithAggregatesFilter<"Usuario"> | number | null
   idTarifa?: Prisma.IntNullableWithAggregatesFilter<"Usuario"> | number | null
+  esDepartamento?: Prisma.BoolWithAggregatesFilter<"Usuario"> | boolean
+  idEstadoDepto?: Prisma.IntNullableWithAggregatesFilter<"Usuario"> | number | null
 }
 
 export type UsuarioCreateInput = {
@@ -349,9 +424,14 @@ export type UsuarioCreateInput = {
   observaciones?: string | null
   maps?: string | null
   medidor?: string | null
+  latitud?: number | null
+  longitud?: number | null
+  fechaVto?: Date | string | null
+  esDepartamento?: boolean
   imagenes?: Prisma.ImagenCreateNestedManyWithoutUsuarioInput
   cuadrillas?: Prisma.CuadrillaCreateNestedManyWithoutUsuariosInput
   estado?: Prisma.EstadoCreateNestedOneWithoutUsuariosInput
+  estadoDepto?: Prisma.EstadoCreateNestedOneWithoutUsuariosDeptoInput
   tarifa?: Prisma.TarifaCreateNestedOneWithoutUsuariosInput
 }
 
@@ -364,8 +444,13 @@ export type UsuarioUncheckedCreateInput = {
   observaciones?: string | null
   maps?: string | null
   medidor?: string | null
+  latitud?: number | null
+  longitud?: number | null
+  fechaVto?: Date | string | null
   idEstado?: number | null
   idTarifa?: number | null
+  esDepartamento?: boolean
+  idEstadoDepto?: number | null
   imagenes?: Prisma.ImagenUncheckedCreateNestedManyWithoutUsuarioInput
   cuadrillas?: Prisma.CuadrillaUncheckedCreateNestedManyWithoutUsuariosInput
 }
@@ -378,9 +463,14 @@ export type UsuarioUpdateInput = {
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
   imagenes?: Prisma.ImagenUpdateManyWithoutUsuarioNestedInput
   cuadrillas?: Prisma.CuadrillaUpdateManyWithoutUsuariosNestedInput
   estado?: Prisma.EstadoUpdateOneWithoutUsuariosNestedInput
+  estadoDepto?: Prisma.EstadoUpdateOneWithoutUsuariosDeptoNestedInput
   tarifa?: Prisma.TarifaUpdateOneWithoutUsuariosNestedInput
 }
 
@@ -393,8 +483,13 @@ export type UsuarioUncheckedUpdateInput = {
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imagenes?: Prisma.ImagenUncheckedUpdateManyWithoutUsuarioNestedInput
   cuadrillas?: Prisma.CuadrillaUncheckedUpdateManyWithoutUsuariosNestedInput
 }
@@ -408,8 +503,13 @@ export type UsuarioCreateManyInput = {
   observaciones?: string | null
   maps?: string | null
   medidor?: string | null
+  latitud?: number | null
+  longitud?: number | null
+  fechaVto?: Date | string | null
   idEstado?: number | null
   idTarifa?: number | null
+  esDepartamento?: boolean
+  idEstadoDepto?: number | null
 }
 
 export type UsuarioUpdateManyMutationInput = {
@@ -420,6 +520,10 @@ export type UsuarioUpdateManyMutationInput = {
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UsuarioUncheckedUpdateManyInput = {
@@ -431,8 +535,13 @@ export type UsuarioUncheckedUpdateManyInput = {
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type UsuarioCountOrderByAggregateInput = {
@@ -444,14 +553,22 @@ export type UsuarioCountOrderByAggregateInput = {
   observaciones?: Prisma.SortOrder
   maps?: Prisma.SortOrder
   medidor?: Prisma.SortOrder
+  latitud?: Prisma.SortOrder
+  longitud?: Prisma.SortOrder
+  fechaVto?: Prisma.SortOrder
   idEstado?: Prisma.SortOrder
   idTarifa?: Prisma.SortOrder
+  esDepartamento?: Prisma.SortOrder
+  idEstadoDepto?: Prisma.SortOrder
 }
 
 export type UsuarioAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  latitud?: Prisma.SortOrder
+  longitud?: Prisma.SortOrder
   idEstado?: Prisma.SortOrder
   idTarifa?: Prisma.SortOrder
+  idEstadoDepto?: Prisma.SortOrder
 }
 
 export type UsuarioMaxOrderByAggregateInput = {
@@ -463,8 +580,13 @@ export type UsuarioMaxOrderByAggregateInput = {
   observaciones?: Prisma.SortOrder
   maps?: Prisma.SortOrder
   medidor?: Prisma.SortOrder
+  latitud?: Prisma.SortOrder
+  longitud?: Prisma.SortOrder
+  fechaVto?: Prisma.SortOrder
   idEstado?: Prisma.SortOrder
   idTarifa?: Prisma.SortOrder
+  esDepartamento?: Prisma.SortOrder
+  idEstadoDepto?: Prisma.SortOrder
 }
 
 export type UsuarioMinOrderByAggregateInput = {
@@ -476,14 +598,22 @@ export type UsuarioMinOrderByAggregateInput = {
   observaciones?: Prisma.SortOrder
   maps?: Prisma.SortOrder
   medidor?: Prisma.SortOrder
+  latitud?: Prisma.SortOrder
+  longitud?: Prisma.SortOrder
+  fechaVto?: Prisma.SortOrder
   idEstado?: Prisma.SortOrder
   idTarifa?: Prisma.SortOrder
+  esDepartamento?: Prisma.SortOrder
+  idEstadoDepto?: Prisma.SortOrder
 }
 
 export type UsuarioSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  latitud?: Prisma.SortOrder
+  longitud?: Prisma.SortOrder
   idEstado?: Prisma.SortOrder
   idTarifa?: Prisma.SortOrder
+  idEstadoDepto?: Prisma.SortOrder
 }
 
 export type UsuarioListRelationFilter = {
@@ -507,6 +637,22 @@ export type StringFieldUpdateOperationsInput = {
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type NullableFloatFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -570,10 +716,24 @@ export type UsuarioCreateNestedManyWithoutEstadoInput = {
   connect?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
 }
 
+export type UsuarioCreateNestedManyWithoutEstadoDeptoInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutEstadoDeptoInput, Prisma.UsuarioUncheckedCreateWithoutEstadoDeptoInput> | Prisma.UsuarioCreateWithoutEstadoDeptoInput[] | Prisma.UsuarioUncheckedCreateWithoutEstadoDeptoInput[]
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutEstadoDeptoInput | Prisma.UsuarioCreateOrConnectWithoutEstadoDeptoInput[]
+  createMany?: Prisma.UsuarioCreateManyEstadoDeptoInputEnvelope
+  connect?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
+}
+
 export type UsuarioUncheckedCreateNestedManyWithoutEstadoInput = {
   create?: Prisma.XOR<Prisma.UsuarioCreateWithoutEstadoInput, Prisma.UsuarioUncheckedCreateWithoutEstadoInput> | Prisma.UsuarioCreateWithoutEstadoInput[] | Prisma.UsuarioUncheckedCreateWithoutEstadoInput[]
   connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutEstadoInput | Prisma.UsuarioCreateOrConnectWithoutEstadoInput[]
   createMany?: Prisma.UsuarioCreateManyEstadoInputEnvelope
+  connect?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
+}
+
+export type UsuarioUncheckedCreateNestedManyWithoutEstadoDeptoInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutEstadoDeptoInput, Prisma.UsuarioUncheckedCreateWithoutEstadoDeptoInput> | Prisma.UsuarioCreateWithoutEstadoDeptoInput[] | Prisma.UsuarioUncheckedCreateWithoutEstadoDeptoInput[]
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutEstadoDeptoInput | Prisma.UsuarioCreateOrConnectWithoutEstadoDeptoInput[]
+  createMany?: Prisma.UsuarioCreateManyEstadoDeptoInputEnvelope
   connect?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
 }
 
@@ -591,6 +751,20 @@ export type UsuarioUpdateManyWithoutEstadoNestedInput = {
   deleteMany?: Prisma.UsuarioScalarWhereInput | Prisma.UsuarioScalarWhereInput[]
 }
 
+export type UsuarioUpdateManyWithoutEstadoDeptoNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutEstadoDeptoInput, Prisma.UsuarioUncheckedCreateWithoutEstadoDeptoInput> | Prisma.UsuarioCreateWithoutEstadoDeptoInput[] | Prisma.UsuarioUncheckedCreateWithoutEstadoDeptoInput[]
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutEstadoDeptoInput | Prisma.UsuarioCreateOrConnectWithoutEstadoDeptoInput[]
+  upsert?: Prisma.UsuarioUpsertWithWhereUniqueWithoutEstadoDeptoInput | Prisma.UsuarioUpsertWithWhereUniqueWithoutEstadoDeptoInput[]
+  createMany?: Prisma.UsuarioCreateManyEstadoDeptoInputEnvelope
+  set?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
+  disconnect?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
+  delete?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
+  connect?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
+  update?: Prisma.UsuarioUpdateWithWhereUniqueWithoutEstadoDeptoInput | Prisma.UsuarioUpdateWithWhereUniqueWithoutEstadoDeptoInput[]
+  updateMany?: Prisma.UsuarioUpdateManyWithWhereWithoutEstadoDeptoInput | Prisma.UsuarioUpdateManyWithWhereWithoutEstadoDeptoInput[]
+  deleteMany?: Prisma.UsuarioScalarWhereInput | Prisma.UsuarioScalarWhereInput[]
+}
+
 export type UsuarioUncheckedUpdateManyWithoutEstadoNestedInput = {
   create?: Prisma.XOR<Prisma.UsuarioCreateWithoutEstadoInput, Prisma.UsuarioUncheckedCreateWithoutEstadoInput> | Prisma.UsuarioCreateWithoutEstadoInput[] | Prisma.UsuarioUncheckedCreateWithoutEstadoInput[]
   connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutEstadoInput | Prisma.UsuarioCreateOrConnectWithoutEstadoInput[]
@@ -602,6 +776,20 @@ export type UsuarioUncheckedUpdateManyWithoutEstadoNestedInput = {
   connect?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
   update?: Prisma.UsuarioUpdateWithWhereUniqueWithoutEstadoInput | Prisma.UsuarioUpdateWithWhereUniqueWithoutEstadoInput[]
   updateMany?: Prisma.UsuarioUpdateManyWithWhereWithoutEstadoInput | Prisma.UsuarioUpdateManyWithWhereWithoutEstadoInput[]
+  deleteMany?: Prisma.UsuarioScalarWhereInput | Prisma.UsuarioScalarWhereInput[]
+}
+
+export type UsuarioUncheckedUpdateManyWithoutEstadoDeptoNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutEstadoDeptoInput, Prisma.UsuarioUncheckedCreateWithoutEstadoDeptoInput> | Prisma.UsuarioCreateWithoutEstadoDeptoInput[] | Prisma.UsuarioUncheckedCreateWithoutEstadoDeptoInput[]
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutEstadoDeptoInput | Prisma.UsuarioCreateOrConnectWithoutEstadoDeptoInput[]
+  upsert?: Prisma.UsuarioUpsertWithWhereUniqueWithoutEstadoDeptoInput | Prisma.UsuarioUpsertWithWhereUniqueWithoutEstadoDeptoInput[]
+  createMany?: Prisma.UsuarioCreateManyEstadoDeptoInputEnvelope
+  set?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
+  disconnect?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
+  delete?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
+  connect?: Prisma.UsuarioWhereUniqueInput | Prisma.UsuarioWhereUniqueInput[]
+  update?: Prisma.UsuarioUpdateWithWhereUniqueWithoutEstadoDeptoInput | Prisma.UsuarioUpdateWithWhereUniqueWithoutEstadoDeptoInput[]
+  updateMany?: Prisma.UsuarioUpdateManyWithWhereWithoutEstadoDeptoInput | Prisma.UsuarioUpdateManyWithWhereWithoutEstadoDeptoInput[]
   deleteMany?: Prisma.UsuarioScalarWhereInput | Prisma.UsuarioScalarWhereInput[]
 }
 
@@ -669,8 +857,13 @@ export type UsuarioCreateWithoutCuadrillasInput = {
   observaciones?: string | null
   maps?: string | null
   medidor?: string | null
+  latitud?: number | null
+  longitud?: number | null
+  fechaVto?: Date | string | null
+  esDepartamento?: boolean
   imagenes?: Prisma.ImagenCreateNestedManyWithoutUsuarioInput
   estado?: Prisma.EstadoCreateNestedOneWithoutUsuariosInput
+  estadoDepto?: Prisma.EstadoCreateNestedOneWithoutUsuariosDeptoInput
   tarifa?: Prisma.TarifaCreateNestedOneWithoutUsuariosInput
 }
 
@@ -683,8 +876,13 @@ export type UsuarioUncheckedCreateWithoutCuadrillasInput = {
   observaciones?: string | null
   maps?: string | null
   medidor?: string | null
+  latitud?: number | null
+  longitud?: number | null
+  fechaVto?: Date | string | null
   idEstado?: number | null
   idTarifa?: number | null
+  esDepartamento?: boolean
+  idEstadoDepto?: number | null
   imagenes?: Prisma.ImagenUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
@@ -721,8 +919,13 @@ export type UsuarioScalarWhereInput = {
   observaciones?: Prisma.StringNullableFilter<"Usuario"> | string | null
   maps?: Prisma.StringNullableFilter<"Usuario"> | string | null
   medidor?: Prisma.StringNullableFilter<"Usuario"> | string | null
+  latitud?: Prisma.FloatNullableFilter<"Usuario"> | number | null
+  longitud?: Prisma.FloatNullableFilter<"Usuario"> | number | null
+  fechaVto?: Prisma.DateTimeNullableFilter<"Usuario"> | Date | string | null
   idEstado?: Prisma.IntNullableFilter<"Usuario"> | number | null
   idTarifa?: Prisma.IntNullableFilter<"Usuario"> | number | null
+  esDepartamento?: Prisma.BoolFilter<"Usuario"> | boolean
+  idEstadoDepto?: Prisma.IntNullableFilter<"Usuario"> | number | null
 }
 
 export type UsuarioCreateWithoutEstadoInput = {
@@ -733,8 +936,13 @@ export type UsuarioCreateWithoutEstadoInput = {
   observaciones?: string | null
   maps?: string | null
   medidor?: string | null
+  latitud?: number | null
+  longitud?: number | null
+  fechaVto?: Date | string | null
+  esDepartamento?: boolean
   imagenes?: Prisma.ImagenCreateNestedManyWithoutUsuarioInput
   cuadrillas?: Prisma.CuadrillaCreateNestedManyWithoutUsuariosInput
+  estadoDepto?: Prisma.EstadoCreateNestedOneWithoutUsuariosDeptoInput
   tarifa?: Prisma.TarifaCreateNestedOneWithoutUsuariosInput
 }
 
@@ -747,7 +955,12 @@ export type UsuarioUncheckedCreateWithoutEstadoInput = {
   observaciones?: string | null
   maps?: string | null
   medidor?: string | null
+  latitud?: number | null
+  longitud?: number | null
+  fechaVto?: Date | string | null
   idTarifa?: number | null
+  esDepartamento?: boolean
+  idEstadoDepto?: number | null
   imagenes?: Prisma.ImagenUncheckedCreateNestedManyWithoutUsuarioInput
   cuadrillas?: Prisma.CuadrillaUncheckedCreateNestedManyWithoutUsuariosInput
 }
@@ -759,6 +972,53 @@ export type UsuarioCreateOrConnectWithoutEstadoInput = {
 
 export type UsuarioCreateManyEstadoInputEnvelope = {
   data: Prisma.UsuarioCreateManyEstadoInput | Prisma.UsuarioCreateManyEstadoInput[]
+  skipDuplicates?: boolean
+}
+
+export type UsuarioCreateWithoutEstadoDeptoInput = {
+  nroUsuario: string
+  nombre: string
+  domicilio?: string | null
+  ruta?: string | null
+  observaciones?: string | null
+  maps?: string | null
+  medidor?: string | null
+  latitud?: number | null
+  longitud?: number | null
+  fechaVto?: Date | string | null
+  esDepartamento?: boolean
+  imagenes?: Prisma.ImagenCreateNestedManyWithoutUsuarioInput
+  cuadrillas?: Prisma.CuadrillaCreateNestedManyWithoutUsuariosInput
+  estado?: Prisma.EstadoCreateNestedOneWithoutUsuariosInput
+  tarifa?: Prisma.TarifaCreateNestedOneWithoutUsuariosInput
+}
+
+export type UsuarioUncheckedCreateWithoutEstadoDeptoInput = {
+  id?: number
+  nroUsuario: string
+  nombre: string
+  domicilio?: string | null
+  ruta?: string | null
+  observaciones?: string | null
+  maps?: string | null
+  medidor?: string | null
+  latitud?: number | null
+  longitud?: number | null
+  fechaVto?: Date | string | null
+  idEstado?: number | null
+  idTarifa?: number | null
+  esDepartamento?: boolean
+  imagenes?: Prisma.ImagenUncheckedCreateNestedManyWithoutUsuarioInput
+  cuadrillas?: Prisma.CuadrillaUncheckedCreateNestedManyWithoutUsuariosInput
+}
+
+export type UsuarioCreateOrConnectWithoutEstadoDeptoInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutEstadoDeptoInput, Prisma.UsuarioUncheckedCreateWithoutEstadoDeptoInput>
+}
+
+export type UsuarioCreateManyEstadoDeptoInputEnvelope = {
+  data: Prisma.UsuarioCreateManyEstadoDeptoInput | Prisma.UsuarioCreateManyEstadoDeptoInput[]
   skipDuplicates?: boolean
 }
 
@@ -778,6 +1038,22 @@ export type UsuarioUpdateManyWithWhereWithoutEstadoInput = {
   data: Prisma.XOR<Prisma.UsuarioUpdateManyMutationInput, Prisma.UsuarioUncheckedUpdateManyWithoutEstadoInput>
 }
 
+export type UsuarioUpsertWithWhereUniqueWithoutEstadoDeptoInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutEstadoDeptoInput, Prisma.UsuarioUncheckedUpdateWithoutEstadoDeptoInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutEstadoDeptoInput, Prisma.UsuarioUncheckedCreateWithoutEstadoDeptoInput>
+}
+
+export type UsuarioUpdateWithWhereUniqueWithoutEstadoDeptoInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutEstadoDeptoInput, Prisma.UsuarioUncheckedUpdateWithoutEstadoDeptoInput>
+}
+
+export type UsuarioUpdateManyWithWhereWithoutEstadoDeptoInput = {
+  where: Prisma.UsuarioScalarWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateManyMutationInput, Prisma.UsuarioUncheckedUpdateManyWithoutEstadoDeptoInput>
+}
+
 export type UsuarioCreateWithoutTarifaInput = {
   nroUsuario: string
   nombre: string
@@ -786,9 +1062,14 @@ export type UsuarioCreateWithoutTarifaInput = {
   observaciones?: string | null
   maps?: string | null
   medidor?: string | null
+  latitud?: number | null
+  longitud?: number | null
+  fechaVto?: Date | string | null
+  esDepartamento?: boolean
   imagenes?: Prisma.ImagenCreateNestedManyWithoutUsuarioInput
   cuadrillas?: Prisma.CuadrillaCreateNestedManyWithoutUsuariosInput
   estado?: Prisma.EstadoCreateNestedOneWithoutUsuariosInput
+  estadoDepto?: Prisma.EstadoCreateNestedOneWithoutUsuariosDeptoInput
 }
 
 export type UsuarioUncheckedCreateWithoutTarifaInput = {
@@ -800,7 +1081,12 @@ export type UsuarioUncheckedCreateWithoutTarifaInput = {
   observaciones?: string | null
   maps?: string | null
   medidor?: string | null
+  latitud?: number | null
+  longitud?: number | null
+  fechaVto?: Date | string | null
   idEstado?: number | null
+  esDepartamento?: boolean
+  idEstadoDepto?: number | null
   imagenes?: Prisma.ImagenUncheckedCreateNestedManyWithoutUsuarioInput
   cuadrillas?: Prisma.CuadrillaUncheckedCreateNestedManyWithoutUsuariosInput
 }
@@ -839,8 +1125,13 @@ export type UsuarioCreateWithoutImagenesInput = {
   observaciones?: string | null
   maps?: string | null
   medidor?: string | null
+  latitud?: number | null
+  longitud?: number | null
+  fechaVto?: Date | string | null
+  esDepartamento?: boolean
   cuadrillas?: Prisma.CuadrillaCreateNestedManyWithoutUsuariosInput
   estado?: Prisma.EstadoCreateNestedOneWithoutUsuariosInput
+  estadoDepto?: Prisma.EstadoCreateNestedOneWithoutUsuariosDeptoInput
   tarifa?: Prisma.TarifaCreateNestedOneWithoutUsuariosInput
 }
 
@@ -853,8 +1144,13 @@ export type UsuarioUncheckedCreateWithoutImagenesInput = {
   observaciones?: string | null
   maps?: string | null
   medidor?: string | null
+  latitud?: number | null
+  longitud?: number | null
+  fechaVto?: Date | string | null
   idEstado?: number | null
   idTarifa?: number | null
+  esDepartamento?: boolean
+  idEstadoDepto?: number | null
   cuadrillas?: Prisma.CuadrillaUncheckedCreateNestedManyWithoutUsuariosInput
 }
 
@@ -882,8 +1178,13 @@ export type UsuarioUpdateWithoutImagenesInput = {
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
   cuadrillas?: Prisma.CuadrillaUpdateManyWithoutUsuariosNestedInput
   estado?: Prisma.EstadoUpdateOneWithoutUsuariosNestedInput
+  estadoDepto?: Prisma.EstadoUpdateOneWithoutUsuariosDeptoNestedInput
   tarifa?: Prisma.TarifaUpdateOneWithoutUsuariosNestedInput
 }
 
@@ -896,8 +1197,13 @@ export type UsuarioUncheckedUpdateWithoutImagenesInput = {
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cuadrillas?: Prisma.CuadrillaUncheckedUpdateManyWithoutUsuariosNestedInput
 }
 
@@ -909,8 +1215,13 @@ export type UsuarioUpdateWithoutCuadrillasInput = {
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
   imagenes?: Prisma.ImagenUpdateManyWithoutUsuarioNestedInput
   estado?: Prisma.EstadoUpdateOneWithoutUsuariosNestedInput
+  estadoDepto?: Prisma.EstadoUpdateOneWithoutUsuariosDeptoNestedInput
   tarifa?: Prisma.TarifaUpdateOneWithoutUsuariosNestedInput
 }
 
@@ -923,8 +1234,13 @@ export type UsuarioUncheckedUpdateWithoutCuadrillasInput = {
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imagenes?: Prisma.ImagenUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
@@ -937,8 +1253,13 @@ export type UsuarioUncheckedUpdateManyWithoutCuadrillasInput = {
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type UsuarioCreateManyEstadoInput = {
@@ -950,7 +1271,29 @@ export type UsuarioCreateManyEstadoInput = {
   observaciones?: string | null
   maps?: string | null
   medidor?: string | null
+  latitud?: number | null
+  longitud?: number | null
+  fechaVto?: Date | string | null
   idTarifa?: number | null
+  esDepartamento?: boolean
+  idEstadoDepto?: number | null
+}
+
+export type UsuarioCreateManyEstadoDeptoInput = {
+  id?: number
+  nroUsuario: string
+  nombre: string
+  domicilio?: string | null
+  ruta?: string | null
+  observaciones?: string | null
+  maps?: string | null
+  medidor?: string | null
+  latitud?: number | null
+  longitud?: number | null
+  fechaVto?: Date | string | null
+  idEstado?: number | null
+  idTarifa?: number | null
+  esDepartamento?: boolean
 }
 
 export type UsuarioUpdateWithoutEstadoInput = {
@@ -961,8 +1304,13 @@ export type UsuarioUpdateWithoutEstadoInput = {
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
   imagenes?: Prisma.ImagenUpdateManyWithoutUsuarioNestedInput
   cuadrillas?: Prisma.CuadrillaUpdateManyWithoutUsuariosNestedInput
+  estadoDepto?: Prisma.EstadoUpdateOneWithoutUsuariosDeptoNestedInput
   tarifa?: Prisma.TarifaUpdateOneWithoutUsuariosNestedInput
 }
 
@@ -975,7 +1323,12 @@ export type UsuarioUncheckedUpdateWithoutEstadoInput = {
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imagenes?: Prisma.ImagenUncheckedUpdateManyWithoutUsuarioNestedInput
   cuadrillas?: Prisma.CuadrillaUncheckedUpdateManyWithoutUsuariosNestedInput
 }
@@ -989,7 +1342,66 @@ export type UsuarioUncheckedUpdateManyWithoutEstadoInput = {
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type UsuarioUpdateWithoutEstadoDeptoInput = {
+  nroUsuario?: Prisma.StringFieldUpdateOperationsInput | string
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  domicilio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  imagenes?: Prisma.ImagenUpdateManyWithoutUsuarioNestedInput
+  cuadrillas?: Prisma.CuadrillaUpdateManyWithoutUsuariosNestedInput
+  estado?: Prisma.EstadoUpdateOneWithoutUsuariosNestedInput
+  tarifa?: Prisma.TarifaUpdateOneWithoutUsuariosNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutEstadoDeptoInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nroUsuario?: Prisma.StringFieldUpdateOperationsInput | string
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  domicilio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  imagenes?: Prisma.ImagenUncheckedUpdateManyWithoutUsuarioNestedInput
+  cuadrillas?: Prisma.CuadrillaUncheckedUpdateManyWithoutUsuariosNestedInput
+}
+
+export type UsuarioUncheckedUpdateManyWithoutEstadoDeptoInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nroUsuario?: Prisma.StringFieldUpdateOperationsInput | string
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  domicilio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ruta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UsuarioCreateManyTarifaInput = {
@@ -1001,7 +1413,12 @@ export type UsuarioCreateManyTarifaInput = {
   observaciones?: string | null
   maps?: string | null
   medidor?: string | null
+  latitud?: number | null
+  longitud?: number | null
+  fechaVto?: Date | string | null
   idEstado?: number | null
+  esDepartamento?: boolean
+  idEstadoDepto?: number | null
 }
 
 export type UsuarioUpdateWithoutTarifaInput = {
@@ -1012,9 +1429,14 @@ export type UsuarioUpdateWithoutTarifaInput = {
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
   imagenes?: Prisma.ImagenUpdateManyWithoutUsuarioNestedInput
   cuadrillas?: Prisma.CuadrillaUpdateManyWithoutUsuariosNestedInput
   estado?: Prisma.EstadoUpdateOneWithoutUsuariosNestedInput
+  estadoDepto?: Prisma.EstadoUpdateOneWithoutUsuariosDeptoNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutTarifaInput = {
@@ -1026,7 +1448,12 @@ export type UsuarioUncheckedUpdateWithoutTarifaInput = {
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   imagenes?: Prisma.ImagenUncheckedUpdateManyWithoutUsuarioNestedInput
   cuadrillas?: Prisma.CuadrillaUncheckedUpdateManyWithoutUsuariosNestedInput
 }
@@ -1040,7 +1467,12 @@ export type UsuarioUncheckedUpdateManyWithoutTarifaInput = {
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   maps?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medidor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -1092,11 +1524,17 @@ export type UsuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   observaciones?: boolean
   maps?: boolean
   medidor?: boolean
+  latitud?: boolean
+  longitud?: boolean
+  fechaVto?: boolean
   idEstado?: boolean
   idTarifa?: boolean
+  esDepartamento?: boolean
+  idEstadoDepto?: boolean
   imagenes?: boolean | Prisma.Usuario$imagenesArgs<ExtArgs>
   cuadrillas?: boolean | Prisma.Usuario$cuadrillasArgs<ExtArgs>
   estado?: boolean | Prisma.Usuario$estadoArgs<ExtArgs>
+  estadoDepto?: boolean | Prisma.Usuario$estadoDeptoArgs<ExtArgs>
   tarifa?: boolean | Prisma.Usuario$tarifaArgs<ExtArgs>
   _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["usuario"]>
@@ -1110,9 +1548,15 @@ export type UsuarioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   observaciones?: boolean
   maps?: boolean
   medidor?: boolean
+  latitud?: boolean
+  longitud?: boolean
+  fechaVto?: boolean
   idEstado?: boolean
   idTarifa?: boolean
+  esDepartamento?: boolean
+  idEstadoDepto?: boolean
   estado?: boolean | Prisma.Usuario$estadoArgs<ExtArgs>
+  estadoDepto?: boolean | Prisma.Usuario$estadoDeptoArgs<ExtArgs>
   tarifa?: boolean | Prisma.Usuario$tarifaArgs<ExtArgs>
 }, ExtArgs["result"]["usuario"]>
 
@@ -1125,9 +1569,15 @@ export type UsuarioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   observaciones?: boolean
   maps?: boolean
   medidor?: boolean
+  latitud?: boolean
+  longitud?: boolean
+  fechaVto?: boolean
   idEstado?: boolean
   idTarifa?: boolean
+  esDepartamento?: boolean
+  idEstadoDepto?: boolean
   estado?: boolean | Prisma.Usuario$estadoArgs<ExtArgs>
+  estadoDepto?: boolean | Prisma.Usuario$estadoDeptoArgs<ExtArgs>
   tarifa?: boolean | Prisma.Usuario$tarifaArgs<ExtArgs>
 }, ExtArgs["result"]["usuario"]>
 
@@ -1140,24 +1590,32 @@ export type UsuarioSelectScalar = {
   observaciones?: boolean
   maps?: boolean
   medidor?: boolean
+  latitud?: boolean
+  longitud?: boolean
+  fechaVto?: boolean
   idEstado?: boolean
   idTarifa?: boolean
+  esDepartamento?: boolean
+  idEstadoDepto?: boolean
 }
 
-export type UsuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nroUsuario" | "nombre" | "domicilio" | "ruta" | "observaciones" | "maps" | "medidor" | "idEstado" | "idTarifa", ExtArgs["result"]["usuario"]>
+export type UsuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nroUsuario" | "nombre" | "domicilio" | "ruta" | "observaciones" | "maps" | "medidor" | "latitud" | "longitud" | "fechaVto" | "idEstado" | "idTarifa" | "esDepartamento" | "idEstadoDepto", ExtArgs["result"]["usuario"]>
 export type UsuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   imagenes?: boolean | Prisma.Usuario$imagenesArgs<ExtArgs>
   cuadrillas?: boolean | Prisma.Usuario$cuadrillasArgs<ExtArgs>
   estado?: boolean | Prisma.Usuario$estadoArgs<ExtArgs>
+  estadoDepto?: boolean | Prisma.Usuario$estadoDeptoArgs<ExtArgs>
   tarifa?: boolean | Prisma.Usuario$tarifaArgs<ExtArgs>
   _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UsuarioIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   estado?: boolean | Prisma.Usuario$estadoArgs<ExtArgs>
+  estadoDepto?: boolean | Prisma.Usuario$estadoDeptoArgs<ExtArgs>
   tarifa?: boolean | Prisma.Usuario$tarifaArgs<ExtArgs>
 }
 export type UsuarioIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   estado?: boolean | Prisma.Usuario$estadoArgs<ExtArgs>
+  estadoDepto?: boolean | Prisma.Usuario$estadoDeptoArgs<ExtArgs>
   tarifa?: boolean | Prisma.Usuario$tarifaArgs<ExtArgs>
 }
 
@@ -1167,6 +1625,7 @@ export type $UsuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     imagenes: Prisma.$ImagenPayload<ExtArgs>[]
     cuadrillas: Prisma.$CuadrillaPayload<ExtArgs>[]
     estado: Prisma.$EstadoPayload<ExtArgs> | null
+    estadoDepto: Prisma.$EstadoPayload<ExtArgs> | null
     tarifa: Prisma.$TarifaPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1178,8 +1637,13 @@ export type $UsuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     observaciones: string | null
     maps: string | null
     medidor: string | null
+    latitud: number | null
+    longitud: number | null
+    fechaVto: Date | null
     idEstado: number | null
     idTarifa: number | null
+    esDepartamento: boolean
+    idEstadoDepto: number | null
   }, ExtArgs["result"]["usuario"]>
   composites: {}
 }
@@ -1577,6 +2041,7 @@ export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends runtime.
   imagenes<T extends Prisma.Usuario$imagenesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$imagenesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ImagenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cuadrillas<T extends Prisma.Usuario$cuadrillasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$cuadrillasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CuadrillaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   estado<T extends Prisma.Usuario$estadoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$estadoArgs<ExtArgs>>): Prisma.Prisma__EstadoClient<runtime.Types.Result.GetResult<Prisma.$EstadoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  estadoDepto<T extends Prisma.Usuario$estadoDeptoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$estadoDeptoArgs<ExtArgs>>): Prisma.Prisma__EstadoClient<runtime.Types.Result.GetResult<Prisma.$EstadoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   tarifa<T extends Prisma.Usuario$tarifaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$tarifaArgs<ExtArgs>>): Prisma.Prisma__TarifaClient<runtime.Types.Result.GetResult<Prisma.$TarifaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1615,8 +2080,13 @@ export interface UsuarioFieldRefs {
   readonly observaciones: Prisma.FieldRef<"Usuario", 'String'>
   readonly maps: Prisma.FieldRef<"Usuario", 'String'>
   readonly medidor: Prisma.FieldRef<"Usuario", 'String'>
+  readonly latitud: Prisma.FieldRef<"Usuario", 'Float'>
+  readonly longitud: Prisma.FieldRef<"Usuario", 'Float'>
+  readonly fechaVto: Prisma.FieldRef<"Usuario", 'DateTime'>
   readonly idEstado: Prisma.FieldRef<"Usuario", 'Int'>
   readonly idTarifa: Prisma.FieldRef<"Usuario", 'Int'>
+  readonly esDepartamento: Prisma.FieldRef<"Usuario", 'Boolean'>
+  readonly idEstadoDepto: Prisma.FieldRef<"Usuario", 'Int'>
 }
     
 
@@ -2069,6 +2539,25 @@ export type Usuario$cuadrillasArgs<ExtArgs extends runtime.Types.Extensions.Inte
  * Usuario.estado
  */
 export type Usuario$estadoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Estado
+   */
+  select?: Prisma.EstadoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Estado
+   */
+  omit?: Prisma.EstadoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EstadoInclude<ExtArgs> | null
+  where?: Prisma.EstadoWhereInput
+}
+
+/**
+ * Usuario.estadoDepto
+ */
+export type Usuario$estadoDeptoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Estado
    */

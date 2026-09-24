@@ -8,6 +8,9 @@ import "../css/usuarios.css";
 import Popup from "../components/popup";
 import PopupEdit from "../components/popupedit";
 import * as XLSX from "xlsx";
+import { obtenerInfoVencimiento, InfoVencimiento } from "@/lib/vencimiento";
+import { OPCIONES_DEPARTAMENTO, IDS_DEPARTAMENTO } from "@/lib/departamentoConfig";
+import { parsearObservaciones } from "@/lib/observaciones";
 
 export interface CatalogoItem {
   id: number;
@@ -29,8 +32,14 @@ export interface UsuarioItem {
   ruta: string | null;
   observaciones: string | null;
   maps: string | null;
+  latitud?: number | null;
+  longitud?: number | null;
+  fechaVto?: string | Date | null;
   idEstado: number | null;
   idTarifa: number | null;
+  esDepartamento?: boolean;
+  idEstadoDepto?: number | null;
+  estadoDepto?: CatalogoItem | null;
   cuadrillas?: CatalogoItem[];
   estado?: CatalogoItem | null;
   tarifa?: CatalogoItem | null;
@@ -57,24 +66,36 @@ export default function Home() {
   const [searchEstados, setSearchEstados] = useState("");
   const [tarifas, setTarifas] = useState<CatalogoItem[]>([]);
   const [searchTarifas, setSearchTarifas] = useState("");
+  const [searchEstadoVto, setSearchEstadoVto] = useState("");
+  const [searchVtoDesde, setSearchVtoDesde] = useState("");
+  const [searchVtoHasta, setSearchVtoHasta] = useState("");
+  const [searchDepto, setSearchDepto] = useState("");
 
   // Control del menú desplegable de filtros
   const [mostrarFiltros, setMostrarFiltros] = useState(false);
 
   // Funcion exportar excel
   const exportarExcel = () => {
-    const datos = filteredUsers.map((user) => ({
-      "N° Usuario": user.nroUsuario,
-      "Nombre": user.nombre,
-      "Domicilio": user.domicilio || "",
-      "Medidor": user.medidor || "",
-      "Ruta": user.ruta || "",
-      "Estado": user.estado?.nombre || "",
-      "Cuadrillas": user.cuadrillas?.map((c) => c.nombre).join(", ") || "",
-      "Tarifa": user.tarifa?.nombre || "",
-      "Google Maps": user.maps || "",
-      "Observaciones": user.observaciones || "",
-    }));
+    const datos = filteredUsers.map((user) => {
+      const vto = obtenerInfoVencimiento(user.fechaVto);
+      return {
+        "N° Usuario": user.nroUsuario,
+        "Nombre": user.nombre,
+        "Domicilio": user.domicilio || "",
+        "Medidor": user.medidor || "",
+        "Ruta": user.ruta || "",
+        "Estado": user.estado?.nombre || "",
+        "Departamento": (user.esDepartamento || user.idEstadoDepto || user.estadoDepto)
+          ? (user.estadoDepto?.nombre || OPCIONES_DEPARTAMENTO.find((o) => o.id === user.idEstadoDepto)?.nombre || "SÍ")
+          : "NO",
+        "Fecha Vto": vto.fechaFormateada !== "—" ? vto.fechaFormateada : "",
+        "Condición Vencimiento": vto.texto,
+        "Cuadrillas": user.cuadrillas?.map((c) => c.nombre).join(", ") || "",
+        "Tarifa": user.tarifa?.nombre || "",
+        "Google Maps": user.maps || "",
+        "Observaciones": user.observaciones || "",
+      };
+    });
 
     const worksheet = XLSX.utils.json_to_sheet(datos);
     const workbook = XLSX.utils.book_new();
@@ -202,6 +223,8 @@ export default function Home() {
         maps: null,
         idEstado: null,
         idTarifa: null,
+        esDepartamento: false,
+        idEstadoDepto: null,
       });
     }
     setShowPopupEdit(true);
@@ -225,6 +248,10 @@ export default function Home() {
     setSearchCuadrilla("");
     setSearchEstados("");
     setSearchTarifas("");
+    setSearchEstadoVto("");
+    setSearchVtoDesde("");
+    setSearchVtoHasta("");
+    setSearchDepto("");
   };
 
   // Conteo de filtros activos
@@ -236,17 +263,62 @@ export default function Home() {
     searchCuadrilla,
     searchEstados,
     searchTarifas,
+    searchEstadoVto,
+    searchVtoDesde,
+    searchVtoHasta,
+    searchDepto,
   ].filter((val) => val.trim() !== "").length;
 
-  const filteredUsers = allUsers.filter((user) =>
-    (user.nombre || "").toLowerCase().includes(searchName.toLowerCase()) &&
-    (user.nroUsuario || "").toString().includes(searchNumber) &&
-    (user.domicilio || "").toLowerCase().includes(searchDomicilio.toLowerCase()) &&
-    (user.ruta || "").toLowerCase().includes(searchRuta.toLowerCase()) &&
-    (searchCuadrilla === "" || (user.cuadrillas && user.cuadrillas.some((c) => c.nombre === searchCuadrilla))) &&
-    (searchTarifas === "" || user.tarifa?.nombre === searchTarifas) &&
-    (searchEstados === "" || user.estado?.nombre === searchEstados)
-  );
+  const filteredUsers = allUsers.filter((user) => {
+    const matchName = (user.nombre || "").toLowerCase().includes(searchName.toLowerCase());
+    const matchNumber = (user.nroUsuario || "").toString().includes(searchNumber);
+    const matchDomicilio = (user.domicilio || "").toLowerCase().includes(searchDomicilio.toLowerCase());
+    const matchRuta = (user.ruta || "").toLowerCase().includes(searchRuta.toLowerCase());
+    const matchCuadrilla = searchCuadrilla === "" || (user.cuadrillas && user.cuadrillas.some((c) => c.nombre === searchCuadrilla));
+    const matchTarifa = searchTarifas === "" || user.tarifa?.nombre === searchTarifas;
+    const matchEstado = searchEstados === "" || user.estado?.nombre === searchEstados;
+
+    if (!matchName || !matchNumber || !matchDomicilio || !matchRuta || !matchCuadrilla || !matchTarifa || !matchEstado) {
+      return false;
+    }
+
+    // Filtro por departamento / acceso
+    if (searchDepto === "si") {
+      const isDepto = user.esDepartamento || user.idEstadoDepto || user.estadoDepto || (user.estado && IDS_DEPARTAMENTO.includes(user.estado.id));
+      if (!isDepto) return false;
+    } else if (searchDepto === "no") {
+      const isDepto = user.esDepartamento || user.idEstadoDepto || user.estadoDepto || (user.estado && IDS_DEPARTAMENTO.includes(user.estado.id));
+      if (isDepto) return false;
+    } else if (searchDepto) {
+      const targetId = Number(searchDepto);
+      const userDeptoId = user.idEstadoDepto || user.estadoDepto?.id || (user.estado && IDS_DEPARTAMENTO.includes(user.estado.id) ? user.estado.id : null);
+      if (userDeptoId !== targetId) return false;
+    }
+
+    // Filtro por estado de vencimiento
+    if (searchEstadoVto) {
+      const vto = obtenerInfoVencimiento(user.fechaVto);
+      if (searchEstadoVto === "vencidas" && vto.estado !== "vencida") return false;
+      if (searchEstadoVto === "por_vencer" && vto.estado !== "por_vencer" && vto.estado !== "vence_hoy") return false;
+      if (searchEstadoVto === "vigentes" && (vto.estado === "vencida" || vto.estado === "sin_fecha")) return false;
+      if (searchEstadoVto === "sin_fecha" && vto.estado !== "sin_fecha") return false;
+    }
+
+    // Filtro por rango de fecha de vencimiento
+    if (searchVtoDesde || searchVtoHasta) {
+      if (!user.fechaVto) return false;
+      const vtoDate = new Date(user.fechaVto);
+      const yyyy = vtoDate.getUTCFullYear();
+      const mm = String(vtoDate.getUTCMonth() + 1).padStart(2, "0");
+      const dd = String(vtoDate.getUTCDate()).padStart(2, "0");
+      const userDateStr = `${yyyy}-${mm}-${dd}`;
+
+      if (searchVtoDesde && userDateStr < searchVtoDesde) return false;
+      if (searchVtoHasta && userDateStr > searchVtoHasta) return false;
+    }
+
+    return true;
+  });
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchName(e.target.value);
@@ -629,11 +701,13 @@ export default function Home() {
                     onChange={(e) => setSearchEstados(e.target.value)}
                   >
                     <option value="">Todos los estados</option>
-                    {estados.map((estado) => (
-                      <option key={estado.id} value={estado.nombre}>
-                        {estado.nombre}
-                      </option>
-                    ))}
+                    {estados
+                      .filter((estado) => !IDS_DEPARTAMENTO.includes(estado.id))
+                      .map((estado) => (
+                        <option key={estado.id} value={estado.nombre}>
+                          {estado.nombre}
+                        </option>
+                      ))}
                   </select>
                   <svg
                     className="select-chevron-icon"
@@ -679,6 +753,150 @@ export default function Home() {
                   >
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
+                </div>
+              </div>
+
+              {/* Filtro: Tipo Inmueble / Departamento */}
+              <div className={`filtro-field ${searchDepto ? "has-value" : ""}`}>
+                <label htmlFor="filtro-select-depto">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="4" y="2" width="16" height="20" rx="2" ry="2" />
+                    <line x1="9" y1="22" x2="9" y2="22.01" />
+                    <line x1="15" y1="22" x2="15" y2="22.01" />
+                    <line x1="9" y1="6" x2="9" y2="6.01" />
+                    <line x1="15" y1="6" x2="15" y2="6.01" />
+                    <line x1="9" y1="10" x2="9" y2="10.01" />
+                    <line x1="15" y1="10" x2="15" y2="10.01" />
+                    <line x1="9" y1="14" x2="9" y2="14.01" />
+                    <line x1="15" y1="14" x2="15" y2="14.01" />
+                  </svg>
+                  Inmueble / Llave
+                </label>
+                <div className="select-dropdown-wrap">
+                  <select
+                    id="filtro-select-depto"
+                    className="filtro-select"
+                    value={searchDepto}
+                    onChange={(e) => setSearchDepto(e.target.value)}
+                  >
+                    <option value="">Todos los inmuebles</option>
+                    <option value="si">🏢 Solo Departamentos / Edificios</option>
+                    <option value="no">🏠 Casas / Particulares</option>
+                    <optgroup label="Por Condición de Llave">
+                      {OPCIONES_DEPARTAMENTO.map((opc) => (
+                        <option key={opc.id} value={String(opc.id)}>
+                          {opc.icono} {opc.nombre} (ID: #{opc.id})
+                        </option>
+                      ))}
+                    </optgroup>
+                  </select>
+                  <svg
+                    className="select-chevron-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Filtro: Estado de Vencimiento */}
+              <div className={`filtro-field ${searchEstadoVto ? "has-value" : ""}`}>
+                <label htmlFor="filtro-select-estadovto">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                  Estado Fecha Vto
+                </label>
+                <div className="select-dropdown-wrap">
+                  <select
+                    id="filtro-select-estadovto"
+                    className="filtro-select"
+                    value={searchEstadoVto}
+                    onChange={(e) => setSearchEstadoVto(e.target.value)}
+                  >
+                    <option value="">Todas las condiciones</option>
+                    <option value="vencidas">⚠️ Solo Vencidas</option>
+                    <option value="por_vencer">⏳ Por Vencer (≤ 7 días)</option>
+                    <option value="vigentes">✓ Vigentes / Al día</option>
+                    <option value="sin_fecha">— Sin Fecha Asignada</option>
+                  </select>
+                  <svg
+                    className="select-chevron-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Filtro: Fecha Vto Desde */}
+              <div className={`filtro-field ${searchVtoDesde ? "has-value" : ""}`}>
+                <label htmlFor="filtro-input-vtodesde">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                  Vto Desde
+                </label>
+                <div className="filtro-input-wrap">
+                  <input
+                    id="filtro-input-vtodesde"
+                    className="search-input"
+                    type="date"
+                    value={searchVtoDesde}
+                    onChange={(e) => setSearchVtoDesde(e.target.value)}
+                  />
+                  {searchVtoDesde && (
+                    <button
+                      type="button"
+                      className="btn-field-clear"
+                      onClick={() => setSearchVtoDesde("")}
+                      aria-label="Limpiar fecha desde"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Filtro: Fecha Vto Hasta */}
+              <div className={`filtro-field ${searchVtoHasta ? "has-value" : ""}`}>
+                <label htmlFor="filtro-input-vtohasta">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                  Vto Hasta
+                </label>
+                <div className="filtro-input-wrap">
+                  <input
+                    id="filtro-input-vtohasta"
+                    className="search-input"
+                    type="date"
+                    value={searchVtoHasta}
+                    onChange={(e) => setSearchVtoHasta(e.target.value)}
+                  />
+                  {searchVtoHasta && (
+                    <button
+                      type="button"
+                      className="btn-field-clear"
+                      onClick={() => setSearchVtoHasta("")}
+                      aria-label="Limpiar fecha hasta"
+                    >
+                      ✕
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -758,6 +976,32 @@ export default function Home() {
                     <button type="button" onClick={() => setSearchTarifas("")} title="Quitar filtro">×</button>
                   </span>
                 )}
+                {searchEstadoVto && (
+                  <span className="filtro-chip">
+                    Vto: <strong>
+                      {searchEstadoVto === "vencidas"
+                        ? "Vencidas"
+                        : searchEstadoVto === "por_vencer"
+                        ? "Por vencer"
+                        : searchEstadoVto === "vigentes"
+                        ? "Vigentes"
+                        : "Sin fecha"}
+                    </strong>
+                    <button type="button" onClick={() => setSearchEstadoVto("")} title="Quitar filtro">×</button>
+                  </span>
+                )}
+                {searchVtoDesde && (
+                  <span className="filtro-chip">
+                    Vto Desde: <strong>{searchVtoDesde}</strong>
+                    <button type="button" onClick={() => setSearchVtoDesde("")} title="Quitar filtro">×</button>
+                  </span>
+                )}
+                {searchVtoHasta && (
+                  <span className="filtro-chip">
+                    Vto Hasta: <strong>{searchVtoHasta}</strong>
+                    <button type="button" onClick={() => setSearchVtoHasta("")} title="Quitar filtro">×</button>
+                  </span>
+                )}
               </div>
             )}
           </div>
@@ -790,123 +1034,302 @@ export default function Home() {
         {/* Lista Vertical de Usuarios (Renglones/Filas: Uno abajo del otro) */}
         <section className="user-list-container">
           {filteredUsers.map((user) => (
-            <div className="user-list-row" key={user.id}>
+            <div className="user-list-card" key={user.id}>
 
-              {/* N° + Nombre */}
-              <div className="row-col-main">
-                <span className="val-user-nro">N° {user.nroUsuario}</span>
-                <span className="row-user-name">{user.nombre}</span>
-              </div>
-
-              {/* Domicilio — EN NEGRO */}
-              <div className="row-col-item">
-                <span className="label-mini">Domicilio</span>
-                <span className="val-domicilio">{user.domicilio || "—"}</span>
-              </div>
-
-              {/* Estado — SIN FONDO */}
-              <div className="row-col-item">
-                <span className="label-mini">Estado</span>
-                <span className="val-estado-texto">
-                  {user.estado?.nombre || "—"}
-                </span>
-              </div>
-
-              {/* Ruta — SOLO LETRA EN AZUL */}
-              <div className="row-col-item">
-                <span className="label-mini">Ruta</span>
-                <span className="val-ruta">{user.ruta || "—"}</span>
-              </div>
-
-              {/* Google Maps — SOLO LETRA EN ROJO */}
-              <div className="row-col-item">
-                <span className="label-mini">Ubicación</span>
-                {user.maps ? (
-                  <a
-                    href={user.maps}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="maps-link-rojo"
-                  >
-                    Ir a Google Maps
-                  </a>
-                ) : (
-                  <span className="val-no-maps">—</span>
-                )}
-              </div>
-
-              {/* Medidor y Tarifa */}
-              <div className="row-col-item">
-                <span className="label-mini">Medidor / Tarifa</span>
-                {user.medidor ? (
-                  <span className="val-medidor">{user.medidor}</span>
-                ) : (
-                  <span className="val-no-maps">—</span>
-                )}
-                <span className="val-tarifa">{user.tarifa?.nombre || "—"}</span>
-              </div>
-
-              {/* Cuadrillas */}
-              <div className="row-col-item">
-                <span className="label-mini">Cuadrillas</span>
-                <div className="cuadrillas-chips-container">
-                  {user.cuadrillas && user.cuadrillas.length > 0 ? (
-                    user.cuadrillas.map((c) => (
-                      <span key={c.id} className="chip-cuadrilla">{c.nombre}</span>
-                    ))
-                  ) : (
-                    <span className="val-no-maps">—</span>
+              {/* 1. CABECERA DE LA TARJETA */}
+              <div className="user-card-header">
+                <div className="user-card-header-left">
+                  <span className="badge-user-nro">N° {user.nroUsuario}</span>
+                  <h4 className="user-card-name">{user.nombre}</h4>
+                  {user.estado && !IDS_DEPARTAMENTO.includes(user.estado.id) && (
+                    <span className="badge-user-estado">
+                      <span className="estado-bullet"></span>
+                      {user.estado.nombre}
+                    </span>
                   )}
+                  {/* BADGE DEPARTAMENTO EN CHIQUITO EN LA CARD */}
+                  {(user.esDepartamento || user.idEstadoDepto || user.estadoDepto || (user.estado && IDS_DEPARTAMENTO.includes(user.estado.id))) && (
+                    <span
+                      className="badge-depto-mini"
+                      title={`Departamento: ${user.estadoDepto?.nombre || (user.estado && IDS_DEPARTAMENTO.includes(user.estado.id) ? user.estado.nombre : null) || OPCIONES_DEPARTAMENTO.find((o) => o.id === user.idEstadoDepto)?.nombre || "Asignado"}`}
+                    >
+                      <span className="depto-mini-icon">
+                        {OPCIONES_DEPARTAMENTO.find(
+                          (o) => o.id === (user.idEstadoDepto || user.estadoDepto?.id || user.estado?.id)
+                        )?.icono || "🏢"}
+                      </span>
+                      <span className="depto-mini-text">
+                        {user.estadoDepto?.nombre ||
+                          (user.estado && IDS_DEPARTAMENTO.includes(user.estado.id) ? user.estado.nombre : null) ||
+                          OPCIONES_DEPARTAMENTO.find((o) => o.id === user.idEstadoDepto)?.nombre ||
+                          "DEPTO"}
+                      </span>
+                      {(user.idEstadoDepto || user.estadoDepto?.id || (user.estado && IDS_DEPARTAMENTO.includes(user.estado.id) ? user.estado.id : null)) && (
+                        <span className="depto-mini-id">
+                          #{user.idEstadoDepto || user.estadoDepto?.id || user.estado?.id}
+                        </span>
+                      )}
+                    </span>
+                  )}
+                </div>
+
+                {/* BLOQUE DESTACADO DE VENCIMIENTO CON CUENTA REGRESIVA */}
+                <div className="user-card-header-vto">
+                  <span className="vto-mini-label">VENCIMIENTO / PAGO</span>
+                  {(() => {
+                    const infoVto = obtenerInfoVencimiento(user.fechaVto);
+                    if (infoVto.estado === "sin_fecha") {
+                      return <span className="val-vto-sin-fecha">— Sin fecha asignada</span>;
+                    }
+                    let badgeClass = "val-vto-vigente";
+                    let icon = null;
+                    if (infoVto.estado === "vencida") {
+                      badgeClass = "val-vto-vencida";
+                      icon = (
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                          <circle cx="12" cy="12" r="10" />
+                          <line x1="12" y1="8" x2="12" y2="12" />
+                          <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg>
+                      );
+                    } else if (infoVto.estado === "vence_hoy") {
+                      badgeClass = "val-vto-vence-hoy";
+                      icon = (
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                          <polyline points="12 6 12 12 16 14" />
+                          <circle cx="12" cy="12" r="10" />
+                        </svg>
+                      );
+                    } else if (infoVto.estado === "por_vencer") {
+                      badgeClass = "val-vto-por-vencer";
+                      icon = (
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                          <polyline points="12 6 12 12 16 14" />
+                          <circle cx="12" cy="12" r="10" />
+                        </svg>
+                      );
+                    } else {
+                      icon = (
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                          <circle cx="12" cy="12" r="10" />
+                          <polyline points="12 6 12 12 14 14" />
+                        </svg>
+                      );
+                    }
+
+                    return (
+                      <span className={`val-vto-container ${badgeClass}`} title={infoVto.subtexto || infoVto.texto}>
+                        {icon}
+                        <span>{infoVto.texto}</span>
+                      </span>
+                    );
+                  })()}
+                </div>
+
+                {/* BOTONES DE ACCIÓN */}
+                <div className="user-card-header-actions">
+                  <button
+                    type="button"
+                    className="btn-card-action btn-edit"
+                    onClick={() => abrirPopupEdit(user.id)}
+                    title="Editar usuario"
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="M12 20h9" />
+                      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                    </svg>
+                    <span>Editar</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className="btn-card-action btn-delete"
+                    onClick={() => setUsuarioAEliminar(user)}
+                    title="Eliminar usuario"
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <polyline points="3 6 5 6 21 6" />
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                    </svg>
+                    <span>Eliminar</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className="btn-card-action btn-images"
+                    onClick={() => abrirPopup(user.id)}
+                    title="Ver fotos registradas"
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
+                    </svg>
+                    <span>Fotos</span>
+                  </button>
                 </div>
               </div>
 
-              {/* Acciones */}
-              <div className="row-col-actions">
-                <button
-                  type="button"
-                  className="btn-action-text btn-edit-text"
-                  onClick={() => abrirPopupEdit(user.id)}
-                  title="Editar usuario"
-                >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M12 20h9" />
-                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-                  </svg>
-                  <span>Editar</span>
-                </button>
+              {/* 2. CUERPO: ATRIBUTOS BIEN DISTINGUIDOS EN CASILLAS */}
+              <div className="user-card-body">
+                {/* Domicilio */}
+                <div className="attr-tile">
+                  <div className="attr-tile-title">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                      <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                    <span>Domicilio</span>
+                  </div>
+                  <div className="attr-tile-value val-domicilio-text">
+                    {user.domicilio || "—"}
+                  </div>
+                </div>
 
-                <button
-                  type="button"
-                  className="btn-action-text btn-delete-text"
-                  onClick={() => setUsuarioAEliminar(user)}
-                  title="Eliminar usuario"
-                >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <polyline points="3 6 5 6 21 6" />
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                  </svg>
-                  <span>Eliminar</span>
-                </button>
+                {/* Medidor */}
+                <div className="attr-tile">
+                  <div className="attr-tile-title">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <rect x="2" y="2" width="20" height="20" rx="4" />
+                      <circle cx="12" cy="12" r="3" />
+                      <line x1="12" y1="2" x2="12" y2="5" />
+                    </svg>
+                    <span>N° Medidor (1:1)</span>
+                  </div>
+                  <div className="attr-tile-value">
+                    {user.medidor ? (
+                      <span className="badge-attr-medidor">{user.medidor}</span>
+                    ) : (
+                      <span className="val-muted">—</span>
+                    )}
+                  </div>
+                </div>
 
-                <button
-                  type="button"
-                  className="btn-view-images-row"
-                  onClick={() => abrirPopup(user.id)}
-                >
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
-                  </svg>
-                  <span>Imágenes</span>
-                </button>
+                {/* Ruta / Sector */}
+                <div className="attr-tile">
+                  <div className="attr-tile-title">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <polygon points="3 11 22 2 13 21 11 13 3 11" />
+                    </svg>
+                    <span>Ruta / Sector</span>
+                  </div>
+                  <div className="attr-tile-value val-ruta-text">
+                    {user.ruta || "—"}
+                  </div>
+                </div>
+
+                {/* Tarifa */}
+                <div className="attr-tile">
+                  <div className="attr-tile-title">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <line x1="12" y1="1" x2="12" y2="23" />
+                      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    <span>Tarifa</span>
+                  </div>
+                  <div className="attr-tile-value">
+                    {user.tarifa?.nombre ? (
+                      <span className="badge-attr-tarifa">{user.tarifa.nombre}</span>
+                    ) : (
+                      <span className="val-muted">—</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Cuadrillas Asignadas */}
+                <div className="attr-tile attr-tile-wide">
+                  <div className="attr-tile-title">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    <span>Cuadrillas Asignadas</span>
+                  </div>
+                  <div className="attr-tile-value attr-chips-wrap">
+                    {user.cuadrillas && user.cuadrillas.length > 0 ? (
+                      user.cuadrillas.map((c) => (
+                        <span key={c.id} className="chip-cuadrilla-modern">{c.nombre}</span>
+                      ))
+                    ) : (
+                      <span className="val-muted">— Sin cuadrillas</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Ubicación Google Maps / Georreferenciada */}
+                <div className="attr-tile">
+                  <div className="attr-tile-title">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <span>Ubicación</span>
+                  </div>
+                  <div className="attr-tile-value" style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                    {user.latitud && user.longitud ? (
+                      <a
+                        href={user.maps || `https://www.google.com/maps?q=${user.latitud},${user.longitud}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="maps-link-modern"
+                        title={`Coordenadas en Zárate: ${user.latitud}, ${user.longitud}`}
+                        style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}
+                      >
+                        <span>📍 Ver Punto</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                          <polyline points="15 3 21 3 21 9" />
+                          <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg>
+                      </a>
+                    ) : user.maps ? (
+                      <a
+                        href={user.maps}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="maps-link-modern"
+                        title="Ver ubicación en Google Maps"
+                      >
+                        <span>Abrir Maps</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                          <polyline points="15 3 21 3 21 9" />
+                          <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg>
+                      </a>
+                    ) : (
+                      <span className="val-muted">— Sin ubicación</span>
+                    )}
+                  </div>
+                </div>
               </div>
 
-              {/* Observaciones — pie de card, ancho completo */}
+              {/* 3. OBSERVACIONES AL PIE CON MÚLTIPLES ENTRADAS Y FECHAS */}
               {user.observaciones && (
-                <div className="row-obs-footer">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" />
-                  </svg>
-                  <span><strong>Observaciones:</strong> {user.observaciones}</span>
+                <div className="user-card-obs">
+                  <div className="obs-tag">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" />
+                    </svg>
+                    <span>OBSERVACIONES:</span>
+                  </div>
+                  {(() => {
+                    const parsed = parsearObservaciones(user.observaciones);
+                    if (parsed.length > 0) {
+                      return (
+                        <div className="obs-items-list">
+                          {parsed.map((obs, idx) => (
+                            <div key={obs.id || idx} className="obs-single-entry">
+                              <span className="obs-entry-num">Obs {idx + 1}:</span>
+                              <span className="obs-entry-text">{obs.texto}</span>
+                              <span className="obs-entry-date">📅 {obs.fecha}</span>
+                            </div>
+                          ))}
+                        </div>
+                      );
+                    }
+                    return <span className="obs-content">{user.observaciones}</span>;
+                  })()}
                 </div>
               )}
 
