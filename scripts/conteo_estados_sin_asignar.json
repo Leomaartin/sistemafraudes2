@@ -1,0 +1,249 @@
+{
+  "totalSinEstado": 7856,
+  "distribucion": [
+    {
+      "estado": "FRAUDE",
+      "cantidad": 4105,
+      "porcentaje": "52.25%",
+      "esFraude": true,
+      "ejemplos": [
+        "observacion 1: fraude - 28/09/2026",
+        "observacion 1: fraude - 28/09/2026",
+        "observacion 1: fraude - 28/09/2026",
+        "observacion 1: fraude - 28/09/2026",
+        "observacion 1: fraude - 28/09/2026"
+      ]
+    },
+    {
+      "estado": "(SIN OBSERVACIONES / SIN DATOS)",
+      "cantidad": 1344,
+      "porcentaje": "17.11%",
+      "esFraude": false,
+      "ejemplos": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "estado": "SIN FRAUDE / REVISADO REGULAR",
+      "cantidad": 811,
+      "porcentaje": "10.32%",
+      "esFraude": false,
+      "ejemplos": [
+        "observacion 1: sin fraude - 26/11/2025",
+        "observacion 1: revisado sin fraude - 26/11/2025",
+        "observacion 1: sin fraude - 12/06/2025",
+        "observacion 1: sin fraude estado 36158 - 08/01/2026",
+        "observacion 1: sin fraude - 27/11/2025"
+      ]
+    },
+    {
+      "estado": "CORTE Y FRAUDE",
+      "cantidad": 509,
+      "porcentaje": "6.48%",
+      "esFraude": true,
+      "ejemplos": [
+        "observacion 1: corte y fraude - 28/09/2026",
+        "observacion 1: CORTE Y FRAUDE - 28/09/2026",
+        "observacion 1: CORTE Y FRAUDE - 28/09/2026",
+        "observacion 1: CORTE Y FRAUDE - 28/09/2026",
+        "observacion 1: corte y fraude - 28/09/2026"
+      ]
+    },
+    {
+      "estado": "CORTE",
+      "cantidad": 467,
+      "porcentaje": "5.94%",
+      "esFraude": false,
+      "ejemplos": [
+        "observacion 1: corte 01/09/2025 NO HAY PORTERO MEDIDOR INTERNO - 01/09/2025",
+        "observacion 1: para corte - 16/07/2026",
+        "observacion 1: 6/11 no los dejaron entrar a cortar - 28/09/2026",
+        "observacion 1: para corte - 26/02/2026",
+        "observacion 1: CORTE (AGREGADO CEZ QUIERO) - 28/09/2026"
+      ]
+    },
+    {
+      "estado": "OTRAS NOTAS TÉCNICAS",
+      "cantidad": 341,
+      "porcentaje": "4.34%",
+      "esFraude": false,
+      "ejemplos": [
+        "observacion 1: sin servicio no tiene cables de carga 25/11/25 SIGUE SIN SERVCIO - 01/08/2025",
+        "observacion 1: nno encotraron medidor - 22/09/2025",
+        "observacion 1: medidor interno  portero 3487405670 - 28/09/2026",
+        "observacion 1: SE ENCONTRO DIRECTO AVISO EL POLACO QUE LO DEJARON ELLOS EL MEDIDOR ESTABA QUEMADO  PUEDE SER ASIQUESE PONE MEDIDOR 1146292 EST 15597,4 SE PASO A FACT - 10/03/2026",
+        "observacion 1: como era usuario nuevo dejar correr y cobrar diferencia de consumos por los meses de alta del medidor - 28/09/2026"
+      ]
+    },
+    {
+      "estado": "NOTIFICADO",
+      "cantidad": 87,
+      "porcentaje": "1.11%",
+      "esFraude": false,
+      "ejemplos": [
+        "observacion 1: notf - 05/09/2025",
+        "observacion 1: notificar foto de la casa - 28/09/2026",
+        "observacion 1: notificar foto de la casa - 28/09/2026",
+        "observacion 1: notificar foto de la casa - 28/09/2026",
+        "observacion 1: notificar foto de la casa - 28/09/2026"
+      ]
+    },
+    {
+      "estado": "FRAUDE CON ACTA",
+      "cantidad": 48,
+      "porcentaje": "0.61%",
+      "esFraude": true,
+      "ejemplos": [
+        "observacion 1: fraude (ya tuvo) retirar - 10/3/25 acta 3952 directo sin medidor . Eln fraude era del 168812 - 29/07/2025",
+        "observacion 1: no se accede a tomar estado pilar fuera de norma acta 5945 - 28/09/2026",
+        "observacion 1: acta 5997 fraude puente en bornera de medidor pinza no se puede tomar - 28/11/2025",
+        "observacion 1: acta 5999 fraude enganche de medidor en bornera pinza 0,0 - 28/11/2025",
+        "observacion 1: fraude acta 7306 linea paralela a entrada de medidor se deja con servicio no se normaliza - 09/01/2026"
+      ]
+    },
+    {
+      "estado": "SUSPENDIDO",
+      "cantidad": 46,
+      "porcentaje": "0.59%",
+      "esFraude": false,
+      "ejemplos": [
+        "observacion 1: notificar 9/4/25 susp desde med, estado 8173,5 - 20/08/2025",
+        "observacion 1: SUSP DESDE MED ESTADO 8213,4 - 06/02/2025",
+        "observacion 1: suspender - 28/09/2026",
+        "observacion 1: suspender - 28/09/2026",
+        "observacion 1: suspender - 28/09/2026"
+      ]
+    },
+    {
+      "estado": "FRAUDE / SUSPENDIDO",
+      "cantidad": 35,
+      "porcentaje": "0.45%",
+      "esFraude": true,
+      "ejemplos": [
+        "observacion 1: SUSP / FRAUDE / RETIRAR cortado desde medicion sin fraude med 83201,7. 2/6/2026 medidor ya retirado estaba directo acta fraude 8140 oinza 8,5 - 18/08/2025",
+        "observacion 1: SUSPENDIDO / FRAUDE / RETIRAR -18/06/25 SIN FRAUDE - 24/07/2025",
+        "observacion 1: SUSPENDIDO / FRAUDE / RETIRAR - 17/06/25 SUSPENDIDO - 24/07/2025",
+        "observacion 1: medidor retirado estado 54006,1 s/f -  - 14/4/25 susp desde med estado 53720,8 (sin fraude) - 21/08/2025",
+        "observacion 1: SUSPENDIDO / FRAUDE / RETIRAR - SUSPENDIDO 15/4/2025 ESTADO 7218 - 25/07/2025"
+      ]
+    },
+    {
+      "estado": "FRAUDE / NOTIFICADO",
+      "cantidad": 27,
+      "porcentaje": "0.34%",
+      "esFraude": true,
+      "ejemplos": [
+        "observacion 1: fraude notificar - 28/09/2026",
+        "observacion 1: FRAUDE Y NOTIFICAR DEUDA - 28/09/2026",
+        "observacion 1: FRAUDE Y NOTIFICAR DEUDA - 28/09/2026",
+        "observacion 1: fraude/notificacion - 28/09/2026",
+        "observacion 1: notificado - 24/2/26 acta 7660 fraude directo, no cobrado el fraude, le cobramos la deuda, tenia dos reclamos, pero ninguno abalaba que se le habia prendidop fuego el medidor y lo habian dejado directo - 29/06/2026"
+      ]
+    },
+    {
+      "estado": "RETIRADO",
+      "cantidad": 9,
+      "porcentaje": "0.11%",
+      "esFraude": false,
+      "ejemplos": [
+        "observacion 1: RETIRAR POR DEUDA ES INHABILITADO - 28/09/2026",
+        "observacion 1: CASO RENATO LOPEZ NO RETIRADO ESTADO 08892,8 - 18/11/2025",
+        "observacion 1: avisar a gaby no cargar baja no se retiro no hay acceso al medidor casa humilde 14/7/26 gaby cargo la baja, según el lecturista el medidor no esta puesto - 15/07/2026",
+        "observacion 1: retiro - 28/09/2026",
+        "observacion 1: casa humilde no se retiro - 20/05/2026"
+      ]
+    },
+    {
+      "estado": "SIN MEDIDOR / NO ENCONTRADO",
+      "cantidad": 7,
+      "porcentaje": "0.09%",
+      "esFraude": false,
+      "ejemplos": [
+        "observacion 1: SIN MEDIDOR SIN SERVICIO - 10/07/2025",
+        "observacion 1: no se encontro medidor ni directo - 26/08/2026",
+        "observacion 1: no se encontro domicilio (prieto) - 02/10/2025",
+        "observacion 1: no se encontro meidor se pidio datos a florencia - 28/09/2026",
+        "observacion 1: SIN MEDIDOR SIN LINEA, PARECE UNA CASA HABITADA - 06/06/2025"
+      ]
+    },
+    {
+      "estado": "FRAUDE - CONEXIÓN DIRECTA / ENGANCHE",
+      "cantidad": 6,
+      "porcentaje": "0.08%",
+      "esFraude": true,
+      "ejemplos": [
+        "observacion 1: fraude zona de enganches - 01/04/2025",
+        "observacion 1: 7057 linea paralela en entrada de medicion - 18/11/2025",
+        "observacion 1: ZONA DE ENGANCHES - 28/09/2026",
+        "observacion 1: ZONA DE ENGANCHES - 28/09/2026",
+        "observacion 1: linea paralela a entrada de med est 33112 pinza 0,03-2,27 - 05/12/2025"
+      ]
+    },
+    {
+      "estado": "BAJA",
+      "cantidad": 5,
+      "porcentaje": "0.06%",
+      "esFraude": false,
+      "ejemplos": [
+        "observacion 1: dado de baja - 08/07/2025",
+        "observacion 1: gaby cargo la baja, según el lecturista el medidor no esta puesto - 14/07/2026",
+        "observacion 1: gaby cargo la baja, según el lecturista el medidor no esta puesto - 14/07/2026",
+        "observacion 1: gaby cargo la baja, según el lecturista el medidor no esta puesto - 14/07/2026",
+        "observacion 1: sin medidor dejamos con luz debe estar directo no hicieron acta la casa es MUY humilde - 14/7/26 Gabi dio de baja, informa el lecturista que no hay medidor, no tenemos registro que nosotras lo retiramos - 15/07/2026"
+      ]
+    },
+    {
+      "estado": "TIEMPO",
+      "cantidad": 3,
+      "porcentaje": "0.04%",
+      "esFraude": false,
+      "ejemplos": [
+        "observacion 1: estaba para retiro le dieron tiempo prieto - 01/06/2026",
+        "observacion 1: le dieron tiempo - 27/11/2025",
+        "observacion 1: le dieron tiempo - 28/09/2026"
+      ]
+    },
+    {
+      "estado": "PAGO TOTAL / REGULARIZADO",
+      "cantidad": 2,
+      "porcentaje": "0.03%",
+      "esFraude": false,
+      "ejemplos": [
+        "observacion 1: el medidor estaba roto, pedi cambio de med pago total - 19/11/2025",
+        "observacion 1: pago el total - 10/06/2026"
+      ]
+    },
+    {
+      "estado": "FRAUDE - PAGO TOTAL / REGULARIZADO",
+      "cantidad": 2,
+      "porcentaje": "0.03%",
+      "esFraude": true,
+      "ejemplos": [
+        "observacion 1: Fraude y notificar 2/10/25 suspendido PAGO TOTAL - 02/10/2025",
+        "observacion 1: pago total - 23/2/26 acta 7658 enganche en bornera de medidor pinza 1,5 - 24/02/2026"
+      ]
+    },
+    {
+      "estado": "CAMBIO DE TITULARIDAD",
+      "cantidad": 1,
+      "porcentaje": "0.01%",
+      "esFraude": false,
+      "ejemplos": [
+        "observacion 1: Medidor interno hizo cambio de titularidad 170749 - 28/09/2026"
+      ]
+    },
+    {
+      "estado": "SUSPENDIDO - PAGO TOTAL",
+      "cantidad": 1,
+      "porcentaje": "0.01%",
+      "esFraude": false,
+      "ejemplos": [
+        "observacion 1: SUSPENDIDO Pago el total 7/10/25 CERRADO - 19/06/2025"
+      ]
+    }
+  ]
+}

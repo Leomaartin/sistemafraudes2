@@ -10,6 +10,7 @@ import PopupEdit from "../components/popupedit";
 import * as XLSX from "xlsx";
 import { obtenerInfoVencimiento, InfoVencimiento } from "@/lib/vencimiento";
 import { OPCIONES_DEPARTAMENTO, IDS_DEPARTAMENTO } from "@/lib/departamentoConfig";
+import { TIPOS_COMERCIO, esTarifaComercial } from "@/lib/comercioConfig";
 import { parsearObservaciones } from "@/lib/observaciones";
 
 export interface CatalogoItem {
@@ -40,10 +41,93 @@ export interface UsuarioItem {
   esDepartamento?: boolean;
   idEstadoDepto?: number | null;
   estadoDepto?: CatalogoItem | null;
+  rubroComercio?: string | null;
+  idRubro?: number | null;
+  rubro?: CatalogoItem | null;
+  nombreComercio?: string | null;
   cuadrillas?: CatalogoItem[];
   estado?: CatalogoItem | null;
   tarifa?: CatalogoItem | null;
   imagenes?: ImagenItem[];
+}
+
+function getEstadoBadgeInfo(estado?: CatalogoItem | null) {
+  if (!estado || !estado.nombre || !estado.nombre.trim()) {
+    return {
+      nombre: "Sin Estado",
+      badgeClass: "estado-sin-estado",
+      bulletClass: "bullet-sin-estado",
+    };
+  }
+
+  const nom = estado.nombre.trim().toUpperCase();
+
+  // 1. Lo que sea corte -> rojo con un punto rojo
+  if (nom.includes("CORTE")) {
+    return {
+      nombre: estado.nombre,
+      badgeClass: "estado-corte",
+      bulletClass: "bullet-corte",
+    };
+  }
+
+  // 2. Reconectados -> azul con un punto azul
+  if (nom.includes("RECONECTAD")) {
+    return {
+      nombre: estado.nombre,
+      badgeClass: "estado-reconectado",
+      bulletClass: "bullet-reconectado",
+    };
+  }
+
+  // 3. Fraude -> dejalos como están (verde institucional)
+  if (nom.includes("FRAUDE")) {
+    return {
+      nombre: estado.nombre,
+      badgeClass: "estado-fraude",
+      bulletClass: "bullet-fraude",
+    };
+  }
+
+  // 4. Sin Fraude
+  if (nom.includes("SIN FRAUDE")) {
+    return {
+      nombre: estado.nombre,
+      badgeClass: "estado-sin-fraude",
+      bulletClass: "bullet-sin-fraude",
+    };
+  }
+
+  // 5. Notificado / Suspendido
+  if (nom.includes("NOTIFICAD")) {
+    return {
+      nombre: estado.nombre,
+      badgeClass: "estado-notificado",
+      bulletClass: "bullet-notificado",
+    };
+  }
+  if (nom.includes("SUSPENDID")) {
+    return {
+      nombre: estado.nombre,
+      badgeClass: "estado-suspendido",
+      bulletClass: "bullet-suspendido",
+    };
+  }
+
+  // 6. Baja
+  if (nom.includes("BAJA")) {
+    return {
+      nombre: estado.nombre,
+      badgeClass: "estado-baja",
+      bulletClass: "bullet-baja",
+    };
+  }
+
+  return {
+    nombre: estado.nombre,
+    badgeClass: "estado-general",
+    bulletClass: "bullet-general",
+  };
 }
 
 export default function Home() {
@@ -66,18 +150,28 @@ export default function Home() {
   const [searchEstados, setSearchEstados] = useState("");
   const [tarifas, setTarifas] = useState<CatalogoItem[]>([]);
   const [searchTarifas, setSearchTarifas] = useState("");
+  const [searchRubroComercio, setSearchRubroComercio] = useState("");
+  const [searchNombreComercio, setSearchNombreComercio] = useState("");
   const [searchEstadoVto, setSearchEstadoVto] = useState("");
   const [searchVtoDesde, setSearchVtoDesde] = useState("");
   const [searchVtoHasta, setSearchVtoHasta] = useState("");
   const [searchDepto, setSearchDepto] = useState("");
+  const [searchUbicacion, setSearchUbicacion] = useState(""); // "" | "con_geo" | "sin_geo"
 
   // Control del menú desplegable de filtros
   const [mostrarFiltros, setMostrarFiltros] = useState(false);
+
+  // Estados de paginación y carga
+  const [paginaActual, setPaginaActual] = useState(1);
+  const [porPagina, setPorPagina] = useState(50);
+  const [cargando, setCargando] = useState(true);
+  const [inputSalto, setInputSalto] = useState("");
 
   // Funcion exportar excel
   const exportarExcel = () => {
     const datos = filteredUsers.map((user) => {
       const vto = obtenerInfoVencimiento(user.fechaVto);
+      const tieneGeo = Boolean(user.latitud && user.longitud);
       return {
         "N° Usuario": user.nroUsuario,
         "Nombre": user.nombre,
@@ -92,6 +186,11 @@ export default function Home() {
         "Condición Vencimiento": vto.texto,
         "Cuadrillas": user.cuadrillas?.map((c) => c.nombre).join(", ") || "",
         "Tarifa": user.tarifa?.nombre || "",
+        "Tipo Comercio": user.rubro?.nombre || user.rubroComercio || "",
+        "Nombre Informal Comercio": user.nombreComercio || "",
+        "Geolocalizado": tieneGeo ? "SÍ" : "NO (Sin Maps)",
+        "Latitud": user.latitud ?? "",
+        "Longitud": user.longitud ?? "",
         "Google Maps": user.maps || "",
         "Observaciones": user.observaciones || "",
       };
@@ -108,6 +207,7 @@ export default function Home() {
   // Función para recargar los usuarios tras editar o eliminar
   const fetchAllUsers = useCallback(async () => {
     try {
+      setCargando(true);
       const res = await fetch("/api/usuariosapi");
       if (!res.ok) {
         throw new Error("Error al obtener la lista de usuarios");
@@ -116,6 +216,8 @@ export default function Home() {
       setAllUsers(users);
     } catch (error: unknown) {
       console.error("Error fetching users:", error);
+    } finally {
+      setCargando(false);
     }
   }, []);
 
@@ -125,6 +227,7 @@ export default function Home() {
 
     const loadInitialData = async () => {
       try {
+        setCargando(true);
         const [resUsers, resCuadrillas, resEstados, resTarifas] = await Promise.all([
           fetch("/api/usuariosapi"),
           fetch("/api/cuadrillasapi"),
@@ -153,6 +256,8 @@ export default function Home() {
         }
       } catch (error: unknown) {
         console.error("Error al cargar datos iniciales:", error);
+      } finally {
+        if (isMounted) setCargando(false);
       }
     };
 
@@ -248,11 +353,17 @@ export default function Home() {
     setSearchCuadrilla("");
     setSearchEstados("");
     setSearchTarifas("");
+    setSearchRubroComercio("");
+    setSearchNombreComercio("");
     setSearchEstadoVto("");
     setSearchVtoDesde("");
     setSearchVtoHasta("");
     setSearchDepto("");
+    setSearchUbicacion("");
   };
+
+  // Detectar si la tarifa seleccionada para filtrar es comercial (T1G o T1G-I)
+  const esFiltroTarifaComercial = esTarifaComercial(searchTarifas);
 
   // Conteo de filtros activos
   const activeFiltersCount = [
@@ -267,6 +378,9 @@ export default function Home() {
     searchVtoDesde,
     searchVtoHasta,
     searchDepto,
+    searchUbicacion,
+    esFiltroTarifaComercial ? searchRubroComercio : "",
+    esFiltroTarifaComercial ? searchNombreComercio : "",
   ].filter((val) => val.trim() !== "").length;
 
   const filteredUsers = allUsers.filter((user) => {
@@ -280,6 +394,20 @@ export default function Home() {
 
     if (!matchName || !matchNumber || !matchDomicilio || !matchRuta || !matchCuadrilla || !matchTarifa || !matchEstado) {
       return false;
+    }
+
+    // Filtro condicional por comercio (si la tarifa seleccionada es T1G o T1G-I)
+    if (esFiltroTarifaComercial) {
+      const rubroActual = (user.rubro?.nombre || user.rubroComercio || "").toLowerCase();
+      if (searchRubroComercio && rubroActual !== searchRubroComercio.toLowerCase()) {
+        return false;
+      }
+      if (searchNombreComercio.trim()) {
+        const term = searchNombreComercio.trim().toLowerCase();
+        if (!user.nombreComercio || !user.nombreComercio.toLowerCase().includes(term)) {
+          return false;
+        }
+      }
     }
 
     // Filtro por departamento / acceso
@@ -317,8 +445,72 @@ export default function Home() {
       if (searchVtoHasta && userDateStr > searchVtoHasta) return false;
     }
 
+    // Filtro por ubicación / georreferenciación (Maps)
+    if (searchUbicacion === "con_geo") {
+      if (!user.latitud || !user.longitud) return false;
+    } else if (searchUbicacion === "sin_geo") {
+      if (user.latitud && user.longitud) return false;
+    }
+
     return true;
   });
+
+  // Resetear a página 1 cuando se alteran los filtros o la cantidad por página
+  useEffect(() => {
+    setPaginaActual(1);
+  }, [
+    searchName,
+    searchNumber,
+    searchDomicilio,
+    searchRuta,
+    searchCuadrilla,
+    searchEstados,
+    searchTarifas,
+    searchEstadoVto,
+    searchVtoDesde,
+    searchVtoHasta,
+    searchDepto,
+    porPagina,
+  ]);
+
+  const totalUsuariosFiltrados = filteredUsers.length;
+  const totalPaginas = Math.max(1, Math.ceil(totalUsuariosFiltrados / porPagina));
+  const indexInicio = totalUsuariosFiltrados === 0 ? 0 : (paginaActual - 1) * porPagina;
+  const indexFin = Math.min(indexInicio + porPagina, totalUsuariosFiltrados);
+  const usuariosPaginados = filteredUsers.slice(indexInicio, indexFin);
+
+  const cambiarPagina = (nuevaPagina: number) => {
+    if (nuevaPagina < 1 || nuevaPagina > totalPaginas) return;
+    setPaginaActual(nuevaPagina);
+    const el = document.getElementById("seccion-lista-usuarios");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const generarBotonesPaginacion = () => {
+    const botones: (number | string)[] = [];
+    const delta = 2;
+
+    if (totalPaginas <= 7) {
+      for (let i = 1; i <= totalPaginas; i++) botones.push(i);
+    } else {
+      botones.push(1);
+      if (paginaActual - delta > 2) {
+        botones.push("...");
+      }
+      const start = Math.max(2, paginaActual - delta);
+      const end = Math.min(totalPaginas - 1, paginaActual + delta);
+      for (let i = start; i <= end; i++) {
+        botones.push(i);
+      }
+      if (paginaActual + delta < totalPaginas - 1) {
+        botones.push("...");
+      }
+      botones.push(totalPaginas);
+    }
+    return botones;
+  };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchName(e.target.value);
@@ -735,7 +927,14 @@ export default function Home() {
                     id="filtro-select-tarifa"
                     className="filtro-select"
                     value={searchTarifas}
-                    onChange={(e) => setSearchTarifas(e.target.value)}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setSearchTarifas(val);
+                      if (!esTarifaComercial(val)) {
+                        setSearchRubroComercio("");
+                        setSearchNombreComercio("");
+                      }
+                    }}
                   >
                     <option value="">Todas las tarifas</option>
                     {tarifas.map((tarifa) => (
@@ -755,6 +954,73 @@ export default function Home() {
                   </svg>
                 </div>
               </div>
+
+              {/* Filtros condicionales de Comercio: Solo visibles si la tarifa es T1G o T1G-I */}
+              {esFiltroTarifaComercial && (
+                <>
+                  <div className={`filtro-field ${searchRubroComercio ? "has-value" : ""}`} style={{ borderColor: "#0284c7" }}>
+                    <label htmlFor="filtro-select-rubro">
+                      <span style={{ fontSize: "15px", marginRight: "3px" }}>🏪</span>
+                      Tipo de Comercio
+                    </label>
+                    <div className="select-dropdown-wrap">
+                      <select
+                        id="filtro-select-rubro"
+                        className="filtro-select"
+                        value={searchRubroComercio}
+                        onChange={(e) => setSearchRubroComercio(e.target.value)}
+                        style={{ color: searchRubroComercio ? "#0369a1" : undefined }}
+                      >
+                        <option value="">Todos los tipos de comercio</option>
+                        {TIPOS_COMERCIO.map((tipo) => (
+                          <option key={tipo} value={tipo}>
+                            {tipo}
+                          </option>
+                        ))}
+                      </select>
+                      <svg
+                        className="select-chevron-icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                      >
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div className={`filtro-field ${searchNombreComercio ? "has-value" : ""}`} style={{ borderColor: "#0284c7" }}>
+                    <label htmlFor="filtro-input-nombre-comercio">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+                        <line x1="7" y1="7" x2="7.01" y2="7" />
+                      </svg>
+                      Nombre Informal Comercio
+                    </label>
+                    <div className="filtro-input-wrap">
+                      <input
+                        id="filtro-input-nombre-comercio"
+                        className="search-input"
+                        type="text"
+                        placeholder="Ej: Carnicería El Abasto..."
+                        value={searchNombreComercio}
+                        onChange={(e) => setSearchNombreComercio(e.target.value)}
+                      />
+                      {searchNombreComercio && (
+                        <button
+                          type="button"
+                          className="btn-field-clear"
+                          onClick={() => setSearchNombreComercio("")}
+                          aria-label="Limpiar nombre informal"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </>
+              )}
 
               {/* Filtro: Tipo Inmueble / Departamento */}
               <div className={`filtro-field ${searchDepto ? "has-value" : ""}`}>
@@ -789,6 +1055,38 @@ export default function Home() {
                         </option>
                       ))}
                     </optgroup>
+                  </select>
+                  <svg
+                    className="select-chevron-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Filtro: Estado de Geolocalización (Maps) */}
+              <div className={`filtro-field ${searchUbicacion ? "has-value" : ""}`}>
+                <label htmlFor="filtro-select-ubicacion">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  Geolocalización / Maps
+                </label>
+                <div className="select-dropdown-wrap">
+                  <select
+                    id="filtro-select-ubicacion"
+                    className="filtro-select"
+                    value={searchUbicacion}
+                    onChange={(e) => setSearchUbicacion(e.target.value)}
+                  >
+                    <option value="">Todas las ubicaciones</option>
+                    <option value="con_geo">📍 Geolocalizados (Con Maps / GPS)</option>
+                    <option value="sin_geo">⚠️ Sin Maps (No encontrados en Maps)</option>
                   </select>
                   <svg
                     className="select-chevron-icon"
@@ -1002,13 +1300,21 @@ export default function Home() {
                     <button type="button" onClick={() => setSearchVtoHasta("")} title="Quitar filtro">×</button>
                   </span>
                 )}
+                {searchUbicacion && (
+                  <span className="filtro-chip">
+                    Ubicación: <strong>
+                      {searchUbicacion === "con_geo" ? "📍 Con Maps" : "⚠️ Sin Maps (No encontrado)"}
+                    </strong>
+                    <button type="button" onClick={() => setSearchUbicacion("")} title="Quitar filtro">×</button>
+                  </span>
+                )}
               </div>
             )}
           </div>
         </div>
 
         {/* Mensaje de no resultados */}
-        {filteredUsers.length === 0 && (
+        {!cargando && filteredUsers.length === 0 && (
           <div className="empty-results-box">
             <div className="empty-results-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -1031,20 +1337,76 @@ export default function Home() {
           </div>
         )}
 
-        {/* Lista Vertical de Usuarios (Renglones/Filas: Uno abajo del otro) */}
-        <section className="user-list-container">
-          {filteredUsers.map((user) => (
-            <div className="user-list-card" key={user.id}>
+        {/* Indicador de carga */}
+        {cargando && (
+          <div className="loading-usuarios-box">
+            <div className="spinner-large"></div>
+            <h4>Cargando usuarios...</h4>
+            <p>Consultando los registros en la base de datos de forma optimizada.</p>
+          </div>
+        )}
+
+        {/* Barra superior de paginación y controles */}
+        {!cargando && filteredUsers.length > 0 && (
+          <div className="pagination-top-bar" id="seccion-lista-usuarios">
+            <div className="pagination-info">
+              Mostrando <strong>{indexInicio + 1}–{indexFin}</strong> de <strong>{totalUsuariosFiltrados.toLocaleString()}</strong> usuarios
+              {totalPaginas > 1 && (
+                <span className="pagina-indicator-badge">Página {paginaActual} de {totalPaginas}</span>
+              )}
+            </div>
+
+            <div className="pagination-options">
+              <label htmlFor="select-por-pagina">Filas por página:</label>
+              <select
+                id="select-por-pagina"
+                className="select-por-pagina"
+                value={porPagina}
+                onChange={(e) => setPorPagina(Number(e.target.value))}
+              >
+                <option value={25}>25 usuarios</option>
+                <option value={50}>50 usuarios (recomendado)</option>
+                <option value={100}>100 usuarios</option>
+                <option value={200}>200 usuarios</option>
+              </select>
+            </div>
+          </div>
+        )}
+
+        {/* Lista Vertical de Usuarios (Solo dibuja la página actual para máximo rendimiento) */}
+        {!cargando && (
+          <section className="user-list-container">
+            {usuariosPaginados.map((user) => {
+              const sinGeo = !user.latitud || !user.longitud;
+              return (
+              <div className={`user-list-card ${sinGeo ? "sin-geolocalizacion" : ""}`} key={user.id}>
 
               {/* 1. CABECERA DE LA TARJETA */}
               <div className="user-card-header">
                 <div className="user-card-header-left">
                   <span className="badge-user-nro">N° {user.nroUsuario}</span>
                   <h4 className="user-card-name">{user.nombre}</h4>
-                  {user.estado && !IDS_DEPARTAMENTO.includes(user.estado.id) && (
-                    <span className="badge-user-estado">
-                      <span className="estado-bullet"></span>
-                      {user.estado.nombre}
+                  {(() => {
+                    if (user.estado && IDS_DEPARTAMENTO.includes(user.estado.id)) {
+                      return null;
+                    }
+                    const badgeInfo = getEstadoBadgeInfo(user.estado);
+                    return (
+                      <span className={`badge-user-estado ${badgeInfo.badgeClass}`}>
+                        <span className={`estado-bullet ${badgeInfo.bulletClass}`}></span>
+                        {badgeInfo.nombre}
+                      </span>
+                    );
+                  })()}
+                  {/* BADGE SEÑALIZADOR DE SIN UBICACIÓN */}
+                  {sinGeo && (
+                    <span className="badge-sin-ubicacion" title="Este usuario no cuenta con coordenadas GPS / No fue encontrado en Maps">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                        <line x1="12" y1="9" x2="12" y2="13" />
+                        <line x1="12" y1="17" x2="12.01" y2="17" />
+                      </svg>
+                      <span>Sin Maps</span>
                     </span>
                   )}
                   {/* BADGE DEPARTAMENTO EN CHIQUITO EN LA CARD */}
@@ -1053,11 +1415,19 @@ export default function Home() {
                       className="badge-depto-mini"
                       title={`Departamento: ${user.estadoDepto?.nombre || (user.estado && IDS_DEPARTAMENTO.includes(user.estado.id) ? user.estado.nombre : null) || OPCIONES_DEPARTAMENTO.find((o) => o.id === user.idEstadoDepto)?.nombre || "Asignado"}`}
                     >
-                      <span className="depto-mini-icon">
-                        {OPCIONES_DEPARTAMENTO.find(
-                          (o) => o.id === (user.idEstadoDepto || user.estadoDepto?.id || user.estado?.id)
-                        )?.icono || "🏢"}
-                      </span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="4" y="2" width="16" height="20" rx="2" />
+                        <line x1="9" y1="22" x2="9" y2="22.01" />
+                        <line x1="15" y1="22" x2="15" y2="22.01" />
+                        <line x1="9" y1="6" x2="9" y2="6.01" />
+                        <line x1="15" y1="6" x2="15" y2="6.01" />
+                        <line x1="9" y1="10" x2="9" y2="10.01" />
+                        <line x1="15" y1="10" x2="15" y2="10.01" />
+                        <line x1="9" y1="14" x2="9" y2="14.01" />
+                        <line x1="15" y1="14" x2="15" y2="14.01" />
+                        <line x1="9" y1="18" x2="9" y2="18.01" />
+                        <line x1="15" y1="18" x2="15" y2="18.01" />
+                      </svg>
                       <span className="depto-mini-text">
                         {user.estadoDepto?.nombre ||
                           (user.estado && IDS_DEPARTAMENTO.includes(user.estado.id) ? user.estado.nombre : null) ||
@@ -1265,7 +1635,7 @@ export default function Home() {
                 </div>
 
                 {/* Ubicación Google Maps / Georreferenciada */}
-                <div className="attr-tile">
+                <div className={`attr-tile ${sinGeo ? "attr-tile-alerta-sin-geo" : ""}`}>
                   <div className="attr-tile-title">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
@@ -1274,7 +1644,7 @@ export default function Home() {
                     <span>Ubicación</span>
                   </div>
                   <div className="attr-tile-value" style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                    {user.latitud && user.longitud ? (
+                    {!sinGeo ? (
                       <a
                         href={user.maps || `https://www.google.com/maps?q=${user.latitud},${user.longitud}`}
                         target="_blank"
@@ -1283,22 +1653,11 @@ export default function Home() {
                         title={`Coordenadas en Zárate: ${user.latitud}, ${user.longitud}`}
                         style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}
                       >
-                        <span>📍 Ver Punto</span>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                          <polyline points="15 3 21 3 21 9" />
-                          <line x1="10" y1="14" x2="21" y2="3" />
+                          <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z" />
+                          <circle cx="12" cy="10" r="3" />
                         </svg>
-                      </a>
-                    ) : user.maps ? (
-                      <a
-                        href={user.maps}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="maps-link-modern"
-                        title="Ver ubicación en Google Maps"
-                      >
-                        <span>Abrir Maps</span>
+                        <span>Ver Punto</span>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                           <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                           <polyline points="15 3 21 3 21 9" />
@@ -1306,43 +1665,195 @@ export default function Home() {
                         </svg>
                       </a>
                     ) : (
-                      <span className="val-muted">— Sin ubicación</span>
+                      <div className="alerta-sin-maps-badge" title="No se encontró la dirección en Google Maps o no posee coordenadas">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                          <circle cx="12" cy="12" r="10" />
+                          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                        </svg>
+                        <span>No encontrado en Maps</span>
+                      </div>
                     )}
                   </div>
                 </div>
               </div>
 
-              {/* 3. OBSERVACIONES AL PIE CON MÚLTIPLES ENTRADAS Y FECHAS */}
+              {/* 3. OBSERVACIONES AL PIE CON MENÚ DESPLEGABLE SI SON MÁS DE 1 */}
               {user.observaciones && (
                 <div className="user-card-obs">
-                  <div className="obs-tag">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" />
-                    </svg>
-                    <span>OBSERVACIONES:</span>
-                  </div>
                   {(() => {
                     const parsed = parsearObservaciones(user.observaciones);
-                    if (parsed.length > 0) {
+                    
+                    if (parsed.length === 0) {
                       return (
-                        <div className="obs-items-list">
-                          {parsed.map((obs, idx) => (
-                            <div key={obs.id || idx} className="obs-single-entry">
-                              <span className="obs-entry-num">Obs {idx + 1}:</span>
-                              <span className="obs-entry-text">{obs.texto}</span>
-                              <span className="obs-entry-date">📅 {obs.fecha}</span>
-                            </div>
-                          ))}
-                        </div>
+                        <>
+                          <div className="obs-tag">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" />
+                            </svg>
+                            <span>OBSERVACIONES:</span>
+                          </div>
+                          <span className="obs-content">{user.observaciones}</span>
+                        </>
                       );
                     }
-                    return <span className="obs-content">{user.observaciones}</span>;
+
+                    // Caso de 1 sola observación: se muestra directa y compacta
+                    if (parsed.length === 1) {
+                      const obs = parsed[0];
+                      return (
+                        <>
+                          <div className="obs-tag">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" />
+                            </svg>
+                            <span>OBSERVACIÓN:</span>
+                          </div>
+                          <div className="obs-single-entry" style={{ flex: 1 }}>
+                            <span className="obs-entry-text">{obs.texto}</span>
+                            <span className="obs-entry-date">📅 {obs.fecha}</span>
+                          </div>
+                        </>
+                      );
+                    }
+
+                    // Caso de más de 1 observación: Menú desplegable para no hacer cards gigantes
+                    return (
+                      <details className="obs-dropdown-menu">
+                        <summary className="obs-dropdown-summary">
+                          <div className="obs-dropdown-title">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" />
+                            </svg>
+                            <span>OBSERVACIONES ({parsed.length})</span>
+                          </div>
+                          <span className="obs-dropdown-btn">
+                            Ver historial ({parsed.length})
+                            <svg className="obs-dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                              <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                          </span>
+                        </summary>
+                        <div className="obs-dropdown-content">
+                          <div className="obs-items-list">
+                            {parsed.map((obs, idx) => (
+                              <div key={obs.id || idx} className="obs-single-entry obs-entry-bordered">
+                                <span className="obs-entry-num">Obs {idx + 1}:</span>
+                                <span className="obs-entry-text">{obs.texto}</span>
+                                <span className="obs-entry-date">📅 {obs.fecha}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </details>
+                    );
                   })()}
                 </div>
               )}
 
             </div>
-          ))}
+              );
+            })}
+        </section>
+        )}
+
+        {/* Barra inferior de paginación completa */}
+        {!cargando && totalPaginas > 1 && (
+          <div className="pagination-bottom-container">
+            <div className="pagination-nav">
+              <button
+                type="button"
+                className="btn-page-nav"
+                onClick={() => cambiarPagina(1)}
+                disabled={paginaActual === 1}
+                title="Primera página"
+              >
+                « Primera
+              </button>
+              <button
+                type="button"
+                className="btn-page-nav"
+                onClick={() => cambiarPagina(paginaActual - 1)}
+                disabled={paginaActual === 1}
+                title="Página anterior"
+              >
+                ‹ Anterior
+              </button>
+
+              <div className="page-numbers-group">
+                {generarBotonesPaginacion().map((item, idx) => {
+                  if (item === "...") {
+                    return <span key={`ellipsis-${idx}`} className="page-ellipsis">…</span>;
+                  }
+                  const num = item as number;
+                  return (
+                    <button
+                      key={num}
+                      type="button"
+                      className={`btn-page-number ${paginaActual === num ? "active" : ""}`}
+                      onClick={() => cambiarPagina(num)}
+                    >
+                      {num}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <button
+                type="button"
+                className="btn-page-nav"
+                onClick={() => cambiarPagina(paginaActual + 1)}
+                disabled={paginaActual === totalPaginas}
+                title="Página siguiente"
+              >
+                Siguiente ›
+              </button>
+              <button
+                type="button"
+                className="btn-page-nav"
+                onClick={() => cambiarPagina(totalPaginas)}
+                disabled={paginaActual === totalPaginas}
+                title="Última página"
+              >
+                Última »
+              </button>
+            </div>
+
+            <div className="page-jump-box">
+              <span>Ir a página:</span>
+              <input
+                type="number"
+                min={1}
+                max={totalPaginas}
+                value={inputSalto}
+                onChange={(e) => setInputSalto(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    const val = Number(inputSalto);
+                    if (val >= 1 && val <= totalPaginas) {
+                      cambiarPagina(val);
+                      setInputSalto("");
+                    }
+                  }
+                }}
+                placeholder={`${paginaActual}`}
+                className="input-page-jump"
+              />
+              <button
+                type="button"
+                className="btn-page-jump"
+                onClick={() => {
+                  const val = Number(inputSalto);
+                  if (val >= 1 && val <= totalPaginas) {
+                    cambiarPagina(val);
+                    setInputSalto("");
+                  }
+                }}
+              >
+                Ir
+              </button>
+            </div>
+          </div>
+        )}
 
           {/* Modal Ver Imágenes */}
           {showPopup && usuarioSeleccionado && (
@@ -1471,7 +1982,6 @@ export default function Home() {
               </div>
             </div>
           )}
-        </section>
       </main>
     </div>
   );

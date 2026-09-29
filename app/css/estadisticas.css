@@ -1,0 +1,643 @@
+/* ==========================================================
+   ESTILO EJECUTIVO: DETECCIÓN DE FRAUDES POR RUTA & INFORME GENERAL
+   Fondo Verde Institucional con Panel Flotante Blanco Pulido
+   ========================================================== */
+
+/* Contenedor Exterior sobre el Fondo Verde */
+.stats-page-wrapper {
+  min-height: 100vh;
+  padding: 24px 20px 60px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: 'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Ventana / Panel Principal Estilo Informe Blanco */
+.executive-window {
+  width: 100%;
+  max-width: 1320px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14), 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 32px 36px 40px;
+  position: relative;
+  margin-top: 10px;
+}
+
+/* Cabecera del Informe */
+.executive-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 26px;
+  padding-left: 48px; /* Margen para botón de menú lateral */
+}
+
+.executive-header-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.executive-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.025em;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.executive-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Botones de acción en la cabecera */
+.executive-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.executive-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #f8fafc;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.executive-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #94a3b8;
+  transform: translateY(-1px);
+}
+
+.executive-btn.primary {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+.executive-btn.primary:hover {
+  background: #1e293b;
+}
+
+/* ==========================================================
+   GRILLA DE 4 TARJETAS MÉTRICAS SUPERIORES (MATCH SCREENSHOT)
+   ========================================================== */
+.executive-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 26px;
+}
+
+@media (max-width: 1024px) {
+  .executive-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .executive-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.executive-kpi-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.executive-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+}
+
+.kpi-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.kpi-title.danger {
+  color: #b91c1c;
+}
+
+.kpi-value {
+  font-size: 32px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-value.danger {
+  color: #b91c1c;
+}
+
+.kpi-value.highlight-text {
+  font-size: 24px;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 4px;
+}
+
+/* ==========================================================
+   BARRA DE CONTROLES, PESTAÑAS Y BÚSQUEDA
+   ========================================================== */
+.executive-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+.executive-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.executive-tab-btn {
+  padding: 6px 14px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.executive-tab-btn:hover {
+  color: #0f172a;
+  background: #f1f5f9;
+}
+
+.executive-tab-btn.active {
+  background: #ffffff;
+  color: #0f172a;
+  border-color: #cbd5e1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.executive-search-wrapper {
+  position: relative;
+  min-width: 260px;
+  flex: 1;
+  max-width: 380px;
+}
+
+.executive-search-input {
+  width: 100%;
+  padding: 7px 12px 7px 34px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #0f172a;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.executive-search-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.executive-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+/* ==========================================================
+   TABLA PRINCIPAL ESTILO SCREENSHOT
+   ========================================================== */
+.executive-table-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  margin-bottom: 24px;
+}
+
+.executive-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+/* Encabezado Gris Pálido */
+.executive-table thead tr {
+  background-color: #e2e8f0;
+}
+
+.executive-table th {
+  padding: 14px 20px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #334155;
+  letter-spacing: -0.01em;
+  border: none;
+}
+
+.executive-table th.center-col {
+  text-align: center;
+}
+
+/* Filas del Cuerpo */
+.executive-table tbody tr {
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.15s ease;
+}
+
+.executive-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.executive-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.executive-table td {
+  padding: 14px 20px;
+  font-size: 14px;
+  color: #1e293b;
+  vertical-align: middle;
+}
+
+.executive-table td.item-name {
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Formato con barra vertical pipe para los números: "| 8,500" */
+.table-stat-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.table-stat-pipe {
+  color: #cbd5e1;
+  font-weight: 300;
+  user-select: none;
+}
+
+.table-stat-number {
+  font-weight: 600;
+  color: #334155;
+}
+
+/* Porcentaje con Barra de Progreso */
+.pct-bar-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pct-text {
+  font-weight: 600;
+  color: #1e293b;
+  min-width: 58px;
+  font-variant-numeric: tabular-nums;
+}
+
+.pct-track {
+  width: 90px;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.pct-fill {
+  height: 100%;
+  background: #dc2626;
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+/* Pastillas de Nivel de Riesgo (Alto / Medio / Bajo) */
+.risk-badge {
+  display: inline-block;
+  padding: 4px 16px;
+  border-radius: 9999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-align: center;
+  min-width: 68px;
+}
+
+.risk-badge.alto {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.risk-badge.medio {
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.risk-badge.bajo {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+/* ==========================================================
+   DESGLOSE POR ESTADOS Y FRAUDES (PANEL SECUNDARIO)
+   ========================================================== */
+.secondary-panel-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 22px 24px;
+  margin-bottom: 24px;
+}
+
+.secondary-panel-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 16px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.desglose-chips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.desglose-chip {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chip-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.chip-value {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.chip-bar-track {
+  height: 5px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.chip-bar-fill {
+  height: 100%;
+  background: #dc2626;
+  border-radius: 4px;
+}
+
+/* Estado de Carga y Vacío */
+.table-empty-message {
+  text-align: center;
+  padding: 40px 20px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.spinner-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Adaptabilidad Móvil */
+@media (max-width: 768px) {
+  .executive-window {
+    padding: 20px 16px 30px;
+  }
+
+  .executive-header {
+    padding-left: 0;
+  }
+
+  .executive-title {
+    font-size: 22px;
+  }
+
+  .executive-table th,
+  .executive-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .pct-track {
+    width: 60px;
+  }
+}
+
+/* ==========================================================
+   ESTILOS PARA CUADRILLAS, ESTADOS Y TARIFAS
+   ========================================================== */
+.cuadrillas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.cuadrilla-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.cuadrilla-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e1;
+}
+
+.cuadrilla-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.cuadrilla-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cuadrilla-badge {
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.cuadrilla-stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.cuadrilla-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.cuadrilla-stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #64748b;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.cuadrilla-stat-val {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-top: 2px;
+}
+
+.cuadrilla-chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.estado-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.estado-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.summary-columns-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1024px) {
+  .summary-columns-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.summary-col-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.summary-col-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+

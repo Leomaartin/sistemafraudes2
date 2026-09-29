@@ -17,6 +17,7 @@ export async function DELETE(req: NextRequest) {
                 estado: true,
                 estadoDepto: true,
                 tarifa: true,
+                rubro: true,
             }
         });
         return NextResponse.json(usuario);
@@ -45,6 +46,7 @@ export async function GET(req: NextRequest) {
                 estado: true,
                 estadoDepto: true,
                 tarifa: true,
+                rubro: true,
             }
         });
         return NextResponse.json(usuario);
@@ -93,6 +95,16 @@ export async function POST(req: NextRequest) {
         const latitud = parseCoord(body.latitud) ?? null;
         const longitud = parseCoord(body.longitud) ?? null;
 
+        let idRubro = parseId(body.idRubro ?? body.rubroId);
+        let rubroComercio = body.rubroComercio ? String(body.rubroComercio).trim() : null;
+        if (!idRubro && rubroComercio) {
+            const r = await prisma.rubro.findFirst({ where: { nombre: { equals: rubroComercio, mode: "insensitive" } } });
+            if (r) idRubro = r.id;
+        } else if (idRubro && !rubroComercio) {
+            const r = await prisma.rubro.findUnique({ where: { id: idRubro } });
+            if (r) rubroComercio = r.nombre;
+        }
+
         const usuario = await prisma.usuario.create({
             data: {
                 nroUsuario: String(body.nroUsuario || "").trim(),
@@ -109,6 +121,9 @@ export async function POST(req: NextRequest) {
                 idTarifa,
                 esDepartamento,
                 idEstadoDepto,
+                idRubro,
+                rubroComercio,
+                nombreComercio: body.nombreComercio ? String(body.nombreComercio).trim() : null,
                 cuadrillas: cuadrillaIds.length > 0 ? {
                     connect: cuadrillaIds.map((id) => ({ id }))
                 } : undefined,
@@ -118,6 +133,7 @@ export async function POST(req: NextRequest) {
                 estado: true,
                 estadoDepto: true,
                 tarifa: true,
+                rubro: true,
             }
         });
 
@@ -207,6 +223,27 @@ export async function PUT(req: NextRequest) {
             idEstadoDepto = parseOptionalId(body.idEstadoDepto ?? body.idDepto);
         }
 
+        let idRubroUpdate: number | null | undefined = undefined;
+        let rubroComercioUpdate: string | null | undefined = undefined;
+
+        if ("idRubro" in body || "rubroId" in body) {
+            idRubroUpdate = parseOptionalId(body.idRubro ?? body.rubroId);
+            if (idRubroUpdate) {
+                const r = await prisma.rubro.findUnique({ where: { id: idRubroUpdate } });
+                rubroComercioUpdate = r?.nombre ?? null;
+            } else if (idRubroUpdate === null) {
+                rubroComercioUpdate = null;
+            }
+        } else if ("rubroComercio" in body) {
+            rubroComercioUpdate = body.rubroComercio ? String(body.rubroComercio).trim() : null;
+            if (rubroComercioUpdate) {
+                const r = await prisma.rubro.findFirst({ where: { nombre: { equals: rubroComercioUpdate, mode: "insensitive" } } });
+                idRubroUpdate = r?.id ?? null;
+            } else {
+                idRubroUpdate = null;
+            }
+        }
+
         const usuario = await prisma.usuario.update({
             where: { id },
             data: {
@@ -225,12 +262,16 @@ export async function PUT(req: NextRequest) {
                 idTarifa,
                 esDepartamento,
                 idEstadoDepto,
+                idRubro: idRubroUpdate,
+                rubroComercio: rubroComercioUpdate,
+                nombreComercio: body.nombreComercio !== undefined ? (body.nombreComercio ? String(body.nombreComercio).trim() : null) : undefined,
             },
             include: {
                 cuadrillas: true,
                 estado: true,
                 estadoDepto: true,
                 tarifa: true,
+                rubro: true,
             }
         });
 

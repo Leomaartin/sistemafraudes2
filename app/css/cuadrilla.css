@@ -78,6 +78,7 @@
   flex-direction: column;
   gap: 12px;
   max-width: 720px;
+  padding-left: 56px;
 }
 
 .btn-back {

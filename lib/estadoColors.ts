@@ -21,10 +21,34 @@ export interface EstadoColorDef {
   dotColor: string;
   colorName: string; // "piel", "rojo", "naranja", "gris", "amarillo", "celeste", "violeta"
   emoji?: string;
-  ids: number[];
+  ids?: number[];
 }
 
 export const ESTADOS_MAPA_CONFIG: EstadoColorDef[] = [
+  {
+    key: "corte",
+    nombre: "CORTE",
+    colorName: "Rojo",
+    bg: "#ef4444", // Rojo
+    text: "#ffffff",
+    border: "#b91c1c",
+    badgeBg: "#fee2e2",
+    badgeText: "#b91c1c",
+    dotColor: "#ef4444",
+    ids: [16],
+  },
+  {
+    key: "corte_fraude",
+    nombre: "CORTE / FRAUDE",
+    colorName: "Rojo",
+    bg: "#ef4444", // Rojo
+    text: "#ffffff",
+    border: "#b91c1c",
+    badgeBg: "#fee2e2",
+    badgeText: "#b91c1c",
+    dotColor: "#ef4444",
+    ids: [17],
+  },
   {
     key: "notificado",
     nombre: "NOTIFICADO",
@@ -59,31 +83,43 @@ export const ESTADOS_MAPA_CONFIG: EstadoColorDef[] = [
     badgeBg: "#fee2e2",
     badgeText: "#b91c1c",
     dotColor: "#ef4444",
-    ids: [3],
+    ids: [3, 7],
+  },
+  {
+    key: "sin_fraude",
+    nombre: "SIN FRAUDE",
+    colorName: "Verde",
+    bg: "#10b981",
+    text: "#ffffff",
+    border: "#047857",
+    badgeBg: "#d1fae5",
+    badgeText: "#065f46",
+    dotColor: "#10b981",
+    ids: [15],
   },
   {
     key: "reconectado",
     nombre: "RECONECTADO",
-    colorName: "Celeste",
-    bg: "#0ea5e9", // Celeste / Sky
+    colorName: "Azul",
+    bg: "#0284c7", // Azul vibrante
     text: "#ffffff",
-    border: "#0284c7",
+    border: "#0369a1",
     badgeBg: "#e0f2fe",
     badgeText: "#0369a1",
-    dotColor: "#0ea5e9",
-    ids: [4],
+    dotColor: "#0ea5e9", // Punto azul
+    ids: [4, 14],
   },
   {
     key: "reconectado_fraude",
     nombre: "RECONECTADO / FRAUDE",
-    colorName: "Celeste",
-    bg: "#0ea5e9",
+    colorName: "Azul",
+    bg: "#0284c7", // Azul
     text: "#ffffff",
-    border: "#0284c7",
+    border: "#0369a1",
     badgeBg: "#e0f2fe",
     badgeText: "#0369a1",
-    dotColor: "#0ea5e9",
-    ids: [5],
+    dotColor: "#0ea5e9", // Punto azul
+    ids: [5, 10],
   },
   {
     key: "retirado",
@@ -188,52 +224,62 @@ export const ESTADOS_MAPA_CONFIG: EstadoColorDef[] = [
  * Obtiene la configuración de color exacta para un estado dado por id o nombre.
  */
 export function obtenerConfigEstadoPorUsuario(estado?: { id?: number; nombre?: string } | null): EstadoColorDef {
-  if (!estado) {
+  if (!estado || !estado.nombre || !estado.nombre.trim()) {
     return {
       key: "sin_estado",
-      nombre: "SIN ESTADO",
+      nombre: "Sin Estado",
       colorName: "Gris",
       bg: "#64748b",
       text: "#ffffff",
       border: "#475569",
       badgeBg: "#f1f5f9",
-      badgeText: "#334155",
-      dotColor: "#64748b",
+      badgeText: "#475569",
+      dotColor: "#94a3b8", // Punto gris
       ids: [],
     };
   }
 
-  const id = estado.id;
-  const nombre = (estado.nombre || "").trim().toUpperCase();
+  const nombre = (estado.nombre || "").trim().toUpperCase().replace(/\s+/g, " ");
 
-  // Coincidencia por ID primero
-  if (id) {
-    const porId = ESTADOS_MAPA_CONFIG.find((e) => e.ids.includes(id));
-    if (porId) return porId;
+  // 1. Prioridad: Lo que sea CORTE -> Rojo con punto rojo
+  if (nombre.includes("CORTE")) {
+    const cfgCorte = ESTADOS_MAPA_CONFIG.find((e) => e.key === "corte")!;
+    return {
+      ...cfgCorte,
+      nombre: estado.nombre,
+    };
   }
 
-  // Coincidencia por nombre
-  const porNombre = ESTADOS_MAPA_CONFIG.find((e) => {
-    const eNom = e.nombre.toUpperCase();
-    return nombre === eNom || nombre.includes(eNom) || eNom.includes(nombre);
-  });
-  if (porNombre) return porNombre;
-
-  // Si es un estado de llaves / departamento
-  if (id && [14, 15, 16, 17].includes(id)) {
+  // 2. Prioridad: Los RECONECTADOS -> Azul con punto azul
+  if (nombre.includes("RECONECTAD")) {
+    const cfgRec = ESTADOS_MAPA_CONFIG.find((e) => e.key === "reconectado")!;
     return {
-      key: "depto",
-      nombre: estado.nombre || "DEPARTAMENTO",
-      colorName: "Índigo",
-      bg: "#6366f1",
-      text: "#ffffff",
-      border: "#4338ca",
-      badgeBg: "#e0e7ff",
-      badgeText: "#3730a3",
-      dotColor: "#6366f1",
-      emoji: "🏢",
-      ids: [14, 15, 16, 17],
+      ...cfgRec,
+      nombre: estado.nombre,
     };
+  }
+
+  // 3. Coincidencia exacta por nombre normalizado
+  if (nombre) {
+    const porNombreExacto = ESTADOS_MAPA_CONFIG.find((e) => {
+      const eNom = e.nombre.toUpperCase().replace(/\s+/g, " ");
+      return nombre === eNom;
+    });
+    if (porNombreExacto) return porNombreExacto;
+
+    // Coincidencia parcial si no hubo exacta
+    const porNombreParcial = ESTADOS_MAPA_CONFIG.find((e) => {
+      const eNom = e.nombre.toUpperCase().replace(/\s+/g, " ");
+      return nombre.includes(eNom) || eNom.includes(nombre);
+    });
+    if (porNombreParcial) return porNombreParcial;
+  }
+
+  // 4. Coincidencia por ID como fallback secundario
+  const id = estado.id;
+  if (id) {
+    const porId = ESTADOS_MAPA_CONFIG.find((e) => e.ids?.includes(id));
+    if (porId) return porId;
   }
 
   // Fallback por defecto rojo

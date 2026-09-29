@@ -1,0 +1,259 @@
+{
+  "totalUsuarios": 12494,
+  "reporteGlobal": [
+    {
+      "idEstado": 7,
+      "nombre": "FRAUDE",
+      "cantidad": 4765,
+      "porcentaje": "38.14"
+    },
+    {
+      "idEstado": null,
+      "nombre": "(SIN ESTADO ASIGNADO)",
+      "cantidad": 1695,
+      "porcentaje": "13.57"
+    },
+    {
+      "idEstado": 14,
+      "nombre": "reconectado",
+      "cantidad": 968,
+      "porcentaje": "7.75"
+    },
+    {
+      "idEstado": 15,
+      "nombre": "SIN FRAUDE",
+      "cantidad": 811,
+      "porcentaje": "6.49"
+    },
+    {
+      "idEstado": 3,
+      "nombre": "BAJA",
+      "cantidad": 780,
+      "porcentaje": "6.24"
+    },
+    {
+      "idEstado": 5,
+      "nombre": "SUSPENDIDO",
+      "cantidad": 713,
+      "porcentaje": "5.71"
+    },
+    {
+      "idEstado": 2,
+      "nombre": "BAJA / FRAUDE",
+      "cantidad": 536,
+      "porcentaje": "4.29"
+    },
+    {
+      "idEstado": 10,
+      "nombre": "RECONECTADO / FRAUDE",
+      "cantidad": 513,
+      "porcentaje": "4.11"
+    },
+    {
+      "idEstado": 17,
+      "nombre": "CORTE / FRAUDE",
+      "cantidad": 509,
+      "porcentaje": "4.07"
+    },
+    {
+      "idEstado": 16,
+      "nombre": "CORTE",
+      "cantidad": 467,
+      "porcentaje": "3.74"
+    },
+    {
+      "idEstado": 4,
+      "nombre": "NOTIFICADO",
+      "cantidad": 421,
+      "porcentaje": "3.37"
+    },
+    {
+      "idEstado": 9,
+      "nombre": "PAGOS A CUENTA",
+      "cantidad": 102,
+      "porcentaje": "0.82"
+    },
+    {
+      "idEstado": 8,
+      "nombre": "TIEMPO",
+      "cantidad": 75,
+      "porcentaje": "0.60"
+    },
+    {
+      "idEstado": 6,
+      "nombre": "GERENCIA",
+      "cantidad": 57,
+      "porcentaje": "0.46"
+    },
+    {
+      "idEstado": 12,
+      "nombre": "RETIRADO",
+      "cantidad": 44,
+      "porcentaje": "0.35"
+    },
+    {
+      "idEstado": 13,
+      "nombre": "RETIRADO / FRAUDE",
+      "cantidad": 27,
+      "porcentaje": "0.22"
+    },
+    {
+      "idEstado": 11,
+      "nombre": "PAGOS A CUENTA / FRAUDE",
+      "cantidad": 10,
+      "porcentaje": "0.08"
+    },
+    {
+      "idEstado": 1,
+      "nombre": "RECONECTADO",
+      "cantidad": 1,
+      "porcentaje": "0.01"
+    }
+  ],
+  "totalSinEstado": 1695,
+  "sortedRestantes": [
+    [
+      "SIN OBSERVACIONES / CAMPO VACÍO",
+      {
+        "count": 1344,
+        "samples": []
+      }
+    ],
+    [
+      "OTRAS NOTAS TÉCNICAS DIVERSAS",
+      {
+        "count": 236,
+        "samples": [
+          "observacion 1: nno encotraron medidor - 22/09/2025",
+          "observacion 1: el medidor estaba roto, pedi cambio de med pago total - 19/11/2025",
+          "observacion 1: SE ENCONTRO DIRECTO AVISO EL POLACO QUE LO DEJARON ELLOS EL MEDIDOR ESTABA QUEMADO  PUEDE SER ASIQUESE PONE MEDIDOR 1146292 EST 15597,4 SE PASO A FACT - 10/03/2026",
+          "observacion 1: como era usuario nuevo dejar correr y cobrar diferencia de consumos por los meses de alta del medidor - 28/09/2026"
+        ]
+      }
+    ],
+    [
+      "MEDIDOR INTERNO / ACCESO DIFICULTOSO",
+      {
+        "count": 44,
+        "samples": [
+          "observacion 1: Medidor interno hizo cambio de titularidad 170749 - 28/09/2026",
+          "observacion 1: medidor interno  portero 3487405670 - 28/09/2026",
+          "observacion 1: medidor interno - 28/09/2026",
+          "observacion 1: medidor interno  portero 3487405670 - 28/09/2026"
+        ]
+      }
+    ],
+    [
+      "TRÁMITE DE PAGO O DEUDA",
+      {
+        "count": 17,
+        "samples": [
+          "observacion 1: aviso de deuda - 20/02/2026",
+          "observacion 1: aviso de deuda - 20/02/2026",
+          "observacion 1: aviso de deuda - 28/09/2026",
+          "observacion 1: aviso de deuda - 28/09/2026"
+        ]
+      }
+    ],
+    [
+      "REFERENCIA INMOBILIARIA / LLAVES",
+      {
+        "count": 12,
+        "samples": [
+          "observacion 1: llaves inmobiliaria perfetto - san martin 300 - 28/09/2026",
+          "observacion 1: llaves inmobiliaria perfetto - san martin 300 - 28/09/2026",
+          "observacion 1: llaves inmobiliaria perfetto - san martin 300 - 28/09/2026",
+          "observacion 1: llaves inmobiliaria perfetto - san martin 300 - 28/09/2026"
+        ]
+      }
+    ],
+    [
+      "CAMBIO DE MEDIDOR / ALTA TÉCNICA",
+      {
+        "count": 10,
+        "samples": [
+          "observacion 1: cambio de medidor pasado a fac - 12/01/2026",
+          "observacion 1: cambio de medidor pedido a fac - 12/01/2026",
+          "observacion 1: cambio de medidor medidor de alta numero 120260 estado 0 - 14/01/2026",
+          "observacion 1: cambio de medidor alta nuevo 606137302 estado 20272 pasado a eri - 14/01/2026"
+        ]
+      }
+    ],
+    [
+      "REFERENCIA COMERCIAL / LOCAL",
+      {
+        "count": 9,
+        "samples": [
+          "observacion 1: Carniceria El Abasto - 28/09/2026",
+          "observacion 1: Carniceria El Pato 3/8/26 local cerrado - 03/08/2026",
+          "observacion 1: Carniceria Mercado de carnes La Ternera - 28/09/2026",
+          "observacion 1: Carniceria - 28/09/2026"
+        ]
+      }
+    ],
+    [
+      "MEDIDOR DEFECTUOSO / CON AGUA / ROTO",
+      {
+        "count": 7,
+        "samples": [
+          "observacion 1: medidor roto pedi el cambio - 16/06/2026",
+          "observacion 1: medidor con agua, cambio pedido - 12/01/2026",
+          "observacion 1: medidor roto lo tiene colocado - 15/07/2026",
+          "observacion 1: medidor roto 6/10/25 MEDIDOR ROTO , SOLICITE CAMBIO en atencion al publico - 26/12/2024"
+        ]
+      }
+    ],
+    [
+      "SOLO LECTURA DE MEDIDOR / ESTADO NUMÉRICO",
+      {
+        "count": 6,
+        "samples": [
+          "observacion 1: M -   6138567 - 28/09/2026",
+          "observacion 1: A 7090 RET DE MED X INHB X D ESTADO 45349,2 - 13/11/2025",
+          "observacion 1: todo bienm - 27/12/2024",
+          "observacion 1: REVISADO SIN FRSUDE ESTADO 51157,5 - 07/05/2025"
+        ]
+      }
+    ],
+    [
+      "SUMINISTRO / MEDIDOR NO LOCALIZADO",
+      {
+        "count": 6,
+        "samples": [
+          "observacion 1: no encontraron domicilio y/o med prieto - 13/08/2025",
+          "observacion 1: no encontraron el medidor - 28/10/2025",
+          "observacion 1: NO ENCUENTRAN - 19/06/2025",
+          "observacion 1: no encontraron el medidor - 16/09/2026"
+        ]
+      }
+    ],
+    [
+      "SIN SERVICIO TÉCNICO / SIN CABLES",
+      {
+        "count": 2,
+        "samples": [
+          "observacion 1: sin servicio no tiene cables de carga 25/11/25 SIGUE SIN SERVCIO - 01/08/2025",
+          "observacion 1: SIN MEDIDOR SIN SERVICIO - 10/07/2025"
+        ]
+      }
+    ],
+    [
+      "VIVIENDA INEXISTENTE / DEMOLIDA",
+      {
+        "count": 1,
+        "samples": [
+          "observacion 1: no existe mas la vivienda - 28/09/2026"
+        ]
+      }
+    ],
+    [
+      "SOLICITUD DE RE-INSPECCIÓN / FOTO",
+      {
+        "count": 1,
+        "samples": [
+          "observacion 1: revisar conexión - enviar foto del medidor y del lugar CONFIRMAR SI TAMBIÉN LO USA EL CORRALON - 28/09/2026"
+        ]
+      }
+    ]
+  ]
+}

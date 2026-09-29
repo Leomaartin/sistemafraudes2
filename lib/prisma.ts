@@ -16,9 +16,15 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({ adapter });
+// Re-instanciar cliente para reflejar cambios de esquema en caliente
+if (globalForPrisma.prisma) {
+  try {
+    globalForPrisma.prisma.$disconnect();
+  } catch (e) {}
+  globalForPrisma.prisma = undefined;
+}
+
+export const prisma = new PrismaClient({ adapter });
 
 if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;

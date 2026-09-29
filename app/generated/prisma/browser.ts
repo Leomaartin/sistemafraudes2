@@ -23,6 +23,11 @@ export * from './enums';
  */
 export type Usuario = Prisma.UsuarioModel
 /**
+ * Model Rubro
+ * 
+ */
+export type Rubro = Prisma.RubroModel
+/**
  * Model Cuadrilla
  * 
  */

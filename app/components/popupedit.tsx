@@ -6,11 +6,14 @@ import "../css/popup.css";
 import "../css/crudUsers.css";
 import MapaSelector from "./mapaSelector";
 import { OPCIONES_DEPARTAMENTO, IDS_DEPARTAMENTO } from "@/lib/departamentoConfig";
+import { TIPOS_COMERCIO, esTarifaComercial } from "@/lib/comercioConfig";
 import {
   ObservacionItem,
   obtenerFechaActualFormateada,
   parsearObservaciones,
   formatearObservacionesParaGuardar,
+  formatearAFechaInput,
+  formatearDesdeFechaInput,
 } from "@/lib/observaciones";
 
 export interface CatalogoItem {
@@ -58,6 +61,8 @@ export default function PopupEdit({
     idEstado: "",
     idTarifa: "",
     fechaVto: "",
+    rubroComercio: "",
+    nombreComercio: "",
   });
 
   const toggleCuadrilla = (id: number) => {
@@ -80,6 +85,12 @@ export default function PopupEdit({
   const handleUpdateObservacion = (id: string, texto: string) => {
     setObservacionesList((prev) =>
       prev.map((item) => (item.id === id ? { ...item, texto } : item))
+    );
+  };
+
+  const handleUpdateFechaObservacion = (id: string, fecha: string) => {
+    setObservacionesList((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, fecha } : item))
     );
   };
 
@@ -180,6 +191,8 @@ export default function PopupEdit({
         fechaVto: userData.fechaVto
           ? new Date(userData.fechaVto).toISOString().split("T")[0]
           : "",
+        rubroComercio: userData.rubroComercio || userData.rubro?.nombre || "",
+        nombreComercio: userData.nombreComercio || "",
       });
     } catch (err: any) {
       console.error("Error al cargar datos del usuario:", err);
@@ -220,6 +233,9 @@ export default function PopupEdit({
 
     setSaving(true);
 
+    const tarifaActualObj = tarifas.find((t) => String(t.id) === String(formData.idTarifa));
+    const esComercial = esTarifaComercial(tarifaActualObj?.nombre);
+
     try {
       const observacionesFormatted = formatearObservacionesParaGuardar(observacionesList);
 
@@ -249,6 +265,8 @@ export default function PopupEdit({
           fechaVto: formData.fechaVto ? new Date(formData.fechaVto + "T12:00:00Z").toISOString() : null,
           esDepartamento,
           idEstadoDepto: esDepartamento ? idEstadoDepto : null,
+          rubroComercio: esComercial ? (formData.rubroComercio ? formData.rubroComercio.trim() : null) : null,
+          nombreComercio: esComercial ? (formData.nombreComercio ? formData.nombreComercio.trim() : null) : null,
         }),
       });
 
@@ -310,6 +328,10 @@ export default function PopupEdit({
 
   // Filtrar estados normales para que no aparezcan los de departamento en el desplegable principal
   const estadosPrincipales = estados.filter((item) => !IDS_DEPARTAMENTO.includes(item.id));
+
+  // Detectar si la tarifa seleccionada es comercial (T1G o T1G-I)
+  const tarifaActualObj = tarifas.find((t) => String(t.id) === String(formData.idTarifa));
+  const esComercial = esTarifaComercial(tarifaActualObj?.nombre);
 
   return (
     <div className="crud-user-wrapper">
@@ -543,6 +565,76 @@ export default function PopupEdit({
                 ))}
               </select>
             </div>
+
+            {/* Bloque desplegable de Comercio para Tarifas T1G / T1G-I */}
+            {esComercial && (
+              <div
+                className="comercio-selection-box"
+                style={{
+                  gridColumn: "span 2",
+                  background: "#f0fdf4",
+                  border: "1.5px solid #22c55e",
+                  borderRadius: "12px",
+                  padding: "16px",
+                  marginTop: "8px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "12px",
+                  boxShadow: "0 2px 8px rgba(34, 197, 94, 0.1)",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span style={{ fontSize: "22px" }}>🏪</span>
+                  <div>
+                    <h5 style={{ margin: 0, fontSize: "14px", fontWeight: 800, color: "#166534" }}>
+                      Datos del Comercio (Tarifa: {tarifaActualObj?.nombre || "Comercial"})
+                    </h5>
+                    <p style={{ margin: 0, fontSize: "12px", color: "#15803d" }}>
+                      Selecciona el tipo de comercio y asigna un nombre informal de referencia para identificar el local.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="form-grid" style={{ marginTop: "4px" }}>
+                  <div className="input-group">
+                    <label htmlFor="edit-rubro-comercio" style={{ color: "#166534", fontWeight: 700 }}>
+                      Tipo de Comercio
+                    </label>
+                    <select
+                      id="edit-rubro-comercio"
+                      name="rubroComercio"
+                      value={formData.rubroComercio}
+                      onChange={handleChange}
+                      className="select-custom"
+                      style={{ borderColor: "#86efac", background: "#ffffff" }}
+                    >
+                      <option value="">-- Seleccionar tipo de comercio --</option>
+                      {TIPOS_COMERCIO.map((tipo) => (
+                        <option key={tipo} value={tipo}>
+                          {tipo}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="input-group">
+                    <label htmlFor="edit-nombre-comercio" style={{ color: "#166534", fontWeight: 700 }}>
+                      Nombre Informal del Comercio
+                    </label>
+                    <input
+                      id="edit-nombre-comercio"
+                      type="text"
+                      name="nombreComercio"
+                      value={formData.nombreComercio}
+                      onChange={handleChange}
+                      placeholder="Ej: Carnicería El Abasto, Supermercado Chino..."
+                      className="input-custom"
+                      style={{ borderColor: "#86efac", background: "#ffffff" }}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -627,10 +719,26 @@ export default function PopupEdit({
                       <span className="obs-item-label">
                         <span>📝</span> Observación #{index + 1}
                       </span>
-                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                        <span className="obs-item-date-tag">
-                          📅 Fecha de carga: {obs.fecha} (automática)
-                        </span>
+                      <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+                        <div
+                          className="obs-date-control"
+                          title="Fecha de la observación. Haz clic para cambiarla."
+                        >
+                          <span style={{ fontSize: "13px" }}>📅</span>
+                          <span style={{ fontSize: "11px", fontWeight: 700, color: "#475569" }}>Fecha:</span>
+                          <input
+                            type="date"
+                            className="obs-date-input"
+                            value={formatearAFechaInput(obs.fecha)}
+                            onChange={(e) =>
+                              handleUpdateFechaObservacion(
+                                obs.id,
+                                formatearDesdeFechaInput(e.target.value)
+                              )
+                            }
+                            title="Haga clic para cambiar la fecha de esta observación"
+                          />
+                        </div>
                         {observacionesList.length > 1 && (
                           <button
                             type="button"

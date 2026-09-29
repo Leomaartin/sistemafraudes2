@@ -4,10 +4,13 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import MapaSelector from "./mapaSelector";
 import { OPCIONES_DEPARTAMENTO, IDS_DEPARTAMENTO } from "@/lib/departamentoConfig";
+import { TIPOS_COMERCIO, esTarifaComercial } from "@/lib/comercioConfig";
 import {
   ObservacionItem,
   obtenerFechaActualFormateada,
   formatearObservacionesParaGuardar,
+  formatearAFechaInput,
+  formatearDesdeFechaInput,
 } from "@/lib/observaciones";
 
 export interface CatalogoItem {
@@ -41,6 +44,8 @@ export default function CrudUsers({
   const [selectedCuadrillas, setSelectedCuadrillas] = useState<number[]>([]);
   const [estadoId, setEstadoId] = useState("");
   const [tarifaId, setTarifaId] = useState("");
+  const [rubroComercio, setRubroComercio] = useState("");
+  const [nombreComercio, setNombreComercio] = useState("");
   const [fechaVto, setFechaVto] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -76,6 +81,12 @@ export default function CrudUsers({
     );
   };
 
+  const handleUpdateFechaObservacion = (id: string, fecha: string) => {
+    setObservacionesList((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, fecha } : item))
+    );
+  };
+
   const handleRemoveObservacion = (id: string) => {
     setObservacionesList((prev) => prev.filter((item) => item.id !== id));
   };
@@ -93,6 +104,8 @@ export default function CrudUsers({
     setSelectedCuadrillas([]);
     setEstadoId("");
     setTarifaId("");
+    setRubroComercio("");
+    setNombreComercio("");
     setEsDepartamento(false);
     setIdEstadoDepto(null);
     setObservacionesList([
@@ -108,11 +121,6 @@ export default function CrudUsers({
       return;
     }
 
-    if (selectedCuadrillas.length === 0) {
-      toast.warning("Por favor, selecciona al menos una cuadrilla.");
-      return;
-    }
-
     if (!estadoId || !tarifaId) {
       toast.warning("Por favor, selecciona un estado y una tarifa.");
       return;
@@ -124,6 +132,9 @@ export default function CrudUsers({
     }
 
     setIsSubmitting(true);
+
+    const tarifaActualObj = tarifas.find((t) => String(t.id) === String(tarifaId));
+    const esComercial = esTarifaComercial(tarifaActualObj?.nombre);
 
     try {
       const observacionesFormatted = formatearObservacionesParaGuardar(observacionesList);
@@ -149,6 +160,8 @@ export default function CrudUsers({
           idTarifa: parseInt(tarifaId, 10),
           esDepartamento,
           idEstadoDepto: esDepartamento ? idEstadoDepto : null,
+          rubroComercio: esComercial ? (rubroComercio.trim() || null) : null,
+          nombreComercio: esComercial ? (nombreComercio.trim() || null) : null,
         }),
       });
 
@@ -182,6 +195,9 @@ export default function CrudUsers({
 
   // Filtrar estados normales para que no aparezcan los de departamento en el desplegable principal
   const estadosPrincipales = estados.filter((item) => !IDS_DEPARTAMENTO.includes(item.id));
+
+  const tarifaActualObj = tarifas.find((t) => String(t.id) === String(tarifaId));
+  const esComercial = esTarifaComercial(tarifaActualObj?.nombre);
 
   return (
     <div className="crud-user-wrapper">
@@ -338,10 +354,10 @@ export default function CrudUsers({
         {/* Sección 2: Asignaciones */}
         <div className="form-section">
           <h4 className="section-title">
-            <span className="section-num">2</span> Selección de Múltiples Cuadrillas y Estado
+            <span className="section-num">2</span> Asignación de Cuadrillas y Estado
           </h4>
           <div className="input-group">
-            <label>Selecciona una o más cuadrillas para este usuario:</label>
+            <label>Cuadrillas asignadas (opcional, puede quedar vacía):</label>
             <div className="cuadrillas-checkbox-grid" style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "6px" }}>
               {cuadrillas.map((item) => {
                 const isSelected = selectedCuadrillas.includes(item.id);
@@ -409,6 +425,74 @@ export default function CrudUsers({
                 ))}
               </select>
             </div>
+
+            {/* Bloque desplegable de Comercio para Tarifas T1G / T1G-I */}
+            {esComercial && (
+              <div
+                className="comercio-selection-box"
+                style={{
+                  gridColumn: "span 2",
+                  background: "#f0fdf4",
+                  border: "1.5px solid #22c55e",
+                  borderRadius: "12px",
+                  padding: "16px",
+                  marginTop: "8px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "12px",
+                  boxShadow: "0 2px 8px rgba(34, 197, 94, 0.1)",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span style={{ fontSize: "22px" }}>🏪</span>
+                  <div>
+                    <h5 style={{ margin: 0, fontSize: "14px", fontWeight: 800, color: "#166534" }}>
+                      Datos del Comercio (Tarifa: {tarifaActualObj?.nombre || "Comercial"})
+                    </h5>
+                    <p style={{ margin: 0, fontSize: "12px", color: "#15803d" }}>
+                      Selecciona el tipo de comercio y asigna un nombre informal de referencia para identificar el local.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="form-grid" style={{ marginTop: "4px" }}>
+                  <div className="input-group">
+                    <label htmlFor="create-rubro-comercio" style={{ color: "#166534", fontWeight: 700 }}>
+                      Tipo de Comercio
+                    </label>
+                    <select
+                      id="create-rubro-comercio"
+                      value={rubroComercio}
+                      onChange={(e) => setRubroComercio(e.target.value)}
+                      className="select-custom"
+                      style={{ borderColor: "#86efac", background: "#ffffff" }}
+                    >
+                      <option value="">-- Seleccionar tipo de comercio --</option>
+                      {TIPOS_COMERCIO.map((tipo) => (
+                        <option key={tipo} value={tipo}>
+                          {tipo}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="input-group">
+                    <label htmlFor="create-nombre-comercio" style={{ color: "#166534", fontWeight: 700 }}>
+                      Nombre Informal del Comercio
+                    </label>
+                    <input
+                      id="create-nombre-comercio"
+                      type="text"
+                      value={nombreComercio}
+                      onChange={(e) => setNombreComercio(e.target.value)}
+                      placeholder="Ej: Carnicería El Abasto, Supermercado Chino..."
+                      className="input-custom"
+                      style={{ borderColor: "#86efac", background: "#ffffff" }}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -474,10 +558,26 @@ export default function CrudUsers({
                       <span className="obs-item-label">
                         <span>📝</span> Observación #{index + 1}
                       </span>
-                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                        <span className="obs-item-date-tag">
-                          📅 Fecha de carga: {obs.fecha} (automática)
-                        </span>
+                      <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+                        <div
+                          className="obs-date-control"
+                          title="Fecha de la observación. Haz clic para cambiarla."
+                        >
+                          <span style={{ fontSize: "13px" }}>📅</span>
+                          <span style={{ fontSize: "11px", fontWeight: 700, color: "#475569" }}>Fecha:</span>
+                          <input
+                            type="date"
+                            className="obs-date-input"
+                            value={formatearAFechaInput(obs.fecha)}
+                            onChange={(e) =>
+                              handleUpdateFechaObservacion(
+                                obs.id,
+                                formatearDesdeFechaInput(e.target.value)
+                              )
+                            }
+                            title="Haga clic para cambiar la fecha de esta observación"
+                          />
+                        </div>
                         {observacionesList.length > 1 && (
                           <button
                             type="button"

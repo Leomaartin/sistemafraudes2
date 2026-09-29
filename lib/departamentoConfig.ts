@@ -7,29 +7,29 @@ export interface OpcionDepartamento {
 
 export const OPCIONES_DEPARTAMENTO: OpcionDepartamento[] = [
   {
-    id: 14,
+    id: 18,
     nombre: "SIN LLAVE",
     descripcion: "No se cuenta con llave de acceso",
     icono: "🚫",
   },
   {
-    id: 15,
+    id: 19,
     nombre: "CON LLAVE / FACTURACION",
     descripcion: "Se dispone de llave / vía facturación",
     icono: "🔑",
   },
   {
-    id: 16,
+    id: 20,
     nombre: "NO TENEMOS LLAVE",
     descripcion: "Sin llave disponible en cuadrilla",
     icono: "🔒",
   },
   {
-    id: 17,
+    id: 21,
     nombre: "PORTERO/ADMINISTRACION",
     descripcion: "Acceso coordinado con portería o administración",
     icono: "🛎️",
   },
 ];
 
-export const IDS_DEPARTAMENTO = [14, 15, 16, 17];
+export const IDS_DEPARTAMENTO = [18, 19, 20, 21];

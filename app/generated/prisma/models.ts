@@ -9,6 +9,7 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/Usuario'
+export type * from './models/Rubro'
 export type * from './models/Cuadrilla'
 export type * from './models/Estado'
 export type * from './models/Tarifa'

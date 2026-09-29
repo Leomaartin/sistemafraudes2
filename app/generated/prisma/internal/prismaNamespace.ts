@@ -398,6 +398,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Usuario: 'Usuario',
+  Rubro: 'Rubro',
   Cuadrilla: 'Cuadrilla',
   Estado: 'Estado',
   Tarifa: 'Tarifa',
@@ -418,7 +419,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "usuario" | "cuadrilla" | "estado" | "tarifa" | "usuarioSistema" | "imagen"
+    modelProps: "usuario" | "rubro" | "cuadrilla" | "estado" | "tarifa" | "usuarioSistema" | "imagen"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -493,6 +494,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UsuarioCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UsuarioCountAggregateOutputType> | number
+        }
+      }
+    }
+    Rubro: {
+      payload: Prisma.$RubroPayload<ExtArgs>
+      fields: Prisma.RubroFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RubroFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubroPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RubroFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubroPayload>
+        }
+        findFirst: {
+          args: Prisma.RubroFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubroPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RubroFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubroPayload>
+        }
+        findMany: {
+          args: Prisma.RubroFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubroPayload>[]
+        }
+        create: {
+          args: Prisma.RubroCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubroPayload>
+        }
+        createMany: {
+          args: Prisma.RubroCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RubroCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubroPayload>[]
+        }
+        delete: {
+          args: Prisma.RubroDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubroPayload>
+        }
+        update: {
+          args: Prisma.RubroUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubroPayload>
+        }
+        deleteMany: {
+          args: Prisma.RubroDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RubroUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RubroUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubroPayload>[]
+        }
+        upsert: {
+          args: Prisma.RubroUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubroPayload>
+        }
+        aggregate: {
+          args: Prisma.RubroAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRubro>
+        }
+        groupBy: {
+          args: Prisma.RubroGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RubroGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RubroCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RubroCountAggregateOutputType> | number
         }
       }
     }
@@ -920,10 +995,21 @@ export const UsuarioScalarFieldEnum = {
   idEstado: 'idEstado',
   idTarifa: 'idTarifa',
   esDepartamento: 'esDepartamento',
-  idEstadoDepto: 'idEstadoDepto'
+  idEstadoDepto: 'idEstadoDepto',
+  rubroComercio: 'rubroComercio',
+  idRubro: 'idRubro',
+  nombreComercio: 'nombreComercio'
 } as const
 
 export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
+
+
+export const RubroScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre'
+} as const
+
+export type RubroScalarFieldEnum = (typeof RubroScalarFieldEnum)[keyof typeof RubroScalarFieldEnum]
 
 
 export const CuadrillaScalarFieldEnum = {
@@ -1215,6 +1301,7 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   usuario?: Prisma.UsuarioOmit
+  rubro?: Prisma.RubroOmit
   cuadrilla?: Prisma.CuadrillaOmit
   estado?: Prisma.EstadoOmit
   tarifa?: Prisma.TarifaOmit

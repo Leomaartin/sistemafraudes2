@@ -1,0 +1,6736 @@
+{
+  "total": 4035,
+  "totalGrupos": 839,
+  "agrupados": [
+    {
+      "nombre": "E.SMITHFIELD",
+      "cantidad": 347,
+      "ejemplos": [
+        "E.SMITHFIELD L.423",
+        "E.SMITHFIELD L.424",
+        "E.SMITHFIELD L.425",
+        "E.SMITHFIELD L.133",
+        "E.SMITHFIELD L.411",
+        "E.SMITHFIELD L.343",
+        "E.SMITHFIELD L.263",
+        "E.SMITHFIELD L.239",
+        "E.SMITHFIELD L.55",
+        "E.SMITHFIELD L.176"
+      ]
+    },
+    {
+      "nombre": "HIPOLITO YRIGOYEN",
+      "cantidad": 287,
+      "ejemplos": [
+        "H.YRIGOYEN 283",
+        "H.YRIGOYEN 1915",
+        "H.YRIGOYEN 764 2B",
+        "H.YRIGOYEN 99",
+        "H.YRIGOYEN 167",
+        "H.YRIGOYEN 829 PB",
+        "HIPOLITO IRIGOYEN 1223 BIS",
+        "H.YRIGOYEN 984 3 C",
+        "H.YRIGOYEN 1708",
+        "H.YRIGOYEN 1722"
+      ]
+    },
+    {
+      "nombre": "BERUTI / BERUTTI",
+      "cantidad": 193,
+      "ejemplos": [
+        "BERUTTI 2159  B",
+        "BERUTTI 2120",
+        "BERUTTI 2062",
+        "BERUTTI 2062",
+        "BERUTTI 2180",
+        "BERUTTI 2320",
+        "BERUTTI 1995",
+        "BERUTTI 2220",
+        "BERUTTI 2041",
+        "BERUTTI 2050"
+      ]
+    },
+    {
+      "nombre": "BARTOLOME MITRE",
+      "cantidad": 149,
+      "ejemplos": [
+        "AV.B.MITRE 1233",
+        "AV.B.MITRE 679 1 B",
+        "AV.B.MITRE 1163",
+        "B.MITRE 686 2 A",
+        "PJE.MITRE 251",
+        "PJE.MITRE 249",
+        "PJE.MITRE 247",
+        "B.MITRE 686 3 B",
+        "B.MITRE 1839",
+        "B.MITRE 1853"
+      ]
+    },
+    {
+      "nombre": "J.J. PASO",
+      "cantidad": 143,
+      "ejemplos": [
+        "J.J.PASSO 4013",
+        "J.J.PASSO 4015 BIS",
+        "J.J.PASSO 4015  FONDO",
+        "J.J.PASSO 2280",
+        "J.J.PASSO 2750",
+        "J.J.PASSO 2191 CASA 9",
+        "JJ Passo 2760",
+        "J. J. Passo C. 31",
+        "PASSO 1689",
+        "PASSO 1057"
+      ]
+    },
+    {
+      "nombre": "ROMULO NOYA",
+      "cantidad": 118,
+      "ejemplos": [
+        "R.NOYA 1157  PA",
+        "R.NOYA 699 PB.",
+        "R.NOYA 785 7 A",
+        "R.NOYA 2098",
+        "R.NOYA 2125  2",
+        "R.NOYA 2125  D.1",
+        "R.NOYA 785 8 A",
+        "R.NOYA 973 6 A",
+        "R.NOYA 1090 LOCAL",
+        "R.NOYA 973 7 B"
+      ]
+    },
+    {
+      "nombre": "ARRIBEÑOS",
+      "cantidad": 99,
+      "ejemplos": [
+        "ARRIBE#OS 3341",
+        "ARRIBE#OS 550 1 C",
+        "ARRIBE#OS 550 PB B",
+        "ARRIBEﾑOS 550 1 A",
+        "ARRIBEﾑOS 550 1 B",
+        "ARRIBEﾑOS 550 1D",
+        "ARRIBEﾑOS 550 1 E",
+        "ARRIBEﾑOS 550 2 A",
+        "ARRIBE#OS 550 2 B",
+        "ARRIBEﾑOS 550 2C"
+      ]
+    },
+    {
+      "nombre": "AMEGHINO",
+      "cantidad": 97,
+      "ejemplos": [
+        "AMEGHINO 901",
+        "AMEGHINO 374",
+        "AMEGHINO 882 PA B",
+        "AMEGHINO 1898",
+        "AMEGHINO 710 12 a",
+        "AMEGHINO 520 4 D",
+        "AMEGHINO 1046 4 B",
+        "AMEGHINO 1358",
+        "AMEGHINO 1258",
+        "AMEGHINO 1875 PB A"
+      ]
+    },
+    {
+      "nombre": "FINCAS DE LA FLORIDA",
+      "cantidad": 86,
+      "ejemplos": [
+        "FINCAS DE LA FLORIDA M 22F L",
+        "FINCAS DE LA FLORIDA M.22C L",
+        "F.DE LA FLORIDA M22K L5",
+        "F.DE LA FLORIDA M.22 G L.20",
+        "FINCAS DE LA FLORIDA M.22K L",
+        "B.LA FLORIDA CALLE 11 ESQUIN",
+        "FINCAS DE LA FLORIDA MZ.22F",
+        "F.DE LA FLORIDA M.22E L17",
+        "F.DE LA FLORIDA FR 1 L.5",
+        "B. La Florida calle 6 250"
+      ]
+    },
+    {
+      "nombre": "ESPAÑA",
+      "cantidad": 75,
+      "ejemplos": [
+        "ESPAﾑA 819",
+        "ESPAﾑA 798",
+        "ESPAﾑA 709",
+        "ESPAﾑA 765",
+        "ESPAﾑA 768",
+        "ESPAﾑA 771",
+        "ESPAﾑA 798",
+        "ESPAﾑA 832 BIS",
+        "ESPAﾑA 833 BIS",
+        "ESPAﾑA 833"
+      ]
+    },
+    {
+      "nombre": "ITUZAINGO",
+      "cantidad": 66,
+      "ejemplos": [
+        "ITUZAINGO 775",
+        "ITUZAINGO 665 6 F",
+        "ITUZAINGO 2268",
+        "ITUZAINGO 202 3 C",
+        "ITUZAINGO 1149 3 B",
+        "ITUZAINGO 661",
+        "ITUZAINGO 1080",
+        "ITUZAINGO 1575",
+        "ITUZAINGO 901",
+        "ITUZAINGO 1778"
+      ]
+    },
+    {
+      "nombre": "RIVADAVIA",
+      "cantidad": 65,
+      "ejemplos": [
+        "RIVADAVIA 818 3D",
+        "RIVADAVIA 610 1A",
+        "RIVADAVIA 818 1 b",
+        "RIVADAVIA 1028",
+        "RIVADAVIA 1385",
+        "RIVADAVIA 818",
+        "RIVADAVIA 1135 BIS",
+        "RIVADAVIA 1346",
+        "RIVADAVIA 818 3 A",
+        "Rivadavia 1336"
+      ]
+    },
+    {
+      "nombre": "BARRIO COVEPAN",
+      "cantidad": 63,
+      "ejemplos": [
+        "B.COVEPAN VI C74",
+        "B.COVEPAN VI C.6",
+        "B.COVEPAN VI C.18",
+        "B.COVEPAN VI C.37",
+        "B.COVEPAN VI C.9",
+        "B.COVEPAN VI C.61",
+        "B.COVEPAN VI C.14",
+        "B.COVEPAN VI C.20",
+        "B.COVEPAN VI C.25",
+        "B.COVEPAN VI c.82"
+      ]
+    },
+    {
+      "nombre": "J.LIMA",
+      "cantidad": 60,
+      "ejemplos": [
+        "J.LIMA 538 P.A",
+        "J.LIMA 170 1 E",
+        "J.LIMA 248",
+        "J.LIMA 157 2",
+        "J.LIMA 112",
+        "J.LIMA 285",
+        "J.LIMA 425",
+        "J.LIMA 780  P.A",
+        "J.LIMA 867 LOCAL",
+        "J.LIMA 782"
+      ]
+    },
+    {
+      "nombre": "INDEPENDENCIA",
+      "cantidad": 53,
+      "ejemplos": [
+        "INDEPENDEN 787 6B",
+        "INDEPENDENCIA 1320",
+        "INDEPENDENCIA 940",
+        "INDEPENDENCIA 2450INT.",
+        "INDEPENDENC.450 5B",
+        "INDEPEND.775 1D",
+        "INDEPEND. 775 5 D",
+        "INDEPEND.787",
+        "INDEPENDENCIA 745 UF.1",
+        "INDEPENDENCIA 580 1 INT."
+      ]
+    },
+    {
+      "nombre": "SGTO. CABRAL",
+      "cantidad": 50,
+      "ejemplos": [
+        "SGTO. CABRAL Y R 9 LA ESMERALDA",
+        "SGTO.CABRAL 1918  bis",
+        "SGTO.CABRAL 1510",
+        "SGTO.CABRAL 1004",
+        "SGTO.CABRAL 1501",
+        "SGTO.CABRAL 1770",
+        "SGTO.CABRAL 982",
+        "SGTO.CABRAL 1616",
+        "SGTO.CABRAL 1304",
+        "SGTO.CABRAL 738"
+      ]
+    },
+    {
+      "nombre": "CASTELLI",
+      "cantidad": 44,
+      "ejemplos": [
+        "CASTELLI 1563",
+        "CASTELLI 2834-C-37",
+        "CASTELLI 2472",
+        "Castelli 1199 kiosco",
+        "Castelli 835 1 A",
+        "Castelli 1458",
+        "CASTELLI 1745",
+        "Castelli 349 Bis",
+        "CASTELLI 1880 PA D",
+        "CASTELLI 376"
+      ]
+    },
+    {
+      "nombre": "SAN MARTIN",
+      "cantidad": 42,
+      "ejemplos": [
+        "SAN MARTIN 867",
+        "SAN MARTIN 75",
+        "SAN MARTIN 450 9 B",
+        "SAN MARTIN 576 6 D",
+        "SAN MARTIN 576 4A",
+        "SAN MARTIN 248 2 E",
+        "SAN MARTIN 377 LOCAL",
+        "SAN MARTIN 148",
+        "SAN MARTIN 490",
+        "SAN MARTIN 410 PB B"
+      ]
+    },
+    {
+      "nombre": "A.BROWN",
+      "cantidad": 39,
+      "ejemplos": [
+        "A.BROWN 879 PB",
+        "A.BROWN 622 1 A",
+        "A.BROWN 275 BIS",
+        "A.BROWN 210",
+        "A.BROWN 413",
+        "A.BROWN 461 2 A",
+        "A.BROWN 238 BIS",
+        "A.BROWN 670",
+        "A.BROWN 334",
+        "A.BROWN 856  2"
+      ]
+    },
+    {
+      "nombre": "ALEM",
+      "cantidad": 37,
+      "ejemplos": [
+        "ALEM 506 1 B",
+        "ALEM 144 3 A",
+        "ALEM 105 2 C",
+        "ALEM 884 BIS",
+        "ALEM 631 1B",
+        "ALEM 120 bis",
+        "ALEM 506 BIS",
+        "Alem 454 6 A",
+        "Alem 462 4 B",
+        "ALEM 105 PB.B"
+      ]
+    },
+    {
+      "nombre": "BOLIVAR",
+      "cantidad": 35,
+      "ejemplos": [
+        "BOLIVAR 407",
+        "BOLIVAR 1011",
+        "BOLIVAR 407 KIOSCO",
+        "BOLIVAR 919",
+        "BOLIVAR 1264",
+        "BOLIVAR 534",
+        "BOLIVAR 1755",
+        "BOLIVAR 1199",
+        "BOLIVAR 881",
+        "BOLIVAR 919"
+      ]
+    },
+    {
+      "nombre": "DE LA TORRE",
+      "cantidad": 33,
+      "ejemplos": [
+        "DE LA TORRE 1690  D",
+        "DE LA TORRE 2335",
+        "DE LA TORRE 1566",
+        "De la torre 1315 1 F",
+        "De la torre 887 local",
+        "DE LA TORRE 1062  B",
+        "De la torre 739",
+        "DE LA TORRE 915 LOCAL",
+        "DE LA TORRE 1302 PA B",
+        "De la torre 1603"
+      ]
+    },
+    {
+      "nombre": "GENERAL PAZ",
+      "cantidad": 32,
+      "ejemplos": [
+        "GRAL PAZ 820",
+        "GRAL.PAZ 520 13 C",
+        "GRAL. PAZ 860 CONTRA",
+        "GRAL. PAZ 1428",
+        "G PAZ 520 7 D",
+        "GRAL. PAZ 757",
+        "GRAL. PAZ 1452  A",
+        "GRAL. PAZ 704 LOCAL",
+        "GRAL. PAZ 1596 3 B",
+        "GRAL. PAZ 1596 BIS"
+      ]
+    },
+    {
+      "nombre": "A.GALLESIO",
+      "cantidad": 32,
+      "ejemplos": [
+        "A.GALLESIO 675",
+        "A.GALLESIO 189 PB",
+        "A.GALLESIO 531 2 C",
+        "A.GALLESIO 164  1",
+        "A.GALLESIO 888",
+        "A.GALLESIO 525 2 D",
+        "A.GALLESIO 760 1 UF 8",
+        "A.GALLESIO 564",
+        "A.GALLESIO 304 2 B",
+        "A.GALLESIO 531 1 A"
+      ]
+    },
+    {
+      "nombre": "BELGRANO",
+      "cantidad": 32,
+      "ejemplos": [
+        "BELGRANO 2290",
+        "BELGRANO 454 OF",
+        "BELGRANO 1009 local",
+        "BELGRANO 1123",
+        "BELGRANO 738",
+        "BELGRANO 1785",
+        "BELGRANO 1162",
+        "BELGRANO 196",
+        "BELGRANO 686 1 B",
+        "BELGRANO 470 PA"
+      ]
+    },
+    {
+      "nombre": "M.PAZ",
+      "cantidad": 30,
+      "ejemplos": [
+        "M.PAZ 450",
+        "M.PAZ 427 3 A",
+        "M.PAZ 427",
+        "M.PAZ 545 PA B",
+        "M.PAZ 427 2 B",
+        "M.PAZ 730 PA C",
+        "M.PAZ 405",
+        "M.PAZ 427 1 D",
+        "M.PAZ 427 2 C",
+        "M.PAZ 450"
+      ]
+    },
+    {
+      "nombre": "V.ALSINA",
+      "cantidad": 28,
+      "ejemplos": [
+        "V.ALSINA 711",
+        "V.ALSINA 1264",
+        "V.ALSINA 649 1 B",
+        "V.ALSINA 1441 BIS",
+        "V.ALSINA 1772",
+        "V.ALSINA 950",
+        "V.ALSINA 1354 D.1",
+        "V.ALSINA 1354 D.3",
+        "V.ALSINA 1354 D.5",
+        "V.ALSINA 1354  2"
+      ]
+    },
+    {
+      "nombre": "F.PAGOLA",
+      "cantidad": 26,
+      "ejemplos": [
+        "F.PAGOLA 213 1 1",
+        "F.PAGOLA 358 2D",
+        "F.PAGOLA 584 BIS",
+        "F.PAGOLA 373",
+        "F.PAGOLA 599  D",
+        "F.PAGOLA 251 BIS",
+        "F.PAGOLA 529",
+        "F.PAGOLA 132",
+        "F.PAGOLA 585  C",
+        "F.PAGOLA 91 LOCAL"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II",
+      "cantidad": 26,
+      "ejemplos": [
+        "L.MIRTILLOS II MZ.6 L.14",
+        "L.MIRTILLOS II MZ 4 L.4",
+        "L.MIRTILLOS II MZ 3 L.21",
+        "L.MIRTILLOS II MZ.6 L.5",
+        "L.MIRTILLOS II MZ 4 L.2B",
+        "L.MIRTILLOS II MZ.6 L.11",
+        "L.MIRTILLOS II MZ 5 L.8",
+        "L.MIRTILLOS II MZ 1 L.16",
+        "L.MIRTILLOS II MZ 7 L.14",
+        "L.MIRTILLOS II MZ.2 L.1"
+      ]
+    },
+    {
+      "nombre": "BARRIO LAS MARIAS",
+      "cantidad": 25,
+      "ejemplos": [
+        "ACC.LIMA LAS MARIAS S/N",
+        "L.María C9 L.33",
+        "L.MARIA ACC. L.2",
+        "L.MARIAS C.9 L 18",
+        "L.MARIAS C.9 L.44",
+        "ACC.LIMA LAS MARIAS S/N",
+        "ACC.LIMA LAS MARIAS S/N",
+        "L MARIAS C.30 L.68",
+        "L MARIAS C.32 L.83",
+        "L.MARIA C9 L.16"
+      ]
+    },
+    {
+      "nombre": "GRAL.PINTO",
+      "cantidad": 24,
+      "ejemplos": [
+        "GRAL.PINTO 1099 LOC",
+        "GRAL.PINTO 731",
+        "GRAL.PINTO 1798",
+        "GRAL.PINTO 1700",
+        "GRAL.PINTO 910 1A",
+        "GRAL.PINTO 1275",
+        "GRAL.PINTO 1241",
+        "GRAL.PINTO 1788 P.B.",
+        "GRAL.PINTO 931 4 A",
+        "GRAL.PINTO 1075"
+      ]
+    },
+    {
+      "nombre": "BARRIO VIPERMUN",
+      "cantidad": 24,
+      "ejemplos": [
+        "BRIO.VIPERMUN I C.108",
+        "BRIO.VIPERMUN I C 7",
+        "BRIO.VIPERMUN I C.52",
+        "BRIO.VIPERMUN I C.20",
+        "BRIO.VIPERMUN I C.13",
+        "BRIO.VIPERMUN I C.34",
+        "VIPERMUN I C6",
+        "B.VIPERMUN I C28",
+        "BRIO.VIPERMUN I C.15",
+        "BRIO.VIPERMUN I C.74"
+      ]
+    },
+    {
+      "nombre": "SAENZ PEÑA",
+      "cantidad": 23,
+      "ejemplos": [
+        "SAENZ PEﾑA 399",
+        "SAENZ PEﾑA 396",
+        "SAENZ PEﾑA 392",
+        "SAENZ PEﾑA 387",
+        "SAENZ PEﾑA 382",
+        "SAENZ PEﾑA 380",
+        "SAENZ PEﾑA 379",
+        "SAENZ PEﾑA 378",
+        "SAENZ PEﾑA 377",
+        "SAENZ PEﾑA 377"
+      ]
+    },
+    {
+      "nombre": "GUEMES",
+      "cantidad": 22,
+      "ejemplos": [
+        "GUEMES 1722",
+        "GUEMES 1444",
+        "GUEMES 2083",
+        "GUEMES 1344  1",
+        "GUEMES 1193 5 A",
+        "GUEMES 756 1 1",
+        "GUEMES 982  A",
+        "GUEMES 1193 2 A",
+        "GUEMES 2392",
+        "GUEMES 2087"
+      ]
+    },
+    {
+      "nombre": "ECHEVERRIA",
+      "cantidad": 22,
+      "ejemplos": [
+        "ECHEVERRIA 358",
+        "ECHEVERRIA 932",
+        "ECHEVERRIA 1070",
+        "ECHEVERRIA 1178",
+        "ECHEVERRIA 1060",
+        "ECHEVERRIA 1100",
+        "ECHEVERRIA 359",
+        "ECHEVERRIA 333",
+        "ECHEVERRIA 509 PA",
+        "ECHEVERRIA 1051"
+      ]
+    },
+    {
+      "nombre": "CAMPOS DE FRESNOS",
+      "cantidad": 22,
+      "ejemplos": [
+        "LOS CAMPOS DE FRESNOS L.32",
+        "LOS CAMPOS DE FRESNOS L.64",
+        "LOS CAMPOS DE FRESNOS L.55",
+        "LOS CAMPOS DE FRESNOS L.1",
+        "LOS CAMPOS DE FRESNOS L.87",
+        "LOS CAMPOS DE FRESNOS L.45",
+        "LOS CAMPOS DE FRESNOS L.75",
+        "LOS CAMPOS DE FRESNOS L.19",
+        "LOS CAMPOS DE FRESNOS L.44",
+        "LOS CAMPOS DE FRESNOS L.36"
+      ]
+    },
+    {
+      "nombre": "A. DEL VALLE",
+      "cantidad": 20,
+      "ejemplos": [
+        "A.DEL VALLE 403",
+        "A.DEL VALLE 605",
+        "A.DEL VALLE 245",
+        "A.DEL VALLE 447",
+        "A.DEL VALLE 371",
+        "A.DEL VALLE 403",
+        "A del Valle 814",
+        "A.DEL VALLE 814",
+        "A.DEL VALLE 856",
+        "A.DEL VALLE 371 BIS"
+      ]
+    },
+    {
+      "nombre": "9 DE JULIO",
+      "cantidad": 20,
+      "ejemplos": [
+        "9 DE JULIO 62 4 C",
+        "9 DE JULIO 136 3 A",
+        "9 DE JULIO 136 3 B",
+        "9 DE JULIO 136 2 A",
+        "9 DE JULIO 62 3 C",
+        "9 DE JULIO 128 5A  A",
+        "9 DE JULIO 128 4 B",
+        "9 de julio 364 bis",
+        "9 DE JULIO 128 2B",
+        "9 DE JULIO 136 4 B"
+      ]
+    },
+    {
+      "nombre": "ROQUE PEÑA",
+      "cantidad": 20,
+      "ejemplos": [
+        "R.PE#A 1755",
+        "R. PEﾑA 1438",
+        "R. PEﾑA 1460",
+        "R.PEﾑA 1470",
+        "R PE#A 1521",
+        "R.PEﾑA 1525",
+        "R. PEﾑA 1530",
+        "R. PEﾑA 1587",
+        "R. PEﾑA 1636",
+        "R.PE･A 1637"
+      ]
+    },
+    {
+      "nombre": "PJE.RIOJA",
+      "cantidad": 20,
+      "ejemplos": [
+        "PJE.RIOJA 1437 P.ALTA",
+        "PJE.RIOJA 1531",
+        "PJE.RIOJA 1558",
+        "PJE.RIOJA 1405",
+        "PJE.RIOJA 1411",
+        "PJE.RIOJA 1415",
+        "PJE.RIOJA 1547",
+        "PJE.RIOJA 1456",
+        "PJE.RIOJA 1480",
+        "PJE.RIOJA 1513"
+      ]
+    },
+    {
+      "nombre": "J.B.JUSTO",
+      "cantidad": 20,
+      "ejemplos": [
+        "J.B.JUSTO 2095",
+        "J.B.JUSTO 2141 DTO 1",
+        "J.B.JUSTO 2141 DTO 2",
+        "J.B.JUSTO 2064",
+        "J.B.JUSTO 2167",
+        "J.B.JUSTO 2103",
+        "J.B.JUSTO 2141",
+        "J.B.JUSTO 2070",
+        "J.B.JUSTO 2210",
+        "J.B.JUSTO 2158BIS"
+      ]
+    },
+    {
+      "nombre": "ALMAFUERTE",
+      "cantidad": 19,
+      "ejemplos": [
+        "ALMAFUERTE 30",
+        "ALMAFUERTE 610 UF-3",
+        "ALMAFUERTE 610 UF.2",
+        "ALMAFUERTE 590",
+        "ALMAFUERTE 636",
+        "ALMAFUERTE 481",
+        "ALMAFUERTE 670",
+        "ALMAFUERTE 519",
+        "ALMAFUERTE 575",
+        "ALMAFUERTE 295"
+      ]
+    },
+    {
+      "nombre": "J.A.COSTA",
+      "cantidad": 18,
+      "ejemplos": [
+        "J.A.COSTA 550",
+        "J.A.COSTA 12  3",
+        "J.A.COSTA 754 1 D",
+        "J.A.COSTA 188",
+        "J.A.COSTA 757",
+        "J.A.COSTA 591",
+        "J.A.COSTA 136 BIS",
+        "J.A.COSTA 123",
+        "J.A.COSTA 444",
+        "J.A.COSTA 94"
+      ]
+    },
+    {
+      "nombre": "U.FERNANDEZ",
+      "cantidad": 18,
+      "ejemplos": [
+        "U.FERNANDEZ 182",
+        "U.FERNANDEZ 689",
+        "U.FERNANDEZ 540",
+        "U.FERNANDEZ 74",
+        "U.Fernandez 473",
+        "U.FERNANDEZ 44",
+        "U.FERNANDEZ 15",
+        "U.FERNANDEZ 369",
+        "U.FERNANDEZ 250",
+        "U.FERNANDEZ 238 PB A"
+      ]
+    },
+    {
+      "nombre": "PARAGUAY",
+      "cantidad": 18,
+      "ejemplos": [
+        "PARAGUAY 375",
+        "PARAGUAY 845",
+        "PARAGUAY 671",
+        "PARAGUAY 532",
+        "PARAGUAY 888",
+        "PARAGUAY 989",
+        "PARAGUAY 613 LOCAL",
+        "PARAGUAY 620",
+        "PARAGUAY 610",
+        "PARAGUAY 820"
+      ]
+    },
+    {
+      "nombre": "L.PIDRABUENA",
+      "cantidad": 18,
+      "ejemplos": [
+        "L.PIDRABUENA 61",
+        "L.PIDRABUENA 65",
+        "L.PIDRABUENA 14 BIS",
+        "L.PIDRABUENA 14",
+        "L.PIDRABUENA 80",
+        "L.PIDRABUENA 6",
+        "L.PIDRABUENA 10",
+        "L.PIDRABUENA 11 PB",
+        "L.PIDRABUENA 19",
+        "L.PIDRABUENA 27"
+      ]
+    },
+    {
+      "nombre": "CUYO",
+      "cantidad": 17,
+      "ejemplos": [
+        "CUYO 582 P.B 4",
+        "CUYO 50",
+        "CUYO 582 P.B",
+        "CUYO 393  B",
+        "CUYO 426",
+        "CUYO 15",
+        "CUYO 247",
+        "CUYO 425 PB D",
+        "CUYO 426 PA B",
+        "CUYO 426 1 6"
+      ]
+    },
+    {
+      "nombre": "B. LA CARONA",
+      "cantidad": 17,
+      "ejemplos": [
+        "B.LA CARONA L.50",
+        "B.LA CARONA M.30C L.3",
+        "B.LA CARONA L.4",
+        "B.LA CARONA I L.12",
+        "B.LA CARONA M.30e L3",
+        "B.LA CARONA L.13",
+        "B.LA CARONA L.20",
+        "B.LA CARONA M.30F L.11",
+        "B.LA CARONA L.17",
+        "B.LA CARONA L.10"
+      ]
+    },
+    {
+      "nombre": "A.ANTA",
+      "cantidad": 16,
+      "ejemplos": [
+        "A.ANTA 130 1A",
+        "A.ANTA 105",
+        "A.ANTA 40",
+        "A.ANTA 465  B",
+        "A.ANTA 126",
+        "A.ANTA 79 BIS",
+        "A.ANTA 309",
+        "A.ANTA 423",
+        "A.ANTA 391 PA",
+        "A.ANTA 126"
+      ]
+    },
+    {
+      "nombre": "AVELLANEDA",
+      "cantidad": 15,
+      "ejemplos": [
+        "AVELLANEDA 62",
+        "AVELLANEDA 570",
+        "AVELLANEDA 580",
+        "AVELLANEDA 242",
+        "AVELLANEDA 303 PB",
+        "AVELLANEDA 18",
+        "AVELLANEDA 10",
+        "AVELLANEDA 151 LOC.1",
+        "AVELLANEDA 542",
+        "AVELLANEDA 351 5 C"
+      ]
+    },
+    {
+      "nombre": "GRAL. PINTO",
+      "cantidad": 15,
+      "ejemplos": [
+        "GRAL. PINTO 810 PA",
+        "GRAL. PINTO 832 4 B",
+        "GRAL. PINTO 1596 2 A",
+        "GRAL. PINTO 453",
+        "GRAL. PINTO 260  B",
+        "GRAL. PINTO 1439",
+        "GRAL. PINTO 328",
+        "GRAL. PINTO 2540",
+        "GRAL. PINTO 2542",
+        "GRAL. PINTO 1133 4 A"
+      ]
+    },
+    {
+      "nombre": "AV.L.ROCHA",
+      "cantidad": 14,
+      "ejemplos": [
+        "AV.L.ROCHA 1859 4 E 62",
+        "AV.L.ROCHA 1859 5 57 5",
+        "AV.L.ROCHA 1859 3 A69",
+        "AV.L.ROCHA 1859 1 A 04",
+        "AV.L.ROCHA 1859 2 J.35",
+        "AV.L.ROCHA 1859 H 37",
+        "AV.L.ROCHA 1859 3 U.A64",
+        "AV.L.ROCHA 1859 1 B11",
+        "AV.L.ROCHA 1859  B.14",
+        "AV.L.ROCHA 1859 2 U.D25"
+      ]
+    },
+    {
+      "nombre": "PERU",
+      "cantidad": 14,
+      "ejemplos": [
+        "PERU 401 CASILLA SEGURIDAD",
+        "PERU 41  9",
+        "PERU 490",
+        "PERU 916",
+        "PERU 82",
+        "PERU 82",
+        "PERU 195",
+        "PERU 82 BIS",
+        "PERU 694",
+        "PERU 956"
+      ]
+    },
+    {
+      "nombre": "A.ARGENTINA",
+      "cantidad": 13,
+      "ejemplos": [
+        "A.ARGENTINA 2577",
+        "A.ARGENTINA 2011",
+        "A.ARGENTINA 2491  9",
+        "A.ARGENTINA 2535",
+        "A.ARGENTINA 2770",
+        "A.ARGENTINA 2820",
+        "A.ARGENTINA 2491",
+        "A.ARGENTINA 2490",
+        "A.ARGENTINA 2510 P.A 3",
+        "A.ARGENTINA 2810 PA"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA III",
+      "cantidad": 13,
+      "ejemplos": [
+        "LA CAMPIÑA III MZ.A L.13",
+        "LA CAMPIÑA III MZ.L  L.5",
+        "LA CAMPIÑA III MZ.A L.5",
+        "LA CAMPIÑA III MZ.L L.8",
+        "LA CAMPIÑA III MZ.C L.19",
+        "LA CAMPIÑA III MZ.J L.3",
+        "LA CAMPIÑA III MZ.I L.9",
+        "LA CAMPIÑA III MZ.K L.11",
+        "LA CAMPIÑA III MZ L. L 9",
+        "LA CAMPIÑA III MZ.A L9"
+      ]
+    },
+    {
+      "nombre": "A.FLEMING",
+      "cantidad": 13,
+      "ejemplos": [
+        "A.FLEMING 2330",
+        "A.FLEMING 2489 1 1",
+        "A.FLEMING 2487  D",
+        "A.FLEMING 2217",
+        "A.FLEMING 2485",
+        "A.FLEMING 2489 PB 1",
+        "A.FLEMING 2296",
+        "A.FLEMING 2209",
+        "A.FLEMING 2478 PB B",
+        "A.FLEMING 2145"
+      ]
+    },
+    {
+      "nombre": "BARRIO INST. VIVIENDA",
+      "cantidad": 13,
+      "ejemplos": [
+        "INS VIVIENDA C25",
+        "INST.VIVIENDA C.6 BIS",
+        "INST.VIVIENDA CASA 9",
+        "INST.VIVIENDA C.9",
+        "INST.VIVIENDA C.11",
+        "INST.VIVIENDA C.14",
+        "INS VIVIENDA C17",
+        "INST.VIVIENDA C. 19",
+        "INS VIVIENDA C26",
+        "INST.VIVIENDA C.28"
+      ]
+    },
+    {
+      "nombre": "MORENO",
+      "cantidad": 13,
+      "ejemplos": [
+        "MORENO 284  PA",
+        "MORENO 246",
+        "MORENO 555",
+        "MORENO 76 P.A.",
+        "MORENO 539",
+        "MORENO 41",
+        "MORENO 527",
+        "MORENO 783",
+        "MORENO 79",
+        "MORENO 828"
+      ]
+    },
+    {
+      "nombre": "J.HERNANDEZ",
+      "cantidad": 12,
+      "ejemplos": [
+        "J.HERNANDEZ 295 FONDO",
+        "J.HERNANDEZ 695",
+        "J.HERNANDEZ 364",
+        "J.HERNANDEZ 211",
+        "J.HERNANDEZ 47",
+        "J.HERNANDEZ 577",
+        "J.HERNANDEZ 384",
+        "J.HERNANDEZ 380  PB",
+        "J.HERNANDEZ 255",
+        "J.HERNANDEZ 732  BIS"
+      ]
+    },
+    {
+      "nombre": "FRENCH",
+      "cantidad": 12,
+      "ejemplos": [
+        "FRENCH 2177",
+        "FRENCH 2177 BIS",
+        "FRENCH 2330",
+        "FRENCH 2390",
+        "FRENCH 2182 A",
+        "FRENCH 2099",
+        "FRENCH 2182",
+        "FRENCH 2173",
+        "FRENCH 2330",
+        "FRENCH 2182 BIS"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II",
+      "cantidad": 11,
+      "ejemplos": [
+        "LA CAMPIÑA II MZ.A L.12",
+        "LA CAMPIÑA II MZ.I L.6",
+        "LA CAMPIÑA II MZ.I L.1",
+        "LA CAMPIÑA II MZ.G L.14 BIS",
+        "LA CAMPIÑA II MZ K L.1",
+        "LA CAMPIÑA II MZ.B L.9",
+        "LA CAMPIÑA II MZ G L.9",
+        "LA CAMPIÑA II MZ.H L.13",
+        "LA CAMPIÑA II MZ.G L.1",
+        "LA CAMPIÑA II MZ.I L.8"
+      ]
+    },
+    {
+      "nombre": "A.MELILLO",
+      "cantidad": 11,
+      "ejemplos": [
+        "A.MELILLO 970 BIS",
+        "A.MELILLO 973",
+        "A.MELILLO 639",
+        "A.MELILLO 990",
+        "A.MELILLO 222",
+        "A.MELILLO 977",
+        "A.MELILLO 809",
+        "A.MELILLO 552",
+        "A.MELILLO 692",
+        "A.MELILLO 977 BIS"
+      ]
+    },
+    {
+      "nombre": "CONESA",
+      "cantidad": 10,
+      "ejemplos": [
+        "CONESA 715 3 B",
+        "CONESA 752",
+        "CONESA 715 1 B",
+        "CONESA 637  3",
+        "CONESA 75",
+        "CONESA 637  1",
+        "Conesa 192 2 A",
+        "CONESA 367 1 D",
+        "CONESA 803",
+        "CONESA 57"
+      ]
+    },
+    {
+      "nombre": "B. ESCALADA",
+      "cantidad": 10,
+      "ejemplos": [
+        "B.ESCALADA CENCERRO",
+        "B.ESCALADA EL ZORRO",
+        "B.ESCALADA CENCERRO",
+        "B.ESCALADA ACACIA",
+        "El amparo s/n, escalada l 38",
+        "B.ESCALADA C.EL ZORRO",
+        "B.ESCALADA C.CENCERRO",
+        "B.ESCALADA CENCERRO",
+        "B.ESCALADA CORONILLO Y CARP",
+        "ESCALADA C CORONILLO SN E/ B"
+      ]
+    },
+    {
+      "nombre": "BARRIO PLAN FEDERAL",
+      "cantidad": 10,
+      "ejemplos": [
+        "B.PLAN FEDERAL C.31",
+        "B. Plan Federal C. 30",
+        "B.PLAN FED C.14",
+        "B.PLAN FEDERAL C.5",
+        "B. Plan Federal C. 24",
+        "B. Plan Federal C. 35",
+        "B. Plan Federal C. 48",
+        "B.PLAN FEDERAL c32",
+        "B.PLAN FEDERAL C.28",
+        "B.PLAN FEDERAL C.17"
+      ]
+    },
+    {
+      "nombre": "G.QUIRNO",
+      "cantidad": 10,
+      "ejemplos": [
+        "G.QUIRNO 921",
+        "G.QUIRNO 449",
+        "G.QUIRNO 559 FRENTE",
+        "G.QUIRNO 186",
+        "G.QUIRNO 165",
+        "G.QUIRNO 72 4 D",
+        "G.QUIRNO 240",
+        "G.QUIRNO 77",
+        "G.QUIRNO 436 P1 D3",
+        "G.QUIRNO 167"
+      ]
+    },
+    {
+      "nombre": "LUIS ROCHA",
+      "cantidad": 9,
+      "ejemplos": [
+        "LUIS ROCHA 1859 2 J39",
+        "LUIS ROCHA 1859  J83",
+        "LUIS ROCHA 1859 2 C17",
+        "LUIS ROCHA 1859 4 F60",
+        "LUIS ROCHA 1859 K30",
+        "LUIS ROCHA 1859 2 D28",
+        "LUIS ROCHA 1859 4 UF 61",
+        "LUIS ROCHA 1859 2 J 32",
+        "LUIS ROCHA 1859  LOCAL"
+      ]
+    },
+    {
+      "nombre": "PJE.CATAMARCA",
+      "cantidad": 9,
+      "ejemplos": [
+        "PJE.CATAMARCA 1509",
+        "PJE.CATAMARCA 1508",
+        "PJE.CATAMARCA 1523",
+        "PJE.CATAMARCA 1531",
+        "PJE.CATAMARCA 1565",
+        "PJE.CATAMARCA 1569",
+        "PJE.CATAMARCA 1571",
+        "PJE.CATAMARCA 1573",
+        "PJE.CATAMARCA 1576"
+      ]
+    },
+    {
+      "nombre": "PINTOS",
+      "cantidad": 8,
+      "ejemplos": [
+        "Pintos 917",
+        "Pintos 1952",
+        "PINTOS 528",
+        "PINTOS 1698",
+        "PINTOS 1444 PB.B",
+        "PINTOS 910 D 3",
+        "PINTOS 1934",
+        "PINTOS 1605"
+      ]
+    },
+    {
+      "nombre": "25 DE MAYO",
+      "cantidad": 8,
+      "ejemplos": [
+        "25 DE MAYO 560 2*SUB. 2*SUB",
+        "25 de mayo 560 2 a",
+        "25 DE MAYO 560 1 1C",
+        "25 DE MAYO 773",
+        "25 DE MAYO 560 1 B",
+        "25 DE MAYO 728",
+        "25 de mayo 958",
+        "25 DE MAYO 710 2 B"
+      ]
+    },
+    {
+      "nombre": "B.VIZA",
+      "cantidad": 8,
+      "ejemplos": [
+        "B.VIZA 37",
+        "B.VIZA CASA 59",
+        "B.VIZA CASA 40",
+        "B.VIZA 38",
+        "B.VIZA CASA 11",
+        "B.VIZA CASA 17",
+        "B.VIZA CASA 46 BIS",
+        "B.VIZA CASA 45"
+      ]
+    },
+    {
+      "nombre": "J.SHALK",
+      "cantidad": 8,
+      "ejemplos": [
+        "J.SHALK 2138  B",
+        "J.SHALK 2173",
+        "J.SHALK 2450",
+        "J.SHALK 2125",
+        "J.SHALK 2280 BIS",
+        "J.SHALK 2327",
+        "J.SHALK 2487",
+        "J.SHALK 2205"
+      ]
+    },
+    {
+      "nombre": "CABILDO",
+      "cantidad": 8,
+      "ejemplos": [
+        "CABILDO 112  bis",
+        "CABILDO 114 DTO.A",
+        "CABILDO 111",
+        "CABILDO 112  A",
+        "CABILDO 113",
+        "CABILDO 114 A",
+        "CABILDO 114 B",
+        "CABILDO 114  C"
+      ]
+    },
+    {
+      "nombre": "PJE.CHACO",
+      "cantidad": 8,
+      "ejemplos": [
+        "PJE.CHACO 1525",
+        "PJE.CHACO 1535",
+        "PJE.CHACO 1546",
+        "PJE.CHACO 1572",
+        "PJE.CHACO 1575",
+        "PJE.CHACO 1584",
+        "PJE.CHACO 1604",
+        "PJE.CHACO 1610"
+      ]
+    },
+    {
+      "nombre": "PJE.S.JUAN",
+      "cantidad": 8,
+      "ejemplos": [
+        "PJE.S.JUAN 1380",
+        "PJE.S.JUAN 1354",
+        "PJE.S.JUAN 1310",
+        "PJE.S.JUAN 1328",
+        "PJE.S.JUAN 1357",
+        "PJE.S.JUAN 1370",
+        "PJE.S.JUAN 1378",
+        "PJE.S.JUAN 1380 BIS"
+      ]
+    },
+    {
+      "nombre": "SUIPACHA",
+      "cantidad": 8,
+      "ejemplos": [
+        "Suipacha 530",
+        "SUIPACHA 554 1 B",
+        "SUIPACHA 890  2",
+        "SUIPACHA 2280",
+        "Suipacha 1072 2 c",
+        "Suipacha 1684",
+        "SUIPACHA 2255",
+        "SUIPACHA 2124"
+      ]
+    },
+    {
+      "nombre": "MAIPU",
+      "cantidad": 8,
+      "ejemplos": [
+        "MAIPU 389 PA",
+        "MAIPU 393",
+        "MAIPU 457",
+        "MAIPU 189",
+        "MAIPU 80 7 B",
+        "MAIPU 376",
+        "MAIPU 239",
+        "MAIPU 88 P.A"
+      ]
+    },
+    {
+      "nombre": "SARMIENTO",
+      "cantidad": 7,
+      "ejemplos": [
+        "SARMIENTO 464 PA",
+        "SARMIENTO 540 BIS",
+        "SARMIENTO 168",
+        "SARMIENTO 119  1",
+        "SARMIENTO 246",
+        "sarmiento 51 galpon",
+        "SARMIENTO 150"
+      ]
+    },
+    {
+      "nombre": "D.MARIMON",
+      "cantidad": 7,
+      "ejemplos": [
+        "D.MARIMON 260",
+        "D.MARIMON 59",
+        "D.MARIMON 130",
+        "D.MARIMON 240 FRENTE",
+        "D.MARIMON 421",
+        "D.MARIMON 131 BIS",
+        "D.MARIMON 210"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA",
+      "cantidad": 7,
+      "ejemplos": [
+        "LA CAMPIÑA MZ F L.2",
+        "LA CAMPIÑA MZ.L L.3",
+        "LA CAMPIÑA MZ.J L.2",
+        "LA CAMPIÑA MZ J L 12",
+        "LA CAMPIÑA MZ H L 5",
+        "LA CAMPIÑA MZ.A L.11",
+        "LA CAMPIÑA MZ.G L.7"
+      ]
+    },
+    {
+      "nombre": "J. LIMA",
+      "cantidad": 7,
+      "ejemplos": [
+        "J. Lima 712 1 5",
+        "J. Lima 246",
+        "J. Lima 618",
+        "J. LIMA 698",
+        "J. LIMA 265",
+        "J. Lima 427",
+        "J. Lima 190"
+      ]
+    },
+    {
+      "nombre": "A.ALSINA",
+      "cantidad": 6,
+      "ejemplos": [
+        "A.ALSINA 546",
+        "A.ALSINA 365",
+        "A.ALSINA 268 2do. C",
+        "A.ALSINA 245 BIS UF 5",
+        "A.ALSINA 245 BIS OF.2",
+        "A.ALSINA 112"
+      ]
+    },
+    {
+      "nombre": "19 DE MARZO 857",
+      "cantidad": 6,
+      "ejemplos": [
+        "19 DE MARZO 857/877 1 G",
+        "19 DE MARZO 857/877 1 B",
+        "19 DE MARZO 857/877 5 G",
+        "19 DE MARZO 857/877 3 J",
+        "19 DE MARZO 857/877 5 E",
+        "19 DE MARZO 857/877 3 G"
+      ]
+    },
+    {
+      "nombre": "3 DE FEBRERO",
+      "cantidad": 6,
+      "ejemplos": [
+        "3 DE FEBRERO 443 PA 3",
+        "3 DE FEBRERO 862 INT.",
+        "3 DE FEBRERO 642 D2  2",
+        "3 DE FEBRERO 642 D3",
+        "3 DE FEBRERO 697 1 C",
+        "3 DE FEBRERO 697 1 D"
+      ]
+    },
+    {
+      "nombre": "BARRIO PROCASA",
+      "cantidad": 6,
+      "ejemplos": [
+        "PROCASA III C-6",
+        "PROCASA III C.10",
+        "PROCASA III C-2",
+        "PROCASA I C.1 BIS",
+        "PROCASA I C.19",
+        "PROCASA III C.21CASTELLI 279"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES",
+      "cantidad": 6,
+      "ejemplos": [
+        "L.ROBLES MZ 3L. 8",
+        "L.ROBLES MZ.2 L.16",
+        "L.ROBLES MZ 2 L.30",
+        "L.ROBLES MZ 5 L 15",
+        "L.ROBLES MZ 1 L 13",
+        "L.ROBLES MZ 3 L 4"
+      ]
+    },
+    {
+      "nombre": "PJE.MISIONES",
+      "cantidad": 6,
+      "ejemplos": [
+        "PJE.MISIONES 1630",
+        "PJE.MISIONES 1630",
+        "PJE.MISIONES 1632",
+        "PJE.MISIONES 1640 B",
+        "PJE.MISIONES 1650",
+        "PJE.MISIONES 1647"
+      ]
+    },
+    {
+      "nombre": "PJE. BRASIL",
+      "cantidad": 6,
+      "ejemplos": [
+        "PJE. BRASIL 1987",
+        "Pje. Brasil 1987",
+        "Pje. Brasil 2009 3",
+        "Pje. Brasil 2009 2",
+        "PJE. BRASIL 1974",
+        "PJE. BRASIL 1910 PA"
+      ]
+    },
+    {
+      "nombre": "BARRIO UOM",
+      "cantidad": 6,
+      "ejemplos": [
+        "MONOB.27 PB A  UOM",
+        "UOM M9 S B",
+        "CONSORCIO M.22 UOM",
+        "MONOB.23  1 B  UOM",
+        "CONSORC. M.10  UOM",
+        "MONOB.21 PB A  UOM"
+      ]
+    },
+    {
+      "nombre": "CANAL MARTIN IRIGOYEN",
+      "cantidad": 6,
+      "ejemplos": [
+        "CANAL MARTIN IRIGOYEN KM 103",
+        "CANAL MARTIN IRIGOYEN R.12KM",
+        "CANAL MARTIN IRIGOYEN ETAPA",
+        "CANAL MARTIN IRIGOYEN KM 102",
+        "CANAL MARTIN IRIGOYEN KM 98",
+        "CANAL MARTIN IRIGOYEN (KM98,"
+      ]
+    },
+    {
+      "nombre": "A. ARGENTINA",
+      "cantidad": 6,
+      "ejemplos": [
+        "A. Argentina 2350",
+        "A. Argentina 2068",
+        "A. Argentina 2770",
+        "A. Argentina 2010 1",
+        "A. Argentina 1988",
+        "A. Argentina 2744 bis"
+      ]
+    },
+    {
+      "nombre": "I.MALVINAS",
+      "cantidad": 6,
+      "ejemplos": [
+        "I.MALVINAS 279",
+        "I.MALVINAS 287",
+        "I.MALVINAS 215",
+        "I.MALVINAS 547",
+        "I.MALVINAS 394  B",
+        "I.MALVINAS 179"
+      ]
+    },
+    {
+      "nombre": "M.CORONADO",
+      "cantidad": 5,
+      "ejemplos": [
+        "M.CORONADO 335",
+        "M.CORONADO 295",
+        "M.CORONADO 387",
+        "M.CORONADO 250",
+        "M.CORONADO 349"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.",
+      "cantidad": 5,
+      "ejemplos": [
+        "EL AMPARO L. 52",
+        "EL AMPARO L. 46",
+        "EL AMPARO L. 59",
+        "EL AMPARO L. 12",
+        "EL AMPARO L. 58"
+      ]
+    },
+    {
+      "nombre": "LINTRIDES",
+      "cantidad": 5,
+      "ejemplos": [
+        "LINTRIDES 725",
+        "LINTRIDES 766",
+        "LINTRIDES 319",
+        "LINTRIDES 555 GALPON",
+        "LINTRIDES 730"
+      ]
+    },
+    {
+      "nombre": "PJE.MENDOZA",
+      "cantidad": 5,
+      "ejemplos": [
+        "PJE.MENDOZA 1330",
+        "PJE.MENDOZA 1377",
+        "PJE.MENDOZA 1344",
+        "PJE.MENDOZA 1325",
+        "PJE.MENDOZA 1348"
+      ]
+    },
+    {
+      "nombre": "PJE.S.LUIS",
+      "cantidad": 5,
+      "ejemplos": [
+        "PJE.S.LUIS 841",
+        "PJE.S.LUIS 923",
+        "PJE.S.LUIS 1263",
+        "PJE.S.LUIS 1294",
+        "PJE.S.LUIS 1402"
+      ]
+    },
+    {
+      "nombre": "AV LUIS ROCHA",
+      "cantidad": 4,
+      "ejemplos": [
+        "Av Luis Rocha 1859 2 U.M41",
+        "Av Luis Rocha 1859 H.78",
+        "Av Luis Rocha 1859 A.66",
+        "Av Luis Rocha 1859 4 Q 51"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.",
+      "cantidad": 4,
+      "ejemplos": [
+        "A.DEL CASCO L. 242",
+        "A.DEL CASCO L. 89",
+        "A.DEL CASCO L. 46",
+        "A.DEL CASCO L. 5"
+      ]
+    },
+    {
+      "nombre": "(SIN DOMICILIO)",
+      "cantidad": 4,
+      "ejemplos": [
+        "(VACIO)",
+        "(VACIO)",
+        "(VACIO)",
+        "(VACIO)"
+      ]
+    },
+    {
+      "nombre": "G.DE LA FERRERE",
+      "cantidad": 4,
+      "ejemplos": [
+        "G.DE LA FERRERE 1685",
+        "G.DE LA FERRERE 1737",
+        "G.DE LA FERRERE 1720",
+        "G.DE LA FERRERE 1555"
+      ]
+    },
+    {
+      "nombre": "PJE.SALTA",
+      "cantidad": 4,
+      "ejemplos": [
+        "PJE.SALTA 1712",
+        "PJE.SALTA 1827",
+        "PJE.SALTA 1881",
+        "PJE.SALTA 1814"
+      ]
+    },
+    {
+      "nombre": "PJE.TUCUMAN",
+      "cantidad": 4,
+      "ejemplos": [
+        "PJE.TUCUMAN 1683",
+        "PJE.TUCUMAN 1656",
+        "PJE.TUCUMAN 1447",
+        "PJE.TUCUMAN 1340"
+      ]
+    },
+    {
+      "nombre": "PJE.SILVANO",
+      "cantidad": 4,
+      "ejemplos": [
+        "PJE.SILVANO 1198",
+        "PJE.SILVANO 1198",
+        "PJE.SILVANO 1140",
+        "PJE.SILVANO 1150"
+      ]
+    },
+    {
+      "nombre": "J B JUSTO",
+      "cantidad": 4,
+      "ejemplos": [
+        "J B JUSTO 2060",
+        "J B JUSTO 2113",
+        "J B JUSTO 2141",
+        "J B JUSTO 2023"
+      ]
+    },
+    {
+      "nombre": "EL CABURE",
+      "cantidad": 3,
+      "ejemplos": [
+        "EL CABURE CH.5 L.7",
+        "EL CABURE CH.4 L.6",
+        "EL CABURE CH.5 L.2"
+      ]
+    },
+    {
+      "nombre": "11 DE NOVIEMBRE",
+      "cantidad": 3,
+      "ejemplos": [
+        "11 DE NOVIEMBRE 1867  FONDO",
+        "11 DE NOVIEMBRE 1537 PRO-T",
+        "11 DE NOVIEMBRE 1603 TALLER"
+      ]
+    },
+    {
+      "nombre": "1 DE MAYO",
+      "cantidad": 3,
+      "ejemplos": [
+        "1 DE MAYO 1531 FONDO",
+        "1 DE MAYO 1437 PRO",
+        "1 de Mayo 1347 Protierra"
+      ]
+    },
+    {
+      "nombre": "R.GALLEGO C",
+      "cantidad": 3,
+      "ejemplos": [
+        "R.GALLEGO C-83",
+        "R.GALLEGO C 81",
+        "R.GALLEGO C 82"
+      ]
+    },
+    {
+      "nombre": "PJE",
+      "cantidad": 3,
+      "ejemplos": [
+        "PJE 13 DE JULIO 1088",
+        "PJE 13 DE JULIO 1061",
+        "PJE 2 DE ABRIL 5"
+      ]
+    },
+    {
+      "nombre": "PJE.FORMOSA",
+      "cantidad": 3,
+      "ejemplos": [
+        "PJE.FORMOSA 1345",
+        "PJE.FORMOSA 1368",
+        "PJE.FORMOSA 1353 FONDO"
+      ]
+    },
+    {
+      "nombre": "PJE RIOJA",
+      "cantidad": 3,
+      "ejemplos": [
+        "PJE RIOJA 1437",
+        "PJE RIOJA 1451",
+        "PJE RIOJA 1547"
+      ]
+    },
+    {
+      "nombre": "BARRIO FONAVI",
+      "cantidad": 3,
+      "ejemplos": [
+        "B.FONAVI MON-27 10 A",
+        "B.FONAVI MON 27 3C",
+        "B.FONAVI MON. 19 3 19"
+      ]
+    },
+    {
+      "nombre": "126 VIV.",
+      "cantidad": 3,
+      "ejemplos": [
+        "126 VIV.MZ.8 C.27",
+        "126 VIV.MZ. 1 C.16",
+        "126 VIV.MZ. 8 C.14"
+      ]
+    },
+    {
+      "nombre": "",
+      "cantidad": 3,
+      "ejemplos": [
+        "Ch de Olivia L 47",
+        "CH DE OLIVIA CH 17",
+        "CH DE OLIVIA CH.22"
+      ]
+    },
+    {
+      "nombre": "B.LOS NARANJOS S",
+      "cantidad": 3,
+      "ejemplos": [
+        "B.LOS NARANJOS S/N",
+        "B.LOS NARANJOS S/N",
+        "B.LOS NARANJOS s/n"
+      ]
+    },
+    {
+      "nombre": "U. FERNANDEZ",
+      "cantidad": 3,
+      "ejemplos": [
+        "U. Fernandez 134 pA",
+        "U. FERNANDEZ 216",
+        "U. FERNANDEZ 667"
+      ]
+    },
+    {
+      "nombre": "A. ANTA",
+      "cantidad": 3,
+      "ejemplos": [
+        "A. Anta 233",
+        "A. Anta 411",
+        "A. Anta 130"
+      ]
+    },
+    {
+      "nombre": "PJE.",
+      "cantidad": 2,
+      "ejemplos": [
+        "PJE.P.VARADO 130",
+        "PJE. 2 869"
+      ]
+    },
+    {
+      "nombre": "PJE.CHUBUT",
+      "cantidad": 2,
+      "ejemplos": [
+        "PJE.CHUBUT 927",
+        "PJE.CHUBUT 923 1 A"
+      ]
+    },
+    {
+      "nombre": "A. BROW",
+      "cantidad": 2,
+      "ejemplos": [
+        "A. Brow 879",
+        "A. Brow 786"
+      ]
+    },
+    {
+      "nombre": "CALLEGARI",
+      "cantidad": 2,
+      "ejemplos": [
+        "CALLEGARI 303",
+        "CALLEGARI 56 BIS"
+      ]
+    },
+    {
+      "nombre": "B.LAS LOMAS",
+      "cantidad": 2,
+      "ejemplos": [
+        "B.LAS LOMAS MZ.J L.4",
+        "B.LAS LOMAS MZ.C L.3"
+      ]
+    },
+    {
+      "nombre": "CNO.AL TATU",
+      "cantidad": 2,
+      "ejemplos": [
+        "CNO.AL TATU",
+        "CNO.AL TATU"
+      ]
+    },
+    {
+      "nombre": "L.ACACIOS II",
+      "cantidad": 2,
+      "ejemplos": [
+        "L.ACACIOS II MZ.1 L.1",
+        "L.ACACIOS II MZ 2 L.17"
+      ]
+    },
+    {
+      "nombre": "LA PELUCHA CALLE",
+      "cantidad": 2,
+      "ejemplos": [
+        "LA PELUCHA CALLE 2 L.24",
+        "LA PELUCHA CALLE 2  L.5"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS FRANCIA",
+      "cantidad": 2,
+      "ejemplos": [
+        "L.CEIBOS FRANCIA 1410",
+        "L.CEIBOS FRANCIA 1430"
+      ]
+    },
+    {
+      "nombre": "B.LOS NARANJOS",
+      "cantidad": 2,
+      "ejemplos": [
+        "B.LOS NARANJOS MZ.105 L.2",
+        "B.LOS NARANJOS"
+      ]
+    },
+    {
+      "nombre": "C.H.DE LA RIESTRA",
+      "cantidad": 2,
+      "ejemplos": [
+        "C.H.DE LA RIESTRA 54 L.CAMPIÑA MZ.A L.18",
+        "C.H.DE LA RIESTRA 141"
+      ]
+    },
+    {
+      "nombre": "B.VIZA C",
+      "cantidad": 2,
+      "ejemplos": [
+        "B.VIZA C 50",
+        "B.VIZA C 18"
+      ]
+    },
+    {
+      "nombre": "CNO. INDUSTRIAL",
+      "cantidad": 2,
+      "ejemplos": [
+        "CNO. INDUSTRIAL S/N",
+        "CNO. INDUSTRIAL S/N"
+      ]
+    },
+    {
+      "nombre": "PJE.POLONIA",
+      "cantidad": 2,
+      "ejemplos": [
+        "PJE.POLONIA 1686",
+        "PJE.POLONIA 1626"
+      ]
+    },
+    {
+      "nombre": "INT.LUIS DI PAOLO",
+      "cantidad": 2,
+      "ejemplos": [
+        "INT.LUIS DI PAOLO 2550 TALLE║",
+        "INT.LUIS DI PAOLO 2550 KM 82"
+      ]
+    },
+    {
+      "nombre": "RENIBOLDI",
+      "cantidad": 2,
+      "ejemplos": [
+        "RENIBOLDI 2526",
+        "RENIBOLDI 2724"
+      ]
+    },
+    {
+      "nombre": "S.FCO.DE ASIS",
+      "cantidad": 2,
+      "ejemplos": [
+        "S.FCO.DE ASIS 1520",
+        "S.FCO.DE ASIS 1764"
+      ]
+    },
+    {
+      "nombre": "PJE.MEXICO",
+      "cantidad": 2,
+      "ejemplos": [
+        "PJE.MEXICO 46",
+        "PJE.MEXICO 86"
+      ]
+    },
+    {
+      "nombre": "FLEMING",
+      "cantidad": 2,
+      "ejemplos": [
+        "FLEMING 2307",
+        "FLEMING 2119"
+      ]
+    },
+    {
+      "nombre": "A.PONCE C.97",
+      "cantidad": 2,
+      "ejemplos": [
+        "A.PONCE C.97",
+        "A.PONCE C.97"
+      ]
+    },
+    {
+      "nombre": "L.MANSILLA C.8",
+      "cantidad": 2,
+      "ejemplos": [
+        "L.MANSILLA C.8",
+        "L.MANSILLA C.8"
+      ]
+    },
+    {
+      "nombre": "PJE.STA.CRUZ",
+      "cantidad": 2,
+      "ejemplos": [
+        "PJE.STA.CRUZ 44",
+        "PJE.STA.CRUZ 48"
+      ]
+    },
+    {
+      "nombre": "A.PONCE C.99",
+      "cantidad": 2,
+      "ejemplos": [
+        "A.PONCE C.99",
+        "A.PONCE C.99"
+      ]
+    },
+    {
+      "nombre": "PJE.COLON",
+      "cantidad": 2,
+      "ejemplos": [
+        "PJE.COLON 2030",
+        "PJE.COLON 2074"
+      ]
+    },
+    {
+      "nombre": "PJE.URUGUAY",
+      "cantidad": 2,
+      "ejemplos": [
+        "PJE.URUGUAY 1982",
+        "PJE.URUGUAY 1944  5"
+      ]
+    },
+    {
+      "nombre": "PJE.JUJUY",
+      "cantidad": 2,
+      "ejemplos": [
+        "PJE.JUJUY 620",
+        "PJE.JUJUY 620"
+      ]
+    },
+    {
+      "nombre": "PJE.SAN JUAN",
+      "cantidad": 2,
+      "ejemplos": [
+        "PJE.SAN JUAN 1340",
+        "PJE.SAN JUAN 1354"
+      ]
+    },
+    {
+      "nombre": "RTA.ACC.A LIMA S",
+      "cantidad": 2,
+      "ejemplos": [
+        "RTA.ACC.A LIMA S/N",
+        "RTA.ACC.A LIMA S/N"
+      ]
+    },
+    {
+      "nombre": "CNO. CEMENTERIO",
+      "cantidad": 2,
+      "ejemplos": [
+        "CNO. CEMENTERIO s/n",
+        "CNO. CEMENTERIO s/n"
+      ]
+    },
+    {
+      "nombre": "CNO. SIETE VUELTAS",
+      "cantidad": 2,
+      "ejemplos": [
+        "CNO. SIETE VUELTAS S/N",
+        "CNO. SIETE VUELTAS S/N"
+      ]
+    },
+    {
+      "nombre": "BO IRENE BELGRANO",
+      "cantidad": 2,
+      "ejemplos": [
+        "BO IRENE BELGRANO",
+        "BO IRENE BELGRANO"
+      ]
+    },
+    {
+      "nombre": "BO IRENE",
+      "cantidad": 2,
+      "ejemplos": [
+        "BO IRENE",
+        "BO IRENE QTA.N.15"
+      ]
+    },
+    {
+      "nombre": "V ALSINA",
+      "cantidad": 2,
+      "ejemplos": [
+        "V ALSINA 1592",
+        "V ALSINA 2234"
+      ]
+    },
+    {
+      "nombre": "J LIMA",
+      "cantidad": 2,
+      "ejemplos": [
+        "J LIMA 721",
+        "J LIMA 612"
+      ]
+    },
+    {
+      "nombre": "A. MELILLO",
+      "cantidad": 2,
+      "ejemplos": [
+        "A. Melillo 33",
+        "A. Melillo 470"
+      ]
+    },
+    {
+      "nombre": "H.YRIGOGEN",
+      "cantidad": 1,
+      "ejemplos": [
+        "H.YRIGOGEN 1822"
+      ]
+    },
+    {
+      "nombre": "H. YRYIGOYEN",
+      "cantidad": 1,
+      "ejemplos": [
+        "H. Yryigoyen 848 3 D"
+      ]
+    },
+    {
+      "nombre": "AMEGHINA",
+      "cantidad": 1,
+      "ejemplos": [
+        "Ameghina 1609"
+      ]
+    },
+    {
+      "nombre": "RIDAVADIA",
+      "cantidad": 1,
+      "ejemplos": [
+        "Ridavadia 610 4 b"
+      ]
+    },
+    {
+      "nombre": "RIVDAVIA",
+      "cantidad": 1,
+      "ejemplos": [
+        "Rivdavia 1752"
+      ]
+    },
+    {
+      "nombre": "GARIBALDI Y M DE LA TORRE",
+      "cantidad": 1,
+      "ejemplos": [
+        "garibaldi y m de la torre 1702"
+      ]
+    },
+    {
+      "nombre": "AV. L. ROCHA",
+      "cantidad": 1,
+      "ejemplos": [
+        "Av. L. Rocha 1859 3 91"
+      ]
+    },
+    {
+      "nombre": "ZARATE CHICO S",
+      "cantidad": 1,
+      "ejemplos": [
+        "ZARATE CHICO S/N"
+      ]
+    },
+    {
+      "nombre": "19 DE MARZO 857 4 I",
+      "cantidad": 1,
+      "ejemplos": [
+        "19 DE MARZO 857 4 I"
+      ]
+    },
+    {
+      "nombre": "PJE.CORRIENTES",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE.CORRIENTES 451"
+      ]
+    },
+    {
+      "nombre": "19 DE MRAZO 345",
+      "cantidad": 1,
+      "ejemplos": [
+        "19 de Mrazo 345 local"
+      ]
+    },
+    {
+      "nombre": "19 DE MARZO 828 1 F",
+      "cantidad": 1,
+      "ejemplos": [
+        "19 DE MARZO 828 1 f"
+      ]
+    },
+    {
+      "nombre": "19 DE MARZO 520 2 OF C",
+      "cantidad": 1,
+      "ejemplos": [
+        "19 DE MARZO 520 2 OF C"
+      ]
+    },
+    {
+      "nombre": "19 DE MARZO 877 5 F",
+      "cantidad": 1,
+      "ejemplos": [
+        "19 de Marzo 877 5 F"
+      ]
+    },
+    {
+      "nombre": "19 DE MARZO 130 5 C",
+      "cantidad": 1,
+      "ejemplos": [
+        "19 DE MARZO 130 5 C"
+      ]
+    },
+    {
+      "nombre": "19 DE MARZO 877 3D",
+      "cantidad": 1,
+      "ejemplos": [
+        "19 de Marzo 877 3D"
+      ]
+    },
+    {
+      "nombre": "19 DE MRAZO 857",
+      "cantidad": 1,
+      "ejemplos": [
+        "19 de Mrazo 857/877 7 C"
+      ]
+    },
+    {
+      "nombre": "19 DE MARZO 828 6 D",
+      "cantidad": 1,
+      "ejemplos": [
+        "19 DE MARZO 828 6 D"
+      ]
+    },
+    {
+      "nombre": "19 DE MARZO 877 5 1",
+      "cantidad": 1,
+      "ejemplos": [
+        "19 de Marzo 877 5 1"
+      ]
+    },
+    {
+      "nombre": "19 DE MARZO 570 L.2",
+      "cantidad": 1,
+      "ejemplos": [
+        "19 DE MARZO 570 L.2"
+      ]
+    },
+    {
+      "nombre": "19 DE MARZO 877 T1 4 A",
+      "cantidad": 1,
+      "ejemplos": [
+        "19 de Marzo 877 T1 4 A"
+      ]
+    },
+    {
+      "nombre": "19 DE MARZO 427 U 5",
+      "cantidad": 1,
+      "ejemplos": [
+        "19 DE MARZO 427 U 5"
+      ]
+    },
+    {
+      "nombre": "PJE.DELTA",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE.DELTA 896"
+      ]
+    },
+    {
+      "nombre": "PJE ENTRE RIOS",
+      "cantidad": 1,
+      "ejemplos": [
+        "Pje Entre Rios 270 3 B"
+      ]
+    },
+    {
+      "nombre": "PJE.E.RIOS",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE.E.RIOS 292"
+      ]
+    },
+    {
+      "nombre": "PJE. E. RIOS",
+      "cantidad": 1,
+      "ejemplos": [
+        "Pje. E. Rios 270 1 B"
+      ]
+    },
+    {
+      "nombre": "PJE.1",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE.1 MZ.4 L.5"
+      ]
+    },
+    {
+      "nombre": "PJE.2 880",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE.2 880"
+      ]
+    },
+    {
+      "nombre": "LOBO SUSANA CARMEN",
+      "cantidad": 1,
+      "ejemplos": [
+        "LOBO SUSANA CARMEN"
+      ]
+    },
+    {
+      "nombre": "PINTO",
+      "cantidad": 1,
+      "ejemplos": [
+        "PINTO 2909 C.17"
+      ]
+    },
+    {
+      "nombre": "PJE.PERU",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE.PERU CASA 22 B"
+      ]
+    },
+    {
+      "nombre": "B RONDAN",
+      "cantidad": 1,
+      "ejemplos": [
+        "B RONDAN 518"
+      ]
+    },
+    {
+      "nombre": "B.RONDAN",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.RONDAN 443"
+      ]
+    },
+    {
+      "nombre": "B.EL NOGAL L.137",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.EL NOGAL L.137"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L40",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L40"
+      ]
+    },
+    {
+      "nombre": "LA LEYLA L.12",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA LEYLA L.12"
+      ]
+    },
+    {
+      "nombre": "ESP.URBANO M.106 L15",
+      "cantidad": 1,
+      "ejemplos": [
+        "ESP.URBANO M.106 L15"
+      ]
+    },
+    {
+      "nombre": "LA LEYLA L.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA LEYLA L.7"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.53",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.53"
+      ]
+    },
+    {
+      "nombre": "ESP.URBANO M.106 L.11",
+      "cantidad": 1,
+      "ejemplos": [
+        "ESP.URBANO M.106 L.11"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.6 L.16",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.6 L.16"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.59",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.59"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.4 L.2A",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.4 L.2A"
+      ]
+    },
+    {
+      "nombre": "L.ACACIOS II M.1 L.12",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ACACIOS II M.1 L.12"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.2 L.13",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.2 L.13"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.93",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.93"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS M.22 L.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS M.22 L.6"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.11",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.11"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.5 L.06",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.5 L.06"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.71",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.71"
+      ]
+    },
+    {
+      "nombre": "ESP.URBANO",
+      "cantidad": 1,
+      "ejemplos": [
+        "ESP.URBANO MZ.106 L.22 CALLE"
+      ]
+    },
+    {
+      "nombre": "LAS TRANQUERAS L.15",
+      "cantidad": 1,
+      "ejemplos": [
+        "LAS TRANQUERAS L.15"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.61",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.61"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.17",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.17"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.23",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.23"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II L14 M5",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II L14 M5"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.5 L.15",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.5 L.15"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.62",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.62"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.99",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.99"
+      ]
+    },
+    {
+      "nombre": "B.LAS LOMAS M.D L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.LAS LOMAS M.D L.5"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.95",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.95"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.23",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.23"
+      ]
+    },
+    {
+      "nombre": "L.ACACIOS I L.1 M.1",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ACACIOS I L.1 M.1"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.93",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.93"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.69",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.69"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.19",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.19"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.10 BIS",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.10 BIS"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II L",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II L 19 M 3"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.19",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.19"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.74",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.74"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II L.6  M.3",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II L.6  M.3"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.8 LOC.2",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.8 LOC.2"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.95",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.95"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.49",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.49"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.73",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.73"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.81   M",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.81   M, 14 L. 14"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.8",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.8"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS M.15 L.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS M.15 L.7"
+      ]
+    },
+    {
+      "nombre": "L.CIPRESES L.42",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CIPRESES L.42"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.52",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.52"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.44",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.44"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.26",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.26"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.55",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.55"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.92",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.92"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L 51"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.75",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.75"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.69",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.69"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.64",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.64"
+      ]
+    },
+    {
+      "nombre": "PJE LA PESQUERIA",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE LA PESQUERIA"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.89",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.89"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.82",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.82"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.62",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.62"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.67",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.67"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.25",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.25"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.60",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.60"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.29",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.29"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.43",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.43"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.51",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.51"
+      ]
+    },
+    {
+      "nombre": "L.HERENCIA L.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.HERENCIA L.6"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.82",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.82"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.25",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.25"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.40",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.40"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS M.15 L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS M.15 L.5"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.97",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.97"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.8 LOCAL4",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.8 LOCAL4"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.83",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.83"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.6"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.31",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.31"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.98",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.98"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.41",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.41"
+      ]
+    },
+    {
+      "nombre": "LOS CIPRESES L.",
+      "cantidad": 1,
+      "ejemplos": [
+        "LOS CIPRESES L. 79"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.6 L.10",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.6 L.10"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.1 L.2",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.1 L.2"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.53",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.53"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.50",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.50"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.1",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.1"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.7"
+      ]
+    },
+    {
+      "nombre": "L.ACACIOS II L.19 BIS",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ACACIOS II L.19 BIS"
+      ]
+    },
+    {
+      "nombre": "L.HERENCIA F.1 L.14",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.HERENCIA F.1 L.14"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.39",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.39"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.7"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L9 M22 B",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L9 M22 B"
+      ]
+    },
+    {
+      "nombre": "C.PELLEGRINI Y RUTA",
+      "cantidad": 1,
+      "ejemplos": [
+        "C.PELLEGRINI Y RUTA 9"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.37",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.37"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.20",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.20"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.56",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.56"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.96",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.96"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.12 L.04",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.12 L.04"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.54",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.54"
+      ]
+    },
+    {
+      "nombre": "L.MORAS S",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MORAS S/N"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS M.22B L.2",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS M.22B L.2"
+      ]
+    },
+    {
+      "nombre": "L.ACACIOS II M.2 L.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ACACIOS II M.2 L.7"
+      ]
+    },
+    {
+      "nombre": "B.EL NOGAL L.23",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.EL NOGAL L.23"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.5"
+      ]
+    },
+    {
+      "nombre": "LA PELUCHA L.2",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA PELUCHA L.2"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.24",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.24"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.47",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.47"
+      ]
+    },
+    {
+      "nombre": "LAS TRANQUERAS L.14",
+      "cantidad": 1,
+      "ejemplos": [
+        "LAS TRANQUERAS L.14"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.64",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.64"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.65",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.65"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L29",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L29"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.14",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.14"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.100",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.100"
+      ]
+    },
+    {
+      "nombre": "PELLEGRINI Y RUTA",
+      "cantidad": 1,
+      "ejemplos": [
+        "PELLEGRINI Y RUTA 9"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.3 L.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.3 L.7"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.15",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.15"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.18",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.18"
+      ]
+    },
+    {
+      "nombre": "COST.Y VIAS D FFCC",
+      "cantidad": 1,
+      "ejemplos": [
+        "COST.Y VIAS D FFCC"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.94",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.94"
+      ]
+    },
+    {
+      "nombre": "B.EL RUBI DORREGO",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.EL RUBI DORREGO 4951"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.5"
+      ]
+    },
+    {
+      "nombre": "L. PICADAS M71 L4 BIS",
+      "cantidad": 1,
+      "ejemplos": [
+        "L. PICADAS M71 L4 BIS"
+      ]
+    },
+    {
+      "nombre": "L. PICADAS M71 L4",
+      "cantidad": 1,
+      "ejemplos": [
+        "L. PICADAS M71 L4"
+      ]
+    },
+    {
+      "nombre": "L. PICADAS M72 L5",
+      "cantidad": 1,
+      "ejemplos": [
+        "L. PICADAS M72 L5"
+      ]
+    },
+    {
+      "nombre": "L. PICADAS M61 L11",
+      "cantidad": 1,
+      "ejemplos": [
+        "L. PICADAS M61 L11"
+      ]
+    },
+    {
+      "nombre": "L. PICADAS M61 L5",
+      "cantidad": 1,
+      "ejemplos": [
+        "L. PICADAS M61 L5"
+      ]
+    },
+    {
+      "nombre": "L. PICADAS M82 L9",
+      "cantidad": 1,
+      "ejemplos": [
+        "L. PICADAS M82 L9"
+      ]
+    },
+    {
+      "nombre": "L.LAS MORAS S",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.LAS MORAS S/N"
+      ]
+    },
+    {
+      "nombre": "LA LEYLA L.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA LEYLA L.6 MZ 101"
+      ]
+    },
+    {
+      "nombre": "LA LEYLA S",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA LEYLA S/N"
+      ]
+    },
+    {
+      "nombre": "L.MORAS",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MORAS"
+      ]
+    },
+    {
+      "nombre": "B.ORTIZ",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.ORTIZ"
+      ]
+    },
+    {
+      "nombre": "L. PICADAS M70 L12",
+      "cantidad": 1,
+      "ejemplos": [
+        "L. PICADAS M70 L12"
+      ]
+    },
+    {
+      "nombre": "LA PESQUERIA",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA PESQUERIA"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.4",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.4"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.11",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.11"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.4 L13",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.4 L13"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II L.9",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II L.9 MZ.3"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II L.11",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II L.11"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.3 L.14",
+      "cantidad": 1,
+      "ejemplos": [
+        ": L.MIRTILLOS II M.3 L.14"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II L.17",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II L.17 MZ.3"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.3 L18",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.3 L18"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.3 L.20",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.3 L.20"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS M.3 L.22",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS M.3 L.22"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II L1 MZ3",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II L1 MZ3"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.2 L.03",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.2 L.03"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.2 L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.2 L.5"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.2 L.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.2 L.7"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.2 L.14 14",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.2 L.14 14"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M2 L 15",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M2 L 15"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.2 L.17",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.2 L.17"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.2  L.18",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.2  L.18"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.1 L.4",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.1 L.4"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M1 L.3",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M1 L.3"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M1 L11",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M1 L11"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.1 L.13",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.1 L.13"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.1 L.14",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.1 L.14"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.1 L.15",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.1 L.15"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.8 L.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.8 L.7"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.8 L.09 9",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.8 L.09 9"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.8 L.11",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.8 L.11"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.8 L.01",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.8 L.01"
+      ]
+    },
+    {
+      "nombre": "EL AMPARO L.35",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL AMPARO L.35"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.7 L.3",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.7 L.3"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.6 L.17",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.6 L.17"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M.5 L.13",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M.5 L.13"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS II M5 L1",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS II M5 L1"
+      ]
+    },
+    {
+      "nombre": "L.PICADAS M.72 L.1",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.PICADAS M.72 L.1"
+      ]
+    },
+    {
+      "nombre": "L.PICADAS L.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.PICADAS L.6"
+      ]
+    },
+    {
+      "nombre": "L. PICADAS M82 L7 CC",
+      "cantidad": 1,
+      "ejemplos": [
+        "L. PICADAS M82 L7 CC"
+      ]
+    },
+    {
+      "nombre": "L. PICADAS M82 L8 CC",
+      "cantidad": 1,
+      "ejemplos": [
+        "L. PICADAS M82 L8 CC"
+      ]
+    },
+    {
+      "nombre": "L. PICADAS M82 L8 CA",
+      "cantidad": 1,
+      "ejemplos": [
+        "L. PICADAS M82 L8 CA"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.90",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.90"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.42",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.42"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.86",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.86"
+      ]
+    },
+    {
+      "nombre": "LA PELUCHA L.25",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA PELUCHA L.25"
+      ]
+    },
+    {
+      "nombre": "L.ACACIOS I M.1 L.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ACACIOS I M.1 L.7"
+      ]
+    },
+    {
+      "nombre": "L.ACACIOS I M.1 L.8",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ACACIOS I M.1 L.8"
+      ]
+    },
+    {
+      "nombre": "L.ACACIOS I  M.2 L.13",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ACACIOS I  M.2 L.13"
+      ]
+    },
+    {
+      "nombre": "L ACACIOS I L11",
+      "cantidad": 1,
+      "ejemplos": [
+        "L ACACIOS I L11"
+      ]
+    },
+    {
+      "nombre": "LA PELUCHA L.3",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA PELUCHA L.3"
+      ]
+    },
+    {
+      "nombre": "LA PELUCHA L.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA PELUCHA L.6"
+      ]
+    },
+    {
+      "nombre": "LA PELUCHA L.13",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA PELUCHA L.13"
+      ]
+    },
+    {
+      "nombre": "L ACACIOS I L16",
+      "cantidad": 1,
+      "ejemplos": [
+        "L ACACIOS I L16"
+      ]
+    },
+    {
+      "nombre": "L.MIRTILLOS L.21",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MIRTILLOS L.21"
+      ]
+    },
+    {
+      "nombre": "B.COOP.ANT.C.32",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.COOP.ANT.C.32"
+      ]
+    },
+    {
+      "nombre": "B.COOP.ANTARTIDA C.3",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.COOP.ANTARTIDA C.3"
+      ]
+    },
+    {
+      "nombre": "B. SOLIDARI III C",
+      "cantidad": 1,
+      "ejemplos": [
+        "B. Solidari III C 2"
+      ]
+    },
+    {
+      "nombre": "J.B.JUSTO Y",
+      "cantidad": 1,
+      "ejemplos": [
+        "J.B.JUSTO Y 24 C.1"
+      ]
+    },
+    {
+      "nombre": "B.COOP.ANTARTIDA C.1",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.COOP.ANTARTIDA C.1"
+      ]
+    },
+    {
+      "nombre": "B.COOP.ANTARTIDA C.20",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.COOP.ANTARTIDA C.20"
+      ]
+    },
+    {
+      "nombre": "PJE.LIBERTAD",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE.LIBERTAD 3237"
+      ]
+    },
+    {
+      "nombre": "EL BAJO C.1",
+      "cantidad": 1,
+      "ejemplos": [
+        "EL BAJO C.1"
+      ]
+    },
+    {
+      "nombre": "PJE.BS.AIRES",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE.BS.AIRES 3153"
+      ]
+    },
+    {
+      "nombre": "L.MERCEDES M.9C L12B",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MERCEDES M.9C L12B"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.A L.4",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.A L.4"
+      ]
+    },
+    {
+      "nombre": "L.MERCEDES L.5A MZ9A",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MERCEDES L.5A MZ9A"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.15 L.20",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.15 L.20"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.34",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.34"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.22",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.22"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.2 L.21",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.2 L.21"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.11 L 8",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.11 L 8"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.36",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA l.36"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.21 L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.21 L.5"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.1 L.12",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.1 L.12"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.15",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.15"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.62",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.62"
+      ]
+    },
+    {
+      "nombre": "L.NARANJOS L.20",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.NARANJOS L.20"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.4 L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.4 L.5"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.C L.12 B",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.C L.12 B"
+      ]
+    },
+    {
+      "nombre": "B.LOS NARANJOS M.101 L 1",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.LOS NARANJOS M.101 L 1"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.16 L.16",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.16 L.16"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.7 L.12",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.7 L.12"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA 1 M.B L.8",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA 1 M.B L.8"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA III M.J L.8",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA III M.J L.8"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.2  L.15",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.2  L.15"
+      ]
+    },
+    {
+      "nombre": "B.EL MANGRULLO LAS CASUARINA",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.EL MANGRULLO LAS CASUARINA"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.8 L.16",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.8 L.16"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA III L.1",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA III L.1 MZ.D"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.19 L.14",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.19 L.14"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M.H L.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M.H L.7"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.52",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.52"
+      ]
+    },
+    {
+      "nombre": "L.MERCEDES M.9C L.1B",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MERCEDES M.9C L.1B"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.K L.10",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.K L.10"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA III M.I L12",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA III M.I L12"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.29",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.29"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.D L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.D L.5"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.2 L.19",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.2 L.19"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.26",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.26"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.12 L.18",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.12 L.18"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.4 L.8",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.4 L.8"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.136",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.136"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.3 L.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.3 L.6"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M A L.17",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M A L.17 CASA 1"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.229",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.229"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.D L.16",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.D L.16"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.7 L.14",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.7 L.14"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.19 L.1",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.19 L.1"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.3 L.1",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.3 L.1"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.7 L.10",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.7 L.10"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.16 L.15",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.16 L.15"
+      ]
+    },
+    {
+      "nombre": "B.EL MANGRULLO S",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.EL MANGRULLO S/N"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.4 L.1",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.4 L.1"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.12 L.17",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.12 L.17"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.19 L.3",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.19 L.3"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA III M.A L.16",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA III M.A L.16"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.4 L.10",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.4 L.10"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.9 L.15",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.9 L.15"
+      ]
+    },
+    {
+      "nombre": "A.ARG.6600 ALDEA SUIZA",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.ARG.6600 ALDEA SUIZA"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II L10MH A",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II L10MH A"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.49",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.49"
+      ]
+    },
+    {
+      "nombre": "L.MERCEDES M.9 L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MERCEDES M.9 L.5"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA III M.D L.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA III M.D L.6"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA III M.K L.14",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA III M.K L.14"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.2 L.12",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.2 L.12"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.16 L.13",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.16 L.13"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.11L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.11L.5"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.1 L.25",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.1 L.25"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.38  0",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.38  0"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.1 L.18",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.1 L.18"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.J L.4",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.J L.4"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.11 L.20",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.11 L.20"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.15  L.3",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.15  L.3"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO ADMINISTRACION",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO ADMINISTRACION"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO BOMBA",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO BOMBA 2"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO TALLER",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO TALLER"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO LAURELES  L.85",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO LAURELES  L.85"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.H L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.H L.5"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.310",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.310"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA 1",
+      "cantidad": 1,
+      "ejemplos": [
+        "La campiña 1 Mz C L 16"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO E.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO E.7 PB A"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.58",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.58"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO M.C L.26",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO M.C L.26"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA MZ144 L9",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA MZ144 L9"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.131",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.131"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M.G L.11",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M.G L.11"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.135",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.135"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.134",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.134"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.171",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.171"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.142",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.142"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.147",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.147"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.34",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.34"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M.E L.3",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M.E L.3"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.22 M.B",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.22 M.B"
+      ]
+    },
+    {
+      "nombre": "B.LOS NARANJOS L.12",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.LOS NARANJOS L.12"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.18",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.18"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.4 L.29",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.4 L.29"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.24",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.24"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO EDIF.",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO EDIF. 2 F"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.45",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.45"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.194",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO l.194"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M.G L.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M.G L.6"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.69",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.69"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.158",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.158"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L. 20"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.67",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.67"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.153",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.153"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M.2 D L.3",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M.2 D L.3"
+      ]
+    },
+    {
+      "nombre": "B.LOS NARANJOS M",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.LOS NARANJOS M 105 L7"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M.A L.12",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M.A L.12"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.68",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.68"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.K L.3",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.K L.3"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.J.A.70  3",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.J.A.70  3"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.30",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.30"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.77",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.77"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.160",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.160"
+      ]
+    },
+    {
+      "nombre": "B.LOS NARANJOS M.103 L.3",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.LOS NARANJOS M.103 L.3"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.124 M.H",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.124 M.H"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.106",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.106"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M.F L.1",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M.F L.1"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M.F L",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M.F L-11"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.6"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO EDIF.2 2 E",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO EDIF.2 2 E"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.1",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.1"
+      ]
+    },
+    {
+      "nombre": "L.NARANJOS M.104 L.13",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.NARANJOS M.104 L.13"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.39",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.39"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.21",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.21"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.117",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.117"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.150",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.150"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.12 L.13",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.12 L.13"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO M.C L.32",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO M.C L.32"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.3 L.2",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.3 L.2"
+      ]
+    },
+    {
+      "nombre": "L.NARANJOS L.4",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.NARANJOS L.4"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.110",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.110"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.13",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.13"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.257",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.257"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.275",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.275"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M.H L.10B",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M.H L.10B"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.70",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.70"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.31 M.C",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.31 M.C"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO E.7 D",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO E.7 D"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.9",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.9"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.96",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.96"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.21 L.12",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.21 L.12"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.154",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.154"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.C  L9",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.C  L9"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.115",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.115"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.170",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.170"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.66 M.E",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.66 M.E"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.27 M.C",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.27 M.C"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.125",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.125"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.75",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.75"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.167",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.167"
+      ]
+    },
+    {
+      "nombre": "SUIZA BIS",
+      "cantidad": 1,
+      "ejemplos": [
+        "SUIZA BIS"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.2 L.27",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.2 L.27"
+      ]
+    },
+    {
+      "nombre": "LOS CEIBOS ALBERTI",
+      "cantidad": 1,
+      "ejemplos": [
+        "Los Ceibos Alberti 4641"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.D L.13",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.D L.13"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO E.7 C",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO E.7 C"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.33",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.33"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO M.1 L.J  3",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO M.1 L.J  3"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M.H B L. 4",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M.H B L. 4"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.227",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.227"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.202",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.202"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.8 L.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.8 L.6"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.9 L.19",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.9 L.19"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.162",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.162"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.99",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.99"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.11 L.19",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.11 L.19"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.241",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.241"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.28",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.28"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M B L.4",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M B L.4"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.35",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.35"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.205",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.205"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.60",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.60"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS DORREGO",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS DORREGO 4661"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.4",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.4"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.188",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.188"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.41",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.41"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO E.",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO E. 7E  E"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA IIMZ.D L.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA IIMZ.D L.7"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.251",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.251"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M.H L.11",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M.H L.11"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.103",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.103"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.86",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.86"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.129",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.129"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.211",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.211"
+      ]
+    },
+    {
+      "nombre": "H.INSUA",
+      "cantidad": 1,
+      "ejemplos": [
+        "H.INSUA 455"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.216",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.216"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.108",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.108"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.19",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.19"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M.C L.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M.C L.7"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.76",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.76"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.258",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.258"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.64",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.64"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.23",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.23 MZ C"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.17",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.17"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.1 L.2",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.1 L.2"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.141",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.141"
+      ]
+    },
+    {
+      "nombre": "A CAMPIÑA II",
+      "cantidad": 1,
+      "ejemplos": [
+        "A CAMPIÑA II MZ.L L.3B"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.159",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.159"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.21",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.21"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.112",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.112"
+      ]
+    },
+    {
+      "nombre": "B. LOS NARANJOS  ENTRE HERMANO BERON Y A ARG",
+      "cantidad": 1,
+      "ejemplos": [
+        "B. LOS NARANJOS  entre hermano beron y a arg"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.20",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.20"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.104  .104",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.104  .104"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.133",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.133"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.12 L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.12 L.5"
+      ]
+    },
+    {
+      "nombre": "EL CABURE MZ408",
+      "cantidad": 1,
+      "ejemplos": [
+        "El Cabure MZ408"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.137",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.137"
+      ]
+    },
+    {
+      "nombre": "L.CEIBOS M.2 L.14",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.CEIBOS M.2 L.14"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.3",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.3"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.J L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.J L.5"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.271",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.271"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M.E L.8",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M.E L.8"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.78",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.78"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.45",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.45"
+      ]
+    },
+    {
+      "nombre": "O.PUGLIESE C.2 ALDEA SUIZA",
+      "cantidad": 1,
+      "ejemplos": [
+        "O.PUGLIESE C.2 ALDEA SUIZA"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.40",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.40"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.43",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.43"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.J",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.J"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.51",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.51"
+      ]
+    },
+    {
+      "nombre": "L.NARANJOS EGUIA",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.NARANJOS EGUIA 134 L.2"
+      ]
+    },
+    {
+      "nombre": "A.DEL CASCO L.42",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.DEL CASCO L.42"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M.A L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M.A L.5"
+      ]
+    },
+    {
+      "nombre": "B EL MANGRULLO ENTRE CALLE LOS PINOS Y ALCANFOR",
+      "cantidad": 1,
+      "ejemplos": [
+        "B EL MANGRULLO ENTRE CALLE LOS PINOS Y ALCANFOR"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.30",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.30"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.29",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.29"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.35",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.35"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.54",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.54"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.53",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.53"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.55",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.55"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.51",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.51"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.16",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.16"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.17",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.17"
+      ]
+    },
+    {
+      "nombre": "UERTO DEL SOL L.49E C.8  C.",
+      "cantidad": 1,
+      "ejemplos": [
+        "UERTO DEL SOL L.49E C.8  C."
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M.H L.6B",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M.H L.6B"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA III M.A L 10",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA III M.A L 10"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA II M.C L.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA II M.C L.6"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA J L.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA J L.7"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.135 L.13",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.135 L.13"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M G L5",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M G L5"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.H L.11",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.H L.11"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.L L.3",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.L L.3"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.F L.8",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.F L.8"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.H L.9",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.H L.9"
+      ]
+    },
+    {
+      "nombre": "LA CAMPIÑA M.G L.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "LA CAMPIÑA M.G L.7"
+      ]
+    },
+    {
+      "nombre": "L.MERCEDES M.9B L.9",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MERCEDES M.9B L.9"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.59",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.59"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA 43"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.39",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.39"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.1",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.1"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.27",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.27"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.5"
+      ]
+    },
+    {
+      "nombre": "B.VICTORIA L.25",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VICTORIA L.25"
+      ]
+    },
+    {
+      "nombre": "B.VIZA L.26",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VIZA L.26"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.4 L.2",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.4 L.2"
+      ]
+    },
+    {
+      "nombre": "B.VIZA C.10",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VIZA C.10"
+      ]
+    },
+    {
+      "nombre": "C.PRIV.VIZA C.30",
+      "cantidad": 1,
+      "ejemplos": [
+        "C.PRIV.VIZA C.30"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.2 L.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.2 L.6"
+      ]
+    },
+    {
+      "nombre": "B.VIZA C.19",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VIZA C.19"
+      ]
+    },
+    {
+      "nombre": "CNO. INDUSTRIAL SN",
+      "cantidad": 1,
+      "ejemplos": [
+        "CNO. INDUSTRIAL SN"
+      ]
+    },
+    {
+      "nombre": "B.VIZA L.28",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VIZA L.28"
+      ]
+    },
+    {
+      "nombre": "B.PRIV.VIZA C",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.PRIV.VIZA C-23"
+      ]
+    },
+    {
+      "nombre": "BARRIO VIZA",
+      "cantidad": 1,
+      "ejemplos": [
+        "BARRIO VIZA 43"
+      ]
+    },
+    {
+      "nombre": "ESTACION LAS PALMAS",
+      "cantidad": 1,
+      "ejemplos": [
+        "ESTACION LAS PALMAS"
+      ]
+    },
+    {
+      "nombre": "B.VIZA L.29 BIS",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VIZA L.29 BIS"
+      ]
+    },
+    {
+      "nombre": "B.VIZA C.41",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VIZA C.41"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.5 L.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.5 L.6"
+      ]
+    },
+    {
+      "nombre": "B.VIZA C.31",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VIZA C.31"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.1 L.26",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.1 L.26"
+      ]
+    },
+    {
+      "nombre": "B.VIZA C.39",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VIZA C.39"
+      ]
+    },
+    {
+      "nombre": "BARRIO VIZA C.42",
+      "cantidad": 1,
+      "ejemplos": [
+        "BARRIO VIZA c.42"
+      ]
+    },
+    {
+      "nombre": "B.VIZA C.51",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VIZA C.51"
+      ]
+    },
+    {
+      "nombre": "B.VIZA C.46",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VIZA C.46"
+      ]
+    },
+    {
+      "nombre": "B.VIZA CALLE",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VIZA CALLE 44 1160 C.13"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.2 L.2",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.2 L.2"
+      ]
+    },
+    {
+      "nombre": "B.VIZA C.44",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VIZA C.44"
+      ]
+    },
+    {
+      "nombre": "C.PRIV.VIZA C.36",
+      "cantidad": 1,
+      "ejemplos": [
+        "C.PRIV.VIZA C.36"
+      ]
+    },
+    {
+      "nombre": "B.VIZA C.53",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VIZA C.53"
+      ]
+    },
+    {
+      "nombre": "B.VIZA C.32",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VIZA C.32"
+      ]
+    },
+    {
+      "nombre": "C.PRIV.VIZA C.35",
+      "cantidad": 1,
+      "ejemplos": [
+        "C.PRIV.VIZA C.35"
+      ]
+    },
+    {
+      "nombre": "C.PRIV.VIZA C.34",
+      "cantidad": 1,
+      "ejemplos": [
+        "C.PRIV.VIZA C.34"
+      ]
+    },
+    {
+      "nombre": "B.VIZA C.27",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VIZA C.27"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.2 C.20",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.2 C.20"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.5 L.10",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.5 L.10"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.1 C.28",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.1 C.28"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.1 L.9",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.1 L.9"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.1 C.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.1 C.7"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.2 L.21",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.2 L.21"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.3 L.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.3 L.6"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M. 3 L.5"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.2 L.8",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.2 L.8"
+      ]
+    },
+    {
+      "nombre": "COSTA BRAVA CNO PASCUA",
+      "cantidad": 1,
+      "ejemplos": [
+        "COSTA BRAVA CNO PASCUA"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.2 C.11",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.2 C.11"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.5 L.18",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.5 L.18"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.4(CLUB.)",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.4(CLUB.)"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.5 L.30",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.5 L.30"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.1 C.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.1 C.6"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.1 L.16",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.1 L.16"
+      ]
+    },
+    {
+      "nombre": "L.ROBLES M.3 L.26",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.ROBLES M.3 L.26"
+      ]
+    },
+    {
+      "nombre": "PJE. MISIONES",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE. MISIONES 1651"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK L.14",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK L.14"
+      ]
+    },
+    {
+      "nombre": "V.EUGENIA",
+      "cantidad": 1,
+      "ejemplos": [
+        "V.EUGENIA CASA 3"
+      ]
+    },
+    {
+      "nombre": "PEÑALOSA 1750 BOSCH",
+      "cantidad": 1,
+      "ejemplos": [
+        "PE#ALOSA 1750 BOSCH"
+      ]
+    },
+    {
+      "nombre": "BOUCHARD",
+      "cantidad": 1,
+      "ejemplos": [
+        "BOUCHARD 1701"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK L.33",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK L.33"
+      ]
+    },
+    {
+      "nombre": "V.DE LA PLAZA",
+      "cantidad": 1,
+      "ejemplos": [
+        "V.DE LA PLAZA 1770"
+      ]
+    },
+    {
+      "nombre": "V.PEÑALOZA 1584",
+      "cantidad": 1,
+      "ejemplos": [
+        "V.PEÑALOZA 1584"
+      ]
+    },
+    {
+      "nombre": "V.PEÑALOZA M.1 L.1",
+      "cantidad": 1,
+      "ejemplos": [
+        "V.PEÑALOZA M.1 L.1"
+      ]
+    },
+    {
+      "nombre": "V.PEÑALOZA 1572",
+      "cantidad": 1,
+      "ejemplos": [
+        "V.PEÑALOZA 1572"
+      ]
+    },
+    {
+      "nombre": "A.MOREAU",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.MOREAU 2632"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK CONSORCIO ILUM.",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK CONSORCIO ILUM."
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK PORTERIA BOMBA",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK PORTERIA BOMBA"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK L.4",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK L.4"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK L.5"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK L.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK L.7"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK L.17",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK L.17"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK L.18",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK L.18"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK L.34",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK L.34"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK L.36",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK L.36"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK LOTE 43"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK L.53",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK L.53"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK L.64",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK L.64"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK L.70",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK L.70"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK L.299",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK L.299"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK L.450",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK L.450"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK L.456",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK L.456"
+      ]
+    },
+    {
+      "nombre": "Z.GOLF PARK L.457",
+      "cantidad": 1,
+      "ejemplos": [
+        "Z.GOLF PARK L.457"
+      ]
+    },
+    {
+      "nombre": "11 DE NOVIEMB 1670",
+      "cantidad": 1,
+      "ejemplos": [
+        "11 DE NOVIEMB 1670"
+      ]
+    },
+    {
+      "nombre": "11 DE NOVIEMB 2045",
+      "cantidad": 1,
+      "ejemplos": [
+        "11 DE NOVIEMB 2045"
+      ]
+    },
+    {
+      "nombre": "VILLARRUEL ANA GRISELDA",
+      "cantidad": 1,
+      "ejemplos": [
+        "VILLARRUEL ANA GRISELDA"
+      ]
+    },
+    {
+      "nombre": "ARRBEÑOS 2079",
+      "cantidad": 1,
+      "ejemplos": [
+        "Arrbeños 2079"
+      ]
+    },
+    {
+      "nombre": "PJE. MEXICO",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE. MEXICO 47"
+      ]
+    },
+    {
+      "nombre": "PJE MEJICO",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE MEJICO 47"
+      ]
+    },
+    {
+      "nombre": "A FLEMING",
+      "cantidad": 1,
+      "ejemplos": [
+        "A FLEMING 2458"
+      ]
+    },
+    {
+      "nombre": "B.FERROVIARIO C.18",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.FERROVIARIO C.18"
+      ]
+    },
+    {
+      "nombre": "T. FELLS",
+      "cantidad": 1,
+      "ejemplos": [
+        "T. Fells 1889"
+      ]
+    },
+    {
+      "nombre": "B.FERROVIARIO C.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.FERROVIARIO C.5"
+      ]
+    },
+    {
+      "nombre": "B. FERROVIARIO C",
+      "cantidad": 1,
+      "ejemplos": [
+        "B. Ferroviario c 20"
+      ]
+    },
+    {
+      "nombre": "B.FERROVIARIO C25",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.FERROVIARIO C25"
+      ]
+    },
+    {
+      "nombre": "B.FERROVIARIO C.19",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.FERROVIARIO C.19"
+      ]
+    },
+    {
+      "nombre": "B.FERROVIARIO C.22",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.FERROVIARIO C.22"
+      ]
+    },
+    {
+      "nombre": "B.FERROVIARIO C.1",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.FERROVIARIO C.1"
+      ]
+    },
+    {
+      "nombre": "LAPDRIDA",
+      "cantidad": 1,
+      "ejemplos": [
+        "Lapdrida 1029"
+      ]
+    },
+    {
+      "nombre": "B.VOLUNTARIOS C.92",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VOLUNTARIOS C.92"
+      ]
+    },
+    {
+      "nombre": "T.FELS C.",
+      "cantidad": 1,
+      "ejemplos": [
+        "T.FELS C. 118"
+      ]
+    },
+    {
+      "nombre": "T.FELS C.117",
+      "cantidad": 1,
+      "ejemplos": [
+        "T.FELS C.117"
+      ]
+    },
+    {
+      "nombre": "IO NEGRO C",
+      "cantidad": 1,
+      "ejemplos": [
+        "IO NEGRO C 10 BIS"
+      ]
+    },
+    {
+      "nombre": "T. FELS C.",
+      "cantidad": 1,
+      "ejemplos": [
+        "T. Fels C. 6"
+      ]
+    },
+    {
+      "nombre": "PJE STA CRUZ",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE STA CRUZ 35"
+      ]
+    },
+    {
+      "nombre": "L.MANSILLA C.3",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MANSILLA C.3"
+      ]
+    },
+    {
+      "nombre": "L.MANSILLA C.7",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MANSILLA C.7"
+      ]
+    },
+    {
+      "nombre": "L.MANSILLA C.13",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MANSILLA C.13"
+      ]
+    },
+    {
+      "nombre": "L.MANSILLA N.15",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MANSILLA N.15"
+      ]
+    },
+    {
+      "nombre": "B.VOLUNTARIOS C.85",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VOLUNTARIOS C.85"
+      ]
+    },
+    {
+      "nombre": "B.VOLUNTARIOS C.87 87",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VOLUNTARIOS C.87 87"
+      ]
+    },
+    {
+      "nombre": "B.VOLUNTARIOS C.89",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VOLUNTARIOS C.89"
+      ]
+    },
+    {
+      "nombre": "B.VOLUNTARIOS",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VOLUNTARIOS 90"
+      ]
+    },
+    {
+      "nombre": "B.VOLUNTARIOS C.95",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VOLUNTARIOS C.95"
+      ]
+    },
+    {
+      "nombre": "B.VOLUNTARIOS C.96 FONDO",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.VOLUNTARIOS C.96 FONDO"
+      ]
+    },
+    {
+      "nombre": "A.PONCE C.98",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.PONCE C.98"
+      ]
+    },
+    {
+      "nombre": "A.PONCE C.1O2",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.PONCE C.1O2"
+      ]
+    },
+    {
+      "nombre": "A.PONCE C.103",
+      "cantidad": 1,
+      "ejemplos": [
+        "A.PONCE C.103"
+      ]
+    },
+    {
+      "nombre": "PJE.R.NEGRO",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE.R.NEGRO 110"
+      ]
+    },
+    {
+      "nombre": "R.GALLEGO C.41",
+      "cantidad": 1,
+      "ejemplos": [
+        "R.GALLEGO C.41"
+      ]
+    },
+    {
+      "nombre": "R.GALLEGO C.84",
+      "cantidad": 1,
+      "ejemplos": [
+        "R.GALLEGO C.84"
+      ]
+    },
+    {
+      "nombre": "T.FELS C.4",
+      "cantidad": 1,
+      "ejemplos": [
+        "T.FELS C.4"
+      ]
+    },
+    {
+      "nombre": "T.FELS C.100",
+      "cantidad": 1,
+      "ejemplos": [
+        "T.FELS C.100"
+      ]
+    },
+    {
+      "nombre": "T.FELS C.115",
+      "cantidad": 1,
+      "ejemplos": [
+        "T.FELS C.115"
+      ]
+    },
+    {
+      "nombre": "PIEDARBUENA",
+      "cantidad": 1,
+      "ejemplos": [
+        "PIEDARBUENA 71"
+      ]
+    },
+    {
+      "nombre": "L.MANSILLA C.",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MANSILLA C. 9"
+      ]
+    },
+    {
+      "nombre": "L.MANSILLA C.1",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.MANSILLA C.1"
+      ]
+    },
+    {
+      "nombre": "PJE. CHACO",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE. CHACO 1598"
+      ]
+    },
+    {
+      "nombre": "SAN AMRTIN",
+      "cantidad": 1,
+      "ejemplos": [
+        "SAN AMRTIN 1832 1 2"
+      ]
+    },
+    {
+      "nombre": "PJE CHACO",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE CHACO 1545"
+      ]
+    },
+    {
+      "nombre": "CASEROS Y LAPRIDA",
+      "cantidad": 1,
+      "ejemplos": [
+        "CASEROS Y LAPRIDA"
+      ]
+    },
+    {
+      "nombre": "19 DE MARZO 1667 INTER",
+      "cantidad": 1,
+      "ejemplos": [
+        "19 DE MARZO 1667 INTER"
+      ]
+    },
+    {
+      "nombre": "B.C.MEDITERR. C",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.C.MEDITERR. C 14"
+      ]
+    },
+    {
+      "nombre": "B.C.MEDITERR. C.74",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.C.MEDITERR. C.74"
+      ]
+    },
+    {
+      "nombre": "C.BLANCAS C.77 1 B",
+      "cantidad": 1,
+      "ejemplos": [
+        "C.BLANCAS C.77 1 B"
+      ]
+    },
+    {
+      "nombre": "B.C.MEDITERR.",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.C.MEDITERR. 677 C.71"
+      ]
+    },
+    {
+      "nombre": "B.C.MEDITERR. C.47",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.C.MEDITERR. C.47"
+      ]
+    },
+    {
+      "nombre": "QUINRO",
+      "cantidad": 1,
+      "ejemplos": [
+        "QUINRO 1061"
+      ]
+    },
+    {
+      "nombre": "USQUIZA",
+      "cantidad": 1,
+      "ejemplos": [
+        "USQUIZA 1675"
+      ]
+    },
+    {
+      "nombre": "B.UNION Y FE C.6",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.UNION Y FE C.6"
+      ]
+    },
+    {
+      "nombre": "MATADERO IV C.25",
+      "cantidad": 1,
+      "ejemplos": [
+        "MATADERO IV C.25"
+      ]
+    },
+    {
+      "nombre": "B.UNION Y FE C.9",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.UNION Y FE C.9"
+      ]
+    },
+    {
+      "nombre": "B.UNION Y FUERZA C.37",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.UNION Y FUERZA C.37"
+      ]
+    },
+    {
+      "nombre": "PJE.PIAGNA",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE.PIAGNA 1476"
+      ]
+    },
+    {
+      "nombre": "B.UNION Y FE C.4",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.UNION Y FE C.4"
+      ]
+    },
+    {
+      "nombre": "22 VIVIENDAS C.12",
+      "cantidad": 1,
+      "ejemplos": [
+        "22 VIVIENDAS C.12"
+      ]
+    },
+    {
+      "nombre": "22 VIVIENDAS C.10",
+      "cantidad": 1,
+      "ejemplos": [
+        "22 VIVIENDAS C.10"
+      ]
+    },
+    {
+      "nombre": "B.UNION Y FE C.18",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.UNION Y FE C.18"
+      ]
+    },
+    {
+      "nombre": "B.DON MARCOS L.10",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.DON MARCOS L.10 MZ.B"
+      ]
+    },
+    {
+      "nombre": "B.UNION Y FE C.13",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.UNION Y FE C.13"
+      ]
+    },
+    {
+      "nombre": "B.UNION Y FUERZA C.42",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.UNION Y FUERZA C.42"
+      ]
+    },
+    {
+      "nombre": "U.Y FUERZA II C.38",
+      "cantidad": 1,
+      "ejemplos": [
+        "U.Y FUERZA II C.38"
+      ]
+    },
+    {
+      "nombre": "B.DON MARCOS",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.DON MARCOS MZ.C L.8"
+      ]
+    },
+    {
+      "nombre": "B.DON MARCOS M.F L.2",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.DON MARCOS M.F L.2"
+      ]
+    },
+    {
+      "nombre": "B.DON MARCOS L.1 M M",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.DON MARCOS L.1 M M"
+      ]
+    },
+    {
+      "nombre": "PJE FORMOSA",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE FORMOSA 1360"
+      ]
+    },
+    {
+      "nombre": "MTHEU",
+      "cantidad": 1,
+      "ejemplos": [
+        "MTHEU 854"
+      ]
+    },
+    {
+      "nombre": "B.MATADERO C.650",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.MATADERO C.650"
+      ]
+    },
+    {
+      "nombre": "B.MATADERO III  C.50",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.MATADERO III  C.50"
+      ]
+    },
+    {
+      "nombre": "B.MATADERO NUEVO C.9",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.MATADERO NUEVO C.9"
+      ]
+    },
+    {
+      "nombre": "B.MATADERO NUEVO C.21",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.MATADERO NUEVO C.21"
+      ]
+    },
+    {
+      "nombre": "26 VIV.",
+      "cantidad": 1,
+      "ejemplos": [
+        "26 VIV.MZ.7 C.16"
+      ]
+    },
+    {
+      "nombre": "126 VIV",
+      "cantidad": 1,
+      "ejemplos": [
+        "126 Viv mz 8 c 9"
+      ]
+    },
+    {
+      "nombre": "AVDA COSTANERA",
+      "cantidad": 1,
+      "ejemplos": [
+        "Avda Costanera"
+      ]
+    },
+    {
+      "nombre": "PJE.S.DEL ESTERO Y",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE.S.DEL ESTERO y 9 de JUL"
+      ]
+    },
+    {
+      "nombre": "CALLA",
+      "cantidad": 1,
+      "ejemplos": [
+        "CALLA 3 NRO. 595"
+      ]
+    },
+    {
+      "nombre": "CLLE",
+      "cantidad": 1,
+      "ejemplos": [
+        "CLLE 21 711 L 59"
+      ]
+    },
+    {
+      "nombre": "PJE.2 BIS 947",
+      "cantidad": 1,
+      "ejemplos": [
+        "PJE.2 BIS 947"
+      ]
+    },
+    {
+      "nombre": "CALLE ABC C24 M.B",
+      "cantidad": 1,
+      "ejemplos": [
+        "CALLE ABC C24 M.B"
+      ]
+    },
+    {
+      "nombre": "CALLE ABC C.24 A",
+      "cantidad": 1,
+      "ejemplos": [
+        "CALLE ABC C.24 A"
+      ]
+    },
+    {
+      "nombre": "CALLE AB C16 M.A",
+      "cantidad": 1,
+      "ejemplos": [
+        "CALLE AB C16 M.A"
+      ]
+    },
+    {
+      "nombre": "CALLE AB C.16 MZA.A",
+      "cantidad": 1,
+      "ejemplos": [
+        "CALLE AB C.16 MZA.A"
+      ]
+    },
+    {
+      "nombre": "CON A BARADERO",
+      "cantidad": 1,
+      "ejemplos": [
+        "Con a Baradero 300"
+      ]
+    },
+    {
+      "nombre": "CALL",
+      "cantidad": 1,
+      "ejemplos": [
+        "CALL 42 L60 22OCT"
+      ]
+    },
+    {
+      "nombre": "GAJA",
+      "cantidad": 1,
+      "ejemplos": [
+        "GAJA 8 C 60 L 190"
+      ]
+    },
+    {
+      "nombre": "BARRIO GRANJA",
+      "cantidad": 1,
+      "ejemplos": [
+        "BARRIO GRANJA 8 C.122"
+      ]
+    },
+    {
+      "nombre": "R.ENCUENTRO C25",
+      "cantidad": 1,
+      "ejemplos": [
+        "R.ENCUENTRO C25"
+      ]
+    },
+    {
+      "nombre": "RTA.ACC.A LIMA .",
+      "cantidad": 1,
+      "ejemplos": [
+        "RTA.ACC.A LIMA ."
+      ]
+    },
+    {
+      "nombre": "VILLA LIA R9 KM103",
+      "cantidad": 1,
+      "ejemplos": [
+        "VILLA LIA R9 KM103"
+      ]
+    },
+    {
+      "nombre": "B. QUEBRADA L. TILOS",
+      "cantidad": 1,
+      "ejemplos": [
+        "B. Quebrada L. Tilos"
+      ]
+    },
+    {
+      "nombre": "B.QUEBRADA PARAISOS",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.QUEBRADA PARAISOS"
+      ]
+    },
+    {
+      "nombre": "SAN JOSE FATIMA S",
+      "cantidad": 1,
+      "ejemplos": [
+        "SAN JOSE FATIMA S/N"
+      ]
+    },
+    {
+      "nombre": "S.CAYETANO C.72",
+      "cantidad": 1,
+      "ejemplos": [
+        "S.CAYETANO C.72"
+      ]
+    },
+    {
+      "nombre": "VIRGEN DE ITATI S.JOSE",
+      "cantidad": 1,
+      "ejemplos": [
+        "VIRGEN DE ITATI S.JOSE"
+      ]
+    },
+    {
+      "nombre": "VIRGEN DE ITATI",
+      "cantidad": 1,
+      "ejemplos": [
+        "VIRGEN DE ITATI 27"
+      ]
+    },
+    {
+      "nombre": "B.NARANJOS VENECIA",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.NARANJOS VENECIA"
+      ]
+    },
+    {
+      "nombre": "B.LOS NARANJOS .",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.LOS NARANJOS ."
+      ]
+    },
+    {
+      "nombre": "CJON.MARTINELLI S",
+      "cantidad": 1,
+      "ejemplos": [
+        "CJON.MARTINELLI S/N"
+      ]
+    },
+    {
+      "nombre": "CNO.AL QUEMADO POLO",
+      "cantidad": 1,
+      "ejemplos": [
+        "CNO.AL QUEMADO POLO"
+      ]
+    },
+    {
+      "nombre": "B. IRENE S.MARTIN",
+      "cantidad": 1,
+      "ejemplos": [
+        "B. irene s.martin 620"
+      ]
+    },
+    {
+      "nombre": "CON SIETE VUELTAS S",
+      "cantidad": 1,
+      "ejemplos": [
+        "Con siete vueltas s/n"
+      ]
+    },
+    {
+      "nombre": "CNO AL QUEMADO .",
+      "cantidad": 1,
+      "ejemplos": [
+        "CNO AL QUEMADO ."
+      ]
+    },
+    {
+      "nombre": "CAMINO AL QUEMADO",
+      "cantidad": 1,
+      "ejemplos": [
+        "CAMINO AL QUEMADO"
+      ]
+    },
+    {
+      "nombre": "CNO. LAS PALMAS .",
+      "cantidad": 1,
+      "ejemplos": [
+        "CNO. LAS PALMAS ."
+      ]
+    },
+    {
+      "nombre": "CON SIETE VUELTAS CAMP MOREN",
+      "cantidad": 1,
+      "ejemplos": [
+        "Con siete vueltas camp moren"
+      ]
+    },
+    {
+      "nombre": "NUEVO BARRIO CITRUS LIMA .",
+      "cantidad": 1,
+      "ejemplos": [
+        "NUEVO BARRIO CITRUS LIMA ."
+      ]
+    },
+    {
+      "nombre": "HS DE MALVINAS S",
+      "cantidad": 1,
+      "ejemplos": [
+        "HS DE MALVINAS S/N"
+      ]
+    },
+    {
+      "nombre": "CNO.VIJO CENEA E64",
+      "cantidad": 1,
+      "ejemplos": [
+        "CNO.VIJO CENEA E64"
+      ]
+    },
+    {
+      "nombre": "BARRIO IRENE",
+      "cantidad": 1,
+      "ejemplos": [
+        "Barrio Irene"
+      ]
+    },
+    {
+      "nombre": "BIRENE BELGRANO969",
+      "cantidad": 1,
+      "ejemplos": [
+        "BIRENE BELGRANO969"
+      ]
+    },
+    {
+      "nombre": "B.SAN JORGE",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.SAN JORGE"
+      ]
+    },
+    {
+      "nombre": "B.SAN JORGE S",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.SAN JORGE S/N"
+      ]
+    },
+    {
+      "nombre": "FINCAS DE LIMA L.5",
+      "cantidad": 1,
+      "ejemplos": [
+        "Fincas De Lima L.5"
+      ]
+    },
+    {
+      "nombre": "CAMINO GRANJA",
+      "cantidad": 1,
+      "ejemplos": [
+        "CAMINO GRANJA 8 P.A DPTO D"
+      ]
+    },
+    {
+      "nombre": "CANAL LAURENTINO COMAS",
+      "cantidad": 1,
+      "ejemplos": [
+        "CANAL LAURENTINO COMAS"
+      ]
+    },
+    {
+      "nombre": "ARROYO LOS TIGRES",
+      "cantidad": 1,
+      "ejemplos": [
+        "ARROYO LOS TIGRES"
+      ]
+    },
+    {
+      "nombre": "CANAL L.N.ALEM",
+      "cantidad": 1,
+      "ejemplos": [
+        "CANAL L.N.ALEM-2DA. SECC."
+      ]
+    },
+    {
+      "nombre": "CAMPING EL FARO",
+      "cantidad": 1,
+      "ejemplos": [
+        "CAMPING EL FARO"
+      ]
+    },
+    {
+      "nombre": "L. MIRTILLOS II",
+      "cantidad": 1,
+      "ejemplos": [
+        "L. MIRTILLOS II MANZANA 2 LOTE 13"
+      ]
+    },
+    {
+      "nombre": "LAS PALMERAS (GALPON)",
+      "cantidad": 1,
+      "ejemplos": [
+        "LAS PALMERAS (GALPON)"
+      ]
+    },
+    {
+      "nombre": "RTA.ACC.A LIMA",
+      "cantidad": 1,
+      "ejemplos": [
+        "RTA.ACC.A LIMA"
+      ]
+    },
+    {
+      "nombre": "B.FERROVIARIO C.21",
+      "cantidad": 1,
+      "ejemplos": [
+        "B.FERROVIARIO C.21"
+      ]
+    },
+    {
+      "nombre": "RIVADAVIA820 L.4",
+      "cantidad": 1,
+      "ejemplos": [
+        "RIVADAVIA820 L.4"
+      ]
+    },
+    {
+      "nombre": "L.N.ALEM",
+      "cantidad": 1,
+      "ejemplos": [
+        "L.N.ALEM 648 P.A."
+      ]
+    },
+    {
+      "nombre": "D. MARIMON",
+      "cantidad": 1,
+      "ejemplos": [
+        "D. Marimon 295"
+      ]
+    },
+    {
+      "nombre": "V FERNANDEZ",
+      "cantidad": 1,
+      "ejemplos": [
+        "V FERNANDEZ 895"
+      ]
+    },
+    {
+      "nombre": "F. PAGOLA",
+      "cantidad": 1,
+      "ejemplos": [
+        "F. PAGOLA 520 BIS"
+      ]
+    },
+    {
+      "nombre": "F.PAGOLA 162",
+      "cantidad": 1,
+      "ejemplos": [
+        ": F.PAGOLA 162"
+      ]
+    },
+    {
+      "nombre": "A ANTA",
+      "cantidad": 1,
+      "ejemplos": [
+        "A ANTA 617"
+      ]
+    },
+    {
+      "nombre": "J. HERNANDEZ",
+      "cantidad": 1,
+      "ejemplos": [
+        "J. HERNANDEZ 380 PA"
+      ]
+    }
+  ]
+}

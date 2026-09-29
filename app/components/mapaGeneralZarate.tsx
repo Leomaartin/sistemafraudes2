@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState, useMemo } from "react";
 import "leaflet/dist/leaflet.css";
+import "leaflet.markercluster/dist/MarkerCluster.css";
+import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "../css/mapa.css";
 import { obtenerInfoVencimiento } from "@/lib/vencimiento";
 import { ESTADOS_MAPA_CONFIG, obtenerConfigEstadoPorUsuario } from "@/lib/estadoColors";
@@ -19,6 +21,34 @@ import { toast } from "react-toastify";
 
 const ZARATE_CENTER: [number, number] = [-34.0964, -59.0289];
 const DEFAULT_ZOOM = 13;
+
+// Rutas válidas según normativa operativa: 1 a 78, 201 a 212, 301, 302 y 303
+export const RUTAS_VALIDAS_LISTA: number[] = [
+  ...Array.from({ length: 78 }, (_, i) => i + 1), // 1..78
+  ...Array.from({ length: 12 }, (_, i) => 201 + i), // 201..212
+  301,
+  302,
+  303,
+];
+
+export function esRutaValida(valor: string | number): boolean {
+  if (valor === "" || valor === null || valor === undefined) return false;
+  const num = typeof valor === "number" ? valor : parseInt(String(valor).trim(), 10);
+  if (isNaN(num)) return false;
+  return (
+    (num >= 1 && num <= 78) ||
+    (num >= 201 && num <= 212) ||
+    num === 301 ||
+    num === 302 ||
+    num === 303
+  );
+}
+
+export function normalizarRuta(rutaStr: string | null | undefined): string {
+  if (!rutaStr) return "";
+  const num = parseInt(String(rutaStr).trim(), 10);
+  return isNaN(num) ? String(rutaStr).trim() : String(num);
+}
 
 interface UsuarioGeo {
   id: number;
@@ -58,8 +88,25 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
   const userMarkersMap = useRef<Map<number, any>>(new Map());
 
   const [usuarios, setUsuarios] = useState<UsuarioGeo[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [searchFilter, setSearchFilter] = useState("");
+
+  // Estado del Filtro Obligatorio de Ruta
+  const [rutaEscrita, setRutaEscrita] = useState<string>("");
+  const [rutaActiva, setRutaActiva] = useState<string>("");
+  const [rutaError, setRutaError] = useState<string | null>(null);
+  const [cargandoRuta, setCargandoRuta] = useState<boolean>(false);
+
+
+  // Modal para ver los usuarios de la ruta activa que no tienen coordenadas
+  const [showModalSinGeo, setShowModalSinGeo] = useState<boolean>(false);
+
+  // Estados para mover punto geolocalizado en el mapa
+  const [usuarioMoviendo, setUsuarioMoviendo] = useState<UsuarioGeo | null>(null);
+  const [coordsEdicion, setCoordsEdicion] = useState<{ lat: number; lng: number }>({ lat: 0, lng: 0 });
+  const [guardandoPunto, setGuardandoPunto] = useState<boolean>(false);
+  const movingMarkerRef = useRef<any>(null);
+  const mapClickHandlerRef = useRef<any>(null);
 
   // Estado de Pantalla Completa
   const [esPantallaCompleta, setEsPantallaCompleta] = useState<boolean>(false);
@@ -160,33 +207,99 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
   // Estado que confirma que la instancia de Leaflet está montada y lista en el DOM
   const [mapReady, setMapReady] = useState(false);
 
-  // Cargar usuarios y cuadrillas desde la API
-  const fetchUsuarios = async () => {
-    try {
-      setLoading(true);
-      const [resUsers, resCuadrillas] = await Promise.all([
-        fetch("/api/usuariosapi"),
-        fetch("/api/cuadrillasapi"),
-      ]);
+  // Modificar el texto escrito en el input de ruta sin ejecutar la búsqueda automáticamente
+  const handleInputRuta = (valor: string) => {
+    setRutaEscrita(valor);
+    if (rutaError) {
+      setRutaError(null);
+    }
+  };
 
-      if (resUsers.ok) {
-        const data = await resUsers.json();
+  // Ejecutar la búsqueda y validación de la ruta al presionar el botón o la tecla Enter
+  const handleBuscarRuta = (rutaDirecta?: string) => {
+    const valor = (rutaDirecta !== undefined ? rutaDirecta : rutaEscrita).trim();
+
+    if (!valor) {
+      setRutaError("Por favor ingresá un número de ruta para buscar.");
+      return;
+    }
+
+    if (!esRutaValida(valor)) {
+      setRutaActiva("");
+      setRutaError(`La ruta "${valor}" no existe. Las rutas permitidas son del 1 al 78, del 201 al 212, y 301, 302, 303.`);
+      setUsuarios([]);
+      if (markersLayerRef.current) markersLayerRef.current.clearLayers();
+      if (routeLayerRef.current) routeLayerRef.current.clearLayers();
+      setResultadoRuta(null);
+      return;
+    }
+
+    const num = parseInt(valor, 10);
+    const rutaNorm = String(num);
+    setRutaError(null);
+    setRutaEscrita(rutaNorm);
+    setRutaActiva(rutaNorm);
+  };
+
+  // Limpiar y resetear el filtro de ruta operativa activa
+  const handleResetFiltroRuta = () => {
+    setRutaEscrita("");
+    setRutaActiva("");
+    setRutaError(null);
+    setUsuarios([]);
+    if (markersLayerRef.current) markersLayerRef.current.clearLayers();
+    if (routeLayerRef.current) routeLayerRef.current.clearLayers();
+    setResultadoRuta(null);
+  };
+
+  // Cargar catálogo de cuadrillas al iniciar
+  useEffect(() => {
+    fetch("/api/cuadrillasapi")
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data) => setCuadrillasDisponibles(data))
+      .catch((err) => console.error("Error al cargar cuadrillas:", err));
+  }, []);
+
+  // Cargar usuarios de la ruta activa desde la API de forma ultrarrápida
+  const fetchUsuariosRuta = async () => {
+    if (!rutaActiva) {
+      setUsuarios([]);
+      setLoading(false);
+      return;
+    }
+
+    setCargandoRuta(true);
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/usuariosapi?ruta=${encodeURIComponent(rutaActiva)}`);
+      if (res.ok) {
+        const data: UsuarioGeo[] = await res.json();
         setUsuarios(data);
-      }
-      if (resCuadrillas.ok) {
-        const dataC = await resCuadrillas.json();
-        setCuadrillasDisponibles(dataC);
+        if (data.length === 0) {
+          setRutaError(`No se encontraron usuarios registrados en la ruta ${rutaActiva}.`);
+        } else {
+          const georref = data.filter(
+            (u) => u.latitud !== null && u.longitud !== null && !isNaN(Number(u.latitud))
+          );
+          if (georref.length === 0) {
+            toast.warning(`La ruta ${rutaActiva} tiene ${data.length} usuarios pero aún no tienen coordenadas en el mapa.`);
+          } else {
+            toast.success(`Ruta ${rutaActiva}: ${data.length} usuarios (${georref.length} en mapa)`);
+          }
+        }
       }
     } catch (err) {
-      console.error("Error al cargar datos para el mapa:", err);
+      console.error("Error al cargar ruta:", err);
     } finally {
+      setCargandoRuta(false);
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchUsuarios();
-  }, [refreshKey]);
+    fetchUsuariosRuta();
+  }, [rutaActiva, refreshKey]);
+
 
   // Hook global para que los popups puedan fijar el inicio, agregar/quitar manual y mover orden
   useEffect(() => {
@@ -245,12 +358,217 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
       }
     };
 
+    (window as any).iniciarMoverPunto = (id: number) => {
+      iniciarMoverPunto(id);
+    };
+
     return () => {
       delete (window as any).fijarUsuarioInicioCorte;
       delete (window as any).toggleParadaManual;
       delete (window as any).moverParadaManual;
+      delete (window as any).iniciarMoverPunto;
     };
   }, [usuarios]);
+
+  // Funciones para Mover Punto Geolocalizado
+  const iniciarMoverPunto = (id: number) => {
+    const usuario = usuarios.find((u) => u.id === id);
+    if (!usuario || usuario.latitud === null || usuario.longitud === null) {
+      toast.warning("El usuario seleccionado no cuenta con coordenadas válidas para mover.");
+      return;
+    }
+
+    const L = LRef.current;
+    const map = mapInstanceRef.current;
+    if (!L || !map) return;
+
+    // Cerrar popups abiertos
+    map.closePopup();
+
+    const latOrig = Number(usuario.latitud);
+    const lngOrig = Number(usuario.longitud);
+
+    setUsuarioMoviendo(usuario);
+    setCoordsEdicion({ lat: latOrig, lng: lngOrig });
+
+    // Limpiar marcador temporal anterior si existiera
+    if (movingMarkerRef.current) {
+      map.removeLayer(movingMarkerRef.current);
+      movingMarkerRef.current = null;
+    }
+    if (mapClickHandlerRef.current) {
+      map.off("click", mapClickHandlerRef.current);
+      mapClickHandlerRef.current = null;
+    }
+
+    // Centrar suavemente en el punto
+    map.panTo([latOrig, lngOrig]);
+
+    // Crear icono distintivo de arrastre
+    const movingIconHtml = `
+      <div class="custom-moving-pin">
+        <div class="custom-moving-badge">
+          <span class="custom-moving-dot"></span>
+          <span>📍 MOVER #${usuario.nroUsuario}</span>
+        </div>
+        <div class="custom-moving-tip"></div>
+      </div>
+    `;
+
+    const movingIcon = L.divIcon({
+      className: "custom-moving-marker-wrapper",
+      html: movingIconHtml,
+      iconSize: [140, 42],
+      iconAnchor: [70, 40],
+    });
+
+    const movingMarker = L.marker([latOrig, lngOrig], {
+      draggable: true,
+      icon: movingIcon,
+      zIndexOffset: 4000,
+    }).addTo(map);
+
+    // Eventos de arrastre
+    movingMarker.on("drag", (e: any) => {
+      const pos = e.target.getLatLng();
+      setCoordsEdicion({
+        lat: Number(pos.lat.toFixed(7)),
+        lng: Number(pos.lng.toFixed(7)),
+      });
+    });
+
+    movingMarker.on("dragend", (e: any) => {
+      const pos = e.target.getLatLng();
+      setCoordsEdicion({
+        lat: Number(pos.lat.toFixed(7)),
+        lng: Number(pos.lng.toFixed(7)),
+      });
+      toast.info(`📍 Posición seleccionada: ${pos.lat.toFixed(6)}, ${pos.lng.toFixed(6)}`);
+    });
+
+    movingMarkerRef.current = movingMarker;
+
+    // Evento de clic en cualquier lugar del mapa para posicionarlo directamente
+    const onMapClick = (e: any) => {
+      const { lat, lng } = e.latlng;
+      const formattedLat = Number(lat.toFixed(7));
+      const formattedLng = Number(lng.toFixed(7));
+      movingMarker.setLatLng([formattedLat, formattedLng]);
+      setCoordsEdicion({ lat: formattedLat, lng: formattedLng });
+      toast.info(`📍 Posición fijada con clic: ${formattedLat.toFixed(6)}, ${formattedLng.toFixed(6)}`);
+    };
+
+    map.on("click", onMapClick);
+    mapClickHandlerRef.current = onMapClick;
+
+    toast.info(`📍 Modo mover punto activo para #${usuario.nroUsuario}. Arrastrá el marcador naranja o hacé clic en el mapa.`);
+  };
+
+  const cancelarMoverPunto = () => {
+    const map = mapInstanceRef.current;
+    if (map) {
+      if (movingMarkerRef.current) {
+        map.removeLayer(movingMarkerRef.current);
+        movingMarkerRef.current = null;
+      }
+      if (mapClickHandlerRef.current) {
+        map.off("click", mapClickHandlerRef.current);
+        mapClickHandlerRef.current = null;
+      }
+    }
+    setUsuarioMoviendo(null);
+    toast.info("Modificación de punto cancelada.");
+  };
+
+  const revertirCoordsOriginales = () => {
+    if (!usuarioMoviendo || usuarioMoviendo.latitud === null || usuarioMoviendo.longitud === null) return;
+    const latOrig = Number(usuarioMoviendo.latitud);
+    const lngOrig = Number(usuarioMoviendo.longitud);
+
+    setCoordsEdicion({ lat: latOrig, lng: lngOrig });
+    if (movingMarkerRef.current) {
+      movingMarkerRef.current.setLatLng([latOrig, lngOrig]);
+    }
+    mapInstanceRef.current?.panTo([latOrig, lngOrig]);
+    toast.info("Coordenadas revertidas a su valor original.");
+  };
+
+  const handleCoordInputChange = (newLat: number, newLng: number) => {
+    setCoordsEdicion({ lat: newLat, lng: newLng });
+    if (!isNaN(newLat) && !isNaN(newLng) && movingMarkerRef.current) {
+      movingMarkerRef.current.setLatLng([newLat, newLng]);
+      mapInstanceRef.current?.panTo([newLat, newLng]);
+    }
+  };
+
+  const guardarNuevoPunto = async () => {
+    if (!usuarioMoviendo) return;
+    if (isNaN(coordsEdicion.lat) || isNaN(coordsEdicion.lng)) {
+      toast.error("Las coordenadas ingresadas no son válidas.");
+      return;
+    }
+
+    try {
+      setGuardandoPunto(true);
+      const newLat = Number(coordsEdicion.lat.toFixed(7));
+      const newLng = Number(coordsEdicion.lng.toFixed(7));
+      const newMaps = `https://www.google.com/maps?q=${newLat.toFixed(6)},${newLng.toFixed(6)}`;
+
+      const res = await fetch(`/api/users?id=${usuarioMoviendo.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          latitud: newLat,
+          longitud: newLng,
+          maps: newMaps,
+        }),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || "No se pudo actualizar el punto en el servidor");
+      }
+
+      // Actualizar en el estado de usuarios
+      setUsuarios((prev) =>
+        prev.map((u) =>
+          u.id === usuarioMoviendo.id
+            ? { ...u, latitud: newLat, longitud: newLng, maps: newMaps }
+            : u
+        )
+      );
+
+      // Si está en las paradas manuales, actualizarlo también
+      setParadasManuales((prev) =>
+        prev.map((p) =>
+          p.id === usuarioMoviendo.id
+            ? { ...p, latitud: newLat, longitud: newLng, maps: newMaps }
+            : p
+        )
+      );
+
+      // Limpiar el marcador temporal y listener
+      const map = mapInstanceRef.current;
+      if (map) {
+        if (movingMarkerRef.current) {
+          map.removeLayer(movingMarkerRef.current);
+          movingMarkerRef.current = null;
+        }
+        if (mapClickHandlerRef.current) {
+          map.off("click", mapClickHandlerRef.current);
+          mapClickHandlerRef.current = null;
+        }
+      }
+
+      setUsuarioMoviendo(null);
+      toast.success(`✅ Ubicación de #${usuarioMoviendo.nroUsuario} guardada correctamente: Lat ${newLat}, Lon ${newLng}`);
+    } catch (error: any) {
+      console.error("Error al guardar punto:", error);
+      toast.error(error.message || "Error al guardar la nueva ubicación.");
+    } finally {
+      setGuardandoPunto(false);
+    }
+  };
 
   // Inicializar mapa de Leaflet
   useEffect(() => {
@@ -261,6 +579,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
       if (mapInstanceRef.current) return;
 
       const L = (await import("leaflet")).default;
+      await import("leaflet.markercluster");
       LRef.current = L;
 
       if (!isMounted || !mapContainerRef.current) return;
@@ -270,6 +589,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
         zoom: DEFAULT_ZOOM,
         zoomControl: true,
         scrollWheelZoom: true,
+        preferCanvas: true,
       });
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -277,7 +597,72 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
         maxZoom: 19,
       }).addTo(map);
 
-      const markersLayer = L.layerGroup().addTo(map);
+      // Agrupamiento inteligente de marcadores con chunkedLoading para soportar 12.000+ puntos a 60 FPS
+      const markersLayer = (L as any).markerClusterGroup({
+        chunkedLoading: true,
+        chunkInterval: 50,
+        chunkDelay: 25,
+        maxClusterRadius: 40,
+        spiderfyOnMaxZoom: true,
+        showCoverageOnHover: false,
+        iconCreateFunction: (cluster: any) => {
+          const markers = cluster.getAllChildMarkers();
+          const count = cluster.getChildCount();
+
+          // Analizar el estado de los marcadores contenidos en este cluster
+          const conteos: Record<string, { count: number; config: any }> = {};
+          for (const m of markers) {
+            const cfg = (m as any).options?.userConfig;
+            if (cfg) {
+              if (!conteos[cfg.key]) {
+                conteos[cfg.key] = { count: 0, config: cfg };
+              }
+              conteos[cfg.key].count++;
+            }
+          }
+
+          // Tomar el estado dominante o el del filtro activo
+          let dominante: any = null;
+          let maxCount = 0;
+          for (const k in conteos) {
+            if (conteos[k].count > maxCount) {
+              maxCount = conteos[k].count;
+              dominante = conteos[k].config;
+            }
+          }
+
+          const bg = dominante?.bg || "#ef4444";
+          const text = dominante?.text || "#ffffff";
+          const border = dominante?.border || "#b91c1c";
+          const emoji = dominante?.emoji || "";
+
+          // Tamaño y tipografía adaptativa
+          const size = count < 10 ? 36 : count < 100 ? 42 : 48;
+          const fontSize = count < 10 ? 12 : count < 100 ? 13 : 14;
+
+          return L.divIcon({
+            html: `
+              <div class="custom-cluster-globito" style="
+                width: ${size}px;
+                height: ${size}px;
+                background: ${bg};
+                color: ${text};
+                border: 2.5px solid #ffffff;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 0 3px ${bg}55;
+                font-size: ${fontSize}px;
+              ">
+                ${emoji ? `<span class="globito-emoji">${emoji}</span>` : ""}
+                <span class="globito-number">${count}</span>
+              </div>
+            `,
+            className: "cluster-globito-wrapper",
+            iconSize: L.point(size, size),
+            iconAnchor: [size / 2, size / 2],
+          });
+        },
+      });
+      map.addLayer(markersLayer);
+
       const routeLayer = L.layerGroup().addTo(map);
 
       markersLayerRef.current = markersLayer;
@@ -314,6 +699,60 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
     };
   }, []);
 
+  const usuariosGeoreferenciados = useMemo(() => {
+    return usuarios.filter(
+      (u) =>
+        u.latitud !== null &&
+        u.longitud !== null &&
+        !isNaN(Number(u.latitud)) &&
+        !isNaN(Number(u.longitud))
+    );
+  }, [usuarios]);
+
+  // Usuarios de la ruta que NO poseen coordenadas geográficas / no fueron encontrados en Maps
+  const usuariosSinGeo = useMemo(() => {
+    return usuarios.filter((u) => !u.latitud || !u.longitud || isNaN(Number(u.latitud)));
+  }, [usuarios]);
+
+  // Usuarios filtrados por estados activos (o todos si no hay ninguno seleccionado)
+  const usuariosAMostrar = useMemo(() => {
+    return usuariosGeoreferenciados.filter((u) => {
+      if (filtrosEstadoKeys.length === 0) return true;
+      const c = obtenerConfigEstadoPorUsuario(u.estado);
+      return filtrosEstadoKeys.includes(c.key);
+    });
+  }, [usuariosGeoreferenciados, filtrosEstadoKeys]);
+
+  // Conteo de usuarios por cada estado en la ruta seleccionada
+  const conteoPorEstado = useMemo(() => {
+    const mapaConteos: Record<string, number> = {};
+    usuariosGeoreferenciados.forEach((u) => {
+      const config = obtenerConfigEstadoPorUsuario(u.estado);
+      mapaConteos[config.key] = (mapaConteos[config.key] || 0) + 1;
+    });
+    return mapaConteos;
+  }, [usuariosGeoreferenciados]);
+
+  // Lista de configuraciones de los estados actualmente filtrados
+  const configsFiltrosActivos = useMemo(() => {
+    return ESTADOS_MAPA_CONFIG.filter((e) => filtrosEstadoKeys.includes(e.key));
+  }, [filtrosEstadoKeys]);
+
+  // Auto-ajustar cámara del mapa a los puntos de la ruta cargada
+  useEffect(() => {
+    if (!mapInstanceRef.current || !rutaActiva || !LRef.current) return;
+    const puntos = usuariosAMostrar
+      .filter((u) => u.latitud && u.longitud && !isNaN(Number(u.latitud)))
+      .map((u) => [Number(u.latitud), Number(u.longitud)] as [number, number]);
+
+    if (puntos.length > 0) {
+      try {
+        const bounds = LRef.current.latLngBounds(puntos);
+        mapInstanceRef.current.fitBounds(bounds, { padding: [50, 50], maxZoom: 16 });
+      } catch (e) {}
+    }
+  }, [rutaActiva, usuariosAMostrar]);
+
   // Pintar los marcadores de los usuarios cuando cambian los datos, la ruta o el filtro de estado
   useEffect(() => {
     if (!mapInstanceRef.current || !markersLayerRef.current || !LRef.current) return;
@@ -327,6 +766,8 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
       resultadoRuta ? resultadoRuta.paradas.map((p) => p.usuario.id) : []
     );
     const boundsPoints: [number, number][] = [];
+    const markersParaAgregar: any[] = [];
+    const coordsVistas = new Map<string, number>();
 
     usuariosAMostrar.forEach((user) => {
       // Si el usuario ya está dibujado en la ruta de cortes (azul/verde),
@@ -335,8 +776,22 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
         return;
       }
 
-      const lat = Number(user.latitud);
-      const lng = Number(user.longitud);
+      let lat = Number(user.latitud);
+      let lng = Number(user.longitud);
+
+      // Micro-desplazamiento en espiral para que usuarios con la misma dirección exacta
+      // no queden uno tapando al otro al hacer zoom
+      const coordKey = `${lat.toFixed(5)},${lng.toFixed(5)}`;
+      const repeticion = coordsVistas.get(coordKey) || 0;
+      coordsVistas.set(coordKey, repeticion + 1);
+
+      if (repeticion > 0) {
+        const angulo = (repeticion * 2 * Math.PI) / 6;
+        const radio = 0.00009 * (1 + Math.floor(repeticion / 6) * 0.5);
+        lat += radio * Math.cos(angulo);
+        lng += radio * Math.sin(angulo);
+      }
+
       boundsPoints.push([lat, lng]);
 
       const config = obtenerConfigEstadoPorUsuario(user.estado);
@@ -393,10 +848,14 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
             </span>
             ${
               user.estado
-                ? `<span class="popup-estado-badge" style="background: ${config.badgeBg}; color: ${config.badgeText}; border: 1px solid ${config.border}; font-weight: 800;">
+                ? `<span class="popup-estado-badge" style="background: ${config.badgeBg}; color: ${config.badgeText}; border: 1px solid ${config.border}; font-weight: 800; display: inline-flex; align-items: center; gap: 5px;">
+                    <span style="width: 6.5px; height: 6.5px; border-radius: 50%; background: ${config.dotColor}; flex-shrink: 0; display: inline-block;"></span>
                     ${config.emoji ? `${config.emoji} ` : ""}${user.estado.nombre}
                   </span>`
-                : ""
+                : `<span class="popup-estado-badge" style="background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; font-weight: 800; display: inline-flex; align-items: center; gap: 5px;">
+                    <span style="width: 6.5px; height: 6.5px; border-radius: 50%; background: #94a3b8; flex-shrink: 0; display: inline-block;"></span>
+                    Sin Estado
+                  </span>`
             }
           </div>
           <h4 class="popup-user-name">${user.nombre}</h4>
@@ -433,6 +892,9 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
           <div class="popup-user-info-row" style="margin-top: 6px; padding-top: 6px; border-top: 1px dashed #e2e8f0;">
             <span><strong>Vto:</strong> <span style="color: #dc2626; font-weight: 700;">${infoVto.texto}</span></span>
           </div>
+          <div class="popup-user-info-row" style="margin-top: 4px; font-size: 11px; color: #64748b;">
+            <span><strong>GPS:</strong> <span style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #0284c7;">${lat.toFixed(6)}, ${lng.toFixed(6)}</span></span>
+          </div>
           <div class="popup-footer-action" style="gap: 6px; justify-content: space-between; align-items: center; flex-wrap: wrap;">
             <div style="display: flex; gap: 6px; flex-wrap: wrap;">
               <button
@@ -451,6 +913,14 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
               >
                 + Ruta manual
               </button>
+              <button
+                type="button"
+                onclick="event.preventDefault(); event.stopPropagation(); window.iniciarMoverPunto(${user.id})"
+                class="popup-btn-mover-punto"
+                title="Mover punto: cambiar latitud y longitud directamente en el mapa"
+              >
+                📍 Mover punto
+              </button>
             </div>
             <a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank" rel="noopener noreferrer" class="popup-btn-maps">
               <span>Maps</span>
@@ -464,7 +934,11 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
         </div>
       `;
 
-      const marker = L.marker([lat, lng], { icon: userIcon });
+      const marker = L.marker([lat, lng], {
+        icon: userIcon,
+        userConfig: config,
+        userEstadoKey: config.key,
+      } as any);
 
       marker.on("click", (e: any) => {
         if (modoPlanificadorRef.current === "manual" && clickDirectoManualRef.current) {
@@ -479,12 +953,18 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
         autoPan: false,
       });
 
-      markersLayerRef.current.addLayer(marker);
+      markersParaAgregar.push(marker);
       userMarkersMap.current.set(user.id, marker);
     });
 
+    if (markersLayerRef.current.addLayers) {
+      markersLayerRef.current.addLayers(markersParaAgregar);
+    } else {
+      markersParaAgregar.forEach((m) => markersLayerRef.current.addLayer(m));
+    }
+
     // La pantalla y el mapa se mantienen estáticos sin saltos de cámara
-  }, [usuarios, resultadoRuta, filtrosEstadoKeys, mapReady]);
+  }, [usuariosAMostrar, resultadoRuta, filtrosEstadoKeys, mapReady]);
 
   // Dibujar la ruta y los marcadores ordenados de paradas
   const dibujarRutaEnMapa = (res: ResultadoRuta) => {
@@ -572,7 +1052,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
             <span><strong>Acumulado:</strong> ${formatearDistancia(distanciaAcumuladaMetros)}</span>
           </div>
           <div class="popup-footer-action" style="margin-top: 8px; padding-top: 6px; border-top: 1px dashed #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
-            <div style="display: flex; gap: 4px; align-items: center;">
+            <div style="display: flex; gap: 4px; align-items: center; flex-wrap: wrap;">
               <button
                 type="button"
                 onclick="window.toggleParadaManual(${usuario.id})"
@@ -580,6 +1060,14 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
                 title="Quitar esta parada de la ruta"
               >
                 Quitar
+              </button>
+              <button
+                type="button"
+                onclick="event.preventDefault(); event.stopPropagation(); window.iniciarMoverPunto(${usuario.id})"
+                class="popup-btn-mover-punto"
+                title="Mover punto: cambiar latitud y longitud en el mapa"
+              >
+                📍 Mover punto
               </button>
               ${
                 orden > 1
@@ -897,16 +1385,51 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
     toast.success("¡Planilla Excel descargada con Hoja de Ruta y Listado de Fraudes!");
   };
 
-  // Manejar el enfoque sobre un usuario buscado
-  const handleFocusUsuario = (usuarioId: number) => {
+  const resaltarMarcador = (marker: any) => {
+    try {
+      const el = marker.getElement();
+      if (el) {
+        el.classList.add("marker-highlight-pulse");
+        setTimeout(() => {
+          el.classList.remove("marker-highlight-pulse");
+        }, 3500);
+      }
+    } catch {}
+  };
+
+  const enfocarMarcador = (usuarioId: number) => {
     const marker = userMarkersMap.current.get(usuarioId);
+    const u = usuarios.find((user) => user.id === usuarioId);
+    if (!u) return;
+
     if (marker && mapInstanceRef.current) {
       const latlng = marker.getLatLng();
-      mapInstanceRef.current.flyTo(latlng, 17, { duration: 1.2 });
-      setTimeout(() => {
-        marker.openPopup();
-      }, 1250);
+      mapInstanceRef.current.setView(latlng, 18, { animate: true });
+      if (markersLayerRef.current?.zoomToShowLayer) {
+        markersLayerRef.current.zoomToShowLayer(marker, () => {
+          setTimeout(() => {
+            marker.openPopup();
+            resaltarMarcador(marker);
+          }, 150);
+        });
+      } else {
+        setTimeout(() => {
+          marker.openPopup();
+          resaltarMarcador(marker);
+        }, 150);
+      }
+    } else if (u.latitud && u.longitud && mapInstanceRef.current) {
+      mapInstanceRef.current.setView([Number(u.latitud), Number(u.longitud)], 18, { animate: true });
+      toast.info(`Usuario #${u.nroUsuario} (${u.domicilio || "Zárate"})`);
     }
+  };
+
+  // Manejar el enfoque sobre un usuario buscado dentro de la ruta activa
+  const handleFocusUsuario = (target: number | UsuarioGeo) => {
+    const u = typeof target === "number" ? usuarios.find((user) => user.id === target) : target;
+    if (!u) return;
+
+    enfocarMarcador(u.id);
   };
 
   const handleResetView = () => {
@@ -915,47 +1438,22 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
     }
   };
 
-  const usuariosGeoreferenciados = usuarios.filter(
-    (u) =>
-      u.latitud !== null &&
-      u.longitud !== null &&
-      !isNaN(Number(u.latitud)) &&
-      !isNaN(Number(u.longitud))
-  );
+  // Resultados de búsqueda: exclusivamente dentro de los usuarios de la ruta activa seleccionada
+  const usuariosFiltrados = useMemo(() => {
+    if (!rutaActiva || !searchFilter.trim()) return [];
+    const term = searchFilter.toLowerCase().trim();
 
-  // Usuarios filtrados por estados activos (o todos si no hay ninguno seleccionado)
-  const usuariosAMostrar = useMemo(() => {
-    return usuariosGeoreferenciados.filter((u) => {
-      if (filtrosEstadoKeys.length === 0) return true;
-      const c = obtenerConfigEstadoPorUsuario(u.estado);
-      return filtrosEstadoKeys.includes(c.key);
-    });
-  }, [usuariosGeoreferenciados, filtrosEstadoKeys]);
-
-  // Conteo de usuarios por cada estado
-  const conteoPorEstado = useMemo(() => {
-    const mapaConteos: Record<string, number> = {};
-    usuariosGeoreferenciados.forEach((u) => {
-      const config = obtenerConfigEstadoPorUsuario(u.estado);
-      mapaConteos[config.key] = (mapaConteos[config.key] || 0) + 1;
-    });
-    return mapaConteos;
-  }, [usuariosGeoreferenciados]);
-
-  // Lista de configuraciones de los estados actualmente filtrados
-  const configsFiltrosActivos = useMemo(() => {
-    return ESTADOS_MAPA_CONFIG.filter((e) => filtrosEstadoKeys.includes(e.key));
-  }, [filtrosEstadoKeys]);
-
-  const usuariosFiltrados = usuariosGeoreferenciados.filter((u) => {
-    if (!searchFilter.trim()) return false;
-    const term = searchFilter.toLowerCase();
-    return (
-      u.nroUsuario.toLowerCase().includes(term) ||
-      u.nombre.toLowerCase().includes(term) ||
-      (u.domicilio && u.domicilio.toLowerCase().includes(term))
-    );
-  });
+    return usuarios
+      .filter((u) => {
+        return (
+          u.nroUsuario.toLowerCase().includes(term) ||
+          u.nombre.toLowerCase().includes(term) ||
+          (u.domicilio && u.domicilio.toLowerCase().includes(term)) ||
+          (u.medidor && u.medidor.toLowerCase().includes(term))
+        );
+      })
+      .slice(0, 15);
+  }, [searchFilter, usuarios, rutaActiva]);
 
   return (
     <div
@@ -975,19 +1473,115 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
         </div>
 
         <div className="mapa-general-controls">
-          <div className="mapa-stats-pill">
-            <span>Fraudes Geolocalizados:</span>
-            <strong>{usuariosGeoreferenciados.length}</strong>
-          </div>
+          {/* CONTROL DE RUTA OBLIGATORIO CON BOTÓN DE BÚSQUEDA */}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleBuscarRuta();
+            }}
+            className="mapa-header-ruta-box"
+          >
+            <span className="mapa-header-ruta-label">Ruta *:</span>
+            <div style={{ position: "relative", display: "inline-flex", alignItems: "center" }}>
+              <input
+                type="text"
+                inputMode="numeric"
+                className={`mapa-header-ruta-input ${
+                  rutaError ? "is-invalid" : rutaActiva ? "is-valid" : ""
+                }`}
+                placeholder="Ej: 301"
+                value={rutaEscrita}
+                onChange={(e) => handleInputRuta(e.target.value)}
+                title="Filtro obligatorio de ruta: 1 al 78, 201 al 212, 301, 302 y 303. Presiona Enter o el botón Buscar."
+              />
+              {rutaEscrita && (
+                <button
+                  type="button"
+                  className="btn-header-clear-ruta"
+                  onClick={handleResetFiltroRuta}
+                  title="Limpiar ruta"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
 
+            <button
+              type="submit"
+              className="btn-header-buscar-ruta"
+              disabled={cargandoRuta || !rutaEscrita.trim()}
+              title="Buscar y cargar los usuarios de esta ruta"
+            >
+              {cargandoRuta ? "⏳" : "🔍 Buscar"}
+            </button>
+
+            {rutaActiva && !cargandoRuta && (
+              <span className="badge-ruta-activa" title={`Ruta ${rutaActiva} activa`}>
+                ✓ R{rutaActiva}
+              </span>
+            )}
+
+            {rutaError && (
+              <span className="badge-ruta-error" title={rutaError}>
+                ⚠️ Inválida
+              </span>
+            )}
+          </form>
+
+          {/* Estadísticas de la ruta activa y botón para ver usuarios no localizados en Maps */}
+          {rutaActiva && (
+            <>
+              <div className="mapa-stats-pill">
+                <span>Fraudes Ruta {rutaActiva}:</span>
+                <strong>{usuariosGeoreferenciados.length}</strong>
+              </div>
+
+              {usuariosSinGeo.length > 0 && (
+                <button
+                  type="button"
+                  className="btn-sin-geo-pill"
+                  onClick={() => setShowModalSinGeo(true)}
+                  title="Ver usuarios de esta ruta no encontrados en Google Maps"
+                >
+                  <span>⚠️</span>
+                  <span>{usuariosSinGeo.length} sin Maps</span>
+                  <span className="btn-sin-geo-ver">Ver</span>
+                </button>
+              )}
+            </>
+          )}
+
+          {/* Buscador de usuario exclusivamente dentro de la ruta activa */}
           <div style={{ position: "relative" }}>
             <input
               type="text"
-              placeholder="Buscar por N° o nombre en el mapa..."
+              placeholder={rutaActiva ? `Buscar en Ruta ${rutaActiva} por N°, nombre o calle...` : "Ingresá una ruta para buscar..."}
               value={searchFilter}
               onChange={(e) => setSearchFilter(e.target.value)}
+              disabled={!rutaActiva}
               className="mapa-filter-input"
+              title={rutaActiva ? `Buscar usuarios dentro de la Ruta ${rutaActiva}` : "Primero seleccioná una ruta"}
             />
+            {searchFilter && (
+              <button
+                type="button"
+                onClick={() => setSearchFilter("")}
+                style={{
+                  position: "absolute",
+                  right: "8px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  background: "transparent",
+                  border: "none",
+                  color: "#94a3b8",
+                  cursor: "pointer",
+                  fontSize: "12px",
+                }}
+              >
+                ✕
+              </button>
+            )}
+
             {usuariosFiltrados.length > 0 && (
               <div
                 style={{
@@ -998,48 +1592,78 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
                   marginTop: "6px",
                   background: "#ffffff",
                   borderRadius: "8px",
-                  boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
-                  zIndex: 2000,
-                  maxHeight: "220px",
+                  boxShadow: "0 10px 25px rgba(0,0,0,0.25)",
+                  zIndex: 2500,
+                  maxHeight: "260px",
                   overflowY: "auto",
                   border: "1px solid #e2e8f0",
                 }}
               >
-                {usuariosFiltrados.map((u) => (
-                  <div
-                    key={u.id}
-                    onClick={() => {
-                      handleFocusUsuario(u.id);
-                      setSearchFilter("");
-                    }}
-                    style={{
-                      padding: "8px 12px",
-                      cursor: "pointer",
-                      borderBottom: "1px solid #f1f5f9",
-                      fontSize: "12px",
-                      color: "#1e293b",
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.backgroundColor = "#eff6ff")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.backgroundColor = "transparent")
-                    }
-                  >
-                    <span>
-                      <strong style={{ fontFamily: "JetBrains Mono" }}>
-                        #{u.nroUsuario}
-                      </strong>{" "}
-                      - {u.nombre}
-                    </span>
-                    <span style={{ fontSize: "11px", color: "#64748b" }}>
-                      📍 Ver en mapa
-                    </span>
-                  </div>
-                ))}
+                {usuariosFiltrados.map((u) => {
+                  return (
+                    <div
+                      key={u.id}
+                      onClick={() => {
+                        handleFocusUsuario(u);
+                        setSearchFilter("");
+                      }}
+                      style={{
+                        padding: "8px 12px",
+                        cursor: "pointer",
+                        borderBottom: "1px solid #f1f5f9",
+                        fontSize: "12px",
+                        color: "#1e293b",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: "8px",
+                      }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.backgroundColor = "#eff6ff")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.backgroundColor = "transparent")
+                      }
+                    >
+                      <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                        <span>
+                          <strong style={{ fontFamily: "JetBrains Mono", color: "#1d4ed8" }}>
+                            #{u.nroUsuario}
+                          </strong>{" "}
+                          - {u.nombre}
+                        </span>
+                        <span style={{ fontSize: "11px", color: "#64748b" }}>
+                          {u.domicilio || "Sin domicilio"} • {u.estado?.nombre || "Sin estado"}
+                        </span>
+                      </div>
+
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px", flexShrink: 0 }}>
+                        {(!u.latitud || !u.longitud) ? (
+                          <span
+                            style={{
+                              fontSize: "10.5px",
+                              fontWeight: 800,
+                              color: "#b45309",
+                              background: "#fffbeb",
+                              border: "1px solid #fde68a",
+                              padding: "2px 6px",
+                              borderRadius: "4px",
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "3px",
+                            }}
+                          >
+                            ⚠️ Sin Maps
+                          </span>
+                        ) : (
+                          <span style={{ fontSize: "11px", color: "#2563eb", fontWeight: 700 }}>
+                            📍 Ubicar
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -1051,16 +1675,6 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
             style={{ padding: "7px 12px", borderRadius: "8px" }}
           >
             🎯 Centrar Zárate
-          </button>
-
-          <button
-            type="button"
-            className="btn-map-action"
-            onClick={fetchUsuarios}
-            disabled={loading}
-            style={{ padding: "7px 12px", borderRadius: "8px" }}
-          >
-            🔄 {loading ? "Cargando..." : "Actualizar"}
           </button>
 
           {/* Botón Pantalla Completa */}
@@ -1128,6 +1742,220 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
       {/* Lienzo del mapa Leaflet */}
       <div className="mapa-general-canvas">
         <div ref={mapContainerRef} style={{ width: "100%", height: "100%" }} />
+
+        {/* PANEL FLOTANTE: MOVER PUNTO GEOLOCALIZADO */}
+        {usuarioMoviendo && (
+          <div
+            className="mover-punto-floating-panel"
+            onWheel={(e) => e.stopPropagation()}
+            onMouseDown={(e) => e.stopPropagation()}
+            onTouchStart={(e) => e.stopPropagation()}
+          >
+            <div className="mover-punto-header">
+              <div className="mover-punto-title-row">
+                <span className="mover-punto-pulse-dot"></span>
+                <span className="mover-punto-title">Mover Punto en Mapa</span>
+              </div>
+              <button
+                type="button"
+                className="mover-punto-close-btn"
+                onClick={cancelarMoverPunto}
+                title="Cancelar y cerrar"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="mover-punto-user-box">
+              <div style={{ display: "flex", alignItems: "center", gap: "6px", flexWrap: "wrap" }}>
+                <span className="mover-punto-user-nro">#{usuarioMoviendo.nroUsuario}</span>
+                <strong className="mover-punto-user-name">{usuarioMoviendo.nombre}</strong>
+              </div>
+              {usuarioMoviendo.domicilio && (
+                <div className="mover-punto-user-dom">
+                  <span>🏠 {usuarioMoviendo.domicilio}</span>
+                </div>
+              )}
+            </div>
+
+            <div className="mover-punto-instructions">
+              <span className="mover-punto-icon-tip">💡</span>
+              <span>
+                <strong>Arrastrá el marcador naranja</strong> en el mapa, <strong>hacé clic</strong> en el nuevo destino o ingresá los valores abajo:
+              </span>
+            </div>
+
+            <div className="mover-punto-coords-inputs">
+              <div className="mover-punto-field">
+                <label htmlFor="input-mover-lat">Latitud</label>
+                <div className="mover-punto-input-wrapper">
+                  <input
+                    id="input-mover-lat"
+                    type="number"
+                    step="any"
+                    value={coordsEdicion.lat !== 0 ? coordsEdicion.lat : ""}
+                    onChange={(e) => handleCoordInputChange(parseFloat(e.target.value), coordsEdicion.lng)}
+                    placeholder="-34.xxxxxxx"
+                    disabled={guardandoPunto}
+                  />
+                </div>
+              </div>
+
+              <div className="mover-punto-field">
+                <label htmlFor="input-mover-lng">Longitud</label>
+                <div className="mover-punto-input-wrapper">
+                  <input
+                    id="input-mover-lng"
+                    type="number"
+                    step="any"
+                    value={coordsEdicion.lng !== 0 ? coordsEdicion.lng : ""}
+                    onChange={(e) => handleCoordInputChange(coordsEdicion.lat, parseFloat(e.target.value))}
+                    placeholder="-59.xxxxxxx"
+                    disabled={guardandoPunto}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="mover-punto-actions">
+              <button
+                type="button"
+                className="btn-guardar-punto"
+                onClick={guardarNuevoPunto}
+                disabled={guardandoPunto || isNaN(coordsEdicion.lat) || isNaN(coordsEdicion.lng)}
+              >
+                {guardandoPunto ? (
+                  <>
+                    <span>Guardando...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>💾 Guardar nueva posición</span>
+                  </>
+                )}
+              </button>
+
+              <button
+                type="button"
+                className="btn-revertir-punto"
+                onClick={revertirCoordsOriginales}
+                disabled={guardandoPunto}
+                title="Volver a las coordenadas que tenía antes de mover"
+              >
+                ↺ Revertir
+              </button>
+
+              <button
+                type="button"
+                className="btn-cancelar-punto"
+                onClick={cancelarMoverPunto}
+                disabled={guardandoPunto}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Overlay informativo cuando no hay ruta seleccionada o ruta inválida */}
+        {!rutaActiva && (
+          <div className="mapa-overlay-ruta-obligatoria">
+            <div className="ruta-obligatoria-modal-card">
+              <div className="ruta-modal-icon">🛣️</div>
+              <h3 className="ruta-modal-title">Filtro de Ruta Obligatorio</h3>
+              <p className="ruta-modal-desc">
+                Para garantizar la máxima velocidad y optimizar la visualización de fraudes en Zárate, seleccioná una ruta operativa.
+              </p>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleBuscarRuta();
+                }}
+                className="ruta-modal-form"
+              >
+                <label htmlFor="input-ruta-overlay" className="ruta-modal-label">
+                  Escribí el número de ruta *:
+                </label>
+                <div className="ruta-modal-input-row">
+                  <div style={{ position: "relative", flex: 1, display: "flex", alignItems: "center" }}>
+                    <input
+                      id="input-ruta-overlay"
+                      type="text"
+                      inputMode="numeric"
+                      className={`ruta-input-field ${rutaError ? "error" : ""}`}
+                      placeholder="Ej: 1, 23, 58, 204, 301..."
+                      value={rutaEscrita}
+                      onChange={(e) => handleInputRuta(e.target.value)}
+                      autoFocus
+                    />
+                    {rutaEscrita && (
+                      <button
+                        type="button"
+                        className="btn-limpiar-ruta"
+                        onClick={() => {
+                          setRutaEscrita("");
+                          if (rutaError) setRutaError(null);
+                        }}
+                        title="Borrar texto"
+                      >
+                        ✕
+                      </button>
+                    )}
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="btn-enviar-ruta-modal"
+                    disabled={cargandoRuta || !rutaEscrita.trim()}
+                  >
+                    {cargandoRuta ? (
+                      <>
+                        <span style={{ fontSize: "14px" }}>⏳</span>
+                        <span>Buscando...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Buscar Ruta</span>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                          <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {rutaError && (
+                  <div className="ruta-error-feedback">
+                    <span className="ruta-error-icon">❌</span>
+                    <span>{rutaError}</span>
+                  </div>
+                )}
+
+                <div className="ruta-info-help">
+                  <span>Rutas válidas:</span>
+                  <strong>1 al 78</strong> • <strong>201 al 212</strong> • <strong>301, 302 y 303</strong>
+                </div>
+
+                <div className="ruta-shortcuts-pills">
+                  <span style={{ fontSize: "11px", color: "#64748b", width: "100%", marginBottom: "4px" }}>
+                    Rutas frecuentes en Zárate:
+                  </span>
+                  {["4", "6", "14", "18", "20", "23", "28", "33", "34", "38", "58", "64", "208", "302"].map((r) => (
+                    <button
+                      key={r}
+                      type="button"
+                      className="ruta-chip-btn"
+                      onClick={() => handleBuscarRuta(r)}
+                    >
+                      Ruta {r}
+                    </button>
+                  ))}
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
 
         {/* PANEL DE CONTROL: PLANIFICADOR DE CORTES (AUTOMÁTICO Y MANUAL) - DESPLEGABLE */}
       {mostrarPlanificadorRuta && (
@@ -1492,7 +2320,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
             <>
               <div className="ayuda-memoria-header">
                 <h4 className="ayuda-memoria-title">
-                  Ayuda Memoria: Estados
+                  Ayuda Memoria: Estados {rutaActiva ? `(Ruta ${rutaActiva})` : ""}
                 </h4>
                 <button
                   type="button"
@@ -1505,29 +2333,39 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
               </div>
 
               <div className="ayuda-memoria-content">
-                {/* Banner de filtros activos */}
-                {filtrosEstadoKeys.length > 0 ? (
-                  <div className="ayuda-memoria-banner-active">
-                    <span className="ayuda-memoria-banner-text">
-                      <span>Filtros activos ({filtrosEstadoKeys.length}):</span>
-                      <strong>
-                        {usuariosAMostrar.length} fraudes
-                      </strong>
-                    </span>
-                    <button
-                      type="button"
-                      className="ayuda-memoria-clear-btn"
-                      onClick={limpiarTodosLosFiltros}
-                      title="Quitar todos los filtros y ver todos los puntos"
-                    >
-                      Ver todos
-                    </button>
+                {!rutaActiva ? (
+                  <div style={{ padding: "26px 14px", textAlign: "center", color: "#64748b", fontSize: "12.5px" }}>
+                    <div style={{ fontSize: "28px", marginBottom: "8px" }}>🛣️</div>
+                    <strong style={{ display: "block", color: "#334155", marginBottom: "6px" }}>
+                      Filtro de Ruta Obligatorio
+                    </strong>
+                    <span>Ingresá un número de ruta para ver el resumen de fraudes y activar los filtros por estado.</span>
                   </div>
                 ) : (
-                  <div style={{ fontSize: "11px", color: "#64748b", marginBottom: "4px", padding: "0 2px" }}>
-                    Selecciona uno o más estados para filtrar el mapa y la ruta:
-                  </div>
-                )}
+                  <>
+                    {/* Banner de filtros activos */}
+                    {filtrosEstadoKeys.length > 0 ? (
+                      <div className="ayuda-memoria-banner-active">
+                        <span className="ayuda-memoria-banner-text">
+                          <span>Filtros activos ({filtrosEstadoKeys.length}):</span>
+                          <strong>
+                            {usuariosAMostrar.length} fraudes
+                          </strong>
+                        </span>
+                        <button
+                          type="button"
+                          className="ayuda-memoria-clear-btn"
+                          onClick={limpiarTodosLosFiltros}
+                          title="Quitar todos los filtros y ver todos los puntos"
+                        >
+                          Ver todos
+                        </button>
+                      </div>
+                    ) : (
+                      <div style={{ fontSize: "11px", color: "#64748b", marginBottom: "4px", padding: "0 2px" }}>
+                        Filtrar fraudes en Ruta {rutaActiva}:
+                      </div>
+                    )}
 
                 {/* Botón Ver Todos */}
                 <button
@@ -1629,6 +2467,8 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
                     </button>
                   );
                 })}
+                  </>
+                )}
               </div>
             </>
           ) : (
@@ -1693,6 +2533,71 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
           </span>
         </div>
       </div>
+
+      {/* Modal con listado de usuarios no encontrados en Maps */}
+      {showModalSinGeo && (
+        <div className="popup-overlay" onClick={() => setShowModalSinGeo(false)}>
+          <div className="popup-content modal-sin-geo-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header-simple">
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <div style={{ fontSize: "24px" }}>⚠️</div>
+                <div>
+                  <h3 className="modal-simple-title">
+                    Usuarios Sin Ubicación en Maps (Ruta {rutaActiva})
+                  </h3>
+                  <p className="modal-simple-subtitle">
+                    Hay {usuariosSinGeo.length} usuarios en esta ruta que no poseen coordenadas geográficas asignadas.
+                  </p>
+                </div>
+              </div>
+              <button
+                className="modal-close-icon"
+                onClick={() => setShowModalSinGeo(false)}
+                title="Cerrar"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="sin-geo-list-container">
+              {usuariosSinGeo.map((u) => (
+                <div key={u.id} className="sin-geo-item-card">
+                  <div className="sin-geo-item-info">
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+                      <span className="badge-user-nro" style={{ background: "#e2e8f0", color: "#1e293b", padding: "2px 7px", borderRadius: "5px", fontFamily: "JetBrains Mono", fontSize: "11.5px", fontWeight: 800 }}>
+                        #{u.nroUsuario}
+                      </span>
+                      <strong style={{ fontSize: "13px", color: "#0f172a" }}>{u.nombre}</strong>
+                      {u.estado && (
+                        <span style={{ fontSize: "11px", fontWeight: 700, padding: "2px 6px", borderRadius: "4px", background: "#f1f5f9", color: "#334155" }}>
+                          {u.estado.nombre}
+                        </span>
+                      )}
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "12px", marginTop: "4px", fontSize: "12px", color: "#64748b", flexWrap: "wrap" }}>
+                      <span><strong>Domicilio:</strong> {u.domicilio || "— Sin domicilio"}</span>
+                      {u.medidor && <span><strong>Medidor:</strong> {u.medidor}</span>}
+                    </div>
+                  </div>
+                  <span className="alerta-sin-maps-badge">
+                    ⚠️ No encontrado en Maps
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="modal-actions-simple" style={{ marginTop: "16px" }}>
+              <button
+                type="button"
+                className="btn-primary-action"
+                onClick={() => setShowModalSinGeo(false)}
+              >
+                Cerrar Lista
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

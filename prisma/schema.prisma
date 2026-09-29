@@ -26,10 +26,21 @@ model Usuario {
   esDepartamento Boolean   @default(false)
   idEstadoDepto  Int?
 
+  rubroComercio  String?
+  idRubro        Int?
+  nombreComercio String?
+
   cuadrillas    Cuadrilla[]
   estado        Estado?    @relation("EstadoUsuario", fields: [idEstado], references: [id])
   estadoDepto   Estado?    @relation("EstadoDepto", fields: [idEstadoDepto], references: [id])
   tarifa        Tarifa?    @relation(fields: [idTarifa], references: [id])
+  rubro         Rubro?     @relation(fields: [idRubro], references: [id])
+}
+
+model Rubro {
+  id       Int       @id @default(autoincrement())
+  nombre   String    @unique
+  usuarios Usuario[]
 }
 
 model Cuadrilla {
