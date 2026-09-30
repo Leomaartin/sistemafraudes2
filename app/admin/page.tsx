@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../css/cuadrilla.css";
 import CrudUsers, { CatalogoItem } from "../components/crudUsers";
 import MapaGeneralZarate from "../components/mapaGeneralZarate";
+import ModalImportarExcel from "../components/modalImportarExcel";
 
 type CatalogType = "cuadrilla" | "estado" | "tarifa";
 
@@ -190,6 +191,7 @@ export default function AdminPage() {
   const [estado, setEstado] = useState<CatalogoItem[]>([]);
   const [tarifa, setTarifa] = useState<CatalogoItem[]>([]);
   const [showAddPopup, setShowAddPopup] = useState(false);
+  const [showImportExcelModal, setShowImportExcelModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [mapRefreshKey, setMapRefreshKey] = useState(0);
 
@@ -456,6 +458,34 @@ export default function AdminPage() {
           </div>
 
           <div className="header-actions">
+            <button
+              className="btn-secondary-action"
+              type="button"
+              onClick={() => setShowImportExcelModal(true)}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "10px 16px",
+                background: "rgba(16, 185, 129, 0.15)",
+                color: "#34d399",
+                border: "1px solid rgba(16, 185, 129, 0.35)",
+                borderRadius: "12px",
+                fontWeight: 600,
+                fontSize: "13px",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+              }}
+              title="Cargar nuevo Excel y actualizar usuarios sin modificar coordenadas"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="12" y1="18" x2="12" y2="12" />
+                <line x1="9" y1="15" x2="15" y2="15" />
+              </svg>
+              <span>Importar / Actualizar Excel</span>
+            </button>
 
             <button
               className="btn-primary-action"
@@ -754,6 +784,15 @@ export default function AdminPage() {
           </div>
         </div>
       )}
+      {/* Modal de Importación / Actualización de Excel */}
+      <ModalImportarExcel
+        isOpen={showImportExcelModal}
+        onClose={() => setShowImportExcelModal(false)}
+        onSuccess={() => {
+          fetchCatalogos();
+          setMapRefreshKey((prev) => prev + 1);
+        }}
+      />
     </main>
   );
 }

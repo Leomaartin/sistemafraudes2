@@ -1,6 +1,8 @@
 "use client";
+
 import "../css/popup.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { toast } from "react-toastify";
 
 export interface ImagenItem {
@@ -22,6 +24,28 @@ export default function Popup({
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagenAEliminar, setImagenAEliminar] = useState<ImagenItem | null>(null);
   const [eliminando, setEliminando] = useState(false);
+  const [imagenFullscreen, setImagenFullscreen] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setImagenFullscreen(null);
+      }
+    };
+    if (imagenFullscreen) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [imagenFullscreen]);
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -110,9 +134,28 @@ export default function Popup({
           {imagenes.map((imagen) => (
             <div className="image-card" key={imagen.id}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={imagen.url} alt="Imagen del usuario" />
+              <img
+                src={imagen.url}
+                alt="Imagen del usuario"
+                onClick={() => setImagenFullscreen(imagen.url)}
+                style={{ cursor: "zoom-in" }}
+              />
 
-             <div className="image-overlay">
+              <div className="image-overlay">
+                <button
+                  type="button"
+                  className="action-btn expand-btn"
+                  title="Agrandar imagen (Pantalla completa)"
+                  onClick={() => setImagenFullscreen(imagen.url)}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="15 3 21 3 21 9" />
+                    <polyline points="9 21 3 21 3 15" />
+                    <line x1="21" y1="3" x2="14" y2="10" />
+                    <line x1="3" y1="21" x2="10" y2="14" />
+                  </svg>
+                </button>
+
                 <a
                   href={imagen.url}
                   download
@@ -230,6 +273,60 @@ export default function Popup({
             </div>
           </div>
         </div>
+      )}
+
+      {/* MODAL FULLSCREEN DE IMAGEN (OCUPA TODA LA PANTALLA) */}
+      {mounted && imagenFullscreen && createPortal(
+        <div
+          className="fullscreen-image-overlay"
+          onClick={() => setImagenFullscreen(null)}
+        >
+          <div className="fullscreen-top-bar" onClick={(e) => e.stopPropagation()}>
+            <a
+              href={imagenFullscreen}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className="fullscreen-btn"
+              title="Descargar imagen"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+            </a>
+
+            <button
+              type="button"
+              className="fullscreen-btn fullscreen-close-btn"
+              onClick={() => setImagenFullscreen(null)}
+              title="Cerrar pantalla completa (Esc)"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+
+          <div
+            className="fullscreen-image-wrapper"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={imagenFullscreen}
+              alt="Imagen en pantalla completa"
+              className="fullscreen-img"
+            />
+          </div>
+
+          <div className="fullscreen-hint">
+            Presioná <strong>ESC</strong> o haz clic afuera para salir de pantalla completa
+          </div>
+        </div>,
+        document.body
       )}
     </div>
   );

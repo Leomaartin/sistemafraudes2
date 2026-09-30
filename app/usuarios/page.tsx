@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../css/usuarios.css";
 import Popup from "../components/popup";
 import PopupEdit from "../components/popupedit";
-import * as XLSX from "xlsx";
+import ExcelJS from "exceljs";
 import { obtenerInfoVencimiento, InfoVencimiento } from "@/lib/vencimiento";
 import { OPCIONES_DEPARTAMENTO, IDS_DEPARTAMENTO } from "@/lib/departamentoConfig";
 import { TIPOS_COMERCIO, esTarifaComercial } from "@/lib/comercioConfig";
@@ -130,6 +130,67 @@ function getEstadoBadgeInfo(estado?: CatalogoItem | null) {
   };
 }
 
+interface ColumnaExportItem {
+  id: string;
+  label: string;
+  grupo: string;
+  default: boolean;
+  getValue: (user: UsuarioItem) => any;
+}
+
+const COLUMNAS_EXPORTAR: ColumnaExportItem[] = [
+  // Identificación
+  { id: "nroUsuario", label: "N° Usuario", grupo: "Identificación del Usuario", default: true, getValue: (u) => u.nroUsuario },
+  { id: "nombre", label: "Nombre / Titular", grupo: "Identificación del Usuario", default: true, getValue: (u) => u.nombre },
+  { id: "domicilio", label: "Domicilio", grupo: "Identificación del Usuario", default: true, getValue: (u) => u.domicilio || "" },
+  { id: "medidor", label: "N° Medidor", grupo: "Identificación del Usuario", default: true, getValue: (u) => u.medidor || "" },
+  { id: "ruta", label: "Ruta / Sector", grupo: "Identificación del Usuario", default: true, getValue: (u) => u.ruta || "" },
+
+  // Estado y Gestión
+  { id: "estado", label: "Estado del Fraude", grupo: "Estado y Gestión", default: true, getValue: (u) => u.estado?.nombre || "" },
+  {
+    id: "departamento",
+    label: "Departamento / Acceso",
+    grupo: "Estado y Gestión",
+    default: true,
+    getValue: (u) => (u.esDepartamento || u.idEstadoDepto || u.estadoDepto)
+      ? (u.estadoDepto?.nombre || OPCIONES_DEPARTAMENTO.find((o) => o.id === u.idEstadoDepto)?.nombre || "SÍ")
+      : "NO"
+  },
+  { id: "cuadrillas", label: "Cuadrillas Asignadas", grupo: "Estado y Gestión", default: true, getValue: (u) => u.cuadrillas?.map((c) => c.nombre).join(", ") || "" },
+  { id: "tarifa", label: "Tarifa", grupo: "Estado y Gestión", default: true, getValue: (u) => u.tarifa?.nombre || "" },
+  {
+    id: "fechaVto",
+    label: "Fecha de Vencimiento",
+    grupo: "Estado y Gestión",
+    default: true,
+    getValue: (u) => {
+      const vto = obtenerInfoVencimiento(u.fechaVto);
+      return vto.fechaFormateada !== "—" ? vto.fechaFormateada : "";
+    }
+  },
+  {
+    id: "condicionVto",
+    label: "Condición de Vencimiento",
+    grupo: "Estado y Gestión",
+    default: true,
+    getValue: (u) => obtenerInfoVencimiento(u.fechaVto).texto
+  },
+
+  // Geolocalización
+  { id: "geolocalizado", label: "Geolocalizado (SÍ/NO)", grupo: "Geolocalización", default: true, getValue: (u) => (u.latitud && u.longitud) ? "SÍ" : "NO (Sin Maps)" },
+  { id: "latitud", label: "Latitud", grupo: "Geolocalización", default: true, getValue: (u) => u.latitud ?? "" },
+  { id: "longitud", label: "Longitud", grupo: "Geolocalización", default: true, getValue: (u) => u.longitud ?? "" },
+  { id: "maps", label: "Enlace Google Maps", grupo: "Geolocalización", default: true, getValue: (u) => u.maps || "" },
+
+  // Comercio y Observaciones
+  { id: "rubroComercio", label: "Tipo de Comercio / Rubro", grupo: "Comercio y Observaciones", default: true, getValue: (u) => u.rubro?.nombre || u.rubroComercio || "" },
+  { id: "nombreComercio", label: "Nombre Informal Comercio", grupo: "Comercio y Observaciones", default: true, getValue: (u) => u.nombreComercio || "" },
+  { id: "observaciones", label: "Observaciones Técnicas", grupo: "Comercio y Observaciones", default: true, getValue: (u) => u.observaciones || "" },
+];
+
+const GRUPOS_COLUMNAS = Array.from(new Set(COLUMNAS_EXPORTAR.map((c) => c.grupo)));
+
 export default function Home() {
   const [allUsers, setAllUsers] = useState<UsuarioItem[]>([]);
   const [usuarioSeleccionado, setUsuarioSeleccionado] = useState<UsuarioItem | null>(null);
@@ -158,6 +219,19 @@ export default function Home() {
   const [searchDepto, setSearchDepto] = useState("");
   const [searchUbicacion, setSearchUbicacion] = useState(""); // "" | "con_geo" | "sin_geo"
 
+  // Filtros con soporte para múltiples valores simultáneos
+  const [filtrosEstados, setFiltrosEstados] = useState<string[]>([]);
+  const [filtrosDomicilios, setFiltrosDomicilios] = useState<string[]>([]);
+  const [filtrosRutas, setFiltrosRutas] = useState<string[]>([]);
+  const [filtrosCuadrillas, setFiltrosCuadrillas] = useState<string[]>([]);
+  const [filtrosTarifas, setFiltrosTarifas] = useState<string[]>([]);
+  const [filtrosNombres, setFiltrosNombres] = useState<string[]>([]);
+  const [filtrosNumeros, setFiltrosNumeros] = useState<string[]>([]);
+
+  // Control del selector desplegable "+ Agregar filtro"
+  const [caracteristicaSeleccionada, setCaracteristicaSeleccionada] = useState("");
+  const [valorNuevoFiltro, setValorNuevoFiltro] = useState("");
+
   // Control del menú desplegable de filtros
   const [mostrarFiltros, setMostrarFiltros] = useState(false);
 
@@ -167,41 +241,209 @@ export default function Home() {
   const [cargando, setCargando] = useState(true);
   const [inputSalto, setInputSalto] = useState("");
 
-  // Funcion exportar excel
+  // Estados para modal de selección de columnas al exportar Excel
+  const [showModalExport, setShowModalExport] = useState(false);
+  const [columnasSeleccionadas, setColumnasSeleccionadas] = useState<string[]>(
+    COLUMNAS_EXPORTAR.map((c) => c.id)
+  );
+  const [pintarFilasPorEstado, setPintarFilasPorEstado] = useState(true);
+  const [exportandoExcel, setExportandoExcel] = useState(false);
+
+  const toggleColumna = (id: string) => {
+    setColumnasSeleccionadas((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
+
+  const seleccionarTodasColumnas = () => {
+    setColumnasSeleccionadas(COLUMNAS_EXPORTAR.map((c) => c.id));
+  };
+
+  const deseleccionarTodasColumnas = () => {
+    setColumnasSeleccionadas([]);
+  };
+
+  // Abrir modal de selección de columnas
   const exportarExcel = () => {
-    const datos = filteredUsers.map((user) => {
-      const vto = obtenerInfoVencimiento(user.fechaVto);
-      const tieneGeo = Boolean(user.latitud && user.longitud);
-      return {
-        "N° Usuario": user.nroUsuario,
-        "Nombre": user.nombre,
-        "Domicilio": user.domicilio || "",
-        "Medidor": user.medidor || "",
-        "Ruta": user.ruta || "",
-        "Estado": user.estado?.nombre || "",
-        "Departamento": (user.esDepartamento || user.idEstadoDepto || user.estadoDepto)
-          ? (user.estadoDepto?.nombre || OPCIONES_DEPARTAMENTO.find((o) => o.id === user.idEstadoDepto)?.nombre || "SÍ")
-          : "NO",
-        "Fecha Vto": vto.fechaFormateada !== "—" ? vto.fechaFormateada : "",
-        "Condición Vencimiento": vto.texto,
-        "Cuadrillas": user.cuadrillas?.map((c) => c.nombre).join(", ") || "",
-        "Tarifa": user.tarifa?.nombre || "",
-        "Tipo Comercio": user.rubro?.nombre || user.rubroComercio || "",
-        "Nombre Informal Comercio": user.nombreComercio || "",
-        "Geolocalizado": tieneGeo ? "SÍ" : "NO (Sin Maps)",
-        "Latitud": user.latitud ?? "",
-        "Longitud": user.longitud ?? "",
-        "Google Maps": user.maps || "",
-        "Observaciones": user.observaciones || "",
+    setShowModalExport(true);
+  };
+
+  // Ejecutar exportación real con las columnas seleccionadas y estilo condicional
+  const confirmarExportacionExcel = async () => {
+    if (columnasSeleccionadas.length === 0) {
+      toast.warning("Selecciona al menos una característica para exportar.");
+      return;
+    }
+
+    try {
+      setExportandoExcel(true);
+
+      const colsToExport = COLUMNAS_EXPORTAR.filter((c) => columnasSeleccionadas.includes(c.id));
+
+      const workbook = new ExcelJS.Workbook();
+      workbook.creator = "Sistema Fraudes Zárate";
+      workbook.created = new Date();
+
+      const worksheet = workbook.addWorksheet("Usuarios", {
+        views: [{ state: "frozen", ySplit: 1 }]
+      });
+
+      // Configurar columnas
+      worksheet.columns = colsToExport.map((col) => ({
+        header: col.label,
+        key: col.id,
+        width: Math.max(col.label.length + 5, 14),
+      }));
+
+      // Estilo de encabezado institucional verde Excel
+      const headerRow = worksheet.getRow(1);
+      headerRow.height = 28;
+      headerRow.eachCell((cell) => {
+        cell.font = {
+          name: "Segoe UI",
+          size: 11,
+          bold: true,
+          color: { argb: "FFFFFFFF" },
+        };
+        cell.fill = {
+          type: "pattern",
+          pattern: "solid",
+          fgColor: { argb: "FF107C41" },
+        };
+        cell.alignment = {
+          vertical: "middle",
+          horizontal: "center",
+          wrapText: false,
+        };
+        cell.border = {
+          top: { style: "thin", color: { argb: "FF0B5C2F" } },
+          bottom: { style: "medium", color: { argb: "FF0B5C2F" } },
+          left: { style: "thin", color: { argb: "FF107C41" } },
+          right: { style: "thin", color: { argb: "FF107C41" } },
+        };
+      });
+
+      // Paleta suave de tonos según el estado (legible y profesional)
+      const obtenerEstiloEstado = (estadoNombre?: string) => {
+        if (!estadoNombre) return null;
+        const nom = estadoNombre.toUpperCase();
+        if (nom.includes("CORTE")) {
+          return { bg: "FFFEE2E2", border: "FFFCA5A5", font: "FF991B1B" };
+        }
+        if (nom.includes("RECONECTAD")) {
+          return { bg: "FFE0F2FE", border: "FFBAE6FD", font: "FF0369A1" };
+        }
+        if (nom.includes("FRAUDE") && !nom.includes("SIN")) {
+          return { bg: "FFDCFCE7", border: "FFBBF7D0", font: "FF166534" };
+        }
+        if (nom.includes("SIN FRAUDE")) {
+          return { bg: "FFCCFBF1", border: "FF99F6E4", font: "FF0F766E" };
+        }
+        if (nom.includes("NOTIFICAD") || nom.includes("SUSPENDID")) {
+          return { bg: "FFFEF3C7", border: "FFFDE68A", font: "FF92400E" };
+        }
+        if (nom.includes("BAJA")) {
+          return { bg: "FFFFE4E6", border: "FFFECDD3", font: "FF9F1239" };
+        }
+        return { bg: "FFF1F5F9", border: "FFE2E8F0", font: "FF334155" };
       };
-    });
 
-    const worksheet = XLSX.utils.json_to_sheet(datos);
-    const workbook = XLSX.utils.book_new();
+      // Inserción de filas con estilos
+      filteredUsers.forEach((user, index) => {
+        const rowData: Record<string, any> = {};
+        colsToExport.forEach((col) => {
+          rowData[col.id] = col.getValue(user);
+        });
 
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Usuarios");
+        const row = worksheet.addRow(rowData);
+        row.height = 22;
 
-    XLSX.writeFile(workbook, "usuarios_filtrados.xlsx");
+        const estilo = pintarFilasPorEstado ? obtenerEstiloEstado(user.estado?.nombre) : null;
+
+        row.eachCell((cell, colNumber) => {
+          const colDef = colsToExport[colNumber - 1];
+          const isCentered = ["nroUsuario", "medidor", "ruta", "geolocalizado", "fechaVto", "condicionVto", "departamento"].includes(colDef?.id);
+
+          cell.font = {
+            name: "Segoe UI",
+            size: 10,
+            color: { argb: estilo ? estilo.font : "FF1E293B" },
+            bold: colDef?.id === "nroUsuario" || (estilo !== null && colDef?.id === "estado"),
+          };
+
+          cell.alignment = {
+            vertical: "middle",
+            horizontal: isCentered ? "center" : "left",
+          };
+
+          if (estilo) {
+            cell.fill = {
+              type: "pattern",
+              pattern: "solid",
+              fgColor: { argb: estilo.bg },
+            };
+            cell.border = {
+              top: { style: "thin", color: { argb: estilo.border } },
+              bottom: { style: "thin", color: { argb: estilo.border } },
+              left: { style: "thin", color: { argb: "FFE2E8F0" } },
+              right: { style: "thin", color: { argb: "FFE2E8F0" } },
+            };
+          } else {
+            // Fondo suave alternado si no se colorean por estado
+            if (index % 2 === 1) {
+              cell.fill = {
+                type: "pattern",
+                pattern: "solid",
+                fgColor: { argb: "FFF8FAFC" },
+              };
+            }
+            cell.border = {
+              top: { style: "thin", color: { argb: "FFF1F5F9" } },
+              bottom: { style: "thin", color: { argb: "FFE2E8F0" } },
+              left: { style: "thin", color: { argb: "FFF1F5F9" } },
+              right: { style: "thin", color: { argb: "FFF1F5F9" } },
+            };
+          }
+        });
+      });
+
+      // Autoajustar el ancho de las columnas según su contenido
+      worksheet.columns.forEach((col) => {
+        let maxLen = 0;
+        col.eachCell?.({ includeEmpty: false }, (cell) => {
+          const valStr = cell.value ? String(cell.value) : "";
+          if (valStr.length > maxLen) {
+            maxLen = valStr.length;
+          }
+        });
+        col.width = Math.max(maxLen + 4, 14);
+      });
+
+      const buffer = await workbook.xlsx.writeBuffer();
+      const blob = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      const url = window.URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = `usuarios_${pintarFilasPorEstado ? "coloreados_" : ""}filtrados.xlsx`;
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+      window.URL.revokeObjectURL(url);
+
+      setShowModalExport(false);
+      toast.success(
+        `Planilla descargada con ${filteredUsers.length} usuarios y ${colsToExport.length} características${
+          pintarFilasPorEstado ? " coloreadas según su estado" : ""
+        }.`
+      );
+    } catch (error) {
+      console.error("Error al exportar a Excel:", error);
+      toast.error("Ocurrió un error al generar el archivo Excel.");
+    } finally {
+      setExportandoExcel(false);
+    }
   };
 
   // Función para recargar los usuarios tras editar o eliminar
@@ -344,6 +586,126 @@ export default function Home() {
     setShowPopupEdit(false);
   };
 
+  // Manejadores para agregar y quitar múltiples filtros
+  const agregarEstado = (nombre: string) => {
+    if (!nombre) return;
+    setFiltrosEstados((prev) => (prev.includes(nombre) ? prev : [...prev, nombre]));
+    setSearchEstados("");
+  };
+
+  const removerEstado = (nombre: string) => {
+    setFiltrosEstados((prev) => prev.filter((e) => e !== nombre));
+  };
+
+  const agregarDomicilio = (dom: string) => {
+    const trimmed = dom.trim();
+    if (!trimmed) return;
+    setFiltrosDomicilios((prev) =>
+      prev.some((d) => d.toLowerCase() === trimmed.toLowerCase()) ? prev : [...prev, trimmed]
+    );
+    setSearchDomicilio("");
+  };
+
+  const removerDomicilio = (dom: string) => {
+    setFiltrosDomicilios((prev) => prev.filter((d) => d.toLowerCase() !== dom.toLowerCase()));
+  };
+
+  const agregarRuta = (ruta: string) => {
+    const trimmed = ruta.trim();
+    if (!trimmed) return;
+    setFiltrosRutas((prev) =>
+      prev.some((r) => r.toLowerCase() === trimmed.toLowerCase()) ? prev : [...prev, trimmed]
+    );
+    setSearchRuta("");
+  };
+
+  const removerRuta = (ruta: string) => {
+    setFiltrosRutas((prev) => prev.filter((r) => r.toLowerCase() !== ruta.toLowerCase()));
+  };
+
+  const agregarCuadrilla = (cuad: string) => {
+    if (!cuad) return;
+    setFiltrosCuadrillas((prev) => (prev.includes(cuad) ? prev : [...prev, cuad]));
+    setSearchCuadrilla("");
+  };
+
+  const removerCuadrilla = (cuad: string) => {
+    setFiltrosCuadrillas((prev) => prev.filter((c) => c !== cuad));
+  };
+
+  const agregarTarifa = (tar: string) => {
+    if (!tar) return;
+    setFiltrosTarifas((prev) => (prev.includes(tar) ? prev : [...prev, tar]));
+    setSearchTarifas("");
+  };
+
+  const removerTarifa = (tar: string) => {
+    setFiltrosTarifas((prev) => prev.filter((t) => t !== tar));
+  };
+
+  const agregarNombre = (nom: string) => {
+    const trimmed = nom.trim();
+    if (!trimmed) return;
+    setFiltrosNombres((prev) =>
+      prev.some((n) => n.toLowerCase() === trimmed.toLowerCase()) ? prev : [...prev, trimmed]
+    );
+    setSearchName("");
+  };
+
+  const removerNombre = (nom: string) => {
+    setFiltrosNombres((prev) => prev.filter((n) => n.toLowerCase() !== nom.toLowerCase()));
+  };
+
+  const agregarNumero = (num: string) => {
+    const trimmed = num.trim();
+    if (!trimmed) return;
+    setFiltrosNumeros((prev) => (prev.includes(trimmed) ? prev : [...prev, trimmed]));
+    setSearchNumber("");
+  };
+
+  const removerNumero = (num: string) => {
+    setFiltrosNumeros((prev) => prev.filter((n) => n !== num));
+  };
+
+  const ejecutarAgregarFiltro = () => {
+    if (!caracteristicaSeleccionada || !valorNuevoFiltro.trim()) return;
+
+    switch (caracteristicaSeleccionada) {
+      case "estado":
+        agregarEstado(valorNuevoFiltro);
+        break;
+      case "domicilio":
+        agregarDomicilio(valorNuevoFiltro);
+        break;
+      case "ruta":
+        agregarRuta(valorNuevoFiltro);
+        break;
+      case "cuadrilla":
+        agregarCuadrilla(valorNuevoFiltro);
+        break;
+      case "tarifa":
+        agregarTarifa(valorNuevoFiltro);
+        break;
+      case "nombre":
+        agregarNombre(valorNuevoFiltro);
+        break;
+      case "numero":
+        agregarNumero(valorNuevoFiltro);
+        break;
+      case "depto":
+        setSearchDepto(valorNuevoFiltro);
+        break;
+      case "ubicacion":
+        setSearchUbicacion(valorNuevoFiltro);
+        break;
+      case "estadoVto":
+        setSearchEstadoVto(valorNuevoFiltro);
+        break;
+    }
+    setValorNuevoFiltro("");
+    setCaracteristicaSeleccionada("");
+  };
+
   // Limpiar todos los filtros
   const limpiarFiltros = () => {
     setSearchName("");
@@ -360,37 +722,92 @@ export default function Home() {
     setSearchVtoHasta("");
     setSearchDepto("");
     setSearchUbicacion("");
+    setFiltrosEstados([]);
+    setFiltrosDomicilios([]);
+    setFiltrosRutas([]);
+    setFiltrosCuadrillas([]);
+    setFiltrosTarifas([]);
+    setFiltrosNombres([]);
+    setFiltrosNumeros([]);
+    setCaracteristicaSeleccionada("");
+    setValorNuevoFiltro("");
   };
 
   // Detectar si la tarifa seleccionada para filtrar es comercial (T1G o T1G-I)
-  const esFiltroTarifaComercial = esTarifaComercial(searchTarifas);
+  const esFiltroTarifaComercial = esTarifaComercial(searchTarifas) || filtrosTarifas.some(esTarifaComercial);
 
   // Conteo de filtros activos
-  const activeFiltersCount = [
-    searchName,
-    searchNumber,
-    searchDomicilio,
-    searchRuta,
-    searchCuadrilla,
-    searchEstados,
-    searchTarifas,
-    searchEstadoVto,
-    searchVtoDesde,
-    searchVtoHasta,
-    searchDepto,
-    searchUbicacion,
-    esFiltroTarifaComercial ? searchRubroComercio : "",
-    esFiltroTarifaComercial ? searchNombreComercio : "",
-  ].filter((val) => val.trim() !== "").length;
+  const activeFiltersCount =
+    filtrosEstados.length +
+    filtrosDomicilios.length +
+    filtrosRutas.length +
+    filtrosCuadrillas.length +
+    filtrosTarifas.length +
+    filtrosNombres.length +
+    filtrosNumeros.length +
+    [
+      searchName,
+      searchNumber,
+      searchDomicilio,
+      searchRuta,
+      searchCuadrilla,
+      searchEstados,
+      searchTarifas,
+      searchEstadoVto,
+      searchVtoDesde,
+      searchVtoHasta,
+      searchDepto,
+      searchUbicacion,
+      esFiltroTarifaComercial ? searchRubroComercio : "",
+      esFiltroTarifaComercial ? searchNombreComercio : "",
+    ].filter((val) => val.trim() !== "").length;
 
   const filteredUsers = allUsers.filter((user) => {
-    const matchName = (user.nombre || "").toLowerCase().includes(searchName.toLowerCase());
-    const matchNumber = (user.nroUsuario || "").toString().includes(searchNumber);
-    const matchDomicilio = (user.domicilio || "").toLowerCase().includes(searchDomicilio.toLowerCase());
-    const matchRuta = (user.ruta || "").toLowerCase().includes(searchRuta.toLowerCase());
-    const matchCuadrilla = searchCuadrilla === "" || (user.cuadrillas && user.cuadrillas.some((c) => c.nombre === searchCuadrilla));
-    const matchTarifa = searchTarifas === "" || user.tarifa?.nombre === searchTarifas;
-    const matchEstado = searchEstados === "" || user.estado?.nombre === searchEstados;
+    // Nombre
+    const allNombres = [...filtrosNombres, ...(searchName.trim() ? [searchName.trim()] : [])];
+    const matchName =
+      allNombres.length === 0 ||
+      allNombres.some((n) => (user.nombre || "").toLowerCase().includes(n.toLowerCase()));
+
+    // Número
+    const allNumeros = [...filtrosNumeros, ...(searchNumber.trim() ? [searchNumber.trim()] : [])];
+    const matchNumber =
+      allNumeros.length === 0 ||
+      allNumeros.some((num) => (user.nroUsuario || "").toString().includes(num));
+
+    // Domicilio: Soporta múltiples domicilios simultáneos (OR)
+    const allDomicilios = [...filtrosDomicilios, ...(searchDomicilio.trim() ? [searchDomicilio.trim()] : [])];
+    const userDom = (user.domicilio || "").toLowerCase();
+    const matchDomicilio =
+      allDomicilios.length === 0 ||
+      allDomicilios.some((d) => userDom.includes(d.toLowerCase()));
+
+    // Ruta
+    const allRutas = [...filtrosRutas, ...(searchRuta.trim() ? [searchRuta.trim()] : [])];
+    const userRuta = (user.ruta || "").toLowerCase();
+    const matchRuta =
+      allRutas.length === 0 ||
+      allRutas.some((r) => userRuta.includes(r.toLowerCase()));
+
+    // Cuadrilla
+    const allCuadrillas = [...filtrosCuadrillas, ...(searchCuadrilla ? [searchCuadrilla] : [])];
+    const matchCuadrilla =
+      allCuadrillas.length === 0 ||
+      allCuadrillas.some((c) =>
+        user.cuadrillas && user.cuadrillas.some((cu) => cu.nombre.toLowerCase() === c.toLowerCase())
+      );
+
+    // Tarifa
+    const allTarifas = [...filtrosTarifas, ...(searchTarifas ? [searchTarifas] : [])];
+    const matchTarifa =
+      allTarifas.length === 0 ||
+      allTarifas.some((t) => (user.tarifa?.nombre || "").toLowerCase() === t.toLowerCase());
+
+    // Estado: Soporta múltiples estados simultáneos (OR)
+    const allEstados = [...filtrosEstados, ...(searchEstados ? [searchEstados] : [])];
+    const matchEstado =
+      allEstados.length === 0 ||
+      allEstados.some((e) => (user.estado?.nombre || "").toLowerCase() === e.toLowerCase());
 
     if (!matchName || !matchNumber || !matchDomicilio || !matchRuta || !matchCuadrilla || !matchTarifa || !matchEstado) {
       return false;
@@ -470,6 +887,16 @@ export default function Home() {
     searchVtoDesde,
     searchVtoHasta,
     searchDepto,
+    searchUbicacion,
+    searchRubroComercio,
+    searchNombreComercio,
+    filtrosEstados,
+    filtrosDomicilios,
+    filtrosRutas,
+    filtrosCuadrillas,
+    filtrosTarifas,
+    filtrosNombres,
+    filtrosNumeros,
     porPagina,
   ]);
 
@@ -712,16 +1139,259 @@ export default function Home() {
               )}
             </div>
 
+            {/* Panel dinámico: Agregar filtro por cualquier característica */}
+            <div className="filtros-add-section">
+              <div className="filtros-add-header">
+                <div className="filtros-add-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                  <span>Agregar filtro por característica</span>
+                </div>
+                <span className="filtros-add-hint">
+                  Podés agregar múltiples filtros de estado, domicilio o la característica que quieras
+                </span>
+              </div>
+
+              <div className="filtros-add-control-row">
+                <div className="filtros-add-select-wrap">
+                  <select
+                    id="select-caracteristica-nueva"
+                    className="filtro-select-caracteristica"
+                    value={caracteristicaSeleccionada}
+                    onChange={(e) => {
+                      setCaracteristicaSeleccionada(e.target.value);
+                      setValorNuevoFiltro("");
+                    }}
+                  >
+                    <option value="">➕ Seleccionar característica a agregar...</option>
+                    <option value="estado">📌 Estado ({estados.length} opciones)</option>
+                    <option value="domicilio">🏠 Domicilio (Calle o dirección)</option>
+                    <option value="ruta">🧭 Ruta</option>
+                    <option value="cuadrilla">👥 Cuadrilla ({cuadrillas.length} opciones)</option>
+                    <option value="tarifa">⚡ Tarifa ({tarifas.length} opciones)</option>
+                    <option value="nombre">👤 Nombre de usuario</option>
+                    <option value="numero">🔢 N° Usuario</option>
+                    <option value="depto">🏢 Inmueble / Condición Llave</option>
+                    <option value="ubicacion">📍 Geolocalización / Maps</option>
+                    <option value="estadoVto">📅 Estado Fecha Vencimiento</option>
+                  </select>
+                </div>
+
+                {caracteristicaSeleccionada && (
+                  <div className="filtros-add-value-wrap">
+                    {caracteristicaSeleccionada === "estado" && (
+                      <select
+                        className="filtro-select"
+                        value={valorNuevoFiltro}
+                        onChange={(e) => setValorNuevoFiltro(e.target.value)}
+                        autoFocus
+                      >
+                        <option value="">Seleccionar un estado...</option>
+                        {estados
+                          .filter((est) => !IDS_DEPARTAMENTO.includes(est.id))
+                          .map((est) => (
+                            <option
+                              key={est.id}
+                              value={est.nombre}
+                              disabled={filtrosEstados.includes(est.nombre)}
+                            >
+                              {est.nombre} {filtrosEstados.includes(est.nombre) ? "(ya agregado)" : ""}
+                            </option>
+                          ))}
+                      </select>
+                    )}
+
+                    {caracteristicaSeleccionada === "domicilio" && (
+                      <input
+                        type="text"
+                        className="search-input"
+                        placeholder="Escribí calle o dirección y presioná Enter..."
+                        value={valorNuevoFiltro}
+                        onChange={(e) => setValorNuevoFiltro(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault();
+                            ejecutarAgregarFiltro();
+                          }
+                        }}
+                        autoFocus
+                      />
+                    )}
+
+                    {caracteristicaSeleccionada === "ruta" && (
+                      <input
+                        type="text"
+                        className="search-input"
+                        placeholder="Escribí ruta y presioná Enter..."
+                        value={valorNuevoFiltro}
+                        onChange={(e) => setValorNuevoFiltro(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault();
+                            ejecutarAgregarFiltro();
+                          }
+                        }}
+                        autoFocus
+                      />
+                    )}
+
+                    {caracteristicaSeleccionada === "cuadrilla" && (
+                      <select
+                        className="filtro-select"
+                        value={valorNuevoFiltro}
+                        onChange={(e) => setValorNuevoFiltro(e.target.value)}
+                        autoFocus
+                      >
+                        <option value="">Seleccionar cuadrilla...</option>
+                        {cuadrillas.map((c) => (
+                          <option
+                            key={c.id}
+                            value={c.nombre}
+                            disabled={filtrosCuadrillas.includes(c.nombre)}
+                          >
+                            {c.nombre} {filtrosCuadrillas.includes(c.nombre) ? "(ya agregada)" : ""}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+
+                    {caracteristicaSeleccionada === "tarifa" && (
+                      <select
+                        className="filtro-select"
+                        value={valorNuevoFiltro}
+                        onChange={(e) => setValorNuevoFiltro(e.target.value)}
+                        autoFocus
+                      >
+                        <option value="">Seleccionar tarifa...</option>
+                        {tarifas.map((t) => (
+                          <option
+                            key={t.id}
+                            value={t.nombre}
+                            disabled={filtrosTarifas.includes(t.nombre)}
+                          >
+                            {t.nombre} {filtrosTarifas.includes(t.nombre) ? "(ya agregada)" : ""}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+
+                    {caracteristicaSeleccionada === "nombre" && (
+                      <input
+                        type="text"
+                        className="search-input"
+                        placeholder="Escribí nombre y presioná Enter..."
+                        value={valorNuevoFiltro}
+                        onChange={(e) => setValorNuevoFiltro(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault();
+                            ejecutarAgregarFiltro();
+                          }
+                        }}
+                        autoFocus
+                      />
+                    )}
+
+                    {caracteristicaSeleccionada === "numero" && (
+                      <input
+                        type="text"
+                        className="search-input"
+                        placeholder="Escribí número y presioná Enter..."
+                        value={valorNuevoFiltro}
+                        onChange={(e) => setValorNuevoFiltro(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault();
+                            ejecutarAgregarFiltro();
+                          }
+                        }}
+                        autoFocus
+                      />
+                    )}
+
+                    {caracteristicaSeleccionada === "depto" && (
+                      <select
+                        className="filtro-select"
+                        value={valorNuevoFiltro}
+                        onChange={(e) => setValorNuevoFiltro(e.target.value)}
+                        autoFocus
+                      >
+                        <option value="">Seleccionar condición inmueble...</option>
+                        <option value="si">🏢 Solo Departamentos / Edificios</option>
+                        <option value="no">🏠 Casas / Particulares</option>
+                        {OPCIONES_DEPARTAMENTO.map((opc) => (
+                          <option key={opc.id} value={String(opc.id)}>
+                            {opc.icono} {opc.nombre}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+
+                    {caracteristicaSeleccionada === "ubicacion" && (
+                      <select
+                        className="filtro-select"
+                        value={valorNuevoFiltro}
+                        onChange={(e) => setValorNuevoFiltro(e.target.value)}
+                        autoFocus
+                      >
+                        <option value="">Seleccionar condición Maps...</option>
+                        <option value="con_geo">📍 Geolocalizados (Con Maps / GPS)</option>
+                        <option value="sin_geo">⚠️ Sin Maps (No encontrados)</option>
+                      </select>
+                    )}
+
+                    {caracteristicaSeleccionada === "estadoVto" && (
+                      <select
+                        className="filtro-select"
+                        value={valorNuevoFiltro}
+                        onChange={(e) => setValorNuevoFiltro(e.target.value)}
+                        autoFocus
+                      >
+                        <option value="">Seleccionar condición Vto...</option>
+                        <option value="vencidas">⚠️ Solo Vencidas</option>
+                        <option value="por_vencer">⏳ Por Vencer (≤ 7 días)</option>
+                        <option value="vigentes">✓ Vigentes / Al día</option>
+                        <option value="sin_fecha">— Sin Fecha Asignada</option>
+                      </select>
+                    )}
+
+                    <button
+                      type="button"
+                      className="btn-ejecutar-agregar-filtro"
+                      onClick={ejecutarAgregarFiltro}
+                      disabled={!valorNuevoFiltro.trim()}
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="15" height="15">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                      </svg>
+                      <span>Agregar filtro</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+
             <div className="filtros-grid">
               {/* Filtro: Nombre */}
-              <div className={`filtro-field ${searchName ? "has-value" : ""}`}>
-                <label htmlFor="filtro-input-nombre">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                    <circle cx="12" cy="7" r="4" />
-                  </svg>
-                  Nombre
-                </label>
+              <div className={`filtro-field ${filtrosNombres.length > 0 || searchName ? "has-value" : ""}`}>
+                <div className="filtro-field-header">
+                  <label htmlFor="filtro-input-nombre">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                      <circle cx="12" cy="7" r="4" />
+                    </svg>
+                    Nombre
+                    {filtrosNombres.length > 0 && (
+                      <span className="badge-field-count">({filtrosNombres.length})</span>
+                    )}
+                  </label>
+                  {filtrosNombres.length > 1 && (
+                    <span className="filtro-field-mode">Cualquiera (OR)</span>
+                  )}
+                </div>
                 <div className="filtro-input-wrap">
                   <input
                     id="filtro-input-nombre"
@@ -742,19 +1412,52 @@ export default function Home() {
                     </button>
                   )}
                 </div>
+                {filtrosNombres.length > 0 && (
+                  <div className="field-chips-container">
+                    {filtrosNombres.map((nom) => (
+                      <span key={nom} className="field-chip chip-nombre">
+                        <span>{nom}</span>
+                        <button
+                          type="button"
+                          onClick={() => removerNombre(nom)}
+                          title={`Quitar ${nom}`}
+                          className="chip-remove"
+                        >
+                          ✕
+                        </button>
+                      </span>
+                    ))}
+                    <button
+                      type="button"
+                      className="chip-clear-all"
+                      onClick={() => setFiltrosNombres([])}
+                      title="Limpiar nombres"
+                    >
+                      Limpiar
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Filtro: Número */}
-              <div className={`filtro-field ${searchNumber ? "has-value" : ""}`}>
-                <label htmlFor="filtro-input-numero">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="4" y1="9" x2="20" y2="9" />
-                    <line x1="4" y1="15" x2="20" y2="15" />
-                    <line x1="10" y1="3" x2="8" y2="21" />
-                    <line x1="16" y1="3" x2="14" y2="21" />
-                  </svg>
-                  N° Usuario
-                </label>
+              <div className={`filtro-field ${filtrosNumeros.length > 0 || searchNumber ? "has-value" : ""}`}>
+                <div className="filtro-field-header">
+                  <label htmlFor="filtro-input-numero">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="4" y1="9" x2="20" y2="9" />
+                      <line x1="4" y1="15" x2="20" y2="15" />
+                      <line x1="10" y1="3" x2="8" y2="21" />
+                      <line x1="16" y1="3" x2="14" y2="21" />
+                    </svg>
+                    N° Usuario
+                    {filtrosNumeros.length > 0 && (
+                      <span className="badge-field-count">({filtrosNumeros.length})</span>
+                    )}
+                  </label>
+                  {filtrosNumeros.length > 1 && (
+                    <span className="filtro-field-mode">Cualquiera (OR)</span>
+                  )}
+                </div>
                 <div className="filtro-input-wrap">
                   <input
                     id="filtro-input-numero"
@@ -775,17 +1478,50 @@ export default function Home() {
                     </button>
                   )}
                 </div>
+                {filtrosNumeros.length > 0 && (
+                  <div className="field-chips-container">
+                    {filtrosNumeros.map((num) => (
+                      <span key={num} className="field-chip chip-numero">
+                        <span>{num}</span>
+                        <button
+                          type="button"
+                          onClick={() => removerNumero(num)}
+                          title={`Quitar ${num}`}
+                          className="chip-remove"
+                        >
+                          ✕
+                        </button>
+                      </span>
+                    ))}
+                    <button
+                      type="button"
+                      className="chip-clear-all"
+                      onClick={() => setFiltrosNumeros([])}
+                      title="Limpiar números"
+                    >
+                      Limpiar
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Filtro: Domicilio */}
-              <div className={`filtro-field ${searchDomicilio ? "has-value" : ""}`}>
-                <label htmlFor="filtro-input-domicilio">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                    <polyline points="9 22 9 12 15 12 15 22" />
-                  </svg>
-                  Domicilio
-                </label>
+              <div className={`filtro-field ${filtrosDomicilios.length > 0 || searchDomicilio ? "has-value" : ""}`}>
+                <div className="filtro-field-header">
+                  <label htmlFor="filtro-input-domicilio">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                      <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                    Domicilio
+                    {filtrosDomicilios.length > 0 && (
+                      <span className="badge-field-count">({filtrosDomicilios.length})</span>
+                    )}
+                  </label>
+                  {filtrosDomicilios.length > 1 && (
+                    <span className="filtro-field-mode">Cualquiera (OR)</span>
+                  )}
+                </div>
                 <div className="filtro-input-wrap">
                   <input
                     id="filtro-input-domicilio"
@@ -806,17 +1542,50 @@ export default function Home() {
                     </button>
                   )}
                 </div>
+                {filtrosDomicilios.length > 0 && (
+                  <div className="field-chips-container">
+                    {filtrosDomicilios.map((dom) => (
+                      <span key={dom} className="field-chip chip-domicilio">
+                        <span>{dom}</span>
+                        <button
+                          type="button"
+                          onClick={() => removerDomicilio(dom)}
+                          title={`Quitar domicilio ${dom}`}
+                          className="chip-remove"
+                        >
+                          ✕
+                        </button>
+                      </span>
+                    ))}
+                    <button
+                      type="button"
+                      className="chip-clear-all"
+                      onClick={() => setFiltrosDomicilios([])}
+                      title="Limpiar domicilios"
+                    >
+                      Limpiar
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Filtro: Ruta */}
-              <div className={`filtro-field ${searchRuta ? "has-value" : ""}`}>
-                <label htmlFor="filtro-input-ruta">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10" />
-                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-                  </svg>
-                  Ruta
-                </label>
+              <div className={`filtro-field ${filtrosRutas.length > 0 || searchRuta ? "has-value" : ""}`}>
+                <div className="filtro-field-header">
+                  <label htmlFor="filtro-input-ruta">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10" />
+                      <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+                    </svg>
+                    Ruta
+                    {filtrosRutas.length > 0 && (
+                      <span className="badge-field-count">({filtrosRutas.length})</span>
+                    )}
+                  </label>
+                  {filtrosRutas.length > 1 && (
+                    <span className="filtro-field-mode">Cualquiera (OR)</span>
+                  )}
+                </div>
                 <div className="filtro-input-wrap">
                   <input
                     id="filtro-input-ruta"
@@ -837,30 +1606,72 @@ export default function Home() {
                     </button>
                   )}
                 </div>
+                {filtrosRutas.length > 0 && (
+                  <div className="field-chips-container">
+                    {filtrosRutas.map((r) => (
+                      <span key={r} className="field-chip chip-ruta">
+                        <span>{r}</span>
+                        <button
+                          type="button"
+                          onClick={() => removerRuta(r)}
+                          title={`Quitar ruta ${r}`}
+                          className="chip-remove"
+                        >
+                          ✕
+                        </button>
+                      </span>
+                    ))}
+                    <button
+                      type="button"
+                      className="chip-clear-all"
+                      onClick={() => setFiltrosRutas([])}
+                      title="Limpiar rutas"
+                    >
+                      Limpiar
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Filtro: Cuadrilla */}
-              <div className={`filtro-field ${searchCuadrilla ? "has-value" : ""}`}>
-                <label htmlFor="filtro-select-cuadrilla">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                  </svg>
-                  Cuadrilla
-                </label>
+              <div className={`filtro-field ${filtrosCuadrillas.length > 0 || searchCuadrilla ? "has-value" : ""}`}>
+                <div className="filtro-field-header">
+                  <label htmlFor="filtro-select-cuadrilla">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    Cuadrilla
+                    {filtrosCuadrillas.length > 0 && (
+                      <span className="badge-field-count">({filtrosCuadrillas.length})</span>
+                    )}
+                  </label>
+                  {filtrosCuadrillas.length > 1 && (
+                    <span className="filtro-field-mode">Cualquiera (OR)</span>
+                  )}
+                </div>
                 <div className="select-dropdown-wrap">
                   <select
                     id="filtro-select-cuadrilla"
                     className="filtro-select"
                     value={searchCuadrilla}
-                    onChange={(e) => setSearchCuadrilla(e.target.value)}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val) {
+                        agregarCuadrilla(val);
+                      }
+                    }}
                   >
-                    <option value="">Todas las cuadrillas</option>
+                    <option value="">➕ Seleccionar cuadrilla para agregar...</option>
                     {cuadrillas.map((cuadrilla) => (
-                      <option key={cuadrilla.id} value={cuadrilla.nombre}>
-                        {cuadrilla.nombre}
+                      <option
+                        key={cuadrilla.id}
+                        value={cuadrilla.nombre}
+                        disabled={filtrosCuadrillas.includes(cuadrilla.nombre)}
+                      >
+                        {cuadrilla.nombre} {filtrosCuadrillas.includes(cuadrilla.nombre) ? "✓" : ""}
                       </option>
                     ))}
                   </select>
@@ -874,30 +1685,72 @@ export default function Home() {
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
                 </div>
+                {filtrosCuadrillas.length > 0 && (
+                  <div className="field-chips-container">
+                    {filtrosCuadrillas.map((c) => (
+                      <span key={c} className="field-chip chip-cuadrilla">
+                        <span>{c}</span>
+                        <button
+                          type="button"
+                          onClick={() => removerCuadrilla(c)}
+                          title={`Quitar cuadrilla ${c}`}
+                          className="chip-remove"
+                        >
+                          ✕
+                        </button>
+                      </span>
+                    ))}
+                    <button
+                      type="button"
+                      className="chip-clear-all"
+                      onClick={() => setFiltrosCuadrillas([])}
+                      title="Limpiar cuadrillas"
+                    >
+                      Limpiar
+                    </button>
+                  </div>
+                )}
               </div>
 
-              {/* Filtro: Estados */}
-              <div className={`filtro-field ${searchEstados ? "has-value" : ""}`}>
-                <label htmlFor="filtro-select-estado">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10" />
-                    <polyline points="12 6 12 12 14 14" />
-                  </svg>
-                  Estado
-                </label>
+              {/* Filtro: Estados (Soporta múltiples estados simultáneos) */}
+              <div className={`filtro-field ${filtrosEstados.length > 0 || searchEstados ? "has-value" : ""}`}>
+                <div className="filtro-field-header">
+                  <label htmlFor="filtro-select-estado">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 14 14" />
+                    </svg>
+                    Estado
+                    {filtrosEstados.length > 0 && (
+                      <span className="badge-field-count">({filtrosEstados.length})</span>
+                    )}
+                  </label>
+                  {filtrosEstados.length > 1 && (
+                    <span className="filtro-field-mode">Cualquiera (OR)</span>
+                  )}
+                </div>
                 <div className="select-dropdown-wrap">
                   <select
                     id="filtro-select-estado"
                     className="filtro-select"
                     value={searchEstados}
-                    onChange={(e) => setSearchEstados(e.target.value)}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val) {
+                        agregarEstado(val);
+                      }
+                    }}
                   >
-                    <option value="">Todos los estados</option>
+                    <option value="">➕ Seleccionar estado para agregar...</option>
                     {estados
                       .filter((estado) => !IDS_DEPARTAMENTO.includes(estado.id))
                       .map((estado) => (
-                        <option key={estado.id} value={estado.nombre}>
-                          {estado.nombre}
+                        <option
+                          key={estado.id}
+                          value={estado.nombre}
+                          disabled={filtrosEstados.includes(estado.nombre)}
+                        >
+                          {estado.nombre} {filtrosEstados.includes(estado.nombre) ? "✓" : ""}
                         </option>
                       ))}
                   </select>
@@ -911,17 +1764,50 @@ export default function Home() {
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
                 </div>
+                {filtrosEstados.length > 0 && (
+                  <div className="field-chips-container">
+                    {filtrosEstados.map((est) => (
+                      <span key={est} className="field-chip chip-estado">
+                        <span>{est}</span>
+                        <button
+                          type="button"
+                          onClick={() => removerEstado(est)}
+                          title={`Quitar estado ${est}`}
+                          className="chip-remove"
+                        >
+                          ✕
+                        </button>
+                      </span>
+                    ))}
+                    <button
+                      type="button"
+                      className="chip-clear-all"
+                      onClick={() => setFiltrosEstados([])}
+                      title="Limpiar estados"
+                    >
+                      Limpiar
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Filtro: Tarifas */}
-              <div className={`filtro-field ${searchTarifas ? "has-value" : ""}`}>
-                <label htmlFor="filtro-select-tarifa">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="12" y1="1" x2="12" y2="23" />
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                  </svg>
-                  Tarifa
-                </label>
+              <div className={`filtro-field ${filtrosTarifas.length > 0 || searchTarifas ? "has-value" : ""}`}>
+                <div className="filtro-field-header">
+                  <label htmlFor="filtro-select-tarifa">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="12" y1="1" x2="12" y2="23" />
+                      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    Tarifa
+                    {filtrosTarifas.length > 0 && (
+                      <span className="badge-field-count">({filtrosTarifas.length})</span>
+                    )}
+                  </label>
+                  {filtrosTarifas.length > 1 && (
+                    <span className="filtro-field-mode">Cualquiera (OR)</span>
+                  )}
+                </div>
                 <div className="select-dropdown-wrap">
                   <select
                     id="filtro-select-tarifa"
@@ -929,17 +1815,23 @@ export default function Home() {
                     value={searchTarifas}
                     onChange={(e) => {
                       const val = e.target.value;
-                      setSearchTarifas(val);
-                      if (!esTarifaComercial(val)) {
-                        setSearchRubroComercio("");
-                        setSearchNombreComercio("");
+                      if (val) {
+                        agregarTarifa(val);
+                        if (!esTarifaComercial(val) && !filtrosTarifas.some(esTarifaComercial)) {
+                          setSearchRubroComercio("");
+                          setSearchNombreComercio("");
+                        }
                       }
                     }}
                   >
-                    <option value="">Todas las tarifas</option>
+                    <option value="">➕ Seleccionar tarifa para agregar...</option>
                     {tarifas.map((tarifa) => (
-                      <option key={tarifa.id} value={tarifa.nombre}>
-                        {tarifa.nombre}
+                      <option
+                        key={tarifa.id}
+                        value={tarifa.nombre}
+                        disabled={filtrosTarifas.includes(tarifa.nombre)}
+                      >
+                        {tarifa.nombre} {filtrosTarifas.includes(tarifa.nombre) ? "✓" : ""}
                       </option>
                     ))}
                   </select>
@@ -953,6 +1845,31 @@ export default function Home() {
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
                 </div>
+                {filtrosTarifas.length > 0 && (
+                  <div className="field-chips-container">
+                    {filtrosTarifas.map((tar) => (
+                      <span key={tar} className="field-chip chip-tarifa">
+                        <span>{tar}</span>
+                        <button
+                          type="button"
+                          onClick={() => removerTarifa(tar)}
+                          title={`Quitar tarifa ${tar}`}
+                          className="chip-remove"
+                        >
+                          ✕
+                        </button>
+                      </span>
+                    ))}
+                    <button
+                      type="button"
+                      className="chip-clear-all"
+                      onClick={() => setFiltrosTarifas([])}
+                      title="Limpiar tarifas"
+                    >
+                      Limpiar
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Filtros condicionales de Comercio: Solo visibles si la tarifa es T1G o T1G-I */}
@@ -1232,48 +2149,133 @@ export default function Home() {
 
             {activeFiltersCount > 0 && (
               <div className="filtros-active-chips">
-                {searchName && (
+                {/* Nombres */}
+                {filtrosNombres.map((nom) => (
+                  <span key={`chip-nom-${nom}`} className="filtro-chip">
+                    Nombre: <strong>{nom}</strong>
+                    <button type="button" onClick={() => removerNombre(nom)} title="Quitar filtro">×</button>
+                  </span>
+                ))}
+                {searchName && !filtrosNombres.includes(searchName.trim()) && (
                   <span className="filtro-chip">
                     Nombre: <strong>{searchName}</strong>
                     <button type="button" onClick={() => setSearchName("")} title="Quitar filtro">×</button>
                   </span>
                 )}
-                {searchNumber && (
+
+                {/* Números */}
+                {filtrosNumeros.map((num) => (
+                  <span key={`chip-num-${num}`} className="filtro-chip">
+                    N°: <strong>{num}</strong>
+                    <button type="button" onClick={() => removerNumero(num)} title="Quitar filtro">×</button>
+                  </span>
+                ))}
+                {searchNumber && !filtrosNumeros.includes(searchNumber.trim()) && (
                   <span className="filtro-chip">
                     N°: <strong>{searchNumber}</strong>
                     <button type="button" onClick={() => setSearchNumber("")} title="Quitar filtro">×</button>
                   </span>
                 )}
-                {searchDomicilio && (
-                  <span className="filtro-chip">
+
+                {/* Domicilios (Múltiples) */}
+                {filtrosDomicilios.map((dom) => (
+                  <span key={`chip-dom-${dom}`} className="filtro-chip chip-highlight-domicilio">
+                    Domicilio: <strong>{dom}</strong>
+                    <button type="button" onClick={() => removerDomicilio(dom)} title="Quitar filtro">×</button>
+                  </span>
+                ))}
+                {searchDomicilio && !filtrosDomicilios.some(d => d.toLowerCase() === searchDomicilio.trim().toLowerCase()) && (
+                  <span className="filtro-chip chip-highlight-domicilio">
                     Domicilio: <strong>{searchDomicilio}</strong>
                     <button type="button" onClick={() => setSearchDomicilio("")} title="Quitar filtro">×</button>
                   </span>
                 )}
-                {searchRuta && (
-                  <span className="filtro-chip">
+
+                {/* Rutas (Múltiples) */}
+                {filtrosRutas.map((ruta) => (
+                  <span key={`chip-ruta-${ruta}`} className="filtro-chip chip-highlight-ruta">
+                    Ruta: <strong>{ruta}</strong>
+                    <button type="button" onClick={() => removerRuta(ruta)} title="Quitar filtro">×</button>
+                  </span>
+                ))}
+                {searchRuta && !filtrosRutas.some(r => r.toLowerCase() === searchRuta.trim().toLowerCase()) && (
+                  <span className="filtro-chip chip-highlight-ruta">
                     Ruta: <strong>{searchRuta}</strong>
                     <button type="button" onClick={() => setSearchRuta("")} title="Quitar filtro">×</button>
                   </span>
                 )}
-                {searchCuadrilla && (
-                  <span className="filtro-chip">
+
+                {/* Cuadrillas (Múltiples) */}
+                {filtrosCuadrillas.map((cuad) => (
+                  <span key={`chip-cuad-${cuad}`} className="filtro-chip chip-highlight-cuadrilla">
+                    Cuadrilla: <strong>{cuad}</strong>
+                    <button type="button" onClick={() => removerCuadrilla(cuad)} title="Quitar filtro">×</button>
+                  </span>
+                ))}
+                {searchCuadrilla && !filtrosCuadrillas.includes(searchCuadrilla) && (
+                  <span className="filtro-chip chip-highlight-cuadrilla">
                     Cuadrilla: <strong>{searchCuadrilla}</strong>
                     <button type="button" onClick={() => setSearchCuadrilla("")} title="Quitar filtro">×</button>
                   </span>
                 )}
-                {searchEstados && (
-                  <span className="filtro-chip">
+
+                {/* Estados (Múltiples) */}
+                {filtrosEstados.map((est) => (
+                  <span key={`chip-est-${est}`} className="filtro-chip chip-highlight-estado">
+                    Estado: <strong>{est}</strong>
+                    <button type="button" onClick={() => removerEstado(est)} title="Quitar filtro">×</button>
+                  </span>
+                ))}
+                {searchEstados && !filtrosEstados.includes(searchEstados) && (
+                  <span className="filtro-chip chip-highlight-estado">
                     Estado: <strong>{searchEstados}</strong>
                     <button type="button" onClick={() => setSearchEstados("")} title="Quitar filtro">×</button>
                   </span>
                 )}
-                {searchTarifas && (
-                  <span className="filtro-chip">
+
+                {/* Tarifas (Múltiples) */}
+                {filtrosTarifas.map((tar) => (
+                  <span key={`chip-tar-${tar}`} className="filtro-chip chip-highlight-tarifa">
+                    Tarifa: <strong>{tar}</strong>
+                    <button type="button" onClick={() => removerTarifa(tar)} title="Quitar filtro">×</button>
+                  </span>
+                ))}
+                {searchTarifas && !filtrosTarifas.includes(searchTarifas) && (
+                  <span className="filtro-chip chip-highlight-tarifa">
                     Tarifa: <strong>{searchTarifas}</strong>
                     <button type="button" onClick={() => setSearchTarifas("")} title="Quitar filtro">×</button>
                   </span>
                 )}
+
+                {/* Filtro Comercio */}
+                {esFiltroTarifaComercial && searchRubroComercio && (
+                  <span className="filtro-chip">
+                    Rubro: <strong>{searchRubroComercio}</strong>
+                    <button type="button" onClick={() => setSearchRubroComercio("")} title="Quitar filtro">×</button>
+                  </span>
+                )}
+                {esFiltroTarifaComercial && searchNombreComercio && (
+                  <span className="filtro-chip">
+                    Comercio: <strong>{searchNombreComercio}</strong>
+                    <button type="button" onClick={() => setSearchNombreComercio("")} title="Quitar filtro">×</button>
+                  </span>
+                )}
+
+                {/* Inmueble */}
+                {searchDepto && (
+                  <span className="filtro-chip">
+                    Inmueble: <strong>
+                      {searchDepto === "si"
+                        ? "Edificios/Deptos"
+                        : searchDepto === "no"
+                        ? "Casas/Particulares"
+                        : OPCIONES_DEPARTAMENTO.find((o) => String(o.id) === searchDepto)?.nombre || searchDepto}
+                    </strong>
+                    <button type="button" onClick={() => setSearchDepto("")} title="Quitar filtro">×</button>
+                  </span>
+                )}
+
+                {/* Vencimiento */}
                 {searchEstadoVto && (
                   <span className="filtro-chip">
                     Vto: <strong>
@@ -1300,6 +2302,8 @@ export default function Home() {
                     <button type="button" onClick={() => setSearchVtoHasta("")} title="Quitar filtro">×</button>
                   </span>
                 )}
+
+                {/* Ubicación */}
                 {searchUbicacion && (
                   <span className="filtro-chip">
                     Ubicación: <strong>
@@ -1975,6 +2979,164 @@ export default function Home() {
                           <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
                         </svg>
                         <span>Sí, eliminar</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Modal de Selección de Características para Exportar Excel */}
+          {showModalExport && (
+            <div className="modal-export-overlay" onClick={() => setShowModalExport(false)}>
+              <div className="modal-export-card" onClick={(e) => e.stopPropagation()}>
+                {/* Cabecera del Modal */}
+                <div className="modal-export-header">
+                  <div className="modal-export-header-left">
+                    <div className="modal-export-icon">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" fill="#ffffff" fillOpacity="0.25"/>
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="#ffffff" strokeWidth="2"/>
+                        <path d="M14 2v6h6" stroke="#ffffff" strokeWidth="2"/>
+                        <path d="M9.5 12.5l5 5M14.5 12.5l-5 5" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round"/>
+                      </svg>
+                    </div>
+                    <div className="modal-export-title-block">
+                      <h4>Exportar a Planilla Excel</h4>
+                      <p className="modal-export-subtitle">
+                        Elige qué características incluir para los <strong>{filteredUsers.length}</strong> usuarios filtrados
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    className="btn-modal-close-icon"
+                    onClick={() => setShowModalExport(false)}
+                    title="Cerrar ventana"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                {/* Barra rápida de selección */}
+                <div className="modal-export-quick-bar">
+                  <div className="quick-bar-left">
+                    <button
+                      type="button"
+                      className="btn-quick-select"
+                      onClick={seleccionarTodasColumnas}
+                    >
+                      ✓ Seleccionar todas
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-quick-select"
+                      onClick={deseleccionarTodasColumnas}
+                    >
+                      ✕ Deseleccionar todas
+                    </button>
+                  </div>
+                  <span className="quick-bar-counter">
+                    {columnasSeleccionadas.length} de {COLUMNAS_EXPORTAR.length} seleccionadas
+                  </span>
+                </div>
+
+                {/* Lista de características agrupadas */}
+                <div className="modal-export-body">
+                  {/* Opción de diseño / coloreado por estado */}
+                  <div className="export-styling-card">
+                    <label className={`export-styling-toggle ${pintarFilasPorEstado ? "is-active" : ""}`}>
+                      <div className="styling-toggle-left">
+                        <div className="styling-toggle-icon">
+                          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/>
+                            <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/>
+                            <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/>
+                            <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/>
+                            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/>
+                          </svg>
+                        </div>
+                        <div className="styling-toggle-info">
+                          <div className="styling-toggle-title-row">
+                            <span className="styling-toggle-title">Pintar cada fila con el color del estado</span>
+                            {pintarFilasPorEstado && (
+                              <span className="badge-styling-active">Activado</span>
+                            )}
+                          </div>
+                          <span className="styling-toggle-desc">
+                            Aplica a cada fila en el Excel su fondo característico (Corte en rojo, Reconectado en azul, Fraude en verde, etc.)
+                          </span>
+                        </div>
+                      </div>
+                      <div className="styling-switch-wrapper">
+                        <input
+                          type="checkbox"
+                          className="styling-switch-checkbox"
+                          checked={pintarFilasPorEstado}
+                          onChange={(e) => setPintarFilasPorEstado(e.target.checked)}
+                        />
+                        <span className="styling-switch-slider"></span>
+                      </div>
+                    </label>
+                  </div>
+
+                  {GRUPOS_COLUMNAS.map((grupo) => (
+                    <div key={grupo} className="export-group-card">
+                      <div className="export-group-title">{grupo}</div>
+                      <div className="export-chips-grid">
+                        {COLUMNAS_EXPORTAR.filter((c) => c.grupo === grupo).map((col) => {
+                          const isSelected = columnasSeleccionadas.includes(col.id);
+                          return (
+                            <label
+                              key={col.id}
+                              className={`export-chip-item ${isSelected ? "is-selected" : ""}`}
+                            >
+                              <input
+                                type="checkbox"
+                                className="export-chip-checkbox"
+                                checked={isSelected}
+                                onChange={() => toggleColumna(col.id)}
+                              />
+                              <span>{col.label}</span>
+                            </label>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Pie del modal con confirmación */}
+                <div className="modal-export-footer">
+                  <button
+                    type="button"
+                    className="btn-modal-cancel"
+                    onClick={() => setShowModalExport(false)}
+                    disabled={exportandoExcel}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-modal-confirm-export"
+                    onClick={confirmarExportacionExcel}
+                    disabled={columnasSeleccionadas.length === 0 || exportandoExcel}
+                  >
+                    {exportandoExcel ? (
+                      <>
+                        <span className="export-spinner" />
+                        <span>Generando planilla...</span>
+                      </>
+                    ) : (
+                      <>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" fill="#ffffff" fillOpacity="0.25"/>
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="#ffffff" strokeWidth="2"/>
+                          <path d="M14 2v6h6" stroke="#ffffff" strokeWidth="2"/>
+                          <path d="M9.5 12.5l5 5M14.5 12.5l-5 5" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round"/>
+                        </svg>
+                        <span>Descargar Excel ({columnasSeleccionadas.length} col.)</span>
                       </>
                     )}
                   </button>

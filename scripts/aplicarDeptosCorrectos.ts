@@ -50,13 +50,13 @@ async function main() {
 
     const idEstadoDepto = deptoMap.get(rawEd) || null;
 
-    const user = await prisma.usuario.findUnique({
+    const user = await prisma.usuario.findFirst({
       where: { nroUsuario }
     });
 
     if (user) {
       await prisma.usuario.update({
-        where: { nroUsuario },
+        where: { id: user.id },
         data: {
           esDepartamento: true,
           idEstadoDepto: idEstadoDepto || user.idEstadoDepto

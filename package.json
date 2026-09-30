@@ -13,6 +13,8 @@
     "postinstall": "prisma generate",
     "migrar": "tsx scripts/migrarExcel.ts",
     "migrar:dry": "tsx scripts/migrarExcel.ts --dry-run",
+    "actualizar-excel": "tsx scripts/actualizarExcel.ts",
+    "actualizar-excel:dry": "tsx scripts/actualizarExcel.ts --dry-run",
     "normalizar:domicilios": "tsx scripts/actualizarDomicilios.ts",
     "geolocalizar": "tsx scripts/geolocalizarUsuarios.ts"
   },
@@ -22,6 +24,7 @@
     "@types/leaflet": "^1.9.22",
     "@types/leaflet.markercluster": "^1.5.6",
     "dotenv": "^17.4.2",
+    "exceljs": "^4.4.0",
     "leaflet": "^1.9.4",
     "leaflet.markercluster": "^1.5.3",
     "next": "16.3.4",

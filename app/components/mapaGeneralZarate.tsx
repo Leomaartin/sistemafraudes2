@@ -86,6 +86,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
   const routeLayerRef = useRef<any>(null);
   const LRef = useRef<any>(null);
   const userMarkersMap = useRef<Map<number, any>>(new Map());
+  const lastFittedRutaRef = useRef<string | null>(null);
 
   const [usuarios, setUsuarios] = useState<UsuarioGeo[]>([]);
   const [loading, setLoading] = useState(false);
@@ -243,6 +244,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
 
   // Limpiar y resetear el filtro de ruta operativa activa
   const handleResetFiltroRuta = () => {
+    lastFittedRutaRef.current = null;
     setRutaEscrita("");
     setRutaActiva("");
     setRutaError(null);
@@ -382,14 +384,24 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
     const map = mapInstanceRef.current;
     if (!L || !map) return;
 
-    // Cerrar popups abiertos
+    // Cerrar popups y paneles abiertos
     map.closePopup();
+    setMostrarPlanificadorRuta(false);
+    setShowModalSinGeo(false);
 
     const latOrig = Number(usuario.latitud);
     const lngOrig = Number(usuario.longitud);
 
     setUsuarioMoviendo(usuario);
     setCoordsEdicion({ lat: latOrig, lng: lngOrig });
+
+    // Ocultar inmediatamente todos los demás marcadores y capas para despejar completamente el mapa
+    if (markersLayerRef.current && map.hasLayer(markersLayerRef.current)) {
+      map.removeLayer(markersLayerRef.current);
+    }
+    if (routeLayerRef.current && map.hasLayer(routeLayerRef.current)) {
+      map.removeLayer(routeLayerRef.current);
+    }
 
     // Limpiar marcador temporal anterior si existiera
     if (movingMarkerRef.current) {
@@ -475,9 +487,16 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
         map.off("click", mapClickHandlerRef.current);
         mapClickHandlerRef.current = null;
       }
+      // Restaurar las capas de marcadores y rutas en el mapa
+      if (markersLayerRef.current && !map.hasLayer(markersLayerRef.current)) {
+        map.addLayer(markersLayerRef.current);
+      }
+      if (routeLayerRef.current && !map.hasLayer(routeLayerRef.current)) {
+        map.addLayer(routeLayerRef.current);
+      }
     }
     setUsuarioMoviendo(null);
-    toast.info("Modificación de punto cancelada.");
+    toast.info("Modificación de punto cancelada. Se restauraron los marcadores.");
   };
 
   const revertirCoordsOriginales = () => {
@@ -514,6 +533,11 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
       const newLng = Number(coordsEdicion.lng.toFixed(7));
       const newMaps = `https://www.google.com/maps?q=${newLat.toFixed(6)},${newLng.toFixed(6)}`;
 
+      // Capturar la posición actual exacta de la cámara y zoom antes de guardar
+      const map = mapInstanceRef.current;
+      const centroPrevio = map ? map.getCenter() : null;
+      const zoomPrevio = map ? map.getZoom() : null;
+
       const res = await fetch(`/api/users?id=${usuarioMoviendo.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -548,7 +572,6 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
       );
 
       // Limpiar el marcador temporal y listener
-      const map = mapInstanceRef.current;
       if (map) {
         if (movingMarkerRef.current) {
           map.removeLayer(movingMarkerRef.current);
@@ -557,6 +580,21 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
         if (mapClickHandlerRef.current) {
           map.off("click", mapClickHandlerRef.current);
           mapClickHandlerRef.current = null;
+        }
+
+        // Restaurar las capas de marcadores y rutas en el mapa
+        if (markersLayerRef.current && !map.hasLayer(markersLayerRef.current)) {
+          map.addLayer(markersLayerRef.current);
+        }
+        if (routeLayerRef.current && !map.hasLayer(routeLayerRef.current)) {
+          map.addLayer(routeLayerRef.current);
+        }
+
+        // Mantener la cámara y el zoom exactamente donde estaban
+        if (centroPrevio && zoomPrevio !== null) {
+          requestAnimationFrame(() => {
+            map.setView(centroPrevio, zoomPrevio, { animate: false });
+          });
         }
       }
 
@@ -569,6 +607,42 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
       setGuardandoPunto(false);
     }
   };
+
+  // Ocultar todos los demás marcadores y capas del mapa mientras se mueve un punto para máxima precisión visual
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    const markersLayer = markersLayerRef.current;
+    const routeLayer = routeLayerRef.current;
+    if (!map) return;
+
+    if (usuarioMoviendo) {
+      if (markersLayer && map.hasLayer(markersLayer)) {
+        map.removeLayer(markersLayer);
+      }
+      if (routeLayer && map.hasLayer(routeLayer)) {
+        map.removeLayer(routeLayer);
+      }
+    } else {
+      if (markersLayer && !map.hasLayer(markersLayer)) {
+        map.addLayer(markersLayer);
+      }
+      if (routeLayer && !map.hasLayer(routeLayer)) {
+        map.addLayer(routeLayer);
+      }
+    }
+  }, [usuarioMoviendo]);
+
+  // Permitir cancelar el modo mover punto con la tecla Escape
+  useEffect(() => {
+    if (!usuarioMoviendo) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        cancelarMoverPunto();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [usuarioMoviendo]);
 
   // Inicializar mapa de Leaflet
   useEffect(() => {
@@ -740,7 +814,16 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
 
   // Auto-ajustar cámara del mapa a los puntos de la ruta cargada
   useEffect(() => {
-    if (!mapInstanceRef.current || !rutaActiva || !LRef.current) return;
+    if (!mapInstanceRef.current || !rutaActiva || !LRef.current) {
+      lastFittedRutaRef.current = null;
+      return;
+    }
+
+    // Si ya ajustamos la vista para esta ruta activa, no volvemos a resetear zoom/cámara
+    if (lastFittedRutaRef.current === rutaActiva) {
+      return;
+    }
+
     const puntos = usuariosAMostrar
       .filter((u) => u.latitud && u.longitud && !isNaN(Number(u.latitud)))
       .map((u) => [Number(u.latitud), Number(u.longitud)] as [number, number]);
@@ -749,6 +832,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
       try {
         const bounds = LRef.current.latLngBounds(puntos);
         mapInstanceRef.current.fitBounds(bounds, { padding: [50, 50], maxZoom: 16 });
+        lastFittedRutaRef.current = rutaActiva;
       } catch (e) {}
     }
   }, [rutaActiva, usuariosAMostrar]);
@@ -1458,7 +1542,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
   return (
     <div
       ref={cardContainerRef}
-      className={`mapa-general-card ${esPantallaCompleta ? "fullscreen-mode" : ""}`}
+      className={`mapa-general-card ${esPantallaCompleta ? "fullscreen-mode" : ""} ${usuarioMoviendo ? "modo-moviendo-punto" : ""}`}
     >
       {/* Cabecera Principal del Mapa */}
       <div className="mapa-general-header">
@@ -1781,7 +1865,10 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
             <div className="mover-punto-instructions">
               <span className="mover-punto-icon-tip">💡</span>
               <span>
-                <strong>Arrastrá el marcador naranja</strong> en el mapa, <strong>hacé clic</strong> en el nuevo destino o ingresá los valores abajo:
+                <strong>Arrastrá el marcador naranja</strong> o <strong>hacé clic</strong> en la ubicación exacta en el mapa.
+              </span>
+              <span className="mover-punto-tip-isolated">
+                🎯 Los demás marcadores y rutas se ocultaron temporalmente para despejar la vista y permitir una colocación milimétrica.
               </span>
             </div>
 

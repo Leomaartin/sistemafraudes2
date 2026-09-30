@@ -381,10 +381,10 @@ export type UsuarioOrderByWithRelationInput = {
 
 export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  nroUsuario?: string
   AND?: Prisma.UsuarioWhereInput | Prisma.UsuarioWhereInput[]
   OR?: Prisma.UsuarioWhereInput[]
   NOT?: Prisma.UsuarioWhereInput | Prisma.UsuarioWhereInput[]
+  nroUsuario?: Prisma.StringFilter<"Usuario"> | string
   nombre?: Prisma.StringFilter<"Usuario"> | string
   domicilio?: Prisma.StringNullableFilter<"Usuario"> | string | null
   ruta?: Prisma.StringNullableFilter<"Usuario"> | string | null
@@ -407,7 +407,7 @@ export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
   estadoDepto?: Prisma.XOR<Prisma.EstadoNullableScalarRelationFilter, Prisma.EstadoWhereInput> | null
   tarifa?: Prisma.XOR<Prisma.TarifaNullableScalarRelationFilter, Prisma.TarifaWhereInput> | null
   rubro?: Prisma.XOR<Prisma.RubroNullableScalarRelationFilter, Prisma.RubroWhereInput> | null
-}, "id" | "nroUsuario">
+}, "id">
 
 export type UsuarioOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

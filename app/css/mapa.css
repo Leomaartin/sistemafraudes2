@@ -2404,6 +2404,39 @@
   margin-top: -1px;
 }
 
+/* Modo Moviendo Punto Aislado: Despejar mapa para máxima precisión */
+.mapa-general-card.modo-moviendo-punto .mapa-ayuda-memoria-panel {
+  display: none !important;
+}
+
+.mapa-general-card.modo-moviendo-punto .mapa-general-footer {
+  display: none !important;
+}
+
+.mapa-general-card.modo-moviendo-punto .leaflet-container {
+  cursor: crosshair !important;
+}
+
+.mapa-general-card.modo-moviendo-punto .mapa-general-controls {
+  opacity: 0.45;
+  pointer-events: none;
+  filter: grayscale(40%);
+  transition: all 0.2s ease;
+}
+
+.mover-punto-tip-isolated {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.35;
+  color: #92400e;
+  background: #fef3c7;
+  padding: 5px 9px;
+  border-radius: 6px;
+  border: 1px solid #fde68a;
+}
+
+
 
 
 
