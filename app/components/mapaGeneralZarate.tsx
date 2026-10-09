@@ -188,8 +188,9 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
   const [pisoDeptoInput, setPisoDeptoInput] = useState<string>("");
   const [guardandoCombinacion, setGuardandoCombinacion] = useState<boolean>(false);
 
-  // Estado de Pantalla Completa
+  // Estado de Pantalla Completa y Exportación de Mapa
   const [esPantallaCompleta, setEsPantallaCompleta] = useState<boolean>(false);
+  const [exportandoMapa, setExportandoMapa] = useState<boolean>(false);
 
   // Alternar pantalla completa nativa y CSS
   const togglePantallaCompleta = async () => {
@@ -1072,6 +1073,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxNativeZoom: 19,
         maxZoom: 20,
+        crossOrigin: true,
       }).addTo(map);
 
       // Agrupamiento inteligente de marcadores con chunkedLoading para soportar 12.000+ puntos a 60 FPS
@@ -2236,6 +2238,97 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
     toast.success("¡Planilla Excel descargada con Hoja de Ruta y Listado de Fraudes!");
   };
 
+  // Exportar captura visual completa del mapa con los fraudes en formato PNG
+  const handleExportarMapaImagen = async () => {
+    if (!mapContainerRef.current) {
+      toast.error("No se encontró el lienzo del mapa para exportar.");
+      return;
+    }
+
+    try {
+      setExportandoMapa(true);
+      toast.info("📸 Generando imagen de alta resolución del mapa con los fraudes...", { autoClose: 2500 });
+
+      // Importar html2canvas de forma dinámica en el cliente
+      const html2canvasModule = await import("html2canvas");
+      const html2canvas = html2canvasModule.default;
+
+      // Breve pausa para asegurar estabilidad en tiles y marcadores
+      await new Promise((resolve) => setTimeout(resolve, 200));
+
+      const element = mapContainerRef.current;
+
+      const canvas = await html2canvas(element, {
+        useCORS: true,
+        allowTaint: false,
+        scale: 2, // 2x para resolución Retina y nitidez profesional
+        backgroundColor: "#cbd5e1",
+        logging: false,
+        ignoreElements: (el) => {
+          // Ocultar botones de zoom y atribución de Leaflet en la imagen
+          return (
+            el.classList.contains("leaflet-control-zoom") ||
+            el.classList.contains("leaflet-control-attribution")
+          );
+        },
+      });
+
+      // Dibujar etiqueta informativa profesional en la esquina superior izquierda
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        const scale = 2;
+        const padding = 16 * scale;
+        const barWidth = 350 * scale;
+        const barHeight = 58 * scale;
+        const x = padding;
+        const y = padding;
+
+        ctx.save();
+        ctx.fillStyle = "rgba(15, 23, 42, 0.92)";
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+        ctx.lineWidth = 1.5 * scale;
+        ctx.beginPath();
+        if (typeof (ctx as any).roundRect === "function") {
+          (ctx as any).roundRect(x, y, barWidth, barHeight, 10 * scale);
+        } else {
+          ctx.rect(x, y, barWidth, barHeight);
+        }
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = "#ffffff";
+        ctx.font = `bold ${13 * scale}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+        ctx.fillText("⚡ SISTEMA ANTIFRAUDE ZÁRATE", x + 14 * scale, y + 24 * scale);
+
+        ctx.fillStyle = "#93c5fd";
+        ctx.font = `600 ${10.5 * scale}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+        const rutaTexto = rutaActiva ? `Ruta ${rutaActiva}` : "Todas las rutas";
+        const cantidadFraudes = `${usuariosAMostrar.length} fraudes visibles`;
+        const fechaTexto = new Date().toLocaleDateString("es-AR");
+        ctx.fillText(`${rutaTexto} • ${cantidadFraudes} • ${fechaTexto}`, x + 14 * scale, y + 44 * scale);
+        ctx.restore();
+      }
+
+      // Convertir a PNG y disparar descarga automática
+      const dataUrl = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      const fechaArchivo = new Date().toISOString().slice(0, 10);
+      const nombreArchivo = `mapa-fraudes-zarate${rutaActiva ? `-ruta-${rutaActiva}` : ""}-${fechaArchivo}.png`;
+      link.download = nombreArchivo;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      toast.success("✅ ¡Mapa exportado con éxito como imagen PNG!");
+    } catch (error: any) {
+      console.error("Error al exportar mapa a imagen:", error);
+      toast.error("Ocurrió un error al capturar la imagen del mapa.");
+    } finally {
+      setExportandoMapa(false);
+    }
+  };
+
   const resaltarMarcador = (marker: any) => {
     try {
       const el = marker.getElement();
@@ -2610,6 +2703,30 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
                   <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
                 </svg>
                 <span>Pantalla Completa</span>
+              </>
+            )}
+          </button>
+
+          {/* Botón Exportar Mapa (Captura PNG) */}
+          <button
+            type="button"
+            className="btn-exportar-mapa"
+            onClick={handleExportarMapaImagen}
+            disabled={exportandoMapa}
+            title="Exportar imagen PNG en alta resolución del mapa con todos los fraudes visibles"
+          >
+            {exportandoMapa ? (
+              <>
+                <span style={{ fontSize: "13px" }}>⏳</span>
+                <span>Exportando...</span>
+              </>
+            ) : (
+              <>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                  <circle cx="12" cy="13" r="4" />
+                </svg>
+                <span>Exportar Mapa</span>
               </>
             )}
           </button>
