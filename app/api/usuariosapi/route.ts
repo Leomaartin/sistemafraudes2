@@ -24,6 +24,7 @@ export async function GET(req: NextRequest) {
         { nroUsuario: { contains: term, mode: "insensitive" } },
         { nombre: { contains: term, mode: "insensitive" } },
         { domicilio: { contains: term, mode: "insensitive" } },
+        { medidor: { contains: term, mode: "insensitive" } },
       ];
     }
 
@@ -34,6 +35,7 @@ export async function GET(req: NextRequest) {
 
     const usuarios = await prisma.usuario.findMany({
       where: Object.keys(where).length > 0 ? where : undefined,
+      take: search ? 50 : undefined,
       orderBy: { id: "asc" },
       include: {
         cuadrillas: true,

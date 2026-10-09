@@ -301,7 +301,7 @@ export async function PUT(req: NextRequest) {
 export async function PATCH(req: NextRequest) {
     try {
         const body = await req.json();
-        const { userIds, cuadrillaIds } = body;
+        const { userIds, cuadrillaIds, latitud, longitud, maps } = body;
 
         if (!Array.isArray(userIds) || userIds.length === 0) {
             return NextResponse.json(
@@ -310,14 +310,57 @@ export async function PATCH(req: NextRequest) {
             );
         }
 
+        const validIds = userIds.map(Number).filter((n) => !isNaN(n));
+        if (validIds.length === 0) {
+            return NextResponse.json(
+                { error: "No se encontraron IDs de usuario válidos" },
+                { status: 400 }
+            );
+        }
+
+        // Si se envían coordenadas para mover un conjunto de usuarios / edificio completo
+        if (latitud !== undefined && longitud !== undefined) {
+            const newLat = Number(latitud);
+            const newLng = Number(longitud);
+            if (isNaN(newLat) || isNaN(newLng)) {
+                return NextResponse.json(
+                    { error: "Las coordenadas latitud y longitud deben ser numéricas válidas." },
+                    { status: 400 }
+                );
+            }
+
+            const newMaps = maps
+                ? String(maps).trim()
+                : `https://www.google.com/maps?q=${newLat.toFixed(6)},${newLng.toFixed(6)}`;
+
+            const updateRes = await prisma.usuario.updateMany({
+                where: {
+                    id: { in: validIds },
+                },
+                data: {
+                    latitud: newLat,
+                    longitud: newLng,
+                    maps: newMaps,
+                },
+            });
+
+            return NextResponse.json({
+                success: true,
+                actualizados: updateRes.count,
+                latitud: newLat,
+                longitud: newLng,
+                maps: newMaps,
+            });
+        }
+
         const cIds: number[] = Array.isArray(cuadrillaIds)
             ? cuadrillaIds.map(Number).filter((n) => !isNaN(n))
             : [];
 
         // Sobreescribir las cuadrillas para cada usuario de la lista
-        const updates = userIds.map((id) =>
+        const updates = validIds.map((id) =>
             prisma.usuario.update({
-                where: { id: Number(id) },
+                where: { id },
                 data: {
                     cuadrillas: {
                         set: cIds.map((cid) => ({ id: cid })),
@@ -337,9 +380,9 @@ export async function PATCH(req: NextRequest) {
             usuarios: actualizados,
         });
     } catch (error: unknown) {
-        console.error("Error en asignación masiva de cuadrillas:", error);
+        console.error("Error en PATCH de usuarios:", error);
         return NextResponse.json(
-            { error: "Error al actualizar las cuadrillas en el servidor" },
+            { error: "Error al actualizar los usuarios en el servidor" },
             { status: 500 }
         );
     }

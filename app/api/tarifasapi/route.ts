@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { TARIFAS_OFICIALES, TARIFAS_OFICIALES_SET, encontrarTarifaMasSimilar } from "@/lib/tarifasConfig";
 
 export async function GET() {
   try {
     const tarifas = await prisma.tarifa.findMany({
-      orderBy: { id: "asc" },
+      where: {
+        nombre: { in: [...TARIFAS_OFICIALES] },
+      },
+      orderBy: { nombre: "asc" },
     });
     return NextResponse.json(tarifas);
   } catch (error: unknown) {
@@ -19,17 +23,36 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const nombre = String(body.nombre || "").trim();
+    const rawNombre = String(body.nombre || "").trim();
 
-    if (!nombre) {
+    if (!rawNombre) {
       return NextResponse.json(
         { error: "El nombre de la tarifa es obligatorio" },
         { status: 400 }
       );
     }
 
+    const nombreOficial = TARIFAS_OFICIALES_SET.has(rawNombre)
+      ? rawNombre
+      : encontrarTarifaMasSimilar(rawNombre);
+
+    if (!nombreOficial) {
+      return NextResponse.json(
+        { error: `Tarifa no permitida. Solo se admiten las tarifas oficiales autorizadas.` },
+        { status: 400 }
+      );
+    }
+
+    // Verificar si ya existe
+    const existente = await prisma.tarifa.findFirst({
+      where: { nombre: nombreOficial },
+    });
+    if (existente) {
+      return NextResponse.json(existente, { status: 200 });
+    }
+
     const nuevaTarifa = await prisma.tarifa.create({
-      data: { nombre },
+      data: { nombre: nombreOficial },
     });
 
     return NextResponse.json(nuevaTarifa, { status: 201 });

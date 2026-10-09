@@ -1729,6 +1729,68 @@ export default function Home() {
                     <span className="filtro-field-mode">Cualquiera (OR)</span>
                   )}
                 </div>
+
+                {/* Selector rápido Departamento vs Independiente arriba del estado */}
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "4px", marginBottom: "6px" }}>
+                  <button
+                    type="button"
+                    style={{
+                      padding: "4px 6px",
+                      fontSize: "11px",
+                      fontWeight: 700,
+                      borderRadius: "6px",
+                      border: "1.5px solid",
+                      cursor: "pointer",
+                      borderColor: !searchDepto ? "#2563eb" : "#e2e8f0",
+                      background: !searchDepto ? "#eff6ff" : "#ffffff",
+                      color: !searchDepto ? "#1d4ed8" : "#475569",
+                      transition: "all 0.15s ease",
+                    }}
+                    onClick={() => setSearchDepto("")}
+                    title="Mostrar todos los tipos de inmuebles"
+                  >
+                    🌐 Todos
+                  </button>
+                  <button
+                    type="button"
+                    style={{
+                      padding: "4px 6px",
+                      fontSize: "11px",
+                      fontWeight: 700,
+                      borderRadius: "6px",
+                      border: "1.5px solid",
+                      cursor: "pointer",
+                      borderColor: searchDepto === "si" ? "#2563eb" : "#e2e8f0",
+                      background: searchDepto === "si" ? "#eff6ff" : "#ffffff",
+                      color: searchDepto === "si" ? "#1d4ed8" : "#475569",
+                      transition: "all 0.15s ease",
+                    }}
+                    onClick={() => setSearchDepto(searchDepto === "si" ? "" : "si")}
+                    title="Filtrar únicamente Departamentos / Edificios"
+                  >
+                    🏢 Deptos
+                  </button>
+                  <button
+                    type="button"
+                    style={{
+                      padding: "4px 6px",
+                      fontSize: "11px",
+                      fontWeight: 700,
+                      borderRadius: "6px",
+                      border: "1.5px solid",
+                      cursor: "pointer",
+                      borderColor: searchDepto === "no" ? "#2563eb" : "#e2e8f0",
+                      background: searchDepto === "no" ? "#eff6ff" : "#ffffff",
+                      color: searchDepto === "no" ? "#1d4ed8" : "#475569",
+                      transition: "all 0.15s ease",
+                    }}
+                    onClick={() => setSearchDepto(searchDepto === "no" ? "" : "no")}
+                    title="Filtrar únicamente Casas / Independientes"
+                  >
+                    🏠 Indep.
+                  </button>
+                </div>
+
                 <div className="select-dropdown-wrap">
                   <select
                     id="filtro-select-estado"

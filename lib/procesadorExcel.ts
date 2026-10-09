@@ -1,6 +1,7 @@
 import * as XLSX from "xlsx";
 import { prisma } from "./prisma";
 import { IDS_DEPARTAMENTO, OPCIONES_DEPARTAMENTO } from "./departamentoConfig";
+import { encontrarTarifaMasSimilar } from "./tarifasConfig";
 
 export interface OpcionesProcesamiento {
   buffer?: Buffer;
@@ -283,7 +284,8 @@ export async function procesarExcelUsuarios(
 
   for (const fila of filas) {
     if (colTarifa && fila[colTarifa]) {
-      const tNom = limpiarTexto(fila[colTarifa]);
+      const rawTarifa = limpiarTexto(fila[colTarifa]);
+      const tNom = encontrarTarifaMasSimilar(rawTarifa) || rawTarifa;
       if (tNom && !mapaTarifas.has(normalizarClave(tNom))) {
         tarifasNuevasNombres.add(tNom);
       }
@@ -380,7 +382,14 @@ export async function procesarExcelUsuarios(
     // Tarifa
     let idTarifa: number | null = null;
     if (colTarifa && fila[colTarifa]) {
-      const tarObj = mapaTarifas.get(normalizarClave(limpiarTexto(fila[colTarifa])));
+      const rawTarifa = limpiarTexto(fila[colTarifa]);
+      let tarObj = mapaTarifas.get(normalizarClave(rawTarifa));
+      if (!tarObj) {
+        const nombreSimilar = encontrarTarifaMasSimilar(rawTarifa);
+        if (nombreSimilar) {
+          tarObj = mapaTarifas.get(normalizarClave(nombreSimilar));
+        }
+      }
       if (tarObj) idTarifa = tarObj.id;
     }
 
