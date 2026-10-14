@@ -13,11 +13,15 @@ export interface ImagenItem {
 
 function getValidImageUrl(url: string | null | undefined): string {
   if (!url) return "";
-  const trimmed = url.trim();
-  const match = trimmed.match(/\/img\/.+$/);
+  const clean = url.trim().replace(/\\/g, "/");
+  const match = clean.match(/\/img\/.+$/i);
   if (match) return match[0];
-  if (trimmed.startsWith("img/")) return `/${trimmed}`;
-  return trimmed;
+  if (clean.toLowerCase().startsWith("img/")) return `/${clean}`;
+  if (clean.toLowerCase().startsWith("public/img/")) return clean.replace(/^public/i, "");
+  if (!clean.includes("/") && !clean.startsWith("http") && clean.length > 0) {
+    return `/img/${clean}`;
+  }
+  return clean;
 }
 
 export default function Popup({
@@ -35,6 +39,7 @@ export default function Popup({
   const [eliminando, setEliminando] = useState(false);
   const [imagenFullscreen, setImagenFullscreen] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [erroresCarga, setErroresCarga] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
     setMounted(true);
@@ -144,59 +149,85 @@ export default function Popup({
             const validUrl = getValidImageUrl(imagen.url);
             return (
               <div className="image-card" key={imagen.id}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={validUrl}
-                  alt="Imagen del usuario"
-                  onClick={() => setImagenFullscreen(validUrl)}
-                  style={{ cursor: "zoom-in" }}
-                />
-
-                <div className="image-overlay">
-                  <button
-                    type="button"
-                    className="action-btn expand-btn"
-                    title="Agrandar imagen (Pantalla completa)"
-                    onClick={() => setImagenFullscreen(validUrl)}
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="15 3 21 3 21 9" />
-                      <polyline points="9 21 3 21 3 15" />
-                      <line x1="21" y1="3" x2="14" y2="10" />
-                      <line x1="3" y1="21" x2="10" y2="14" />
+                {erroresCarga[imagen.id] ? (
+                  <div className="image-error-card">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="8" x2="12" y2="12" />
+                      <line x1="12" y1="16" x2="12.01" y2="16" />
                     </svg>
-                  </button>
+                    <span className="image-error-title">No encontrada en servidor</span>
+                    <span className="image-error-filename" title={validUrl}>{validUrl.split("/").pop()}</span>
+                    <button
+                      type="button"
+                      className="image-error-del-btn"
+                      onClick={() => setImagenAEliminar(imagen)}
+                      title="Eliminar este registro huérfano"
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={validUrl}
+                      alt="Imagen del usuario"
+                      onClick={() => setImagenFullscreen(validUrl)}
+                      onError={() => {
+                        console.warn("No se pudo cargar la imagen:", validUrl);
+                        setErroresCarga((prev) => ({ ...prev, [imagen.id]: true }));
+                      }}
+                      style={{ cursor: "zoom-in" }}
+                    />
 
-                  <a
-                    href={validUrl}
-                    download
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="action-btn download-btn"
-                    title="Descargar"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                  </a>
+                    <div className="image-overlay">
+                      <button
+                        type="button"
+                        className="action-btn expand-btn"
+                        title="Agrandar imagen (Pantalla completa)"
+                        onClick={() => setImagenFullscreen(validUrl)}
+                      >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="15 3 21 3 21 9" />
+                          <polyline points="9 21 3 21 3 15" />
+                          <line x1="21" y1="3" x2="14" y2="10" />
+                          <line x1="3" y1="21" x2="10" y2="14" />
+                        </svg>
+                      </button>
 
-                <button
-                  type="button"
-                  className="action-btn delete-btn"
-                  title="Eliminar imagen"
-                  onClick={() => setImagenAEliminar(imagen)}
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="3 6 5 6 21 6" />
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                    <line x1="10" y1="11" x2="10" y2="17" />
-                    <line x1="14" y1="11" x2="14" y2="17" />
-                  </svg>
-                </button>
+                      <a
+                        href={validUrl}
+                        download
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="action-btn download-btn"
+                        title="Descargar"
+                      >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                          <polyline points="7 10 12 15 17 10" />
+                          <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                      </a>
+
+                      <button
+                        type="button"
+                        className="action-btn delete-btn"
+                        title="Eliminar imagen"
+                        onClick={() => setImagenAEliminar(imagen)}
+                      >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="3 6 5 6 21 6" />
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                          <line x1="10" y1="11" x2="10" y2="17" />
+                          <line x1="14" y1="11" x2="14" y2="17" />
+                        </svg>
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
-            </div>
           );
         })}
         </div>

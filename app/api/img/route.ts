@@ -24,15 +24,16 @@ export async function GET(req: NextRequest) {
 
     // Sanitizar y normalizar URLs para que en producción siempre sean relativas (/img/...)
     const normalizedImages = images.map((img) => {
-      let cleanUrl = img.url || "";
-      if (
-        cleanUrl.includes("localhost") ||
-        cleanUrl.includes("127.0.0.1") ||
-        cleanUrl.startsWith("http://") ||
-        cleanUrl.startsWith("https://")
-      ) {
-        const match = cleanUrl.match(/\/img\/.+$/);
-        if (match) cleanUrl = match[0];
+      let cleanUrl = (img.url || "").trim().replace(/\\/g, "/");
+      const match = cleanUrl.match(/\/img\/.+$/i);
+      if (match) {
+        cleanUrl = match[0];
+      } else if (cleanUrl.toLowerCase().startsWith("img/")) {
+        cleanUrl = `/${cleanUrl}`;
+      } else if (cleanUrl.toLowerCase().startsWith("public/img/")) {
+        cleanUrl = cleanUrl.replace(/^public/i, "");
+      } else if (!cleanUrl.includes("/") && !cleanUrl.startsWith("http") && cleanUrl.length > 0) {
+        cleanUrl = `/img/${cleanUrl}`;
       }
       return {
         ...img,
