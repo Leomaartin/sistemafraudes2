@@ -617,7 +617,7 @@ export default function AdminPage() {
 
       {/* Modal / Popup de Creación de Usuario */}
       {showAddPopup && (
-        <div className="popup-overlay" onClick={() => setShowAddPopup(false)}>
+        <div className="popup-overlay">
           <div className="popup-content" onClick={(e) => e.stopPropagation()}>
             <button
               className="modal-close-icon"
@@ -647,12 +647,7 @@ export default function AdminPage() {
 
       {/* Modal para Crear / Editar Catálogo (Cuadrilla / Estado / Tarifa) */}
       {catalogModal.isOpen && (
-        <div
-          className="popup-overlay"
-          onClick={() =>
-            setCatalogModal((prev) => ({ ...prev, isOpen: false }))
-          }
-        >
+        <div className="popup-overlay">
           <div
             className="popup-content catalog-modal-content"
             onClick={(e) => e.stopPropagation()}
@@ -734,16 +729,23 @@ export default function AdminPage() {
 
       {/* Modal para Confirmar Eliminación */}
       {deleteModal.isOpen && deleteModal.item && (
-        <div
-          className="popup-overlay"
-          onClick={() =>
-            setDeleteModal((prev) => ({ ...prev, isOpen: false }))
-          }
-        >
+        <div className="popup-overlay">
           <div
             className="popup-content catalog-modal-content"
             onClick={(e) => e.stopPropagation()}
           >
+            <button
+              className="modal-close-icon"
+              onClick={() =>
+                setDeleteModal((prev) => ({ ...prev, isOpen: false }))
+              }
+              title="Cerrar"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
             <div className="modal-header-simple">
               <div className="delete-icon-alert">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

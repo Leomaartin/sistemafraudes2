@@ -1041,6 +1041,9 @@ export const UsuarioSistemaScalarFieldEnum = {
   usuario: 'usuario',
   password: 'password',
   nombre: 'nombre',
+  email: 'email',
+  rol: 'rol',
+  esAdmin: 'esAdmin',
   fechaVto: 'fechaVto',
   activo: 'activo'
 } as const

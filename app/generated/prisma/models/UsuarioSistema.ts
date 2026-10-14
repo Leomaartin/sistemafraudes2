@@ -39,6 +39,9 @@ export type UsuarioSistemaMinAggregateOutputType = {
   usuario: string | null
   password: string | null
   nombre: string | null
+  email: string | null
+  rol: string | null
+  esAdmin: boolean | null
   fechaVto: Date | null
   activo: boolean | null
 }
@@ -48,6 +51,9 @@ export type UsuarioSistemaMaxAggregateOutputType = {
   usuario: string | null
   password: string | null
   nombre: string | null
+  email: string | null
+  rol: string | null
+  esAdmin: boolean | null
   fechaVto: Date | null
   activo: boolean | null
 }
@@ -57,6 +63,9 @@ export type UsuarioSistemaCountAggregateOutputType = {
   usuario: number
   password: number
   nombre: number
+  email: number
+  rol: number
+  esAdmin: number
   fechaVto: number
   activo: number
   _all: number
@@ -76,6 +85,9 @@ export type UsuarioSistemaMinAggregateInputType = {
   usuario?: true
   password?: true
   nombre?: true
+  email?: true
+  rol?: true
+  esAdmin?: true
   fechaVto?: true
   activo?: true
 }
@@ -85,6 +97,9 @@ export type UsuarioSistemaMaxAggregateInputType = {
   usuario?: true
   password?: true
   nombre?: true
+  email?: true
+  rol?: true
+  esAdmin?: true
   fechaVto?: true
   activo?: true
 }
@@ -94,6 +109,9 @@ export type UsuarioSistemaCountAggregateInputType = {
   usuario?: true
   password?: true
   nombre?: true
+  email?: true
+  rol?: true
+  esAdmin?: true
   fechaVto?: true
   activo?: true
   _all?: true
@@ -188,9 +206,12 @@ export type UsuarioSistemaGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 export type UsuarioSistemaGroupByOutputType = {
   id: number
   usuario: string
-  password: string
+  password: string | null
   nombre: string
-  fechaVto: Date
+  email: string | null
+  rol: string
+  esAdmin: boolean
+  fechaVto: Date | null
   activo: boolean
   _count: UsuarioSistemaCountAggregateOutputType | null
   _avg: UsuarioSistemaAvgAggregateOutputType | null
@@ -220,39 +241,51 @@ export type UsuarioSistemaWhereInput = {
   NOT?: Prisma.UsuarioSistemaWhereInput | Prisma.UsuarioSistemaWhereInput[]
   id?: Prisma.IntFilter<"UsuarioSistema"> | number
   usuario?: Prisma.StringFilter<"UsuarioSistema"> | string
-  password?: Prisma.StringFilter<"UsuarioSistema"> | string
+  password?: Prisma.StringNullableFilter<"UsuarioSistema"> | string | null
   nombre?: Prisma.StringFilter<"UsuarioSistema"> | string
-  fechaVto?: Prisma.DateTimeFilter<"UsuarioSistema"> | Date | string
+  email?: Prisma.StringNullableFilter<"UsuarioSistema"> | string | null
+  rol?: Prisma.StringFilter<"UsuarioSistema"> | string
+  esAdmin?: Prisma.BoolFilter<"UsuarioSistema"> | boolean
+  fechaVto?: Prisma.DateTimeNullableFilter<"UsuarioSistema"> | Date | string | null
   activo?: Prisma.BoolFilter<"UsuarioSistema"> | boolean
 }
 
 export type UsuarioSistemaOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   usuario?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
   nombre?: Prisma.SortOrder
-  fechaVto?: Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
+  rol?: Prisma.SortOrder
+  esAdmin?: Prisma.SortOrder
+  fechaVto?: Prisma.SortOrderInput | Prisma.SortOrder
   activo?: Prisma.SortOrder
 }
 
 export type UsuarioSistemaWhereUniqueInput = Prisma.AtLeast<{
   id?: number
   usuario?: string
+  email?: string
   AND?: Prisma.UsuarioSistemaWhereInput | Prisma.UsuarioSistemaWhereInput[]
   OR?: Prisma.UsuarioSistemaWhereInput[]
   NOT?: Prisma.UsuarioSistemaWhereInput | Prisma.UsuarioSistemaWhereInput[]
-  password?: Prisma.StringFilter<"UsuarioSistema"> | string
+  password?: Prisma.StringNullableFilter<"UsuarioSistema"> | string | null
   nombre?: Prisma.StringFilter<"UsuarioSistema"> | string
-  fechaVto?: Prisma.DateTimeFilter<"UsuarioSistema"> | Date | string
+  rol?: Prisma.StringFilter<"UsuarioSistema"> | string
+  esAdmin?: Prisma.BoolFilter<"UsuarioSistema"> | boolean
+  fechaVto?: Prisma.DateTimeNullableFilter<"UsuarioSistema"> | Date | string | null
   activo?: Prisma.BoolFilter<"UsuarioSistema"> | boolean
-}, "id" | "usuario">
+}, "id" | "usuario" | "email">
 
 export type UsuarioSistemaOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   usuario?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
   nombre?: Prisma.SortOrder
-  fechaVto?: Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
+  rol?: Prisma.SortOrder
+  esAdmin?: Prisma.SortOrder
+  fechaVto?: Prisma.SortOrderInput | Prisma.SortOrder
   activo?: Prisma.SortOrder
   _count?: Prisma.UsuarioSistemaCountOrderByAggregateInput
   _avg?: Prisma.UsuarioSistemaAvgOrderByAggregateInput
@@ -267,69 +300,93 @@ export type UsuarioSistemaScalarWhereWithAggregatesInput = {
   NOT?: Prisma.UsuarioSistemaScalarWhereWithAggregatesInput | Prisma.UsuarioSistemaScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"UsuarioSistema"> | number
   usuario?: Prisma.StringWithAggregatesFilter<"UsuarioSistema"> | string
-  password?: Prisma.StringWithAggregatesFilter<"UsuarioSistema"> | string
+  password?: Prisma.StringNullableWithAggregatesFilter<"UsuarioSistema"> | string | null
   nombre?: Prisma.StringWithAggregatesFilter<"UsuarioSistema"> | string
-  fechaVto?: Prisma.DateTimeWithAggregatesFilter<"UsuarioSistema"> | Date | string
+  email?: Prisma.StringNullableWithAggregatesFilter<"UsuarioSistema"> | string | null
+  rol?: Prisma.StringWithAggregatesFilter<"UsuarioSistema"> | string
+  esAdmin?: Prisma.BoolWithAggregatesFilter<"UsuarioSistema"> | boolean
+  fechaVto?: Prisma.DateTimeNullableWithAggregatesFilter<"UsuarioSistema"> | Date | string | null
   activo?: Prisma.BoolWithAggregatesFilter<"UsuarioSistema"> | boolean
 }
 
 export type UsuarioSistemaCreateInput = {
   usuario: string
-  password: string
+  password?: string | null
   nombre: string
-  fechaVto: Date | string
+  email?: string | null
+  rol?: string
+  esAdmin?: boolean
+  fechaVto?: Date | string | null
   activo?: boolean
 }
 
 export type UsuarioSistemaUncheckedCreateInput = {
   id?: number
   usuario: string
-  password: string
+  password?: string | null
   nombre: string
-  fechaVto: Date | string
+  email?: string | null
+  rol?: string
+  esAdmin?: boolean
+  fechaVto?: Date | string | null
   activo?: boolean
 }
 
 export type UsuarioSistemaUpdateInput = {
   usuario?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  fechaVto?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rol?: Prisma.StringFieldUpdateOperationsInput | string
+  esAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UsuarioSistemaUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   usuario?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  fechaVto?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rol?: Prisma.StringFieldUpdateOperationsInput | string
+  esAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UsuarioSistemaCreateManyInput = {
   id?: number
   usuario: string
-  password: string
+  password?: string | null
   nombre: string
-  fechaVto: Date | string
+  email?: string | null
+  rol?: string
+  esAdmin?: boolean
+  fechaVto?: Date | string | null
   activo?: boolean
 }
 
 export type UsuarioSistemaUpdateManyMutationInput = {
   usuario?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  fechaVto?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rol?: Prisma.StringFieldUpdateOperationsInput | string
+  esAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UsuarioSistemaUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   usuario?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  fechaVto?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rol?: Prisma.StringFieldUpdateOperationsInput | string
+  esAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
@@ -338,6 +395,9 @@ export type UsuarioSistemaCountOrderByAggregateInput = {
   usuario?: Prisma.SortOrder
   password?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  rol?: Prisma.SortOrder
+  esAdmin?: Prisma.SortOrder
   fechaVto?: Prisma.SortOrder
   activo?: Prisma.SortOrder
 }
@@ -351,6 +411,9 @@ export type UsuarioSistemaMaxOrderByAggregateInput = {
   usuario?: Prisma.SortOrder
   password?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  rol?: Prisma.SortOrder
+  esAdmin?: Prisma.SortOrder
   fechaVto?: Prisma.SortOrder
   activo?: Prisma.SortOrder
 }
@@ -360,16 +423,15 @@ export type UsuarioSistemaMinOrderByAggregateInput = {
   usuario?: Prisma.SortOrder
   password?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  rol?: Prisma.SortOrder
+  esAdmin?: Prisma.SortOrder
   fechaVto?: Prisma.SortOrder
   activo?: Prisma.SortOrder
 }
 
 export type UsuarioSistemaSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-}
-
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
 }
 
 
@@ -379,6 +441,9 @@ export type UsuarioSistemaSelect<ExtArgs extends runtime.Types.Extensions.Intern
   usuario?: boolean
   password?: boolean
   nombre?: boolean
+  email?: boolean
+  rol?: boolean
+  esAdmin?: boolean
   fechaVto?: boolean
   activo?: boolean
 }, ExtArgs["result"]["usuarioSistema"]>
@@ -388,6 +453,9 @@ export type UsuarioSistemaSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   usuario?: boolean
   password?: boolean
   nombre?: boolean
+  email?: boolean
+  rol?: boolean
+  esAdmin?: boolean
   fechaVto?: boolean
   activo?: boolean
 }, ExtArgs["result"]["usuarioSistema"]>
@@ -397,6 +465,9 @@ export type UsuarioSistemaSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   usuario?: boolean
   password?: boolean
   nombre?: boolean
+  email?: boolean
+  rol?: boolean
+  esAdmin?: boolean
   fechaVto?: boolean
   activo?: boolean
 }, ExtArgs["result"]["usuarioSistema"]>
@@ -406,11 +477,14 @@ export type UsuarioSistemaSelectScalar = {
   usuario?: boolean
   password?: boolean
   nombre?: boolean
+  email?: boolean
+  rol?: boolean
+  esAdmin?: boolean
   fechaVto?: boolean
   activo?: boolean
 }
 
-export type UsuarioSistemaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "usuario" | "password" | "nombre" | "fechaVto" | "activo", ExtArgs["result"]["usuarioSistema"]>
+export type UsuarioSistemaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "usuario" | "password" | "nombre" | "email" | "rol" | "esAdmin" | "fechaVto" | "activo", ExtArgs["result"]["usuarioSistema"]>
 
 export type $UsuarioSistemaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UsuarioSistema"
@@ -418,9 +492,12 @@ export type $UsuarioSistemaPayload<ExtArgs extends runtime.Types.Extensions.Inte
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     usuario: string
-    password: string
+    password: string | null
     nombre: string
-    fechaVto: Date
+    email: string | null
+    rol: string
+    esAdmin: boolean
+    fechaVto: Date | null
     activo: boolean
   }, ExtArgs["result"]["usuarioSistema"]>
   composites: {}
@@ -849,6 +926,9 @@ export interface UsuarioSistemaFieldRefs {
   readonly usuario: Prisma.FieldRef<"UsuarioSistema", 'String'>
   readonly password: Prisma.FieldRef<"UsuarioSistema", 'String'>
   readonly nombre: Prisma.FieldRef<"UsuarioSistema", 'String'>
+  readonly email: Prisma.FieldRef<"UsuarioSistema", 'String'>
+  readonly rol: Prisma.FieldRef<"UsuarioSistema", 'String'>
+  readonly esAdmin: Prisma.FieldRef<"UsuarioSistema", 'Boolean'>
   readonly fechaVto: Prisma.FieldRef<"UsuarioSistema", 'DateTime'>
   readonly activo: Prisma.FieldRef<"UsuarioSistema", 'Boolean'>
 }

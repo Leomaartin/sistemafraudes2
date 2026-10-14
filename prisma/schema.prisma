@@ -62,12 +62,15 @@ model Tarifa {
   usuarios Usuario[]
 }
 model UsuarioSistema {
-  id       Int    @id @default(autoincrement())
-  usuario  String @unique
-  password String
+  id       Int       @id @default(autoincrement())
+  usuario  String    @unique
+  password String?
   nombre   String
-  fechaVto DateTime
-  activo   Boolean @default(true)
+  email    String?   @unique
+  rol      String    @default("operador")
+  esAdmin  Boolean   @default(false)
+  fechaVto DateTime?
+  activo   Boolean   @default(true)
 }
 model Imagen {
   id        Int      @id @default(autoincrement())

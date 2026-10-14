@@ -208,14 +208,24 @@ export default function Popup({
 
       {/* POPUP LINDO DE CONFIRMACIÓN PARA ELIMINAR IMAGEN */}
       {imagenAEliminar && (
-        <div
-          className="confirm-delete-overlay"
-          onClick={() => !eliminando && setImagenAEliminar(null)}
-        >
+        <div className="confirm-delete-overlay">
           <div
             className="confirm-delete-card"
             onClick={(e) => e.stopPropagation()}
+            style={{ position: "relative" }}
           >
+            <button
+              type="button"
+              className="modal-close-icon"
+              onClick={() => !eliminando && setImagenAEliminar(null)}
+              title="Cerrar"
+              style={{ position: "absolute", top: "12px", right: "12px" }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
             <div className="confirm-delete-icon-box">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="3 6 5 6 21 6" />
@@ -277,10 +287,7 @@ export default function Popup({
 
       {/* MODAL FULLSCREEN DE IMAGEN (OCUPA TODA LA PANTALLA) */}
       {mounted && imagenFullscreen && createPortal(
-        <div
-          className="fullscreen-image-overlay"
-          onClick={() => setImagenFullscreen(null)}
-        >
+        <div className="fullscreen-image-overlay">
           <div className="fullscreen-top-bar" onClick={(e) => e.stopPropagation()}>
             <a
               href={imagenFullscreen}
@@ -323,7 +330,7 @@ export default function Popup({
           </div>
 
           <div className="fullscreen-hint">
-            Presioná <strong>ESC</strong> o haz clic afuera para salir de pantalla completa
+            Presioná la <strong>cruz ✕</strong> o <strong>ESC</strong> para salir de pantalla completa
           </div>
         </div>,
         document.body

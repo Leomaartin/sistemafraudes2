@@ -480,16 +480,21 @@ async function main() {
   await prisma.usuarioSistema.createMany({
     data: [
       {
-        usuario: "admin",
-        password: "admin123",
-        nombre: "Administrador",
+        usuario: "cobranzascez@gmail.com",
+        email: "cobranzascez@gmail.com",
+        nombre: "Administrador Cobranzas CEZ",
+        rol: "administrador",
+        esAdmin: true,
         activo: true,
-        fechaVto: new Date("2030-12-31T00:00:00Z"),
+        fechaVto: new Date("2035-12-31T23:59:59.000Z"),
       },
       {
         usuario: "operador",
         password: "operador123",
         nombre: "Operador de prueba",
+        email: null,
+        rol: "operador",
+        esAdmin: false,
         activo: true,
         fechaVto: new Date("2030-12-31T00:00:00Z"),
       },

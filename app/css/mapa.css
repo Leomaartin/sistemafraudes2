@@ -153,6 +153,355 @@
   color: #1d4ed8;
 }
 
+/* ========================================================
+   MENÚ DESPLEGABLE: MARCAR DIRECCIÓN EXACTA (GMS / DECIMAL)
+   ======================================================== */
+.map-exact-trigger-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
+.btn-toggle-coordenadas-exactas {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  color: #166534;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.btn-toggle-coordenadas-exactas:hover {
+  background: #dcfce7;
+  border-color: #4ade80;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.15);
+}
+
+.btn-toggle-coordenadas-exactas.active {
+  background: #15803d;
+  color: #ffffff;
+  border-color: #166534;
+  box-shadow: 0 3px 10px rgba(22, 101, 52, 0.25);
+}
+
+.btn-toggle-coordenadas-exactas .btn-icon {
+  font-size: 15px;
+}
+
+.btn-toggle-coordenadas-exactas .btn-text {
+  flex: 1;
+  text-align: left;
+}
+
+.btn-toggle-coordenadas-exactas .btn-tag {
+  background: rgba(22, 101, 52, 0.1);
+  color: inherit;
+  font-size: 10.5px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.btn-toggle-coordenadas-exactas.active .btn-tag {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+.btn-toggle-coordenadas-exactas .btn-chevron {
+  font-size: 11px;
+  opacity: 0.8;
+  margin-left: 4px;
+}
+
+/* Panel Desplegable */
+.map-exact-dropdown-panel {
+  background: #ffffff;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 8px 20px rgba(22, 101, 52, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: mapSlideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes mapSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.map-exact-tabs {
+  display: flex;
+  gap: 6px;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.map-exact-tab {
+  flex: 1;
+  padding: 6px 10px;
+  border: none;
+  background: transparent;
+  color: #475569;
+  font-size: 11.5px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.map-exact-tab:hover {
+  color: #1e293b;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.map-exact-tab.active {
+  background: #ffffff;
+  color: #166534;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  font-weight: 700;
+}
+
+.map-exact-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.map-exact-hint {
+  font-size: 11.5px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.map-exact-paste-box {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.map-exact-paste-input {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  font-family: "JetBrains Mono", monospace;
+  color: #1e293b;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.map-exact-paste-input:focus {
+  border-color: #16a34a;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+}
+
+.btn-aplicar-exacto {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #16a34a;
+  color: #ffffff;
+  border: none;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-aplicar-exacto:hover {
+  background: #15803d;
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.3);
+}
+
+/* Formulario DMS detallado */
+.dms-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dms-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: #f8fafc;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.dms-row-label {
+  width: 75px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dms-fields-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.dms-field-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.dms-field-input {
+  width: 58px;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-family: "JetBrains Mono", monospace;
+  text-align: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #ffffff;
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+.dms-field-input.wide {
+  width: 72px;
+}
+
+.dms-field-input:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.15);
+}
+
+.dms-symbol {
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.dms-select-dir {
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Formulario Decimal */
+.decimal-form-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.decimal-input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.decimal-input-group label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+}
+
+.decimal-input-field {
+  padding: 7px 10px;
+  font-size: 12px;
+  font-family: "JetBrains Mono", monospace;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #ffffff;
+  outline: none;
+}
+
+.decimal-input-field:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.15);
+}
+
+/* Banner de feedback */
+.map-exact-feedback {
+  padding: 8px 12px;
+  border-radius: 7px;
+  font-size: 11.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.map-exact-feedback.exito {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+}
+
+.map-exact-feedback.error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.map-exact-feedback-close {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 4px;
+  opacity: 0.7;
+}
+
+.map-exact-feedback-close:hover {
+  opacity: 1;
+}
+
 /* Lienzo de mapa */
 .map-canvas-container {
   position: relative;
@@ -217,6 +566,38 @@
   background: #ecfdf5;
   border-color: #a7f3d0;
   color: #047857;
+}
+
+.coord-tag.gms-tag {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.coord-value.gms-value {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+.btn-copiar-gms {
+  background: #ffffff;
+  border: 1px solid #93c5fd;
+  color: #1d4ed8;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 4px;
+  transition: all 0.15s ease;
+}
+
+.btn-copiar-gms:hover {
+  background: #dbeafe;
 }
 
 .map-actions-group {

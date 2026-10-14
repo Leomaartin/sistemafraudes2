@@ -3675,7 +3675,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
 
       {/* Modal con listado de usuarios no encontrados en Maps */}
       {showModalSinGeo && (
-        <div className="popup-overlay" onClick={() => setShowModalSinGeo(false)}>
+        <div className="popup-overlay">
           <div className="popup-content modal-sin-geo-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header-simple">
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -3743,10 +3743,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
         typeof document !== "undefined" &&
         destinoCombinacion &&
         createPortal(
-          <div
-            className="modal-combinar-overlay"
-            onClick={() => !guardandoCombinacion && setDestinoCombinacion(null)}
-          >
+          <div className="modal-combinar-overlay">
             <div className="modal-combinar-card" onClick={(e) => e.stopPropagation()}>
               <div className="modal-combinar-header">
                 <div className="modal-combinar-title-group">

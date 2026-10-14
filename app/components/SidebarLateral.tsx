@@ -67,9 +67,35 @@ const OPCIONES_MENU: NavOption[] = [
   },
 ];
 
+interface AuthUser {
+  email: string;
+  name: string;
+  picture?: string;
+}
+
 export default function SidebarLateral() {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const pathname = usePathname();
+
+  // Ocultar sidebar completamente si está en la página de login
+  const isLoginPage = pathname === "/login" || pathname === "/Login";
+
+  // Cargar información de la sesión
+  useEffect(() => {
+    if (isLoginPage) return;
+    fetch("/api/auth/me")
+      .then((res) => {
+        if (res.ok) return res.json();
+        return null;
+      })
+      .then((data) => {
+        if (data?.authenticated && data?.user) {
+          setUser(data.user);
+        }
+      })
+      .catch(() => {});
+  }, [isLoginPage]);
 
   // Cerrar el sidebar con la tecla Escape
   useEffect(() => {
@@ -87,12 +113,20 @@ export default function SidebarLateral() {
     setIsOpen(false);
   }, [pathname]);
 
+  if (isLoginPage) {
+    return null;
+  }
+
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);
   };
 
   const closeSidebar = () => {
     setIsOpen(false);
+  };
+
+  const handleLogout = () => {
+    window.location.href = "/api/auth/logout";
   };
 
   return (
@@ -175,21 +209,47 @@ export default function SidebarLateral() {
           </ul>
         </div>
 
-        {/* Pie del Sidebar */}
+        {/* Pie del Sidebar con usuario y logout */}
         <div className="sidebar-footer">
           <div className="sidebar-user-info">
             <div className="sidebar-user-avatar">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
+              {user?.picture ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={user.picture}
+                  alt={user.name || "Usuario"}
+                  className="sidebar-user-avatar-img"
+                />
+              ) : (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              )}
             </div>
             <div className="sidebar-user-details">
-              <span className="sidebar-user-name">Administración</span>
-              <span className="sidebar-user-role">En línea</span>
+              <span className="sidebar-user-name" title={user?.name || "Administrador"}>
+                {user?.name || "Administración"}
+              </span>
+              <span className="sidebar-user-email" title={user?.email || ""}>
+                {user?.email || "En línea"}
+              </span>
             </div>
           </div>
-          <span className="sidebar-version-tag">v2.5.0</span>
+          
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="sidebar-logout-btn"
+            title="Cerrar sesión en el sistema"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            Salir
+          </button>
         </div>
       </aside>
     </>

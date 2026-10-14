@@ -2923,8 +2923,26 @@ export default function Home() {
 
           {/* Modal Ver Imágenes */}
           {showPopup && usuarioSeleccionado && (
-            <div className="popup-overlay" onClick={cerrarPopup}>
+            <div className="popup-overlay">
               <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+                <button
+                  className="modal-close-icon"
+                  onClick={cerrarPopup}
+                  title="Cerrar modal"
+                  aria-label="Cerrar"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
                 <Popup
                   imagenes={imagenes}
                   setImagenes={setImagenes}
@@ -2939,7 +2957,7 @@ export default function Home() {
 
           {/* Modal Editar Usuario */}
           {showPopupEdit && usuarioSeleccionado && (
-            <div className="popup-overlay" onClick={cerrarPopupEdit}>
+            <div className="popup-overlay">
               <div
                 className="popup-content popup-edit-content"
                 onClick={(e) => e.stopPropagation()}
@@ -2977,14 +2995,29 @@ export default function Home() {
 
           {/* Modal Eliminar Usuario */}
           {usuarioAEliminar && (
-            <div
-              className="popup-overlay"
-              onClick={() => !eliminando && setUsuarioAEliminar(null)}
-            >
+            <div className="popup-overlay">
               <div
                 className="popup-content delete-modal-content"
                 onClick={(e) => e.stopPropagation()}
               >
+                <button
+                  className="modal-close-icon"
+                  onClick={() => !eliminando && setUsuarioAEliminar(null)}
+                  title="Cerrar modal"
+                  aria-label="Cerrar"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
                 <div className="delete-modal-header">
                   <div className="delete-modal-icon">
                     <svg
@@ -3051,7 +3084,7 @@ export default function Home() {
 
           {/* Modal de Selección de Características para Exportar Excel */}
           {showModalExport && (
-            <div className="modal-export-overlay" onClick={() => setShowModalExport(false)}>
+            <div className="modal-export-overlay">
               <div className="modal-export-card" onClick={(e) => e.stopPropagation()}>
                 {/* Cabecera del Modal */}
                 <div className="modal-export-header">
