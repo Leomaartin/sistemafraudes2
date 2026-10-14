@@ -9,6 +9,7 @@ function LoginContent() {
   const searchParams = useSearchParams();
   const rawError = searchParams.get("error");
   const rejectedEmail = searchParams.get("email");
+  const errorMsg = searchParams.get("msg");
   const [dismissed, setDismissed] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -102,7 +103,18 @@ function LoginContent() {
           </div>
           <div className="login-alert-content">
             <span className="login-alert-title">Error de autenticación</span>
-            Ocurrió un problema al validar la sesión ({error}). Por favor, intente nuevamente.
+            {error === "internal_error" ? (
+              <>
+                <span>Ocurrió un error interno en el servidor al autenticar.</span>
+                {errorMsg && (
+                  <div style={{ marginTop: "4px", fontSize: "11px", opacity: 0.9, wordBreak: "break-all" }}>
+                    <strong>Detalle:</strong> {decodeURIComponent(errorMsg)}
+                  </div>
+                )}
+              </>
+            ) : (
+              `Ocurrió un problema al validar la sesión (${error}). Por favor, intente nuevamente.`
+            )}
           </div>
           <button type="button" onClick={dismissError} className="login-alert-close" aria-label="Cerrar aviso">✕</button>
         </div>

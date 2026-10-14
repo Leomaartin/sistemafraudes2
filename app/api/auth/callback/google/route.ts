@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { signSessionToken, SESSION_COOKIE_NAME, getAuthRedirectUri } from "@/lib/auth";
+import { signSessionToken, SESSION_COOKIE_NAME, getAuthRedirectUri, getAppOrigin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
@@ -10,7 +10,8 @@ export async function GET(req: NextRequest) {
   const state = searchParams.get("state");
   const error = searchParams.get("error");
 
-  const loginUrl = new URL("/login", req.url);
+  const appOrigin = getAppOrigin(req);
+  const loginUrl = new URL("/login", appOrigin);
 
   if (error) {
     loginUrl.searchParams.set("error", error);
@@ -124,7 +125,7 @@ export async function GET(req: NextRequest) {
     });
 
     // 5. Redirigir al panel principal con la cookie de sesión segura
-    const destinationUrl = new URL("/usuarios", req.url);
+    const destinationUrl = new URL("/usuarios", appOrigin);
     const successResponse = NextResponse.redirect(destinationUrl);
 
     successResponse.cookies.set(SESSION_COOKIE_NAME, sessionToken, {
@@ -139,9 +140,11 @@ export async function GET(req: NextRequest) {
     successResponse.cookies.delete("cez_oauth_state");
 
     return successResponse;
-  } catch (err) {
+  } catch (err: any) {
+    const errMsg = err?.message || String(err);
     console.error("Error procesando callback de Google:", err);
     loginUrl.searchParams.set("error", "internal_error");
+    loginUrl.searchParams.set("msg", encodeURIComponent(errMsg.slice(0, 160)));
     return NextResponse.redirect(loginUrl);
   }
 }

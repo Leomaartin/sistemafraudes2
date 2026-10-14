@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { verifySessionToken, SESSION_COOKIE_NAME } from "./lib/auth";
+import { verifySessionToken, SESSION_COOKIE_NAME, getAppOrigin } from "./lib/auth";
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+  const appOrigin = getAppOrigin(req);
 
   // 1. Permitir archivos estáticos y recursos internos de Next.js
   if (
@@ -34,7 +35,7 @@ export async function middleware(req: NextRequest) {
   // Si el usuario ya está autenticado e intenta ir a /login, redirigir al panel
   if (isLoginPage) {
     if (isAuthenticated) {
-      return NextResponse.redirect(new URL("/usuarios", req.url));
+      return NextResponse.redirect(new URL("/usuarios", appOrigin));
     }
     return NextResponse.next();
   }
@@ -55,7 +56,7 @@ export async function middleware(req: NextRequest) {
     }
 
     // Si es una navegación a página, redirigir al Login
-    const loginUrl = new URL("/login", req.url);
+    const loginUrl = new URL("/login", appOrigin);
     if (pathname !== "/") {
       loginUrl.searchParams.set("from", pathname);
     }
