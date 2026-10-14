@@ -16,7 +16,9 @@
     "actualizar-excel": "tsx scripts/actualizarExcel.ts",
     "actualizar-excel:dry": "tsx scripts/actualizarExcel.ts --dry-run",
     "normalizar:domicilios": "tsx scripts/actualizarDomicilios.ts",
-    "geolocalizar": "tsx scripts/geolocalizarUsuarios.ts"
+    "geolocalizar": "tsx scripts/geolocalizarUsuarios.ts",
+    "db:deploy": "prisma migrate deploy",
+    "db:admin": "tsx scripts/habilitarAdminGmail.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.0",
