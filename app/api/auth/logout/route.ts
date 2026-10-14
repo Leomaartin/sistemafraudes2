@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { SESSION_COOKIE_NAME } from "@/lib/auth";
+import { SESSION_COOKIE_NAME, getAppOrigin } from "@/lib/auth";
+
+export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  const loginUrl = new URL("/login", req.url);
+  const appOrigin = getAppOrigin(req);
+  const loginUrl = new URL("/login", appOrigin);
   const response = NextResponse.redirect(loginUrl);
   response.cookies.delete(SESSION_COOKIE_NAME);
   return response;

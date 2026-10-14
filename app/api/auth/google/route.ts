@@ -1,15 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAuthRedirectUri } from "@/lib/auth";
+import { getAuthRedirectUri, getAppOrigin } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
+  const appOrigin = getAppOrigin(req);
   const clientId = process.env.GOOGLE_CLIENT_ID;
 
   if (!clientId || clientId.trim() === "") {
     console.error("[AUTH] Error: GOOGLE_CLIENT_ID no configurada en .env");
     return NextResponse.redirect(
-      new URL("/login?error=missing_credentials", req.url)
+      new URL("/login?error=missing_credentials", appOrigin)
     );
   }
 
