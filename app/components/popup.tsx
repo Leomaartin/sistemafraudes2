@@ -11,6 +11,15 @@ export interface ImagenItem {
   usuarioId: number;
 }
 
+function getValidImageUrl(url: string | null | undefined): string {
+  if (!url) return "";
+  const trimmed = url.trim();
+  const match = trimmed.match(/\/img\/.+$/);
+  if (match) return match[0];
+  if (trimmed.startsWith("img/")) return `/${trimmed}`;
+  return trimmed;
+}
+
 export default function Popup({
   imagenes,
   setImagenes,
@@ -84,7 +93,7 @@ export default function Popup({
 
       setImagenes((imagenesActuales) => [
         ...imagenesActuales,
-        data
+        { ...data, url: getValidImageUrl(data.url) }
       ]);
 
       setSelectedImage(null);
@@ -131,45 +140,47 @@ export default function Popup({
         <p>Este usuario no tiene imágenes.</p>
       ) : (
         <div className="images-container">
-          {imagenes.map((imagen) => (
-            <div className="image-card" key={imagen.id}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={imagen.url}
-                alt="Imagen del usuario"
-                onClick={() => setImagenFullscreen(imagen.url)}
-                style={{ cursor: "zoom-in" }}
-              />
+          {imagenes.map((imagen) => {
+            const validUrl = getValidImageUrl(imagen.url);
+            return (
+              <div className="image-card" key={imagen.id}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={validUrl}
+                  alt="Imagen del usuario"
+                  onClick={() => setImagenFullscreen(validUrl)}
+                  style={{ cursor: "zoom-in" }}
+                />
 
-              <div className="image-overlay">
-                <button
-                  type="button"
-                  className="action-btn expand-btn"
-                  title="Agrandar imagen (Pantalla completa)"
-                  onClick={() => setImagenFullscreen(imagen.url)}
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="15 3 21 3 21 9" />
-                    <polyline points="9 21 3 21 3 15" />
-                    <line x1="21" y1="3" x2="14" y2="10" />
-                    <line x1="3" y1="21" x2="10" y2="14" />
-                  </svg>
-                </button>
+                <div className="image-overlay">
+                  <button
+                    type="button"
+                    className="action-btn expand-btn"
+                    title="Agrandar imagen (Pantalla completa)"
+                    onClick={() => setImagenFullscreen(validUrl)}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="15 3 21 3 21 9" />
+                      <polyline points="9 21 3 21 3 15" />
+                      <line x1="21" y1="3" x2="14" y2="10" />
+                      <line x1="3" y1="21" x2="10" y2="14" />
+                    </svg>
+                  </button>
 
-                <a
-                  href={imagen.url}
-                  download
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="action-btn download-btn"
-                  title="Descargar"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                </a>
+                  <a
+                    href={validUrl}
+                    download
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="action-btn download-btn"
+                    title="Descargar"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                  </a>
 
                 <button
                   type="button"
@@ -186,7 +197,8 @@ export default function Popup({
                 </button>
               </div>
             </div>
-          ))}
+          );
+        })}
         </div>
       )}
 
@@ -244,7 +256,7 @@ export default function Popup({
             <div className="confirm-delete-preview-wrap">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={imagenAEliminar.url}
+                src={getValidImageUrl(imagenAEliminar.url)}
                 alt="Vista previa a eliminar"
                 className="confirm-delete-thumb"
               />
@@ -290,7 +302,7 @@ export default function Popup({
         <div className="fullscreen-image-overlay">
           <div className="fullscreen-top-bar" onClick={(e) => e.stopPropagation()}>
             <a
-              href={imagenFullscreen}
+              href={getValidImageUrl(imagenFullscreen)}
               download
               target="_blank"
               rel="noopener noreferrer"
@@ -323,7 +335,7 @@ export default function Popup({
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={imagenFullscreen}
+              src={getValidImageUrl(imagenFullscreen)}
               alt="Imagen en pantalla completa"
               className="fullscreen-img"
             />

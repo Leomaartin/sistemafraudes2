@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import path from "path";
-import { writeFile } from "fs/promises";
+import { writeFile, mkdir } from "fs/promises";
+
+export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
   try {
@@ -20,18 +22,33 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    return NextResponse.json(images);
+    // Sanitizar y normalizar URLs para que en producción siempre sean relativas (/img/...)
+    const normalizedImages = images.map((img) => {
+      let cleanUrl = img.url || "";
+      if (
+        cleanUrl.includes("localhost") ||
+        cleanUrl.includes("127.0.0.1") ||
+        cleanUrl.startsWith("http://") ||
+        cleanUrl.startsWith("https://")
+      ) {
+        const match = cleanUrl.match(/\/img\/.+$/);
+        if (match) cleanUrl = match[0];
+      }
+      return {
+        ...img,
+        url: cleanUrl,
+      };
+    });
 
+    return NextResponse.json(normalizedImages);
   } catch (error) {
-    console.error("Error:", error);
-
+    console.error("Error al obtener imágenes:", error);
     return NextResponse.json(
       { error: "Error al obtener las imágenes" },
       { status: 500 }
     );
   }
 }
-
 
 export async function POST(req: NextRequest) {
   try {
@@ -52,16 +69,13 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    const extension = path.extname(archivo.name);
-
+    const extension = path.extname(archivo.name) || ".jpg";
     const nombreArchivo = `${Date.now()}-${crypto.randomUUID()}${extension}`;
 
-    const rutaArchivo = path.join(
-      process.cwd(),
-      "public",
-      "img",
-      nombreArchivo
-    );
+    const dirImg = path.join(process.cwd(), "public", "img");
+    await mkdir(dirImg, { recursive: true });
+
+    const rutaArchivo = path.join(dirImg, nombreArchivo);
 
     const bytes = await archivo.arrayBuffer();
     const buffer = Buffer.from(bytes);
@@ -76,10 +90,8 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json(imagen, { status: 201 });
-
   } catch (error) {
     console.error("Error al agregar imagen:", error);
-
     return NextResponse.json(
       { error: "Error al agregar la imagen" },
       { status: 500 }
@@ -107,10 +119,8 @@ export async function DELETE(req: NextRequest) {
     });
 
     return NextResponse.json(imagen);
-
   } catch (error) {
     console.error("Error al eliminar imagen:", error);
-
     return NextResponse.json(
       { error: "Error al eliminar la imagen" },
       { status: 500 }
