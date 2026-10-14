@@ -49,6 +49,7 @@ export interface UsuarioItem {
   estado?: CatalogoItem | null;
   tarifa?: CatalogoItem | null;
   imagenes?: ImagenItem[];
+  paraCorte?: boolean;
 }
 
 function getEstadoBadgeInfo(estado?: CatalogoItem | null) {
@@ -176,6 +177,13 @@ const COLUMNAS_EXPORTAR: ColumnaExportItem[] = [
     default: true,
     getValue: (u) => obtenerInfoVencimiento(u.fechaVto).texto
   },
+  {
+    id: "paraCorte",
+    label: "Para Corte",
+    grupo: "Estado y Gestión",
+    default: true,
+    getValue: (u) => (u.paraCorte ? "SÍ" : "NO")
+  },
 
   // Geolocalización
   { id: "geolocalizado", label: "Geolocalizado (SÍ/NO)", grupo: "Geolocalización", default: true, getValue: (u) => (u.latitud && u.longitud) ? "SÍ" : "NO (Sin Maps)" },
@@ -235,6 +243,7 @@ export default function Home() {
   const [searchVtoHasta, setSearchVtoHasta] = useState("");
   const [searchDepto, setSearchDepto] = useState("");
   const [searchUbicacion, setSearchUbicacion] = useState(""); // "" | "con_geo" | "sin_geo"
+  const [searchParaCorte, setSearchParaCorte] = useState(""); // "" | "si" | "no"
 
   // Filtros con soporte para múltiples valores simultáneos
   const [filtrosEstados, setFiltrosEstados] = useState<string[]>([]);
@@ -618,6 +627,40 @@ export default function Home() {
     setShowPopupEdit(false);
   };
 
+  const handleToggleParaCorte = async (usuarioId: number, estadoActual: boolean) => {
+    const nuevoEstado = !estadoActual;
+    // Actualización optimista inmediata en la UI
+    setAllUsers((prev) =>
+      prev.map((u) => (u.id === usuarioId ? { ...u, paraCorte: nuevoEstado } : u))
+    );
+
+    try {
+      const res = await fetch(`/api/users?id=${usuarioId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paraCorte: nuevoEstado }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || "Error al actualizar estado para corte");
+      }
+
+      toast.success(
+        nuevoEstado
+          ? "Usuario marcado PARA CORTE ✂️"
+          : "Usuario desmarcado de corte"
+      );
+    } catch (error: any) {
+      console.error("Error al modificar paraCorte:", error);
+      // Revertir cambio en caso de fallo
+      setAllUsers((prev) =>
+        prev.map((u) => (u.id === usuarioId ? { ...u, paraCorte: estadoActual } : u))
+      );
+      toast.error(error?.message || "Error al actualizar estado para corte");
+    }
+  };
+
   // Manejadores para agregar y quitar múltiples filtros
   const agregarEstado = (nombre: string) => {
     if (!nombre) return;
@@ -733,6 +776,9 @@ export default function Home() {
       case "estadoVto":
         setSearchEstadoVto(valorNuevoFiltro);
         break;
+      case "paraCorte":
+        setSearchParaCorte(valorNuevoFiltro);
+        break;
     }
     setValorNuevoFiltro("");
     setCaracteristicaSeleccionada("");
@@ -754,6 +800,7 @@ export default function Home() {
     setSearchVtoHasta("");
     setSearchDepto("");
     setSearchUbicacion("");
+    setSearchParaCorte("");
     setFiltrosEstados([]);
     setFiltrosDomicilios([]);
     setFiltrosRutas([]);
@@ -790,6 +837,7 @@ export default function Home() {
       searchVtoHasta,
       searchDepto,
       searchUbicacion,
+      searchParaCorte,
       esFiltroTarifaComercial ? searchRubroComercio : "",
       esFiltroTarifaComercial ? searchNombreComercio : "",
     ].filter((val) => val.trim() !== "").length;
@@ -901,6 +949,10 @@ export default function Home() {
       if (user.latitud && user.longitud) return false;
     }
 
+    // Filtro por condición Para Corte (Sí / No)
+    if (searchParaCorte === "si" && !user.paraCorte) return false;
+    if (searchParaCorte === "no" && user.paraCorte) return false;
+
     return true;
   });
 
@@ -920,6 +972,7 @@ export default function Home() {
     searchVtoHasta,
     searchDepto,
     searchUbicacion,
+    searchParaCorte,
     searchRubroComercio,
     searchNombreComercio,
     filtrosEstados,
@@ -1208,6 +1261,7 @@ export default function Home() {
                     <option value="depto">🏢 Inmueble / Condición Llave</option>
                     <option value="ubicacion">📍 Geolocalización / Maps</option>
                     <option value="estadoVto">📅 Estado Fecha Vencimiento</option>
+                    <option value="paraCorte">✂️ Condición Para Corte</option>
                   </select>
                 </div>
 
@@ -1386,6 +1440,19 @@ export default function Home() {
                         <option value="por_vencer">⏳ Por Vencer (≤ 7 días)</option>
                         <option value="vigentes">✓ Vigentes / Al día</option>
                         <option value="sin_fecha">— Sin Fecha Asignada</option>
+                      </select>
+                    )}
+
+                    {caracteristicaSeleccionada === "paraCorte" && (
+                      <select
+                        className="filtro-select"
+                        value={valorNuevoFiltro}
+                        onChange={(e) => setValorNuevoFiltro(e.target.value)}
+                        autoFocus
+                      >
+                        <option value="">Seleccionar condición corte...</option>
+                        <option value="si">✂️ Solo Para Corte (Sí)</option>
+                        <option value="no">✓ No Para Corte (No)</option>
                       </select>
                     )}
 
@@ -2208,6 +2275,36 @@ export default function Home() {
                   )}
                 </div>
               </div>
+
+              {/* Filtro: Para Corte */}
+              <div className={`filtro-field ${searchParaCorte ? "has-value" : ""}`} style={searchParaCorte === "si" ? { borderColor: "#ef4444" } : undefined}>
+                <label htmlFor="filtro-select-paracorte">
+                  <span style={{ fontSize: "14px", marginRight: "4px" }}>✂️</span>
+                  Condición Para Corte
+                </label>
+                <div className="select-dropdown-wrap">
+                  <select
+                    id="filtro-select-paracorte"
+                    className="filtro-select"
+                    value={searchParaCorte}
+                    onChange={(e) => setSearchParaCorte(e.target.value)}
+                    style={searchParaCorte === "si" ? { color: "#dc2626", fontWeight: 700 } : undefined}
+                  >
+                    <option value="">Todos (Corte y Normal)</option>
+                    <option value="si">✂️ Solo Para Corte (Sí)</option>
+                    <option value="no">✓ No Para Corte (No)</option>
+                  </select>
+                  <svg
+                    className="select-chevron-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </div>
+              </div>
             </div>
 
             <div className="filtros-footer">
@@ -2406,6 +2503,16 @@ export default function Home() {
                     <button type="button" onClick={() => setSearchUbicacion("")} title="Quitar filtro">×</button>
                   </span>
                 )}
+
+                {/* Condición Para Corte */}
+                {searchParaCorte && (
+                  <span className="filtro-chip" style={{ background: searchParaCorte === "si" ? "#fee2e2" : "#f1f5f9", borderColor: searchParaCorte === "si" ? "#f87171" : "#cbd5e1", color: searchParaCorte === "si" ? "#b91c1c" : "#475569" }}>
+                    Corte: <strong>
+                      {searchParaCorte === "si" ? "✂️ Solo Para Corte" : "✓ No Para Corte"}
+                    </strong>
+                    <button type="button" onClick={() => setSearchParaCorte("")} title="Quitar filtro">×</button>
+                  </span>
+                )}
               </div>
             )}
           </div>
@@ -2477,13 +2584,18 @@ export default function Home() {
             {usuariosPaginados.map((user) => {
               const sinGeo = !user.latitud || !user.longitud;
               return (
-              <div className={`user-list-card ${sinGeo ? "sin-geolocalizacion" : ""}`} key={user.id}>
+              <div className={`user-list-card ${sinGeo ? "sin-geolocalizacion" : ""} ${user.paraCorte ? "para-corte" : ""}`} key={user.id}>
 
               {/* 1. CABECERA DE LA TARJETA */}
               <div className="user-card-header">
                 <div className="user-card-header-left">
                   <span className="badge-user-nro">N° {user.nroUsuario}</span>
                   <h4 className="user-card-name">{user.nombre}</h4>
+                  {user.paraCorte && (
+                    <span className="badge-para-corte" title="Usuario marcado PARA CORTE">
+                      ✂️ PARA CORTE
+                    </span>
+                  )}
                   {(() => {
                     if (user.estado && IDS_DEPARTAMENTO.includes(user.estado.id)) {
                       return null;
@@ -2596,6 +2708,22 @@ export default function Home() {
 
                 {/* BOTONES DE ACCIÓN */}
                 <div className="user-card-header-actions">
+                  <button
+                    type="button"
+                    className={`btn-toggle-para-corte ${user.paraCorte ? "activo" : ""}`}
+                    onClick={() => handleToggleParaCorte(user.id, Boolean(user.paraCorte))}
+                    title={user.paraCorte ? "Hacé clic para desmarcar de corte" : "Hacé clic para marcar PARA CORTE"}
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <circle cx="6" cy="6" r="3" />
+                      <circle cx="6" cy="18" r="3" />
+                      <line x1="20" y1="4" x2="8.12" y2="15.88" />
+                      <line x1="14.47" y1="14.48" x2="20" y2="20" />
+                      <line x1="8.12" y1="8.12" x2="12" y2="12" />
+                    </svg>
+                    <span>{user.paraCorte ? "PARA CORTE: SÍ" : "Para corte: NO"}</span>
+                  </button>
+
                   <button
                     type="button"
                     className="btn-card-action btn-edit"

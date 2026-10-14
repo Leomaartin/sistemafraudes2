@@ -996,6 +996,7 @@ export const UsuarioScalarFieldEnum = {
   idTarifa: 'idTarifa',
   esDepartamento: 'esDepartamento',
   idEstadoDepto: 'idEstadoDepto',
+  paraCorte: 'paraCorte',
   rubroComercio: 'rubroComercio',
   idRubro: 'idRubro',
   nombreComercio: 'nombreComercio'
@@ -1054,7 +1055,8 @@ export type UsuarioSistemaScalarFieldEnum = (typeof UsuarioSistemaScalarFieldEnu
 export const ImagenScalarFieldEnum = {
   id: 'id',
   url: 'url',
-  usuarioId: 'usuarioId'
+  usuarioId: 'usuarioId',
+  createdAt: 'createdAt'
 } as const
 
 export type ImagenScalarFieldEnum = (typeof ImagenScalarFieldEnum)[keyof typeof ImagenScalarFieldEnum]

@@ -25,6 +25,7 @@ model Usuario {
 
   esDepartamento Boolean   @default(false)
   idEstadoDepto  Int?
+  paraCorte      Boolean   @default(false)
 
   rubroComercio  String?
   idRubro        Int?
@@ -76,5 +77,6 @@ model Imagen {
   id        Int      @id @default(autoincrement())
   url       String
   usuarioId Int
+  createdAt DateTime @default(now())
   usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
 }

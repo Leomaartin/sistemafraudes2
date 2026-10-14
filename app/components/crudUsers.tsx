@@ -47,6 +47,7 @@ export default function CrudUsers({
   const [rubroComercio, setRubroComercio] = useState("");
   const [nombreComercio, setNombreComercio] = useState("");
   const [fechaVto, setFechaVto] = useState("");
+  const [paraCorte, setParaCorte] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Estado para ¿Es departamento? (por defecto false)
@@ -108,6 +109,7 @@ export default function CrudUsers({
     setNombreComercio("");
     setEsDepartamento(false);
     setIdEstadoDepto(null);
+    setParaCorte(false);
     setObservacionesList([
       { id: "obs-1", texto: "", fecha: obtenerFechaActualFormateada() },
     ]);
@@ -162,6 +164,7 @@ export default function CrudUsers({
           idEstadoDepto: esDepartamento ? idEstadoDepto : null,
           rubroComercio: esComercial ? (rubroComercio.trim() || null) : null,
           nombreComercio: esComercial ? (nombreComercio.trim() || null) : null,
+          paraCorte,
         }),
       });
 
@@ -424,6 +427,30 @@ export default function CrudUsers({
                   </option>
                 ))}
               </select>
+            </div>
+
+            {/* Condición Para Corte */}
+            <div className="input-group form-col-span-2" style={{
+              background: paraCorte ? "#fef2f2" : "#f8fafc",
+              border: paraCorte ? "1.5px solid #ef4444" : "1px solid #e2e8f0",
+              borderRadius: "10px",
+              padding: "12px 16px",
+              marginTop: "4px"
+            }}>
+              <label style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer", fontWeight: 700, color: paraCorte ? "#dc2626" : "#334155", margin: 0 }}>
+                <input
+                  type="checkbox"
+                  checked={paraCorte}
+                  onChange={(e) => setParaCorte(e.target.checked)}
+                  style={{ width: "18px", height: "18px", accentColor: "#dc2626", cursor: "pointer" }}
+                />
+                <span style={{ fontSize: "14px" }}>✂️ Marcar usuario PARA CORTE</span>
+              </label>
+              <span style={{ fontSize: "12px", color: paraCorte ? "#b91c1c" : "#64748b", marginTop: "4px", display: "block" }}>
+                {paraCorte
+                  ? "Este usuario se creará marcado para corte y aparecerá con fondo rojo en el home."
+                  : "Por defecto el usuario se creará sin marcar para corte."}
+              </span>
             </div>
 
             {/* Bloque desplegable de Comercio para Tarifas T1G / T1G-I */}

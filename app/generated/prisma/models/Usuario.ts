@@ -62,6 +62,7 @@ export type UsuarioMinAggregateOutputType = {
   idTarifa: number | null
   esDepartamento: boolean | null
   idEstadoDepto: number | null
+  paraCorte: boolean | null
   rubroComercio: string | null
   idRubro: number | null
   nombreComercio: string | null
@@ -83,6 +84,7 @@ export type UsuarioMaxAggregateOutputType = {
   idTarifa: number | null
   esDepartamento: boolean | null
   idEstadoDepto: number | null
+  paraCorte: boolean | null
   rubroComercio: string | null
   idRubro: number | null
   nombreComercio: string | null
@@ -104,6 +106,7 @@ export type UsuarioCountAggregateOutputType = {
   idTarifa: number
   esDepartamento: number
   idEstadoDepto: number
+  paraCorte: number
   rubroComercio: number
   idRubro: number
   nombreComercio: number
@@ -147,6 +150,7 @@ export type UsuarioMinAggregateInputType = {
   idTarifa?: true
   esDepartamento?: true
   idEstadoDepto?: true
+  paraCorte?: true
   rubroComercio?: true
   idRubro?: true
   nombreComercio?: true
@@ -168,6 +172,7 @@ export type UsuarioMaxAggregateInputType = {
   idTarifa?: true
   esDepartamento?: true
   idEstadoDepto?: true
+  paraCorte?: true
   rubroComercio?: true
   idRubro?: true
   nombreComercio?: true
@@ -189,6 +194,7 @@ export type UsuarioCountAggregateInputType = {
   idTarifa?: true
   esDepartamento?: true
   idEstadoDepto?: true
+  paraCorte?: true
   rubroComercio?: true
   idRubro?: true
   nombreComercio?: true
@@ -297,6 +303,7 @@ export type UsuarioGroupByOutputType = {
   idTarifa: number | null
   esDepartamento: boolean
   idEstadoDepto: number | null
+  paraCorte: boolean
   rubroComercio: string | null
   idRubro: number | null
   nombreComercio: string | null
@@ -341,6 +348,7 @@ export type UsuarioWhereInput = {
   idTarifa?: Prisma.IntNullableFilter<"Usuario"> | number | null
   esDepartamento?: Prisma.BoolFilter<"Usuario"> | boolean
   idEstadoDepto?: Prisma.IntNullableFilter<"Usuario"> | number | null
+  paraCorte?: Prisma.BoolFilter<"Usuario"> | boolean
   rubroComercio?: Prisma.StringNullableFilter<"Usuario"> | string | null
   idRubro?: Prisma.IntNullableFilter<"Usuario"> | number | null
   nombreComercio?: Prisma.StringNullableFilter<"Usuario"> | string | null
@@ -368,6 +376,7 @@ export type UsuarioOrderByWithRelationInput = {
   idTarifa?: Prisma.SortOrderInput | Prisma.SortOrder
   esDepartamento?: Prisma.SortOrder
   idEstadoDepto?: Prisma.SortOrderInput | Prisma.SortOrder
+  paraCorte?: Prisma.SortOrder
   rubroComercio?: Prisma.SortOrderInput | Prisma.SortOrder
   idRubro?: Prisma.SortOrderInput | Prisma.SortOrder
   nombreComercio?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -398,6 +407,7 @@ export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
   idTarifa?: Prisma.IntNullableFilter<"Usuario"> | number | null
   esDepartamento?: Prisma.BoolFilter<"Usuario"> | boolean
   idEstadoDepto?: Prisma.IntNullableFilter<"Usuario"> | number | null
+  paraCorte?: Prisma.BoolFilter<"Usuario"> | boolean
   rubroComercio?: Prisma.StringNullableFilter<"Usuario"> | string | null
   idRubro?: Prisma.IntNullableFilter<"Usuario"> | number | null
   nombreComercio?: Prisma.StringNullableFilter<"Usuario"> | string | null
@@ -425,6 +435,7 @@ export type UsuarioOrderByWithAggregationInput = {
   idTarifa?: Prisma.SortOrderInput | Prisma.SortOrder
   esDepartamento?: Prisma.SortOrder
   idEstadoDepto?: Prisma.SortOrderInput | Prisma.SortOrder
+  paraCorte?: Prisma.SortOrder
   rubroComercio?: Prisma.SortOrderInput | Prisma.SortOrder
   idRubro?: Prisma.SortOrderInput | Prisma.SortOrder
   nombreComercio?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -454,6 +465,7 @@ export type UsuarioScalarWhereWithAggregatesInput = {
   idTarifa?: Prisma.IntNullableWithAggregatesFilter<"Usuario"> | number | null
   esDepartamento?: Prisma.BoolWithAggregatesFilter<"Usuario"> | boolean
   idEstadoDepto?: Prisma.IntNullableWithAggregatesFilter<"Usuario"> | number | null
+  paraCorte?: Prisma.BoolWithAggregatesFilter<"Usuario"> | boolean
   rubroComercio?: Prisma.StringNullableWithAggregatesFilter<"Usuario"> | string | null
   idRubro?: Prisma.IntNullableWithAggregatesFilter<"Usuario"> | number | null
   nombreComercio?: Prisma.StringNullableWithAggregatesFilter<"Usuario"> | string | null
@@ -471,6 +483,7 @@ export type UsuarioCreateInput = {
   longitud?: number | null
   fechaVto?: Date | string | null
   esDepartamento?: boolean
+  paraCorte?: boolean
   rubroComercio?: string | null
   nombreComercio?: string | null
   imagenes?: Prisma.ImagenCreateNestedManyWithoutUsuarioInput
@@ -497,6 +510,7 @@ export type UsuarioUncheckedCreateInput = {
   idTarifa?: number | null
   esDepartamento?: boolean
   idEstadoDepto?: number | null
+  paraCorte?: boolean
   rubroComercio?: string | null
   idRubro?: number | null
   nombreComercio?: string | null
@@ -516,6 +530,7 @@ export type UsuarioUpdateInput = {
   longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagenes?: Prisma.ImagenUpdateManyWithoutUsuarioNestedInput
@@ -542,6 +557,7 @@ export type UsuarioUncheckedUpdateInput = {
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
   idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRubro?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -565,6 +581,7 @@ export type UsuarioCreateManyInput = {
   idTarifa?: number | null
   esDepartamento?: boolean
   idEstadoDepto?: number | null
+  paraCorte?: boolean
   rubroComercio?: string | null
   idRubro?: number | null
   nombreComercio?: string | null
@@ -582,6 +599,7 @@ export type UsuarioUpdateManyMutationInput = {
   longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -602,6 +620,7 @@ export type UsuarioUncheckedUpdateManyInput = {
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
   idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRubro?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -623,6 +642,7 @@ export type UsuarioCountOrderByAggregateInput = {
   idTarifa?: Prisma.SortOrder
   esDepartamento?: Prisma.SortOrder
   idEstadoDepto?: Prisma.SortOrder
+  paraCorte?: Prisma.SortOrder
   rubroComercio?: Prisma.SortOrder
   idRubro?: Prisma.SortOrder
   nombreComercio?: Prisma.SortOrder
@@ -654,6 +674,7 @@ export type UsuarioMaxOrderByAggregateInput = {
   idTarifa?: Prisma.SortOrder
   esDepartamento?: Prisma.SortOrder
   idEstadoDepto?: Prisma.SortOrder
+  paraCorte?: Prisma.SortOrder
   rubroComercio?: Prisma.SortOrder
   idRubro?: Prisma.SortOrder
   nombreComercio?: Prisma.SortOrder
@@ -675,6 +696,7 @@ export type UsuarioMinOrderByAggregateInput = {
   idTarifa?: Prisma.SortOrder
   esDepartamento?: Prisma.SortOrder
   idEstadoDepto?: Prisma.SortOrder
+  paraCorte?: Prisma.SortOrder
   rubroComercio?: Prisma.SortOrder
   idRubro?: Prisma.SortOrder
   nombreComercio?: Prisma.SortOrder
@@ -977,6 +999,7 @@ export type UsuarioCreateWithoutRubroInput = {
   longitud?: number | null
   fechaVto?: Date | string | null
   esDepartamento?: boolean
+  paraCorte?: boolean
   rubroComercio?: string | null
   nombreComercio?: string | null
   imagenes?: Prisma.ImagenCreateNestedManyWithoutUsuarioInput
@@ -1002,6 +1025,7 @@ export type UsuarioUncheckedCreateWithoutRubroInput = {
   idTarifa?: number | null
   esDepartamento?: boolean
   idEstadoDepto?: number | null
+  paraCorte?: boolean
   rubroComercio?: string | null
   nombreComercio?: string | null
   imagenes?: Prisma.ImagenUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1053,6 +1077,7 @@ export type UsuarioScalarWhereInput = {
   idTarifa?: Prisma.IntNullableFilter<"Usuario"> | number | null
   esDepartamento?: Prisma.BoolFilter<"Usuario"> | boolean
   idEstadoDepto?: Prisma.IntNullableFilter<"Usuario"> | number | null
+  paraCorte?: Prisma.BoolFilter<"Usuario"> | boolean
   rubroComercio?: Prisma.StringNullableFilter<"Usuario"> | string | null
   idRubro?: Prisma.IntNullableFilter<"Usuario"> | number | null
   nombreComercio?: Prisma.StringNullableFilter<"Usuario"> | string | null
@@ -1070,6 +1095,7 @@ export type UsuarioCreateWithoutCuadrillasInput = {
   longitud?: number | null
   fechaVto?: Date | string | null
   esDepartamento?: boolean
+  paraCorte?: boolean
   rubroComercio?: string | null
   nombreComercio?: string | null
   imagenes?: Prisma.ImagenCreateNestedManyWithoutUsuarioInput
@@ -1095,6 +1121,7 @@ export type UsuarioUncheckedCreateWithoutCuadrillasInput = {
   idTarifa?: number | null
   esDepartamento?: boolean
   idEstadoDepto?: number | null
+  paraCorte?: boolean
   rubroComercio?: string | null
   idRubro?: number | null
   nombreComercio?: string | null
@@ -1134,6 +1161,7 @@ export type UsuarioCreateWithoutEstadoInput = {
   longitud?: number | null
   fechaVto?: Date | string | null
   esDepartamento?: boolean
+  paraCorte?: boolean
   rubroComercio?: string | null
   nombreComercio?: string | null
   imagenes?: Prisma.ImagenCreateNestedManyWithoutUsuarioInput
@@ -1158,6 +1186,7 @@ export type UsuarioUncheckedCreateWithoutEstadoInput = {
   idTarifa?: number | null
   esDepartamento?: boolean
   idEstadoDepto?: number | null
+  paraCorte?: boolean
   rubroComercio?: string | null
   idRubro?: number | null
   nombreComercio?: string | null
@@ -1187,6 +1216,7 @@ export type UsuarioCreateWithoutEstadoDeptoInput = {
   longitud?: number | null
   fechaVto?: Date | string | null
   esDepartamento?: boolean
+  paraCorte?: boolean
   rubroComercio?: string | null
   nombreComercio?: string | null
   imagenes?: Prisma.ImagenCreateNestedManyWithoutUsuarioInput
@@ -1211,6 +1241,7 @@ export type UsuarioUncheckedCreateWithoutEstadoDeptoInput = {
   idEstado?: number | null
   idTarifa?: number | null
   esDepartamento?: boolean
+  paraCorte?: boolean
   rubroComercio?: string | null
   idRubro?: number | null
   nombreComercio?: string | null
@@ -1272,6 +1303,7 @@ export type UsuarioCreateWithoutTarifaInput = {
   longitud?: number | null
   fechaVto?: Date | string | null
   esDepartamento?: boolean
+  paraCorte?: boolean
   rubroComercio?: string | null
   nombreComercio?: string | null
   imagenes?: Prisma.ImagenCreateNestedManyWithoutUsuarioInput
@@ -1296,6 +1328,7 @@ export type UsuarioUncheckedCreateWithoutTarifaInput = {
   idEstado?: number | null
   esDepartamento?: boolean
   idEstadoDepto?: number | null
+  paraCorte?: boolean
   rubroComercio?: string | null
   idRubro?: number | null
   nombreComercio?: string | null
@@ -1341,6 +1374,7 @@ export type UsuarioCreateWithoutImagenesInput = {
   longitud?: number | null
   fechaVto?: Date | string | null
   esDepartamento?: boolean
+  paraCorte?: boolean
   rubroComercio?: string | null
   nombreComercio?: string | null
   cuadrillas?: Prisma.CuadrillaCreateNestedManyWithoutUsuariosInput
@@ -1366,6 +1400,7 @@ export type UsuarioUncheckedCreateWithoutImagenesInput = {
   idTarifa?: number | null
   esDepartamento?: boolean
   idEstadoDepto?: number | null
+  paraCorte?: boolean
   rubroComercio?: string | null
   idRubro?: number | null
   nombreComercio?: string | null
@@ -1400,6 +1435,7 @@ export type UsuarioUpdateWithoutImagenesInput = {
   longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cuadrillas?: Prisma.CuadrillaUpdateManyWithoutUsuariosNestedInput
@@ -1425,6 +1461,7 @@ export type UsuarioUncheckedUpdateWithoutImagenesInput = {
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
   idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRubro?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1447,6 +1484,7 @@ export type UsuarioCreateManyRubroInput = {
   idTarifa?: number | null
   esDepartamento?: boolean
   idEstadoDepto?: number | null
+  paraCorte?: boolean
   rubroComercio?: string | null
   nombreComercio?: string | null
 }
@@ -1463,6 +1501,7 @@ export type UsuarioUpdateWithoutRubroInput = {
   longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagenes?: Prisma.ImagenUpdateManyWithoutUsuarioNestedInput
@@ -1488,6 +1527,7 @@ export type UsuarioUncheckedUpdateWithoutRubroInput = {
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
   idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagenes?: Prisma.ImagenUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1510,6 +1550,7 @@ export type UsuarioUncheckedUpdateManyWithoutRubroInput = {
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
   idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -1526,6 +1567,7 @@ export type UsuarioUpdateWithoutCuadrillasInput = {
   longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagenes?: Prisma.ImagenUpdateManyWithoutUsuarioNestedInput
@@ -1551,6 +1593,7 @@ export type UsuarioUncheckedUpdateWithoutCuadrillasInput = {
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
   idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRubro?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1573,6 +1616,7 @@ export type UsuarioUncheckedUpdateManyWithoutCuadrillasInput = {
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
   idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRubro?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1593,6 +1637,7 @@ export type UsuarioCreateManyEstadoInput = {
   idTarifa?: number | null
   esDepartamento?: boolean
   idEstadoDepto?: number | null
+  paraCorte?: boolean
   rubroComercio?: string | null
   idRubro?: number | null
   nombreComercio?: string | null
@@ -1613,6 +1658,7 @@ export type UsuarioCreateManyEstadoDeptoInput = {
   idEstado?: number | null
   idTarifa?: number | null
   esDepartamento?: boolean
+  paraCorte?: boolean
   rubroComercio?: string | null
   idRubro?: number | null
   nombreComercio?: string | null
@@ -1630,6 +1676,7 @@ export type UsuarioUpdateWithoutEstadoInput = {
   longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagenes?: Prisma.ImagenUpdateManyWithoutUsuarioNestedInput
@@ -1654,6 +1701,7 @@ export type UsuarioUncheckedUpdateWithoutEstadoInput = {
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
   idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRubro?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1676,6 +1724,7 @@ export type UsuarioUncheckedUpdateManyWithoutEstadoInput = {
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
   idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRubro?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1693,6 +1742,7 @@ export type UsuarioUpdateWithoutEstadoDeptoInput = {
   longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagenes?: Prisma.ImagenUpdateManyWithoutUsuarioNestedInput
@@ -1717,6 +1767,7 @@ export type UsuarioUncheckedUpdateWithoutEstadoDeptoInput = {
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRubro?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1739,6 +1790,7 @@ export type UsuarioUncheckedUpdateManyWithoutEstadoDeptoInput = {
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   idTarifa?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRubro?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1759,6 +1811,7 @@ export type UsuarioCreateManyTarifaInput = {
   idEstado?: number | null
   esDepartamento?: boolean
   idEstadoDepto?: number | null
+  paraCorte?: boolean
   rubroComercio?: string | null
   idRubro?: number | null
   nombreComercio?: string | null
@@ -1776,6 +1829,7 @@ export type UsuarioUpdateWithoutTarifaInput = {
   longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagenes?: Prisma.ImagenUpdateManyWithoutUsuarioNestedInput
@@ -1800,6 +1854,7 @@ export type UsuarioUncheckedUpdateWithoutTarifaInput = {
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
   idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRubro?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1822,6 +1877,7 @@ export type UsuarioUncheckedUpdateManyWithoutTarifaInput = {
   idEstado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   esDepartamento?: Prisma.BoolFieldUpdateOperationsInput | boolean
   idEstadoDepto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  paraCorte?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rubroComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idRubro?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   nombreComercio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1883,6 +1939,7 @@ export type UsuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   idTarifa?: boolean
   esDepartamento?: boolean
   idEstadoDepto?: boolean
+  paraCorte?: boolean
   rubroComercio?: boolean
   idRubro?: boolean
   nombreComercio?: boolean
@@ -1911,6 +1968,7 @@ export type UsuarioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   idTarifa?: boolean
   esDepartamento?: boolean
   idEstadoDepto?: boolean
+  paraCorte?: boolean
   rubroComercio?: boolean
   idRubro?: boolean
   nombreComercio?: boolean
@@ -1936,6 +1994,7 @@ export type UsuarioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   idTarifa?: boolean
   esDepartamento?: boolean
   idEstadoDepto?: boolean
+  paraCorte?: boolean
   rubroComercio?: boolean
   idRubro?: boolean
   nombreComercio?: boolean
@@ -1961,12 +2020,13 @@ export type UsuarioSelectScalar = {
   idTarifa?: boolean
   esDepartamento?: boolean
   idEstadoDepto?: boolean
+  paraCorte?: boolean
   rubroComercio?: boolean
   idRubro?: boolean
   nombreComercio?: boolean
 }
 
-export type UsuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nroUsuario" | "nombre" | "domicilio" | "ruta" | "observaciones" | "maps" | "medidor" | "latitud" | "longitud" | "fechaVto" | "idEstado" | "idTarifa" | "esDepartamento" | "idEstadoDepto" | "rubroComercio" | "idRubro" | "nombreComercio", ExtArgs["result"]["usuario"]>
+export type UsuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nroUsuario" | "nombre" | "domicilio" | "ruta" | "observaciones" | "maps" | "medidor" | "latitud" | "longitud" | "fechaVto" | "idEstado" | "idTarifa" | "esDepartamento" | "idEstadoDepto" | "paraCorte" | "rubroComercio" | "idRubro" | "nombreComercio", ExtArgs["result"]["usuario"]>
 export type UsuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   imagenes?: boolean | Prisma.Usuario$imagenesArgs<ExtArgs>
   cuadrillas?: boolean | Prisma.Usuario$cuadrillasArgs<ExtArgs>
@@ -2015,6 +2075,7 @@ export type $UsuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     idTarifa: number | null
     esDepartamento: boolean
     idEstadoDepto: number | null
+    paraCorte: boolean
     rubroComercio: string | null
     idRubro: number | null
     nombreComercio: string | null
@@ -2462,6 +2523,7 @@ export interface UsuarioFieldRefs {
   readonly idTarifa: Prisma.FieldRef<"Usuario", 'Int'>
   readonly esDepartamento: Prisma.FieldRef<"Usuario", 'Boolean'>
   readonly idEstadoDepto: Prisma.FieldRef<"Usuario", 'Int'>
+  readonly paraCorte: Prisma.FieldRef<"Usuario", 'Boolean'>
   readonly rubroComercio: Prisma.FieldRef<"Usuario", 'String'>
   readonly idRubro: Prisma.FieldRef<"Usuario", 'Int'>
   readonly nombreComercio: Prisma.FieldRef<"Usuario", 'String'>

@@ -63,6 +63,7 @@ export default function PopupEdit({
     fechaVto: "",
     rubroComercio: "",
     nombreComercio: "",
+    paraCorte: false,
   });
 
   const toggleCuadrilla = (id: number) => {
@@ -193,6 +194,7 @@ export default function PopupEdit({
           : "",
         rubroComercio: userData.rubroComercio || userData.rubro?.nombre || "",
         nombreComercio: userData.nombreComercio || "",
+        paraCorte: Boolean(userData.paraCorte),
       });
     } catch (err: any) {
       console.error("Error al cargar datos del usuario:", err);
@@ -267,6 +269,7 @@ export default function PopupEdit({
           idEstadoDepto: esDepartamento ? idEstadoDepto : null,
           rubroComercio: esComercial ? (formData.rubroComercio ? formData.rubroComercio.trim() : null) : null,
           nombreComercio: esComercial ? (formData.nombreComercio ? formData.nombreComercio.trim() : null) : null,
+          paraCorte: formData.paraCorte,
         }),
       });
 
@@ -564,6 +567,31 @@ export default function PopupEdit({
                   </option>
                 ))}
               </select>
+            </div>
+
+            {/* Condición Para Corte */}
+            <div className="input-group form-col-span-2" style={{
+              background: formData.paraCorte ? "#fef2f2" : "#f8fafc",
+              border: formData.paraCorte ? "1.5px solid #ef4444" : "1px solid #e2e8f0",
+              borderRadius: "10px",
+              padding: "12px 16px",
+              marginTop: "4px"
+            }}>
+              <label style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer", fontWeight: 700, color: formData.paraCorte ? "#dc2626" : "#334155", margin: 0 }}>
+                <input
+                  type="checkbox"
+                  name="paraCorte"
+                  checked={formData.paraCorte}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, paraCorte: e.target.checked }))}
+                  style={{ width: "18px", height: "18px", accentColor: "#dc2626", cursor: "pointer" }}
+                />
+                <span style={{ fontSize: "14px" }}>✂️ Marcar usuario PARA CORTE</span>
+              </label>
+              <span style={{ fontSize: "12px", color: formData.paraCorte ? "#b91c1c" : "#64748b", marginTop: "4px", display: "block" }}>
+                {formData.paraCorte
+                  ? "Este usuario está marcado para corte. Su tarjeta aparecerá con fondo rojo en el home."
+                  : "Por defecto el usuario no está marcado para corte."}
+              </span>
             </div>
 
             {/* Bloque desplegable de Comercio para Tarifas T1G / T1G-I */}

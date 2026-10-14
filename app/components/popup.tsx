@@ -9,6 +9,30 @@ export interface ImagenItem {
   id: number;
   url: string;
   usuarioId: number;
+  createdAt?: string | Date | null;
+}
+
+function formatFechaImagen(img: ImagenItem): string {
+  let date: Date | null = null;
+  if (img.createdAt) {
+    date = new Date(img.createdAt);
+  } else {
+    // Intentar extraer el timestamp de 13 dígitos del nombre del archivo (ej: 1790787668561-...)
+    const match = img.url.match(/(\d{13})-/);
+    if (match) {
+      date = new Date(Number(match[1]));
+    }
+  }
+
+  if (!date || isNaN(date.getTime())) return "";
+
+  const dia = String(date.getDate()).padStart(2, "0");
+  const mes = String(date.getMonth() + 1).padStart(2, "0");
+  const anio = date.getFullYear();
+  const horas = String(date.getHours()).padStart(2, "0");
+  const mins = String(date.getMinutes()).padStart(2, "0");
+
+  return `${dia}/${mes}/${anio} ${horas}:${mins} hs`;
 }
 
 function getValidImageUrl(url: string | null | undefined): string {
@@ -182,48 +206,66 @@ export default function Popup({
                     />
 
                     <div className="image-overlay">
-                      <button
-                        type="button"
-                        className="action-btn expand-btn"
-                        title="Agrandar imagen (Pantalla completa)"
-                        onClick={() => setImagenFullscreen(validUrl)}
-                      >
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="15 3 21 3 21 9" />
-                          <polyline points="9 21 3 21 3 15" />
-                          <line x1="21" y1="3" x2="14" y2="10" />
-                          <line x1="3" y1="21" x2="10" y2="14" />
-                        </svg>
-                      </button>
+                      <div className="image-overlay-buttons">
+                        <button
+                          type="button"
+                          className="action-btn expand-btn"
+                          title="Agrandar imagen (Pantalla completa)"
+                          onClick={() => setImagenFullscreen(validUrl)}
+                        >
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="15 3 21 3 21 9" />
+                            <polyline points="9 21 3 21 3 15" />
+                            <line x1="21" y1="3" x2="14" y2="10" />
+                            <line x1="3" y1="21" x2="10" y2="14" />
+                          </svg>
+                        </button>
 
-                      <a
-                        href={validUrl}
-                        download
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="action-btn download-btn"
-                        title="Descargar"
-                      >
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                          <polyline points="7 10 12 15 17 10" />
-                          <line x1="12" y1="15" x2="12" y2="3" />
-                        </svg>
-                      </a>
+                        <a
+                          href={validUrl}
+                          download
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="action-btn download-btn"
+                          title="Descargar"
+                        >
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                          </svg>
+                        </a>
 
-                      <button
-                        type="button"
-                        className="action-btn delete-btn"
-                        title="Eliminar imagen"
-                        onClick={() => setImagenAEliminar(imagen)}
-                      >
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="3 6 5 6 21 6" />
-                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                          <line x1="10" y1="11" x2="10" y2="17" />
-                          <line x1="14" y1="11" x2="14" y2="17" />
-                        </svg>
-                      </button>
+                        <button
+                          type="button"
+                          className="action-btn delete-btn"
+                          title="Eliminar imagen"
+                          onClick={() => setImagenAEliminar(imagen)}
+                        >
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                            <line x1="10" y1="11" x2="10" y2="17" />
+                            <line x1="14" y1="11" x2="14" y2="17" />
+                          </svg>
+                        </button>
+                      </div>
+
+                      {(() => {
+                        const fechaStr = formatFechaImagen(imagen);
+                        if (!fechaStr) return null;
+                        return (
+                          <div className="image-overlay-date" title={`Cargada: ${fechaStr}`}>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                              <line x1="16" y1="2" x2="16" y2="6" />
+                              <line x1="8" y1="2" x2="8" y2="6" />
+                              <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg>
+                            <span>{fechaStr}</span>
+                          </div>
+                        );
+                      })()}
                     </div>
                   </>
                 )}

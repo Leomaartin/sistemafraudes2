@@ -124,6 +124,7 @@ export async function POST(req: NextRequest) {
                 idRubro,
                 rubroComercio,
                 nombreComercio: body.nombreComercio ? String(body.nombreComercio).trim() : null,
+                paraCorte: body.paraCorte === true || body.paraCorte === "true",
                 cuadrillas: cuadrillaIds.length > 0 ? {
                     connect: cuadrillaIds.map((id) => ({ id }))
                 } : undefined,
@@ -265,6 +266,7 @@ export async function PUT(req: NextRequest) {
                 idRubro: idRubroUpdate,
                 rubroComercio: rubroComercioUpdate,
                 nombreComercio: body.nombreComercio !== undefined ? (body.nombreComercio ? String(body.nombreComercio).trim() : null) : undefined,
+                paraCorte: body.paraCorte !== undefined ? (body.paraCorte === true || body.paraCorte === "true") : undefined,
             },
             include: {
                 cuadrillas: true,

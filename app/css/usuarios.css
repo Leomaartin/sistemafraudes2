@@ -807,6 +807,89 @@ main h3 {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
 }
 
+/* ==========================================================
+   ESTADO PARA CORTE: FONDO ROJO, BORDE Y EFECTOS
+   ========================================================== */
+.user-list-card.para-corte {
+  background: #fef2f2 !important;
+  border: 2px solid #ef4444 !important;
+  box-shadow: 0 6px 24px rgba(239, 68, 68, 0.22) !important;
+}
+
+.user-list-card.para-corte:hover {
+  background: #fee2e2 !important;
+  border-color: #dc2626 !important;
+  box-shadow: 0 12px 36px rgba(220, 38, 38, 0.32) !important;
+}
+
+/* Badge en la cabecera */
+.badge-para-corte {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #dc2626;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.35);
+  animation: pulse-corte 2.5s infinite ease-in-out;
+}
+
+@keyframes pulse-corte {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+/* Botón interactivo para alternar estado de corte directamente desde el Home */
+.btn-toggle-para-corte {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  white-space: nowrap;
+}
+
+.btn-toggle-para-corte svg {
+  flex-shrink: 0;
+}
+
+.btn-toggle-para-corte:hover {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #dc2626;
+  transform: translateY(-1px);
+}
+
+.btn-toggle-para-corte.activo {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border-color: #b91c1c;
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(220, 38, 38, 0.4);
+}
+
+.btn-toggle-para-corte.activo:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.5);
+}
+
 /* CABECERA DE LA TARJETA */
 .user-card-header {
   display: flex;

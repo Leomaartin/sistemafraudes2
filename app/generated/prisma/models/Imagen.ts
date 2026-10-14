@@ -40,18 +40,21 @@ export type ImagenMinAggregateOutputType = {
   id: number | null
   url: string | null
   usuarioId: number | null
+  createdAt: Date | null
 }
 
 export type ImagenMaxAggregateOutputType = {
   id: number | null
   url: string | null
   usuarioId: number | null
+  createdAt: Date | null
 }
 
 export type ImagenCountAggregateOutputType = {
   id: number
   url: number
   usuarioId: number
+  createdAt: number
   _all: number
 }
 
@@ -70,18 +73,21 @@ export type ImagenMinAggregateInputType = {
   id?: true
   url?: true
   usuarioId?: true
+  createdAt?: true
 }
 
 export type ImagenMaxAggregateInputType = {
   id?: true
   url?: true
   usuarioId?: true
+  createdAt?: true
 }
 
 export type ImagenCountAggregateInputType = {
   id?: true
   url?: true
   usuarioId?: true
+  createdAt?: true
   _all?: true
 }
 
@@ -175,6 +181,7 @@ export type ImagenGroupByOutputType = {
   id: number
   url: string
   usuarioId: number
+  createdAt: Date
   _count: ImagenCountAggregateOutputType | null
   _avg: ImagenAvgAggregateOutputType | null
   _sum: ImagenSumAggregateOutputType | null
@@ -204,6 +211,7 @@ export type ImagenWhereInput = {
   id?: Prisma.IntFilter<"Imagen"> | number
   url?: Prisma.StringFilter<"Imagen"> | string
   usuarioId?: Prisma.IntFilter<"Imagen"> | number
+  createdAt?: Prisma.DateTimeFilter<"Imagen"> | Date | string
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }
 
@@ -211,6 +219,7 @@ export type ImagenOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   url?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   usuario?: Prisma.UsuarioOrderByWithRelationInput
 }
 
@@ -221,6 +230,7 @@ export type ImagenWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ImagenWhereInput | Prisma.ImagenWhereInput[]
   url?: Prisma.StringFilter<"Imagen"> | string
   usuarioId?: Prisma.IntFilter<"Imagen"> | number
+  createdAt?: Prisma.DateTimeFilter<"Imagen"> | Date | string
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }, "id">
 
@@ -228,6 +238,7 @@ export type ImagenOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   url?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   _count?: Prisma.ImagenCountOrderByAggregateInput
   _avg?: Prisma.ImagenAvgOrderByAggregateInput
   _max?: Prisma.ImagenMaxOrderByAggregateInput
@@ -242,10 +253,12 @@ export type ImagenScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Imagen"> | number
   url?: Prisma.StringWithAggregatesFilter<"Imagen"> | string
   usuarioId?: Prisma.IntWithAggregatesFilter<"Imagen"> | number
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Imagen"> | Date | string
 }
 
 export type ImagenCreateInput = {
   url: string
+  createdAt?: Date | string
   usuario: Prisma.UsuarioCreateNestedOneWithoutImagenesInput
 }
 
@@ -253,10 +266,12 @@ export type ImagenUncheckedCreateInput = {
   id?: number
   url: string
   usuarioId: number
+  createdAt?: Date | string
 }
 
 export type ImagenUpdateInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   usuario?: Prisma.UsuarioUpdateOneRequiredWithoutImagenesNestedInput
 }
 
@@ -264,22 +279,26 @@ export type ImagenUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   url?: Prisma.StringFieldUpdateOperationsInput | string
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ImagenCreateManyInput = {
   id?: number
   url: string
   usuarioId: number
+  createdAt?: Date | string
 }
 
 export type ImagenUpdateManyMutationInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ImagenUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   url?: Prisma.StringFieldUpdateOperationsInput | string
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ImagenListRelationFilter = {
@@ -296,6 +315,7 @@ export type ImagenCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   url?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type ImagenAvgOrderByAggregateInput = {
@@ -307,12 +327,14 @@ export type ImagenMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   url?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type ImagenMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   url?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type ImagenSumOrderByAggregateInput = {
@@ -362,13 +384,19 @@ export type ImagenUncheckedUpdateManyWithoutUsuarioNestedInput = {
   deleteMany?: Prisma.ImagenScalarWhereInput | Prisma.ImagenScalarWhereInput[]
 }
 
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
 export type ImagenCreateWithoutUsuarioInput = {
   url: string
+  createdAt?: Date | string
 }
 
 export type ImagenUncheckedCreateWithoutUsuarioInput = {
   id?: number
   url: string
+  createdAt?: Date | string
 }
 
 export type ImagenCreateOrConnectWithoutUsuarioInput = {
@@ -404,25 +432,30 @@ export type ImagenScalarWhereInput = {
   id?: Prisma.IntFilter<"Imagen"> | number
   url?: Prisma.StringFilter<"Imagen"> | string
   usuarioId?: Prisma.IntFilter<"Imagen"> | number
+  createdAt?: Prisma.DateTimeFilter<"Imagen"> | Date | string
 }
 
 export type ImagenCreateManyUsuarioInput = {
   id?: number
   url: string
+  createdAt?: Date | string
 }
 
 export type ImagenUpdateWithoutUsuarioInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ImagenUncheckedUpdateWithoutUsuarioInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   url?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ImagenUncheckedUpdateManyWithoutUsuarioInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   url?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -431,6 +464,7 @@ export type ImagenSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   url?: boolean
   usuarioId?: boolean
+  createdAt?: boolean
   usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["imagen"]>
 
@@ -438,6 +472,7 @@ export type ImagenSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   url?: boolean
   usuarioId?: boolean
+  createdAt?: boolean
   usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["imagen"]>
 
@@ -445,6 +480,7 @@ export type ImagenSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   url?: boolean
   usuarioId?: boolean
+  createdAt?: boolean
   usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["imagen"]>
 
@@ -452,9 +488,10 @@ export type ImagenSelectScalar = {
   id?: boolean
   url?: boolean
   usuarioId?: boolean
+  createdAt?: boolean
 }
 
-export type ImagenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "url" | "usuarioId", ExtArgs["result"]["imagen"]>
+export type ImagenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "url" | "usuarioId" | "createdAt", ExtArgs["result"]["imagen"]>
 export type ImagenInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
@@ -474,6 +511,7 @@ export type $ImagenPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     id: number
     url: string
     usuarioId: number
+    createdAt: Date
   }, ExtArgs["result"]["imagen"]>
   composites: {}
 }
@@ -901,6 +939,7 @@ export interface ImagenFieldRefs {
   readonly id: Prisma.FieldRef<"Imagen", 'Int'>
   readonly url: Prisma.FieldRef<"Imagen", 'String'>
   readonly usuarioId: Prisma.FieldRef<"Imagen", 'Int'>
+  readonly createdAt: Prisma.FieldRef<"Imagen", 'DateTime'>
 }
     
 
