@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getAuthRedirectUri } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -12,11 +13,8 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  // Determinar la URL base de redirección
-  const origin =
-    process.env.NEXT_PUBLIC_APP_URL ||
-    `${req.nextUrl.protocol}//${req.nextUrl.host}`;
-  const redirectUri = `${origin}/api/auth/callback/google`;
+  // Determinar la URL base de redirección precisa para Google OAuth
+  const redirectUri = getAuthRedirectUri(req);
 
   // Generar un state criptográfico aleatorio para protección CSRF
   const array = new Uint8Array(24);

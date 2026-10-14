@@ -144,3 +144,30 @@ export async function getSession(): Promise<SessionUser | null> {
   if (!token) return null;
   return await verifySessionToken(token);
 }
+
+/**
+ * Obtiene la URL de redirección exacta para Google OAuth.
+ * Si se ejecuta en producción o detrás de proxy (Vercel, Railway, VPS, Nginx),
+ * detecta automáticamente el dominio público real (x-forwarded-host / x-forwarded-proto)
+ * para evitar redirigir a 'localhost'.
+ */
+export function getAuthRedirectUri(req: NextRequest): string {
+  const configuredUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.APP_URL;
+
+  // 1. Si en el entorno de producción se definió la URL real (ej: https://midominio.com), usarla
+  if (configuredUrl && !configuredUrl.includes("localhost")) {
+    return `${configuredUrl.replace(/\/$/, "")}/api/auth/callback/google`;
+  }
+
+  // 2. Si la petición viene a través de un dominio público (detectado por headers de proxy)
+  const forwardedHost = req.headers.get("x-forwarded-host") || req.headers.get("host");
+  const forwardedProto = req.headers.get("x-forwarded-proto") || (req.nextUrl.protocol ? req.nextUrl.protocol.replace(":", "") : "https");
+
+  if (forwardedHost && !forwardedHost.includes("localhost")) {
+    return `${forwardedProto}://${forwardedHost}/api/auth/callback/google`;
+  }
+
+  // 3. Entorno de desarrollo local (localhost)
+  const localOrigin = configuredUrl?.replace(/\/$/, "") || `${req.nextUrl.protocol}//${req.nextUrl.host}`;
+  return `${localOrigin}/api/auth/callback/google`;
+}

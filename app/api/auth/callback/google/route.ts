@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { signSessionToken, SESSION_COOKIE_NAME } from "@/lib/auth";
+import { signSessionToken, SESSION_COOKIE_NAME, getAuthRedirectUri } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
@@ -37,10 +37,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  const origin =
-    process.env.NEXT_PUBLIC_APP_URL ||
-    `${req.nextUrl.protocol}//${req.nextUrl.host}`;
-  const redirectUri = `${origin}/api/auth/callback/google`;
+  const redirectUri = getAuthRedirectUri(req);
 
   try {
     // 1. Intercambiar code por token de acceso
