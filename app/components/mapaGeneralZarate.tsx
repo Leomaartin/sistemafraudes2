@@ -188,6 +188,10 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
   const [pisoDeptoInput, setPisoDeptoInput] = useState<string>("");
   const [guardandoCombinacion, setGuardandoCombinacion] = useState<boolean>(false);
 
+  // Estados para separar usuarios de un edificio
+  const [usuarioSeparando, setUsuarioSeparando] = useState<UsuarioGeo | null>(null);
+  const [separandoEdificio, setSeparandoEdificio] = useState<boolean>(false);
+
   // Estado de Pantalla Completa y Exportación de Mapa
   const [esPantallaCompleta, setEsPantallaCompleta] = useState<boolean>(false);
   const [exportandoMapa, setExportandoMapa] = useState<boolean>(false);
@@ -486,6 +490,13 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
       toast.info(`Selecciona en el mapa el punto suelto que deseas incorporar a "${dom}"`, { autoClose: 5000 });
     };
 
+    (window as any).iniciarSepararUsuarioDeEdificio = (id: number) => {
+      const u = usuarios.find((user) => user.id === id);
+      if (!u) return;
+      if (mapInstanceRef.current) mapInstanceRef.current.closePopup();
+      setUsuarioSeparando(u);
+    };
+
     return () => {
       delete (window as any).fijarUsuarioInicioCorte;
       delete (window as any).toggleParadaManual;
@@ -495,6 +506,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
       delete (window as any).filtrarUsuariosEdificio;
       delete (window as any).iniciarCombinarUsuario;
       delete (window as any).iniciarUnirPuntosAEdificio;
+      delete (window as any).iniciarSepararUsuarioDeEdificio;
     };
   }, [usuarios]);
 
@@ -1010,6 +1022,75 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
     }
   };
 
+  // Función para desvincular/separar a un usuario de un edificio
+  const handleConfirmarSeparacion = async (moverEnMapa: boolean) => {
+    if (!usuarioSeparando) return;
+
+    try {
+      setSeparandoEdificio(true);
+      const res = await fetch(`/api/users?id=${usuarioSeparando.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          esDepartamento: false,
+          idEstadoDepto: null,
+        }),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || "No se pudo separar el usuario del edificio");
+      }
+
+      // Actualizar estado local
+      setUsuarios((prev) =>
+        prev.map((u) =>
+          u.id === usuarioSeparando.id
+            ? {
+              ...u,
+              esDepartamento: false,
+              idEstadoDepto: null,
+              estadoDepto: null,
+            }
+            : u
+        )
+      );
+
+      setParadasManuales((prev) =>
+        prev.map((p) =>
+          p.id === usuarioSeparando.id
+            ? {
+              ...p,
+              esDepartamento: false,
+              idEstadoDepto: null,
+              estadoDepto: null,
+            }
+            : p
+        )
+      );
+
+      const targetUser = usuarioSeparando;
+      setUsuarioSeparando(null);
+
+      toast.success(`✂️ ¡Usuario #${targetUser.nroUsuario} separado del edificio correctamente!`);
+
+      if (moverEnMapa) {
+        setTimeout(() => {
+          iniciarMoverPunto(targetUser.id);
+        }, 200);
+      } else {
+        setTimeout(() => {
+          enfocarMarcador(targetUser.id);
+        }, 300);
+      }
+    } catch (error: any) {
+      console.error("Error al separar usuario del edificio:", error);
+      toast.error(error.message || "Error al separar usuario del edificio");
+    } finally {
+      setSeparandoEdificio(false);
+    }
+  };
+
   // Ocultar todos los demás marcadores y capas del mapa mientras se mueve un punto para máxima precisión visual
   useEffect(() => {
     const map = mapInstanceRef.current;
@@ -1503,6 +1584,14 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
                     title="Mover este departamento a otro edificio o combinar con otro punto"
                   >
                     🏢 Mudar
+                  </button>
+                  <button
+                    type="button"
+                    onclick="event.preventDefault(); event.stopPropagation(); window.iniciarSepararUsuarioDeEdificio(${u.id})"
+                    class="popup-btn-separar-edificio mini"
+                    title="Separar este usuario del edificio y convertirlo en un punto independiente"
+                  >
+                    ✂️ Separar
                   </button>
                 </div>
               </div>
@@ -3842,6 +3931,95 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
           </div>,
           document.body
         )}
+
+      {/* MODAL DE CONFIRMACIÓN: SEPARAR USUARIO DE EDIFICIO */}
+      {mounted && usuarioSeparando && createPortal(
+        <div
+          className="modal-combinar-overlay"
+          onClick={(e) => {
+            if (e.target === e.currentTarget && !separandoEdificio) {
+              setUsuarioSeparando(null);
+            }
+          }}
+        >
+          <div
+            className="modal-combinar-card"
+            onClick={(e) => e.stopPropagation()}
+            style={{ maxWidth: "480px" }}
+          >
+            <div className="modal-combinar-header">
+              <div className="modal-combinar-title-group">
+                <span className="modal-combinar-title-icon" style={{ background: "#fef3c7", borderColor: "#fde68a" }}>
+                  ✂️
+                </span>
+                <div>
+                  <h4 className="modal-combinar-title">Separar Usuario del Edificio</h4>
+                  <p className="modal-combinar-subtitle">
+                    Convertir en punto individual e independiente
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="modal-close-icon"
+                onClick={() => !separandoEdificio && setUsuarioSeparando(null)}
+                disabled={separandoEdificio}
+                title="Cerrar"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="modal-combinar-boxes-container">
+              <div className="modal-combinar-box origen" style={{ borderLeftColor: "#f59e0b" }}>
+                <span className="modal-combinar-box-label">Usuario a Desvincular</span>
+                <span className="modal-combinar-box-title">
+                  #{usuarioSeparando.nroUsuario} — {usuarioSeparando.nombre}
+                </span>
+                <span className="modal-combinar-box-sub">
+                  {usuarioSeparando.domicilio ? `📍 Domicilio actual: ${usuarioSeparando.domicilio}` : "Sin domicilio específico"}
+                </span>
+              </div>
+
+              <div style={{ padding: "10px 14px", background: "#fffbeb", borderRadius: "8px", border: "1px solid #fde68a", fontSize: "12px", color: "#92400e", lineHeight: "1.45" }}>
+                ℹ️ Al separar a este usuario, dejará de agruparse dentro del edificio. Pasará a tener su propio marcador individual en el mapa.
+              </div>
+            </div>
+
+            <div className="modal-combinar-actions" style={{ flexWrap: "wrap", gap: "8px" }}>
+              <button
+                type="button"
+                className="modal-btn-cancelar"
+                onClick={() => setUsuarioSeparando(null)}
+                disabled={separandoEdificio}
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                className="modal-btn-cancelar"
+                style={{ background: "#f8fafc", color: "#1e293b", fontWeight: 700 }}
+                onClick={() => handleConfirmarSeparacion(false)}
+                disabled={separandoEdificio}
+                title="Separar y mantener en sus coordenadas actuales"
+              >
+                {separandoEdificio ? "Separando..." : "✂️ Separar aquí"}
+              </button>
+              <button
+                type="button"
+                className="modal-btn-confirmar-combinar"
+                style={{ background: "linear-gradient(135deg, #d97706 0%, #b45309 100%)", boxShadow: "0 4px 12px rgba(217, 119, 6, 0.35)" }}
+                onClick={() => handleConfirmarSeparacion(true)}
+                disabled={separandoEdificio}
+                title="Separar y activar el modo mover para colocarlo en otra ubicación"
+              >
+                {separandoEdificio ? "Separando..." : "📍 Separar y Mover en Mapa"}
+              </button>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }

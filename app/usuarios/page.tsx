@@ -181,7 +181,24 @@ const COLUMNAS_EXPORTAR: ColumnaExportItem[] = [
   { id: "geolocalizado", label: "Geolocalizado (SÍ/NO)", grupo: "Geolocalización", default: true, getValue: (u) => (u.latitud && u.longitud) ? "SÍ" : "NO (Sin Maps)" },
   { id: "latitud", label: "Latitud", grupo: "Geolocalización", default: true, getValue: (u) => u.latitud ?? "" },
   { id: "longitud", label: "Longitud", grupo: "Geolocalización", default: true, getValue: (u) => u.longitud ?? "" },
-  { id: "maps", label: "Enlace Google Maps", grupo: "Geolocalización", default: true, getValue: (u) => u.maps || "" },
+  {
+    id: "maps",
+    label: "Enlace Google Maps",
+    grupo: "Geolocalización",
+    default: true,
+    getValue: (u) => {
+      if (u.maps && typeof u.maps === "string" && u.maps.trim()) {
+        const trimmed = u.maps.trim();
+        const matchSrc = trimmed.match(/src=["']([^"']+)["']/i);
+        if (matchSrc) return matchSrc[1];
+        return trimmed;
+      }
+      if (u.latitud !== null && u.latitud !== undefined && u.longitud !== null && u.longitud !== undefined) {
+        return `https://www.google.com/maps?q=${u.latitud},${u.longitud}`;
+      }
+      return "";
+    }
+  },
 
   // Comercio y Observaciones
   { id: "rubroComercio", label: "Tipo de Comercio / Rubro", grupo: "Comercio y Observaciones", default: true, getValue: (u) => u.rubro?.nombre || u.rubroComercio || "" },
@@ -364,10 +381,25 @@ export default function Home() {
           const colDef = colsToExport[colNumber - 1];
           const isCentered = ["nroUsuario", "medidor", "ruta", "geolocalizado", "fechaVto", "condicionVto", "departamento"].includes(colDef?.id);
 
+          // Si es la columna de Google Maps y contiene una URL, formatearla como enlace directo clickeable
+          if (colDef?.id === "maps" && cell.value) {
+            const rawUrl = String(cell.value).trim();
+            if (rawUrl.startsWith("http://") || rawUrl.startsWith("https://")) {
+              cell.value = {
+                text: rawUrl,
+                hyperlink: rawUrl,
+                tooltip: "Abrir ubicación en Google Maps"
+              };
+            }
+          }
+
+          const isMapsLink = colDef?.id === "maps" && typeof cell.value === "object" && (cell.value as any)?.hyperlink;
+
           cell.font = {
             name: "Segoe UI",
             size: 10,
-            color: { argb: estilo ? estilo.font : "FF1E293B" },
+            color: { argb: isMapsLink ? "FF0969DA" : (estilo ? estilo.font : "FF1E293B") },
+            underline: isMapsLink ? true : undefined,
             bold: colDef?.id === "nroUsuario" || (estilo !== null && colDef?.id === "estado"),
           };
 
