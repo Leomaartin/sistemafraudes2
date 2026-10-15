@@ -853,7 +853,7 @@ export default function Home() {
     const allNumeros = [...filtrosNumeros, ...(searchNumber.trim() ? [searchNumber.trim()] : [])];
     const matchNumber =
       allNumeros.length === 0 ||
-      allNumeros.some((num) => (user.nroUsuario || "").toString().includes(num));
+      allNumeros.some((num) => (user.nroUsuario || "").toString().toLowerCase().includes(num.toLowerCase()));
 
     // Domicilio: Soporta múltiples domicilios simultáneos (OR)
     const allDomicilios = [...filtrosDomicilios, ...(searchDomicilio.trim() ? [searchDomicilio.trim()] : [])];
@@ -1100,15 +1100,15 @@ export default function Home() {
               <input
                 className="search-quick-input"
                 type="text"
-                placeholder="Buscar rápido por nombre..."
-                value={searchName}
-                onChange={handleSearch}
+                placeholder="Buscar rápido por N° usuario..."
+                value={searchNumber}
+                onChange={handleNumber}
               />
-              {searchName && (
+              {searchNumber && (
                 <button
                   type="button"
                   className="btn-quick-clear"
-                  onClick={() => setSearchName("")}
+                  onClick={() => setSearchNumber("")}
                   title="Borrar búsqueda"
                   aria-label="Borrar búsqueda"
                 >

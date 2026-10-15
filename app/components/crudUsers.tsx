@@ -12,6 +12,7 @@ import {
   formatearAFechaInput,
   formatearDesdeFechaInput,
 } from "@/lib/observaciones";
+import { formatFileSize } from "@/lib/imageUtils";
 
 export interface CatalogoItem {
   id: number;
@@ -49,6 +50,14 @@ export default function CrudUsers({
   const [fechaVto, setFechaVto] = useState("");
   const [paraCorte, setParaCorte] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Fotografías para adjuntar al nuevo usuario
+  const [fotosSeleccionadas, setFotosSeleccionadas] = useState<{ id: string; file: File; previewUrl: string }[]>([]);
+  const [dragActive, setDragActive] = useState(false);
+  const [fotoFullscreen, setFotoFullscreen] = useState<string | null>(null);
+
+  // Modal para avisar si el número de usuario ya existe
+  const [duplicadoModal, setDuplicadoModal] = useState<{ nroUsuario: string; nombre?: string } | null>(null);
 
   // Estado para ¿Es departamento? (por defecto false)
   const [esDepartamento, setEsDepartamento] = useState(false);
@@ -92,6 +101,34 @@ export default function CrudUsers({
     setObservacionesList((prev) => prev.filter((item) => item.id !== id));
   };
 
+  const handleFiles = (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    const newItems: { id: string; file: File; previewUrl: string }[] = [];
+    Array.from(files).forEach((file) => {
+      if (!file.type.startsWith("image/")) {
+        toast.warning(`El archivo "${file.name}" no es una imagen válida.`);
+        return;
+      }
+      newItems.push({
+        id: `foto-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+        file,
+        previewUrl: URL.createObjectURL(file),
+      });
+    });
+    if (newItems.length > 0) {
+      setFotosSeleccionadas((prev) => [...prev, ...newItems]);
+      toast.info(`Se ${newItems.length === 1 ? "agregó 1 foto" : `agregaron ${newItems.length} fotos`} para adjuntar.`);
+    }
+  };
+
+  const handleRemoveFoto = (id: string) => {
+    setFotosSeleccionadas((prev) => {
+      const item = prev.find((f) => f.id === id);
+      if (item) URL.revokeObjectURL(item.previewUrl);
+      return prev.filter((f) => f.id !== id);
+    });
+  };
+
   const resetForm = () => {
     setNombre("");
     setNroUsuario("");
@@ -113,6 +150,8 @@ export default function CrudUsers({
     setObservacionesList([
       { id: "obs-1", texto: "", fecha: obtenerFechaActualFormateada() },
     ]);
+    fotosSeleccionadas.forEach((f) => URL.revokeObjectURL(f.previewUrl));
+    setFotosSeleccionadas([]);
   };
 
   const handleSumbitUser = async (e?: React.FormEvent) => {
@@ -171,12 +210,45 @@ export default function CrudUsers({
       const data = await response.json();
 
       if (!response.ok) {
+        if (data.duplicado || response.status === 409) {
+          setDuplicadoModal({
+            nroUsuario: nroUsuario.trim(),
+            nombre: data.usuarioExistente?.nombre,
+          });
+        }
         toast.error(data.error || "Error al crear el usuario.");
         setIsSubmitting(false);
         return;
       }
 
-      toast.success("¡Usuario creado exitosamente con sus datos, estado y departamento!");
+      // Si el usuario seleccionó fotos, subirlas asociadas al nuevo usuario
+      if (fotosSeleccionadas.length > 0) {
+        let fotosSubidas = 0;
+        for (const item of fotosSeleccionadas) {
+          try {
+            const formDataImg = new FormData();
+            formDataImg.append("archivo", item.file);
+            formDataImg.append("usuarioId", String(data.id));
+
+            const resImg = await fetch("/api/img", {
+              method: "POST",
+              body: formDataImg,
+            });
+            if (resImg.ok) fotosSubidas++;
+          } catch (errFoto) {
+            console.error("Error al subir foto:", errFoto);
+          }
+        }
+
+        if (fotosSubidas === fotosSeleccionadas.length) {
+          toast.success(`¡Usuario y ${fotosSubidas} fotografía(s) guardados correctamente!`);
+        } else {
+          toast.warning(`Usuario creado. Se subieron ${fotosSubidas} de ${fotosSeleccionadas.length} fotos.`);
+        }
+      } else {
+        toast.success("¡Usuario creado exitosamente con sus datos, estado y departamento!");
+      }
+
       resetForm();
 
       if (onUserCreated) {
@@ -631,6 +703,125 @@ export default function CrudUsers({
           </div>
         </div>
 
+        {/* Sección 4: Fotografías del Usuario / Suministro */}
+        <div className="form-section">
+          <h4 className="section-title">
+            <span className="section-num">4</span> Fotografías del Suministro / Medidor (Opcional)
+          </h4>
+          <div className="photos-section-box">
+            <div
+              className={`photo-dropzone ${dragActive ? "drag-active" : ""}`}
+              onDragOver={(e) => {
+                e.preventDefault();
+                setDragActive(true);
+              }}
+              onDragLeave={(e) => {
+                e.preventDefault();
+                setDragActive(false);
+              }}
+              onDrop={(e) => {
+                e.preventDefault();
+                setDragActive(false);
+                handleFiles(e.dataTransfer.files);
+              }}
+            >
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                className="photo-dropzone-input"
+                onChange={(e) => {
+                  handleFiles(e.target.files);
+                  e.target.value = "";
+                }}
+              />
+              <div className="photo-dropzone-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21 15 16 10 5 21" />
+                </svg>
+              </div>
+              <p className="photo-dropzone-title">
+                Hacé clic aquí o arrastrá fotos del medidor, fachada o irregularidad
+              </p>
+              <p className="photo-dropzone-subtitle">
+                Podés seleccionar una o varias imágenes a la vez (PNG, JPG, JPEG, WEBP)
+              </p>
+            </div>
+
+            {fotosSeleccionadas.length > 0 && (
+              <div className="photos-grid-wrapper">
+                <div className="photos-grid-header">
+                  <span className="photos-grid-title">
+                    <span>📷 Fotos listas para adjuntar:</span>
+                    <span className="photos-counter-badge">{fotosSeleccionadas.length}</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      fotosSeleccionadas.forEach((f) => URL.revokeObjectURL(f.previewUrl));
+                      setFotosSeleccionadas([]);
+                    }}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "#dc2626",
+                      fontSize: "12px",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Quitar todas
+                  </button>
+                </div>
+
+                <div className="photo-cards-grid">
+                  {fotosSeleccionadas.map((foto, idx) => (
+                    <div key={foto.id} className="photo-preview-item">
+                      <span className="photo-badge-status pending">Foto #{idx + 1}</span>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={foto.previewUrl} alt={`Foto ${idx + 1}`} />
+
+                      <div className="photo-item-actions">
+                        <button
+                          type="button"
+                          className="photo-btn-action btn-zoom-photo"
+                          onClick={() => setFotoFullscreen(foto.previewUrl)}
+                          title="Ampliar vista previa"
+                        >
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <polyline points="15 3 21 3 21 9" />
+                            <polyline points="9 21 3 21 3 15" />
+                            <line x1="21" y1="3" x2="14" y2="10" />
+                            <line x1="3" y1="21" x2="10" y2="14" />
+                          </svg>
+                        </button>
+                        <button
+                          type="button"
+                          className="photo-btn-action btn-del-photo"
+                          onClick={() => handleRemoveFoto(foto.id)}
+                          title="Quitar foto"
+                        >
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                          </svg>
+                        </button>
+                      </div>
+
+                      <div className="photo-bottom-caption">
+                        <span className="photo-caption-name" title={foto.file.name}>{foto.file.name}</span>
+                        <span className="photo-caption-size">{formatFileSize(foto.file.size)}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Acciones */}
         <div className="crud-actions">
           {onClose && (
@@ -650,19 +841,112 @@ export default function CrudUsers({
           >
             {isSubmitting ? (
               <span className="btn-loading-content">
-                <span className="spinner"></span> Guardando usuario...
+                <span className="spinner"></span> Guardando usuario y fotos...
               </span>
             ) : (
               <>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
-                Guardar Usuario
+                Guardar Usuario {fotosSeleccionadas.length > 0 ? `(${fotosSeleccionadas.length} fotos)` : ""}
               </>
             )}
           </button>
         </div>
       </form>
+
+      {/* Modal Fullscreen para visualizar la foto seleccionada en grande */}
+      {fotoFullscreen && (
+        <div
+          className="fullscreen-image-overlay"
+          onClick={() => setFotoFullscreen(null)}
+          style={{ zIndex: 9999 }}
+        >
+          <div className="fullscreen-top-bar" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              className="fullscreen-btn fullscreen-close-btn"
+              onClick={() => setFotoFullscreen(null)}
+              title="Cerrar pantalla completa"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+
+          <div
+            className="fullscreen-image-wrapper"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={fotoFullscreen}
+              alt="Vista previa ampliada"
+              className="fullscreen-img"
+            />
+          </div>
+          <div className="fullscreen-hint">
+            Presioná la <strong>cruz ✕</strong> o haz clic afuera para salir
+          </div>
+        </div>
+      )}
+
+      {/* POPUP DE ALERTA CUANDO EL NÚMERO DE USUARIO YA EXISTE */}
+      {duplicadoModal && (
+        <div
+          className="modal-duplicate-overlay"
+          onClick={() => setDuplicadoModal(null)}
+        >
+          <div
+            className="modal-duplicate-card"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="modal-duplicate-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
+            </div>
+
+            <h3 className="modal-duplicate-title">Número de Usuario ya Existe</h3>
+
+            <p className="modal-duplicate-body">
+              El número de usuario <span className="modal-duplicate-highlight">{duplicadoModal.nroUsuario}</span> ya está registrado en el sistema.
+            </p>
+
+            {duplicadoModal.nombre && (
+              <div className="modal-duplicate-owner">
+                <span style={{ fontSize: "18px" }}>👤</span>
+                <div>
+                  <strong style={{ display: "block", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.05em", color: "#881337" }}>
+                    Pertenece actualmente a:
+                  </strong>
+                  <span style={{ fontWeight: 700, fontSize: "13.5px" }}>{duplicadoModal.nombre}</span>
+                </div>
+              </div>
+            )}
+
+            <p style={{ fontSize: "12.5px", color: "#64748b", margin: "14px 0 18px" }}>
+              Por favor, verifica el número e ingresa uno diferente para poder registrar este usuario.
+            </p>
+
+            <button
+              type="button"
+              className="modal-duplicate-btn"
+              onClick={() => {
+                setDuplicadoModal(null);
+                const el = document.getElementById("nroUsuario");
+                if (el) el.focus();
+              }}
+            >
+              <span>Entendido / Modificar número</span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

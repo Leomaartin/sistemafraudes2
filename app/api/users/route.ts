@@ -95,6 +95,39 @@ export async function POST(req: NextRequest) {
         const latitud = parseCoord(body.latitud) ?? null;
         const longitud = parseCoord(body.longitud) ?? null;
 
+        const nroUsuarioTrim = String(body.nroUsuario || "").trim();
+        if (!nroUsuarioTrim) {
+            return NextResponse.json(
+                { error: "El número de usuario es obligatorio" },
+                { status: 400 }
+            );
+        }
+
+        // Verificar si ya existe un usuario con este mismo número de usuario
+        const usuarioExistente = await prisma.usuario.findFirst({
+            where: {
+                nroUsuario: {
+                    equals: nroUsuarioTrim,
+                    mode: "insensitive"
+                }
+            }
+        });
+
+        if (usuarioExistente) {
+            return NextResponse.json(
+                {
+                    error: `El usuario con el número "${nroUsuarioTrim}" ya existe en el sistema (${usuarioExistente.nombre}).`,
+                    duplicado: true,
+                    usuarioExistente: {
+                        id: usuarioExistente.id,
+                        nroUsuario: usuarioExistente.nroUsuario,
+                        nombre: usuarioExistente.nombre
+                    }
+                },
+                { status: 409 }
+            );
+        }
+
         let idRubro = parseId(body.idRubro ?? body.rubroId);
         let rubroComercio = body.rubroComercio ? String(body.rubroComercio).trim() : null;
         if (!idRubro && rubroComercio) {
@@ -107,7 +140,7 @@ export async function POST(req: NextRequest) {
 
         const usuario = await prisma.usuario.create({
             data: {
-                nroUsuario: String(body.nroUsuario || "").trim(),
+                nroUsuario: nroUsuarioTrim,
                 nombre: String(body.nombre || "").trim(),
                 domicilio: body.domicilio ? String(body.domicilio).trim() : null,
                 ruta: body.ruta ? String(body.ruta).trim() : null,
@@ -169,11 +202,40 @@ export async function PUT(req: NextRequest) {
             );
         }
 
-        if (body.nroUsuario !== undefined && !String(body.nroUsuario).trim()) {
-            return NextResponse.json(
-                { error: "El número de usuario no puede estar vacío" },
-                { status: 400 }
-            );
+        if (body.nroUsuario !== undefined) {
+            const nuevoNroUsuario = String(body.nroUsuario).trim();
+            if (!nuevoNroUsuario) {
+                return NextResponse.json(
+                    { error: "El número de usuario no puede estar vacío" },
+                    { status: 400 }
+                );
+            }
+
+            // Verificar si ya pertenece a otro usuario distinto al que se está editando
+            const usuarioExistente = await prisma.usuario.findFirst({
+                where: {
+                    id: { not: id },
+                    nroUsuario: {
+                        equals: nuevoNroUsuario,
+                        mode: "insensitive"
+                    }
+                }
+            });
+
+            if (usuarioExistente) {
+                return NextResponse.json(
+                    {
+                        error: `El número de usuario "${nuevoNroUsuario}" ya pertenece a otro usuario en el sistema (${usuarioExistente.nombre}).`,
+                        duplicado: true,
+                        usuarioExistente: {
+                            id: usuarioExistente.id,
+                            nroUsuario: usuarioExistente.nroUsuario,
+                            nombre: usuarioExistente.nombre
+                        }
+                    },
+                    { status: 409 }
+                );
+            }
         }
 
         if (body.nombre !== undefined && !String(body.nombre).trim()) {
