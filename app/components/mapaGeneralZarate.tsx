@@ -18,8 +18,10 @@ import {
   aplicarRutaPorCalles,
 } from "@/lib/rutaOptima";
 import { descargarExcelRutaOperativo } from "@/lib/exportarRutaExcel";
+import { exportarMapaKML } from "@/lib/exportarMapaVisor";
 import { toast } from "react-toastify";
 import { normalizarDireccionBase, tieneCheckEdificio } from "@/lib/domicilioUtils";
+import { getValidImageUrl } from "@/lib/imageUtils";
 
 const ZARATE_CENTER: [number, number] = [-34.0964, -59.0289];
 const DEFAULT_ZOOM = 13;
@@ -73,6 +75,7 @@ interface UsuarioGeo {
     id: number;
     nombre: string;
   } | null;
+  imagenes?: { id: number; url: string; createdAt?: string | Date | null }[] | null;
 }
 
 interface CatalogoCuadrilla {
@@ -195,6 +198,39 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
   // Estado de Pantalla Completa y Exportación de Mapa
   const [esPantallaCompleta, setEsPantallaCompleta] = useState<boolean>(false);
   const [exportandoMapa, setExportandoMapa] = useState<boolean>(false);
+  const [fotoFullscreen, setFotoFullscreen] = useState<string | null>(null);
+  const [menuExportarAbierto, setMenuExportarAbierto] = useState<boolean>(false);
+  const [menuExportarAlineacion, setMenuExportarAlineacion] = useState<"left" | "right">("left");
+  const menuExportarRef = useRef<HTMLDivElement | null>(null);
+
+  const toggleMenuExportar = () => {
+    if (!menuExportarAbierto && menuExportarRef.current) {
+      const rect = menuExportarRef.current.getBoundingClientRect();
+      // Si el botón está pegado o cerca del borde izquierdo, alinear a la izquierda (left: 0)
+      // para que el menú de 330px se despliegue a la derecha y no quede tapado por la izquierda
+      if (rect.left < 340) {
+        setMenuExportarAlineacion("left");
+      } else {
+        setMenuExportarAlineacion("right");
+      }
+    }
+    setMenuExportarAbierto((prev) => !prev);
+  };
+
+  // Cerrar menú de exportación al hacer clic fuera
+  useEffect(() => {
+    const handleClicFueraExportar = (e: MouseEvent) => {
+      if (menuExportarRef.current && !menuExportarRef.current.contains(e.target as Node)) {
+        setMenuExportarAbierto(false);
+      }
+    };
+    if (menuExportarAbierto) {
+      document.addEventListener("mousedown", handleClicFueraExportar);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClicFueraExportar);
+    };
+  }, [menuExportarAbierto]);
 
   // Alternar pantalla completa nativa y CSS
   const togglePantallaCompleta = async () => {
@@ -497,6 +533,10 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
       setUsuarioSeparando(u);
     };
 
+    (window as any).abrirFotoFullscreenEnMapa = (url: string) => {
+      setFotoFullscreen(decodeURIComponent(url));
+    };
+
     return () => {
       delete (window as any).fijarUsuarioInicioCorte;
       delete (window as any).toggleParadaManual;
@@ -507,6 +547,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
       delete (window as any).iniciarCombinarUsuario;
       delete (window as any).iniciarUnirPuntosAEdificio;
       delete (window as any).iniciarSepararUsuarioDeEdificio;
+      delete (window as any).abrirFotoFullscreenEnMapa;
     };
   }, [usuarios]);
 
@@ -1552,6 +1593,19 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
                   ${infoVto.texto ? `<span><strong>Vto:</strong> <span style="color: #dc2626; font-weight: 700;">${infoVto.texto}</span></span>` : ""}
                 </div>
 
+                ${u.imagenes && u.imagenes.length > 0 ? `
+                  <div class="edificio-user-fotos-row">
+                    <span class="edificio-fotos-badge">📸 ${u.imagenes.length} foto${u.imagenes.length > 1 ? "s" : ""}</span>
+                    <div class="edificio-fotos-strip">
+                      ${u.imagenes.map((img, idx) => `
+                        <div class="edificio-foto-thumb" onclick="event.preventDefault(); event.stopPropagation(); window.abrirFotoFullscreenEnMapa('${encodeURIComponent(img.url)}')" title="Foto #${idx + 1} - Clic para ampliar">
+                          <img src="${getValidImageUrl(img.url)}" alt="Foto" loading="lazy" />
+                        </div>
+                      `).join("")}
+                    </div>
+                  </div>
+                ` : ""}
+
                 <div class="edificio-user-actions">
                   <button
                     type="button"
@@ -1736,6 +1790,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
             ">
               ${config.emoji ? `<span style="font-size: 11px;">${config.emoji}</span>` : ""}
               <span>#${user.nroUsuario}</span>
+              ${user.imagenes && user.imagenes.length > 0 ? `<span style="font-size: 10px; margin-left: 2px;" title="${user.imagenes.length} fotografía(s) registrada(s)">📸</span>` : ""}
             </div>
             <div style="
               width: 0;
@@ -1802,6 +1857,27 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
             <div class="popup-user-info-row" style="margin-top: 4px; font-size: 11px; color: #64748b;">
               <span><strong>GPS:</strong> <span style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #0284c7;">${lat.toFixed(6)}, ${lng.toFixed(6)}</span></span>
             </div>
+
+            ${user.imagenes && user.imagenes.length > 0 ? `
+              <div class="popup-fotos-container">
+                <div class="popup-fotos-header">
+                  <span class="popup-fotos-title">📸 Fotos Registradas (${user.imagenes.length})</span>
+                  <span class="popup-fotos-hint">Clic para ampliar</span>
+                </div>
+                <div class="popup-fotos-grid">
+                  ${user.imagenes.map((img, idx) => `
+                    <div class="popup-foto-card" onclick="event.preventDefault(); event.stopPropagation(); window.abrirFotoFullscreenEnMapa('${encodeURIComponent(img.url)}')" title="Foto #${idx + 1} - Clic para ampliar en pantalla completa">
+                      <img src="${getValidImageUrl(img.url)}" alt="Foto ${idx + 1}" class="popup-foto-img" loading="lazy" />
+                      <div class="popup-foto-zoom-badge">🔍</div>
+                    </div>
+                  `).join("")}
+                </div>
+              </div>
+            ` : `
+              <div class="popup-sin-fotos">
+                <span>📷 Sin fotografías registradas</span>
+              </div>
+            `}
             <div class="popup-footer-action" style="gap: 6px; justify-content: space-between; align-items: center; flex-wrap: wrap;">
               <div style="display: flex; gap: 6px; flex-wrap: wrap;">
                 <button
@@ -2418,6 +2494,35 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
     }
   };
 
+  // Exportar mapa a KML para Google Earth / Google Maps (con colores e iconos oficiales por estado)
+  const handleExportarKML = () => {
+    try {
+      const listaExportar = (usuariosAMostrar && usuariosAMostrar.length > 0)
+        ? usuariosAMostrar
+        : usuariosGeoreferenciados;
+
+      if (!listaExportar || listaExportar.length === 0) {
+        toast.warning("No hay usuarios con ubicación geográfica en la ruta para exportar.");
+        return;
+      }
+
+      toast.info("🗺️ Generando archivo KML con íconos de colores para Google Maps...", { autoClose: 2000 });
+      const ok = exportarMapaKML({
+        usuarios: listaExportar,
+        rutaActiva,
+      });
+
+      if (ok) {
+        toast.success("✅ ¡Archivo KML descargado! Cada estado tiene su color e ícono oficial para que no se mezclen en Google Maps.");
+      } else {
+        toast.warning("No se encontraron puntos con coordenadas válidas para exportar.");
+      }
+    } catch (err: any) {
+      console.error("Error al exportar KML:", err);
+      toast.error("Error al exportar archivo KML.");
+    }
+  };
+
   const resaltarMarcador = (marker: any) => {
     try {
       const el = marker.getElement();
@@ -2796,29 +2901,71 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
             )}
           </button>
 
-          {/* Botón Exportar Mapa (Captura PNG) */}
-          <button
-            type="button"
-            className="btn-exportar-mapa"
-            onClick={handleExportarMapaImagen}
-            disabled={exportandoMapa}
-            title="Exportar imagen PNG en alta resolución del mapa con todos los fraudes visibles"
-          >
-            {exportandoMapa ? (
-              <>
-                <span style={{ fontSize: "13px" }}>⏳</span>
-                <span>Exportando...</span>
-              </>
-            ) : (
-              <>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-                  <circle cx="12" cy="13" r="4" />
-                </svg>
-                <span>Exportar Mapa</span>
-              </>
+          {/* Menú Desplegable: Exportar Mapa (Opción 1: HTML interactivo, Opción 3: KML Google Earth, Captura PNG) */}
+          <div ref={menuExportarRef} style={{ position: "relative" }}>
+            <button
+              type="button"
+              className={`btn-exportar-mapa ${menuExportarAbierto ? "active" : ""}`}
+              onClick={toggleMenuExportar}
+              disabled={exportandoMapa}
+              title="Opciones de exportación: Mapa interactivo HTML (solo lectura), KML Google Earth o Imagen PNG"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span>Exportar Mapa ▾</span>
+            </button>
+
+            {menuExportarAbierto && (
+              <div className={`mapa-exportar-dropdown-menu align-${menuExportarAlineacion}`}>
+                {/* 1. Archivo KML con colores oficiales para Google Maps */}
+                <button
+                  type="button"
+                  className="exportar-menu-item"
+                  onClick={() => {
+                    setMenuExportarAbierto(false);
+                    handleExportarKML();
+                  }}
+                >
+                  <div className="exportar-item-icon" style={{ background: "#ede9fe", color: "#6366f1" }}>
+                    🗺️
+                  </div>
+                  <div className="exportar-item-text">
+                    <span className="exportar-item-title">
+                      Archivo KML (Google Maps / Earth) <span className="exportar-tag-opt">Google Maps</span>
+                    </span>
+                    <span className="exportar-item-desc">
+                      Descarga .kml con colores e íconos oficiales según cada estado para que no se mezclen.
+                    </span>
+                  </div>
+                </button>
+
+                <div className="exportar-menu-divider" />
+
+                {/* 4. Captura PNG */}
+                <button
+                  type="button"
+                  className="exportar-menu-item"
+                  onClick={() => {
+                    setMenuExportarAbierto(false);
+                    handleExportarMapaImagen();
+                  }}
+                >
+                  <div className="exportar-item-icon" style={{ background: "#f1f5f9", color: "#475569" }}>
+                    📸
+                  </div>
+                  <div className="exportar-item-text">
+                    <span className="exportar-item-title">Captura de Imagen (PNG)</span>
+                    <span className="exportar-item-desc">
+                      Foto fija en alta resolución con el estado actual del mapa.
+                    </span>
+                  </div>
+                </button>
+              </div>
             )}
-          </button>
+          </div>
 
           {/* Botón Crear Ruta: Muestra / Oculta las opciones de ruta manual y automática */}
           <button
@@ -4020,6 +4167,67 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
         </div>,
         document.body
       )}
+
+      {/* Modal Lightbox para ver fotografía ampliada en el mapa */}
+      {mounted &&
+        typeof document !== "undefined" &&
+        fotoFullscreen &&
+        createPortal(
+          <div
+            className="modal-foto-mapa-overlay"
+            onClick={() => setFotoFullscreen(null)}
+          >
+            <div
+              className="modal-foto-mapa-card"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="modal-foto-mapa-header">
+                <div className="modal-foto-mapa-title">
+                  <span>📸</span>
+                  <span>Fotografía del Usuario / Suministro</span>
+                </div>
+                <button
+                  type="button"
+                  className="modal-foto-mapa-close"
+                  onClick={() => setFotoFullscreen(null)}
+                  title="Cerrar (Esc)"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="modal-foto-mapa-body">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={getValidImageUrl(fotoFullscreen)}
+                  alt="Fotografía inspección"
+                  className="modal-foto-mapa-img"
+                />
+              </div>
+
+              <div className="modal-foto-mapa-footer">
+                <a
+                  href={getValidImageUrl(fotoFullscreen)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="modal-foto-btn-action"
+                  title="Abrir imagen en pestaña nueva"
+                >
+                  <span>Abrir en pestaña nueva ↗</span>
+                </a>
+                <button
+                  type="button"
+                  className="modal-foto-btn-action"
+                  style={{ background: "#0284c7", borderColor: "#0369a1", color: "#ffffff" }}
+                  onClick={() => setFotoFullscreen(null)}
+                >
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
     </div>
   );
 }

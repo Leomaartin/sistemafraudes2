@@ -17,6 +17,7 @@
     "actualizar-excel:dry": "tsx scripts/actualizarExcel.ts --dry-run",
     "normalizar:domicilios": "tsx scripts/actualizarDomicilios.ts",
     "geolocalizar": "tsx scripts/geolocalizarUsuarios.ts",
+    "corregir-alturas": "tsx scripts/corregirAlturasCalles.ts",
     "db:deploy": "prisma migrate deploy",
     "db:admin": "tsx scripts/habilitarAdminGmail.ts"
   },

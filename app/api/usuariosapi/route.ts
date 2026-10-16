@@ -43,6 +43,7 @@ export async function GET(req: NextRequest) {
         estado: true,
         estadoDepto: true,
         rubro: true,
+        imagenes: true,
       },
     });
     return NextResponse.json(usuarios);

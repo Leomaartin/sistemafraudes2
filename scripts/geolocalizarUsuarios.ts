@@ -74,7 +74,7 @@ export function detectarBarrio(domicilio: string): { barrioKey: string; coords: 
   if (d.includes("MIRTILLOS")) return { barrioKey: "LOS MIRTILLOS II", coords: COORDENADAS_BARRIOS["LOS MIRTILLOS II"] };
   if (d.includes("FLORIDA")) return { barrioKey: "FINCAS DE LA FLORIDA", coords: COORDENADAS_BARRIOS["FINCAS DE LA FLORIDA"] };
   if (d.includes("CAMPIÑA") || d.includes("CAMPINA")) return { barrioKey: "LA CAMPIÑA", coords: COORDENADAS_BARRIOS["LA CAMPIÑA"] };
-  if (d.includes("ESPAÑA") || d.includes("ESPA")) return { barrioKey: "BARRIO ESPAÑA", coords: COORDENADAS_BARRIOS["BARRIO ESPAÑA"] };
+  if (/^(?:B\.?|B°|BARRIO)\s*ESPA/i.test(domicilio) || (d.includes("ESPAÑA") && !/\b\d{1,5}\b/.test(domicilio))) return { barrioKey: "BARRIO ESPAÑA", coords: COORDENADAS_BARRIOS["BARRIO ESPAÑA"] };
   if (d.includes("VIPERMUN") || d.includes("VIP")) return { barrioKey: "VIPERMUN", coords: COORDENADAS_BARRIOS["VIPERMUN"] };
   if (d.includes("FONAVI")) return { barrioKey: "FONAVI", coords: COORDENADAS_BARRIOS["FONAVI"] };
   if (d.includes("ESCALADA")) return { barrioKey: "ESCALADA", coords: COORDENADAS_BARRIOS["ESCALADA"] };
@@ -92,7 +92,7 @@ export function detectarBarrio(domicilio: string): { barrioKey: string; coords: 
   if (d.includes("NOGAL")) return { barrioKey: "EL NOGAL", coords: COORDENADAS_BARRIOS["EL NOGAL"] };
   if (d.includes("LOMAS")) return { barrioKey: "LAS LOMAS", coords: COORDENADAS_BARRIOS["LAS LOMAS"] };
   if (d.includes("PICADAS")) return { barrioKey: "LAS PICADAS", coords: COORDENADAS_BARRIOS["LAS PICADAS"] };
-  if (d.includes("SAAVEDRA")) return { barrioKey: "SAAVEDRA", coords: COORDENADAS_BARRIOS["SAAVEDRA"] };
+  if (/^(?:B\.?|B°|BARRIO)\s*SAAVEDRA/i.test(domicilio) || (d.includes("SAAVEDRA") && !/\b\d{1,5}\b/.test(domicilio))) return { barrioKey: "SAAVEDRA", coords: COORDENADAS_BARRIOS["SAAVEDRA"] };
 
   return null;
 }
@@ -115,17 +115,20 @@ export function parsearDireccionZarate(domicilio: string, ruta?: string | number
   let limpio = domicilio
     .trim()
     .replace(/^[:\s\-]+/, "")
-    .replace(/\b(PISO|P\.?|DEPTO|DTO|DPTO|PB|LOCAL|CASA|MANZANA|MZ|LOTE|LT|UF)\b.*$/i, "")
+    .replace(/\b(PISO|PA|PA\.|PB|PB\.|DEPTO|DTO|DPTO|LOCAL|CASA|MANZANA|MZ|LOTE|LT|UF|U\.F|CONS|CONSORCIO)\b.*$/i, "")
+    .replace(/\bP\.?\s*\d+.*$/i, "")
     .replace(/\b\d+°\s*["'A-Z]?\b/gi, "")
-    .replace(/[,\-\/].*$/, "")
     .replace(/\s+/g, " ")
     .trim();
 
-  // Quitar sufijo Lima si ya lo tuviera para normalización
-  limpio = limpio.replace(/,?\s*LIMA\b.*$/i, "").trim();
+  // Quitar sufijo de localidad Lima solo al final si no es la calle Justa Lima
+  if (!/^(?:J\.?\s*LIMA|JUSTA\s*LIMA)\b/i.test(limpio)) {
+    limpio = limpio.replace(/[, \-]+LIMA$/i, "").trim();
+  }
 
   // Quitar tildes temporalmente para la separación limpia de calle y altura
   const sinTildes = limpio
+    .replace(/ﾑ/g, "Ñ")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 
@@ -170,6 +173,12 @@ export function parsearDireccionZarate(domicilio: string, ruta?: string | number
     .replace(/^S\.?\s*PEÑA\b/i, "Saenz Peña")
     .replace(/^R\.?\s*PEÑA\b/i, "Rodriguez Peña")
     .replace(/^M\.?\s*CASTELLI\b/i, "Castelli")
+    .replace(/^(?:P\.?\s*MARTINI|PEDRO\s+MARTINI)\b/i, "Pedro Martini")
+    .replace(/^(?:P\.?\s*PITRAU|PEDRO\s+PITRAU)\b/i, "Pedro Pitrau")
+    .replace(/^(?:J\.?\s*LIMA|JUSTA\s+LIMA)\b/i, esLima ? "Avenida 11" : "Justa Lima de Atucha")
+    .replace(/^(?:L\.?\s*ALEM|ALEM)\b/i, "Leandro N. Alem")
+    .replace(/^SAAVEDRA\b/i, "Saavedra")
+    .replace(/^ESPAÑA\b/i, "España")
     .trim();
 
   let calleCorta = calleExpandida
