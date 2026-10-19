@@ -1,14 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getSessionFromRequest } from "@/lib/auth";
 
 export async function GET(req: NextRequest) {
   try {
+    const session = await getSessionFromRequest(req);
     const { searchParams } = new URL(req.url);
     const ruta = searchParams.get("ruta");
     const search = searchParams.get("search");
     const soloGeo = searchParams.get("soloGeo") === "true";
 
     const where: any = {};
+
+    // Si el usuario es de cuadrilla, filtrar EXCLUSIVAMENTE los usuarios que tiene asignados
+    const isCuadrilla = session?.role === "cuadrilla" && !session?.esAdmin;
+    if (isCuadrilla) {
+      if (!session.cuadrillaId) {
+        return NextResponse.json([]);
+      }
+      where.cuadrillas = {
+        some: {
+          id: session.cuadrillaId,
+        },
+      };
+    }
 
     if (ruta) {
       const numRuta = parseInt(ruta, 10);

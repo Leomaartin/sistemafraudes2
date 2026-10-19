@@ -1,0 +1,505 @@
+/* ==========================================================
+   VISTA DE CUADRILLA - ESTILO LISTADO SIMPLE Y LIMPIO
+   (Mismos colores y ancho completo que el programa principal)
+   ========================================================== */
+
+.cuadrilla-view-container {
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 0%, #34966a 0%, #3eb187 60%, #3caf85 100%);
+  color: #0f172a;
+  font-family: 'Plus Jakarta Sans', 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  padding: 32px 24px 60px 24px;
+  box-sizing: border-box;
+}
+
+.cuadrilla-main-card {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 28px 32px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-sizing: border-box;
+}
+
+/* Header */
+.cuadrilla-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f1f5f9;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.cuadrilla-title-block h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+}
+
+.cuadrilla-subtitle {
+  margin: 6px 0 0 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #107c41;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cuadrilla-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cuadrilla-btn-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.cuadrilla-btn-header:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.cuadrilla-btn-logout {
+  background: #fee2e2;
+  color: #991b1b;
+  border-color: #fecaca;
+}
+
+.cuadrilla-btn-logout:hover {
+  background: #fca5a5;
+  color: #7f1d1d;
+}
+
+/* Buscador */
+.cuadrilla-search-box {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.cuadrilla-search-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 44px 14px 44px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 15px;
+  color: #0f172a;
+  background: #f8fafc;
+  outline: none;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.cuadrilla-search-input:focus {
+  border-color: #34966a;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(52, 150, 106, 0.18);
+}
+
+.cuadrilla-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cuadrilla-search-clear {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #e2e8f0;
+  border: none;
+  color: #64748b;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cuadrilla-counter-bar {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cuadrilla-counter-bar strong {
+  color: #0f172a;
+}
+
+/* SELECTOR DE LISTADOS ASIGNADOS */
+.cuadrilla-listados-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.cuadrilla-listado-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8fafc;
+  color: #475569;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.cuadrilla-listado-tab:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+.cuadrilla-listado-tab.active {
+  background: #ecfdf5;
+  color: #065f46;
+  border-color: #34966a;
+  box-shadow: 0 2px 8px rgba(52, 150, 106, 0.15);
+}
+
+.cuadrilla-tab-badge {
+  background: #34966a;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+.cuadrilla-listado-tab:not(.active) .cuadrilla-tab-badge {
+  background: #94a3b8;
+}
+
+/* BANNER DE LISTADO ACTIVO */
+.cuadrilla-banner-listado {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+  border: 1.5px solid #86efac;
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(16, 124, 65, 0.06);
+}
+
+.cuadrilla-banner-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.cuadrilla-banner-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #065f46;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cuadrilla-banner-tag {
+  font-size: 12px;
+  font-weight: 800;
+  color: #ffffff;
+  background: #107c41;
+  padding: 3px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cuadrilla-banner-stats {
+  font-size: 13.5px;
+  color: #334155;
+  font-weight: 700;
+}
+
+.cuadrilla-banner-progress-wrap {
+  width: 100%;
+  height: 9px;
+  background: #e2e8f0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.cuadrilla-banner-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #34966a, #107c41);
+  transition: width 0.35s ease;
+}
+
+
+/* LISTADO LIMPIO ANCHO COMPLETO */
+.cuadrilla-list-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cuadrilla-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s ease;
+  gap: 20px;
+}
+
+.cuadrilla-list-item:hover {
+  border-color: #34966a;
+  box-shadow: 0 6px 18px rgba(52, 150, 106, 0.12);
+  transform: translateY(-1px);
+}
+
+/* ESTADO COMPLETADO - SE PONE GRIS */
+.cuadrilla-list-item.is-completado {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: none !important;
+  opacity: 0.62;
+}
+
+.cuadrilla-list-item.is-completado:hover {
+  opacity: 0.9;
+  border-color: #94a3b8 !important;
+}
+
+.cuadrilla-list-item.is-completado .cuadrilla-item-nro {
+  background: #e2e8f0 !important;
+  color: #64748b !important;
+  border-color: #cbd5e1 !important;
+}
+
+.cuadrilla-list-item.is-completado .cuadrilla-item-nombre {
+  color: #64748b !important;
+  text-decoration: line-through;
+}
+
+.cuadrilla-badge-completado {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #e2e8f0;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-decoration: none !important;
+}
+
+.cuadrilla-badge-titulo-individual {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1.5px solid #fcd34d;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.cuadrilla-item-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cuadrilla-item-nro {
+  display: inline-block;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #0b5c30;
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+  padding: 4px 12px;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.cuadrilla-item-nombre {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+/* BOTONES DE LA FILA */
+.cuadrilla-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* Botón de Completado */
+.cuadrilla-btn-completar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: #ffffff;
+  color: #334155;
+  border: 1.5px solid #cbd5e1;
+  padding: 13px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.cuadrilla-btn-completar:hover {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #166534;
+}
+
+.cuadrilla-btn-completar.is-active {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+  color: #475569;
+}
+
+.cuadrilla-btn-completar.is-active:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+
+/* Botón Abrir Ficha */
+.cuadrilla-btn-abrir-ficha {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: #ffffff !important;
+  padding: 13px 26px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.cuadrilla-btn-abrir-ficha:hover {
+  background: linear-gradient(135deg, #334155, #1e293b);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.35);
+}
+
+.cuadrilla-btn-abrir-ficha:active {
+  transform: scale(0.98);
+}
+
+/* Adaptación móvil y tablet */
+@media (max-width: 768px) {
+  .cuadrilla-view-container {
+    padding: 16px 12px 50px 12px;
+  }
+
+  .cuadrilla-main-card {
+    padding: 20px 16px;
+    border-radius: 14px;
+  }
+
+  .cuadrilla-list-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .cuadrilla-item-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .cuadrilla-item-nombre {
+    font-size: 17px;
+  }
+
+  .cuadrilla-item-actions {
+    flex-direction: column-reverse;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .cuadrilla-btn-completar,
+  .cuadrilla-btn-abrir-ficha {
+    width: 100%;
+    min-height: 48px;
+    font-size: 15px;
+  }
+}

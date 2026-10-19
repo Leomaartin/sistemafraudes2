@@ -92,18 +92,20 @@ export async function GET(req: NextRequest) {
     }
 
     // 3. Validación de seguridad DIRECTA CONTRA LA BASE DE DATOS (UsuarioSistema):
-    // Solo tienen acceso los usuarios registrados en la BD con ese Gmail, que estén activos y sean administradores
+    // Tienen acceso los usuarios registrados en la BD con ese Gmail que estén activos (administradores o cuadrillas)
     const usuarioDb = await prisma.usuarioSistema.findFirst({
       where: {
         email: { equals: userEmail, mode: "insensitive" },
         activo: true,
-        esAdmin: true,
+      },
+      include: {
+        cuadrilla: true,
       },
     });
 
     if (!usuarioDb) {
       console.warn(
-        `[AUTH] Acceso denegado: El correo ${userEmail} no está registrado en la base de datos como administrador activo.`
+        `[AUTH] Acceso denegado: El correo ${userEmail} no está registrado en la base de datos como usuario habilitado.`
       );
       loginUrl.searchParams.set("error", "unauthorized");
       loginUrl.searchParams.set("email", userEmail);
@@ -111,21 +113,27 @@ export async function GET(req: NextRequest) {
       const deniedResponse = NextResponse.redirect(loginUrl);
       deniedResponse.cookies.delete(SESSION_COOKIE_NAME);
       deniedResponse.cookies.delete("cez_oauth_state");
+      deniedResponse.cookies.delete("cez_redirect_to");
       return deniedResponse;
     }
 
     // 4. Usuario validado exitosamente en la BD: Generar JWT de sesión firmado
     const sessionToken = await signSessionToken({
+      id: usuarioDb.id,
       email: usuarioDb.email || userEmail,
       name: usuarioDb.nombre || userInfo.name || userEmail.split("@")[0],
       picture: userInfo.picture,
       sub: userInfo.sub,
       role: usuarioDb.rol,
       esAdmin: usuarioDb.esAdmin,
+      cuadrillaId: usuarioDb.idCuadrilla,
+      cuadrillaNombre: usuarioDb.cuadrilla?.nombre || null,
     });
 
-    // 5. Redirigir al panel principal con la cookie de sesión segura
-    const destinationUrl = new URL("/usuarios", appOrigin);
+    // 5. Redirigir a la URL de origen o al panel principal
+    const savedRedirect = req.cookies.get("cez_redirect_to")?.value;
+    const targetPath = savedRedirect && savedRedirect.startsWith("/") ? savedRedirect : "/usuarios";
+    const destinationUrl = new URL(targetPath, appOrigin);
     const successResponse = NextResponse.redirect(destinationUrl);
 
     successResponse.cookies.set(SESSION_COOKIE_NAME, sessionToken, {
@@ -136,8 +144,9 @@ export async function GET(req: NextRequest) {
       maxAge: 60 * 60 * 24 * 7, // 7 días de sesión
     });
 
-    // Eliminar la cookie temporal de state
+    // Eliminar cookies temporales
     successResponse.cookies.delete("cez_oauth_state");
+    successResponse.cookies.delete("cez_redirect_to");
 
     return successResponse;
   } catch (err: any) {

@@ -1,8 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getSessionFromRequest } from "@/lib/auth";
 
 export async function DELETE(req: NextRequest) {
     try {
+        const session = await getSessionFromRequest(req);
+        if (session?.role === "cuadrilla" && !session?.esAdmin) {
+            return NextResponse.json(
+                { error: "Acceso denegado. Se requieren permisos de administrador." },
+                { status: 403 }
+            );
+        }
+
         const id = Number(req.nextUrl.searchParams.get("id"));
         if (!id || isNaN(id)) {
             return NextResponse.json(
@@ -39,6 +48,7 @@ export async function DELETE(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
     try {
+        const session = await getSessionFromRequest(req);
         const usuario = await prisma.usuario.findUnique({
             where: { id: Number(req.nextUrl.searchParams.get("id")) },
             include: {
@@ -49,6 +59,23 @@ export async function GET(req: NextRequest) {
                 rubro: true,
             }
         });
+
+        if (!usuario) {
+            return NextResponse.json(null);
+        }
+
+        // Restricción para cuadrillas: sólo pueden ver usuarios asignados a su cuadrilla
+        const isCuadrilla = session?.role === "cuadrilla" && !session?.esAdmin;
+        if (isCuadrilla) {
+            const estaAsignado = usuario.cuadrillas.some((c) => c.id === session.cuadrillaId);
+            if (!estaAsignado) {
+                return NextResponse.json(
+                    { error: "Acceso denegado. Este usuario no está asignado a tu cuadrilla." },
+                    { status: 403 }
+                );
+            }
+        }
+
         return NextResponse.json(usuario);
     } catch (error: unknown) {
         console.error("Error al obtener usuario:", error);
@@ -61,6 +88,14 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
     try {
+        const session = await getSessionFromRequest(req);
+        if (session?.role === "cuadrilla" && !session?.esAdmin) {
+            return NextResponse.json(
+                { error: "Acceso denegado. Se requieren permisos de administrador para crear usuarios." },
+                { status: 403 }
+            );
+        }
+
         const body = await req.json();
 
         const parseId = (val: unknown): number | null => {
@@ -190,6 +225,14 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
     try {
+        const session = await getSessionFromRequest(req);
+        if (session?.role === "cuadrilla" && !session?.esAdmin) {
+            return NextResponse.json(
+                { error: "Acceso denegado. Se requieren permisos de administrador para modificar usuarios." },
+                { status: 403 }
+            );
+        }
+
         const body = await req.json();
 
         const idParam = body.id ?? req.nextUrl.searchParams.get("id");
@@ -364,6 +407,14 @@ export async function PUT(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
     try {
+        const session = await getSessionFromRequest(req);
+        if (session?.role === "cuadrilla" && !session?.esAdmin) {
+            return NextResponse.json(
+                { error: "Acceso denegado. Se requieren permisos de administrador para reasignar o modificar usuarios." },
+                { status: 403 }
+            );
+        }
+
         const body = await req.json();
         const { userIds, cuadrillaIds, latitud, longitud, maps } = body;
 

@@ -57,7 +57,9 @@ export const ModelName = {
   Estado: 'Estado',
   Tarifa: 'Tarifa',
   UsuarioSistema: 'UsuarioSistema',
-  Imagen: 'Imagen'
+  Imagen: 'Imagen',
+  ListadoCuadrilla: 'ListadoCuadrilla',
+  ListadoItem: 'ListadoItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -93,6 +95,7 @@ export const UsuarioScalarFieldEnum = {
   esDepartamento: 'esDepartamento',
   idEstadoDepto: 'idEstadoDepto',
   paraCorte: 'paraCorte',
+  completado: 'completado',
   rubroComercio: 'rubroComercio',
   idRubro: 'idRubro',
   nombreComercio: 'nombreComercio'
@@ -142,7 +145,8 @@ export const UsuarioSistemaScalarFieldEnum = {
   rol: 'rol',
   esAdmin: 'esAdmin',
   fechaVto: 'fechaVto',
-  activo: 'activo'
+  activo: 'activo',
+  idCuadrilla: 'idCuadrilla'
 } as const
 
 export type UsuarioSistemaScalarFieldEnum = (typeof UsuarioSistemaScalarFieldEnum)[keyof typeof UsuarioSistemaScalarFieldEnum]
@@ -156,6 +160,35 @@ export const ImagenScalarFieldEnum = {
 } as const
 
 export type ImagenScalarFieldEnum = (typeof ImagenScalarFieldEnum)[keyof typeof ImagenScalarFieldEnum]
+
+
+export const ListadoCuadrillaScalarFieldEnum = {
+  id: 'id',
+  titulo: 'titulo',
+  descripcion: 'descripcion',
+  idCuadrilla: 'idCuadrilla',
+  completado: 'completado',
+  fechaCompletado: 'fechaCompletado',
+  terminado: 'terminado',
+  fechaTerminado: 'fechaTerminado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ListadoCuadrillaScalarFieldEnum = (typeof ListadoCuadrillaScalarFieldEnum)[keyof typeof ListadoCuadrillaScalarFieldEnum]
+
+
+export const ListadoItemScalarFieldEnum = {
+  id: 'id',
+  idListado: 'idListado',
+  idUsuario: 'idUsuario',
+  titulo: 'titulo',
+  completado: 'completado',
+  fechaCompletado: 'fechaCompletado',
+  orden: 'orden'
+} as const
+
+export type ListadoItemScalarFieldEnum = (typeof ListadoItemScalarFieldEnum)[keyof typeof ListadoItemScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -403,7 +403,9 @@ export const ModelName = {
   Estado: 'Estado',
   Tarifa: 'Tarifa',
   UsuarioSistema: 'UsuarioSistema',
-  Imagen: 'Imagen'
+  Imagen: 'Imagen',
+  ListadoCuadrilla: 'ListadoCuadrilla',
+  ListadoItem: 'ListadoItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -419,7 +421,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "usuario" | "rubro" | "cuadrilla" | "estado" | "tarifa" | "usuarioSistema" | "imagen"
+    modelProps: "usuario" | "rubro" | "cuadrilla" | "estado" | "tarifa" | "usuarioSistema" | "imagen" | "listadoCuadrilla" | "listadoItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -941,6 +943,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ListadoCuadrilla: {
+      payload: Prisma.$ListadoCuadrillaPayload<ExtArgs>
+      fields: Prisma.ListadoCuadrillaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ListadoCuadrillaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoCuadrillaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ListadoCuadrillaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoCuadrillaPayload>
+        }
+        findFirst: {
+          args: Prisma.ListadoCuadrillaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoCuadrillaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ListadoCuadrillaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoCuadrillaPayload>
+        }
+        findMany: {
+          args: Prisma.ListadoCuadrillaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoCuadrillaPayload>[]
+        }
+        create: {
+          args: Prisma.ListadoCuadrillaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoCuadrillaPayload>
+        }
+        createMany: {
+          args: Prisma.ListadoCuadrillaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ListadoCuadrillaCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoCuadrillaPayload>[]
+        }
+        delete: {
+          args: Prisma.ListadoCuadrillaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoCuadrillaPayload>
+        }
+        update: {
+          args: Prisma.ListadoCuadrillaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoCuadrillaPayload>
+        }
+        deleteMany: {
+          args: Prisma.ListadoCuadrillaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ListadoCuadrillaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ListadoCuadrillaUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoCuadrillaPayload>[]
+        }
+        upsert: {
+          args: Prisma.ListadoCuadrillaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoCuadrillaPayload>
+        }
+        aggregate: {
+          args: Prisma.ListadoCuadrillaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateListadoCuadrilla>
+        }
+        groupBy: {
+          args: Prisma.ListadoCuadrillaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ListadoCuadrillaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ListadoCuadrillaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ListadoCuadrillaCountAggregateOutputType> | number
+        }
+      }
+    }
+    ListadoItem: {
+      payload: Prisma.$ListadoItemPayload<ExtArgs>
+      fields: Prisma.ListadoItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ListadoItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ListadoItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoItemPayload>
+        }
+        findFirst: {
+          args: Prisma.ListadoItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ListadoItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoItemPayload>
+        }
+        findMany: {
+          args: Prisma.ListadoItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoItemPayload>[]
+        }
+        create: {
+          args: Prisma.ListadoItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoItemPayload>
+        }
+        createMany: {
+          args: Prisma.ListadoItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ListadoItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoItemPayload>[]
+        }
+        delete: {
+          args: Prisma.ListadoItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoItemPayload>
+        }
+        update: {
+          args: Prisma.ListadoItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.ListadoItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ListadoItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ListadoItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.ListadoItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListadoItemPayload>
+        }
+        aggregate: {
+          args: Prisma.ListadoItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateListadoItem>
+        }
+        groupBy: {
+          args: Prisma.ListadoItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ListadoItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ListadoItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ListadoItemCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -997,6 +1147,7 @@ export const UsuarioScalarFieldEnum = {
   esDepartamento: 'esDepartamento',
   idEstadoDepto: 'idEstadoDepto',
   paraCorte: 'paraCorte',
+  completado: 'completado',
   rubroComercio: 'rubroComercio',
   idRubro: 'idRubro',
   nombreComercio: 'nombreComercio'
@@ -1046,7 +1197,8 @@ export const UsuarioSistemaScalarFieldEnum = {
   rol: 'rol',
   esAdmin: 'esAdmin',
   fechaVto: 'fechaVto',
-  activo: 'activo'
+  activo: 'activo',
+  idCuadrilla: 'idCuadrilla'
 } as const
 
 export type UsuarioSistemaScalarFieldEnum = (typeof UsuarioSistemaScalarFieldEnum)[keyof typeof UsuarioSistemaScalarFieldEnum]
@@ -1060,6 +1212,35 @@ export const ImagenScalarFieldEnum = {
 } as const
 
 export type ImagenScalarFieldEnum = (typeof ImagenScalarFieldEnum)[keyof typeof ImagenScalarFieldEnum]
+
+
+export const ListadoCuadrillaScalarFieldEnum = {
+  id: 'id',
+  titulo: 'titulo',
+  descripcion: 'descripcion',
+  idCuadrilla: 'idCuadrilla',
+  completado: 'completado',
+  fechaCompletado: 'fechaCompletado',
+  terminado: 'terminado',
+  fechaTerminado: 'fechaTerminado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ListadoCuadrillaScalarFieldEnum = (typeof ListadoCuadrillaScalarFieldEnum)[keyof typeof ListadoCuadrillaScalarFieldEnum]
+
+
+export const ListadoItemScalarFieldEnum = {
+  id: 'id',
+  idListado: 'idListado',
+  idUsuario: 'idUsuario',
+  titulo: 'titulo',
+  completado: 'completado',
+  fechaCompletado: 'fechaCompletado',
+  orden: 'orden'
+} as const
+
+export type ListadoItemScalarFieldEnum = (typeof ListadoItemScalarFieldEnum)[keyof typeof ListadoItemScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1312,6 +1493,8 @@ export type GlobalOmitConfig = {
   tarifa?: Prisma.TarifaOmit
   usuarioSistema?: Prisma.UsuarioSistemaOmit
   imagen?: Prisma.ImagenOmit
+  listadoCuadrilla?: Prisma.ListadoCuadrillaOmit
+  listadoItem?: Prisma.ListadoItemOmit
 }
 
 /* Types for Logging */

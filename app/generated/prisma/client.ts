@@ -76,3 +76,13 @@ export type UsuarioSistema = Prisma.UsuarioSistemaModel
  * 
  */
 export type Imagen = Prisma.ImagenModel
+/**
+ * Model ListadoCuadrilla
+ * 
+ */
+export type ListadoCuadrilla = Prisma.ListadoCuadrillaModel
+/**
+ * Model ListadoItem
+ * 
+ */
+export type ListadoItem = Prisma.ListadoItemModel

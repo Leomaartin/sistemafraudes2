@@ -9,12 +9,14 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ authenticated: false, user: null }, { status: 401 });
   }
 
-  // Validar en la BD que el usuario siga existiendo, esté activo y sea administrador
+  // Validar en la BD que el usuario siga existiendo y esté activo (administrador o cuadrilla)
   const usuarioDb = await prisma.usuarioSistema.findFirst({
     where: {
       email: { equals: session.email, mode: "insensitive" },
       activo: true,
-      esAdmin: true,
+    },
+    include: {
+      cuadrilla: true,
     },
   });
 
@@ -30,6 +32,8 @@ export async function GET(req: NextRequest) {
       picture: session.picture,
       role: usuarioDb.rol,
       esAdmin: usuarioDb.esAdmin,
+      cuadrillaId: usuarioDb.idCuadrilla,
+      cuadrillaNombre: usuarioDb.cuadrilla?.nombre || null,
     },
   });
 }

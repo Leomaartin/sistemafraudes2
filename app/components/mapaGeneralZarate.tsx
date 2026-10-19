@@ -1913,14 +1913,19 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
                   🏢 Unir a edificio
                 </button>
               </div>
-              <a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank" rel="noopener noreferrer" class="popup-btn-maps">
-                <span>Maps</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                  <polyline points="15 3 21 3 21 9" />
-                  <line x1="10" y1="14" x2="21" y2="3" />
-                </svg>
-              </a>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <a href="/ficha/${encodeURIComponent(user.nroUsuario || String(user.id))}" target="_blank" rel="noopener noreferrer" class="popup-btn-ficha" title="Abrir Ficha de Inspección con Fotos y Navegación">
+                  <span>📸 Ficha y Fotos</span>
+                </a>
+                <a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank" rel="noopener noreferrer" class="popup-btn-maps">
+                  <span>Maps</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
         `;
@@ -2112,14 +2117,19 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
           : ""
         }
             </div>
-            <a href="https://www.google.com/maps?q=${latitud},${longitud}" target="_blank" rel="noopener noreferrer" class="popup-btn-maps">
-              <span>Maps</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                <polyline points="15 3 21 3 21 9" />
-                <line x1="10" y1="14" x2="21" y2="3" />
-              </svg>
-            </a>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <a href="/ficha/${encodeURIComponent(usuario.nroUsuario || String(usuario.id))}" target="_blank" rel="noopener noreferrer" class="popup-btn-ficha" title="Abrir Ficha de Inspección con Fotos y Navegación">
+                <span>📸 Ficha y Fotos</span>
+              </a>
+              <a href="https://www.google.com/maps?q=${latitud},${longitud}" target="_blank" rel="noopener noreferrer" class="popup-btn-maps">
+                <span>Maps</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       `;

@@ -12,6 +12,7 @@ import { obtenerInfoVencimiento, InfoVencimiento } from "@/lib/vencimiento";
 import { OPCIONES_DEPARTAMENTO, IDS_DEPARTAMENTO } from "@/lib/departamentoConfig";
 import { TIPOS_COMERCIO, esTarifaComercial } from "@/lib/comercioConfig";
 import { parsearObservaciones } from "@/lib/observaciones";
+import VistaCuadrilla from "../components/VistaCuadrilla";
 
 export interface CatalogoItem {
   id: number;
@@ -50,6 +51,7 @@ export interface UsuarioItem {
   tarifa?: CatalogoItem | null;
   imagenes?: ImagenItem[];
   paraCorte?: boolean;
+  completado?: boolean;
 }
 
 function getEstadoBadgeInfo(estado?: CatalogoItem | null) {
@@ -224,6 +226,13 @@ export default function Home() {
   const [showPopupEdit, setShowPopupEdit] = useState(false);
   const [usuarioAEliminar, setUsuarioAEliminar] = useState<UsuarioItem | null>(null);
   const [eliminando, setEliminando] = useState(false);
+  const [currentUser, setCurrentUser] = useState<{
+    email?: string;
+    name?: string;
+    role?: string;
+    esAdmin?: boolean;
+    cuadrillaNombre?: string | null;
+  } | null>(null);
 
   // Estados de filtros
   const [searchName, setSearchName] = useState("");
@@ -511,12 +520,20 @@ export default function Home() {
     const loadInitialData = async () => {
       try {
         setCargando(true);
-        const [resUsers, resCuadrillas, resEstados, resTarifas] = await Promise.all([
+        const [resUsers, resCuadrillas, resEstados, resTarifas, resMe] = await Promise.all([
           fetch("/api/usuariosapi"),
           fetch("/api/cuadrillasapi"),
           fetch("/api/estadosapi"),
           fetch("/api/tarifasapi"),
+          fetch("/api/auth/me"),
         ]);
+
+        if (resMe.ok) {
+          const dataMe = await resMe.json();
+          if (dataMe?.authenticated && dataMe?.user && isMounted) {
+            setCurrentUser(dataMe.user);
+          }
+        }
 
         if (resUsers.ok) {
           const dataUsers: UsuarioItem[] = await resUsers.json();
@@ -1037,6 +1054,18 @@ export default function Home() {
     setSearchRuta(e.target.value);
   };
 
+  // Si el usuario autenticado pertenece a una cuadrilla, mostrar la plantilla optimizada de cuadrilla
+  if (currentUser?.role === "cuadrilla" && !currentUser?.esAdmin) {
+    return (
+      <VistaCuadrilla
+        currentUser={currentUser}
+        usuarios={allUsers}
+        cargando={cargando}
+        onRefresh={fetchAllUsers}
+      />
+    );
+  }
+
   return (
     <div>
       <ToastContainer
@@ -1054,7 +1083,9 @@ export default function Home() {
 
       <main>
         <h3>
-          Sistema de Gestión de Deudas y Usuarios
+          {currentUser?.role === "cuadrilla" && !currentUser?.esAdmin
+            ? `Usuarios Asignados: ${currentUser.cuadrillaNombre || "Mi Cuadrilla"}`
+            : "Sistema de Gestión de Deudas y Usuarios"}
           <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
             {/* Botón de Excel con logo oficial de Excel */}
             <button
@@ -1070,12 +1101,32 @@ export default function Home() {
               </svg>
               <span>Exportar Excel</span>
             </button>
-            <Link href="/admin" className="administrar-button">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
-              </svg>
-              Administrar
-            </Link>
+            {(!currentUser || currentUser.esAdmin || currentUser.role === "administrador") && (
+              <Link href="/admin" className="administrar-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
+                </svg>
+                Administrar
+              </Link>
+            )}
+            {currentUser?.role === "cuadrilla" && !currentUser?.esAdmin && (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  background: "rgba(56, 189, 248, 0.12)",
+                  color: "#38bdf8",
+                  padding: "6px 14px",
+                  borderRadius: "8px",
+                  fontSize: "13px",
+                  fontWeight: 700,
+                  border: "1px solid rgba(56, 189, 248, 0.25)",
+                }}
+              >
+                👷‍♂️ {currentUser.cuadrillaNombre || "Cuadrilla Asignada"}
+              </div>
+            )}
           </div>
         </h3>
 
@@ -2871,25 +2922,42 @@ export default function Home() {
                   </div>
                   <div className="attr-tile-value" style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                     {!sinGeo ? (
-                      <a
-                        href={user.maps || `https://www.google.com/maps?q=${user.latitud},${user.longitud}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="maps-link-modern"
-                        title={`Coordenadas en Zárate: ${user.latitud}, ${user.longitud}`}
-                        style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}
-                      >
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                          <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z" />
-                          <circle cx="12" cy="10" r="3" />
-                        </svg>
-                        <span>Ver Punto</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                          <polyline points="15 3 21 3 21 9" />
-                          <line x1="10" y1="14" x2="21" y2="3" />
-                        </svg>
-                      </a>
+                      <>
+                        <a
+                          href={user.maps || `https://www.google.com/maps?q=${user.latitud},${user.longitud}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="maps-link-modern"
+                          title={`Coordenadas en Zárate: ${user.latitud}, ${user.longitud}`}
+                          style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}
+                        >
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z" />
+                            <circle cx="12" cy="10" r="3" />
+                          </svg>
+                          <span>Ver Punto</span>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                          </svg>
+                        </a>
+                        <a
+                          href={`/ficha/${encodeURIComponent(user.nroUsuario || String(user.id))}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="ficha-link-badge"
+                          title="Abrir Ficha de Inspección con Fotos y Navegación"
+                          style={{ display: "inline-flex", alignItems: "center", gap: "4px", fontSize: "11px", color: "#0284c7", fontWeight: 700, textDecoration: "none", marginTop: "2px" }}
+                        >
+                          <span>📸 Ficha y Fotos</span>
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                          </svg>
+                        </a>
+                      </>
                     ) : (
                       <div className="alerta-sin-maps-badge" title="No se encontró la dirección en Google Maps o no posee coordenadas">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

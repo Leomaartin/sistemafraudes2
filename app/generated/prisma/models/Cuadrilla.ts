@@ -193,12 +193,16 @@ export type CuadrillaWhereInput = {
   id?: Prisma.IntFilter<"Cuadrilla"> | number
   nombre?: Prisma.StringFilter<"Cuadrilla"> | string
   usuarios?: Prisma.UsuarioListRelationFilter
+  usuariosSistema?: Prisma.UsuarioSistemaListRelationFilter
+  listados?: Prisma.ListadoCuadrillaListRelationFilter
 }
 
 export type CuadrillaOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
   usuarios?: Prisma.UsuarioOrderByRelationAggregateInput
+  usuariosSistema?: Prisma.UsuarioSistemaOrderByRelationAggregateInput
+  listados?: Prisma.ListadoCuadrillaOrderByRelationAggregateInput
 }
 
 export type CuadrillaWhereUniqueInput = Prisma.AtLeast<{
@@ -208,6 +212,8 @@ export type CuadrillaWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CuadrillaWhereInput | Prisma.CuadrillaWhereInput[]
   nombre?: Prisma.StringFilter<"Cuadrilla"> | string
   usuarios?: Prisma.UsuarioListRelationFilter
+  usuariosSistema?: Prisma.UsuarioSistemaListRelationFilter
+  listados?: Prisma.ListadoCuadrillaListRelationFilter
 }, "id">
 
 export type CuadrillaOrderByWithAggregationInput = {
@@ -231,23 +237,31 @@ export type CuadrillaScalarWhereWithAggregatesInput = {
 export type CuadrillaCreateInput = {
   nombre: string
   usuarios?: Prisma.UsuarioCreateNestedManyWithoutCuadrillasInput
+  usuariosSistema?: Prisma.UsuarioSistemaCreateNestedManyWithoutCuadrillaInput
+  listados?: Prisma.ListadoCuadrillaCreateNestedManyWithoutCuadrillaInput
 }
 
 export type CuadrillaUncheckedCreateInput = {
   id?: number
   nombre: string
   usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutCuadrillasInput
+  usuariosSistema?: Prisma.UsuarioSistemaUncheckedCreateNestedManyWithoutCuadrillaInput
+  listados?: Prisma.ListadoCuadrillaUncheckedCreateNestedManyWithoutCuadrillaInput
 }
 
 export type CuadrillaUpdateInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   usuarios?: Prisma.UsuarioUpdateManyWithoutCuadrillasNestedInput
+  usuariosSistema?: Prisma.UsuarioSistemaUpdateManyWithoutCuadrillaNestedInput
+  listados?: Prisma.ListadoCuadrillaUpdateManyWithoutCuadrillaNestedInput
 }
 
 export type CuadrillaUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutCuadrillasNestedInput
+  usuariosSistema?: Prisma.UsuarioSistemaUncheckedUpdateManyWithoutCuadrillaNestedInput
+  listados?: Prisma.ListadoCuadrillaUncheckedUpdateManyWithoutCuadrillaNestedInput
 }
 
 export type CuadrillaCreateManyInput = {
@@ -297,6 +311,16 @@ export type CuadrillaSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
+export type CuadrillaNullableScalarRelationFilter = {
+  is?: Prisma.CuadrillaWhereInput | null
+  isNot?: Prisma.CuadrillaWhereInput | null
+}
+
+export type CuadrillaScalarRelationFilter = {
+  is?: Prisma.CuadrillaWhereInput
+  isNot?: Prisma.CuadrillaWhereInput
+}
+
 export type CuadrillaCreateNestedManyWithoutUsuariosInput = {
   create?: Prisma.XOR<Prisma.CuadrillaCreateWithoutUsuariosInput, Prisma.CuadrillaUncheckedCreateWithoutUsuariosInput> | Prisma.CuadrillaCreateWithoutUsuariosInput[] | Prisma.CuadrillaUncheckedCreateWithoutUsuariosInput[]
   connectOrCreate?: Prisma.CuadrillaCreateOrConnectWithoutUsuariosInput | Prisma.CuadrillaCreateOrConnectWithoutUsuariosInput[]
@@ -335,13 +359,47 @@ export type CuadrillaUncheckedUpdateManyWithoutUsuariosNestedInput = {
   deleteMany?: Prisma.CuadrillaScalarWhereInput | Prisma.CuadrillaScalarWhereInput[]
 }
 
+export type CuadrillaCreateNestedOneWithoutUsuariosSistemaInput = {
+  create?: Prisma.XOR<Prisma.CuadrillaCreateWithoutUsuariosSistemaInput, Prisma.CuadrillaUncheckedCreateWithoutUsuariosSistemaInput>
+  connectOrCreate?: Prisma.CuadrillaCreateOrConnectWithoutUsuariosSistemaInput
+  connect?: Prisma.CuadrillaWhereUniqueInput
+}
+
+export type CuadrillaUpdateOneWithoutUsuariosSistemaNestedInput = {
+  create?: Prisma.XOR<Prisma.CuadrillaCreateWithoutUsuariosSistemaInput, Prisma.CuadrillaUncheckedCreateWithoutUsuariosSistemaInput>
+  connectOrCreate?: Prisma.CuadrillaCreateOrConnectWithoutUsuariosSistemaInput
+  upsert?: Prisma.CuadrillaUpsertWithoutUsuariosSistemaInput
+  disconnect?: Prisma.CuadrillaWhereInput | boolean
+  delete?: Prisma.CuadrillaWhereInput | boolean
+  connect?: Prisma.CuadrillaWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CuadrillaUpdateToOneWithWhereWithoutUsuariosSistemaInput, Prisma.CuadrillaUpdateWithoutUsuariosSistemaInput>, Prisma.CuadrillaUncheckedUpdateWithoutUsuariosSistemaInput>
+}
+
+export type CuadrillaCreateNestedOneWithoutListadosInput = {
+  create?: Prisma.XOR<Prisma.CuadrillaCreateWithoutListadosInput, Prisma.CuadrillaUncheckedCreateWithoutListadosInput>
+  connectOrCreate?: Prisma.CuadrillaCreateOrConnectWithoutListadosInput
+  connect?: Prisma.CuadrillaWhereUniqueInput
+}
+
+export type CuadrillaUpdateOneRequiredWithoutListadosNestedInput = {
+  create?: Prisma.XOR<Prisma.CuadrillaCreateWithoutListadosInput, Prisma.CuadrillaUncheckedCreateWithoutListadosInput>
+  connectOrCreate?: Prisma.CuadrillaCreateOrConnectWithoutListadosInput
+  upsert?: Prisma.CuadrillaUpsertWithoutListadosInput
+  connect?: Prisma.CuadrillaWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CuadrillaUpdateToOneWithWhereWithoutListadosInput, Prisma.CuadrillaUpdateWithoutListadosInput>, Prisma.CuadrillaUncheckedUpdateWithoutListadosInput>
+}
+
 export type CuadrillaCreateWithoutUsuariosInput = {
   nombre: string
+  usuariosSistema?: Prisma.UsuarioSistemaCreateNestedManyWithoutCuadrillaInput
+  listados?: Prisma.ListadoCuadrillaCreateNestedManyWithoutCuadrillaInput
 }
 
 export type CuadrillaUncheckedCreateWithoutUsuariosInput = {
   id?: number
   nombre: string
+  usuariosSistema?: Prisma.UsuarioSistemaUncheckedCreateNestedManyWithoutCuadrillaInput
+  listados?: Prisma.ListadoCuadrillaUncheckedCreateNestedManyWithoutCuadrillaInput
 }
 
 export type CuadrillaCreateOrConnectWithoutUsuariosInput = {
@@ -373,13 +431,101 @@ export type CuadrillaScalarWhereInput = {
   nombre?: Prisma.StringFilter<"Cuadrilla"> | string
 }
 
+export type CuadrillaCreateWithoutUsuariosSistemaInput = {
+  nombre: string
+  usuarios?: Prisma.UsuarioCreateNestedManyWithoutCuadrillasInput
+  listados?: Prisma.ListadoCuadrillaCreateNestedManyWithoutCuadrillaInput
+}
+
+export type CuadrillaUncheckedCreateWithoutUsuariosSistemaInput = {
+  id?: number
+  nombre: string
+  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutCuadrillasInput
+  listados?: Prisma.ListadoCuadrillaUncheckedCreateNestedManyWithoutCuadrillaInput
+}
+
+export type CuadrillaCreateOrConnectWithoutUsuariosSistemaInput = {
+  where: Prisma.CuadrillaWhereUniqueInput
+  create: Prisma.XOR<Prisma.CuadrillaCreateWithoutUsuariosSistemaInput, Prisma.CuadrillaUncheckedCreateWithoutUsuariosSistemaInput>
+}
+
+export type CuadrillaUpsertWithoutUsuariosSistemaInput = {
+  update: Prisma.XOR<Prisma.CuadrillaUpdateWithoutUsuariosSistemaInput, Prisma.CuadrillaUncheckedUpdateWithoutUsuariosSistemaInput>
+  create: Prisma.XOR<Prisma.CuadrillaCreateWithoutUsuariosSistemaInput, Prisma.CuadrillaUncheckedCreateWithoutUsuariosSistemaInput>
+  where?: Prisma.CuadrillaWhereInput
+}
+
+export type CuadrillaUpdateToOneWithWhereWithoutUsuariosSistemaInput = {
+  where?: Prisma.CuadrillaWhereInput
+  data: Prisma.XOR<Prisma.CuadrillaUpdateWithoutUsuariosSistemaInput, Prisma.CuadrillaUncheckedUpdateWithoutUsuariosSistemaInput>
+}
+
+export type CuadrillaUpdateWithoutUsuariosSistemaInput = {
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  usuarios?: Prisma.UsuarioUpdateManyWithoutCuadrillasNestedInput
+  listados?: Prisma.ListadoCuadrillaUpdateManyWithoutCuadrillaNestedInput
+}
+
+export type CuadrillaUncheckedUpdateWithoutUsuariosSistemaInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutCuadrillasNestedInput
+  listados?: Prisma.ListadoCuadrillaUncheckedUpdateManyWithoutCuadrillaNestedInput
+}
+
+export type CuadrillaCreateWithoutListadosInput = {
+  nombre: string
+  usuarios?: Prisma.UsuarioCreateNestedManyWithoutCuadrillasInput
+  usuariosSistema?: Prisma.UsuarioSistemaCreateNestedManyWithoutCuadrillaInput
+}
+
+export type CuadrillaUncheckedCreateWithoutListadosInput = {
+  id?: number
+  nombre: string
+  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutCuadrillasInput
+  usuariosSistema?: Prisma.UsuarioSistemaUncheckedCreateNestedManyWithoutCuadrillaInput
+}
+
+export type CuadrillaCreateOrConnectWithoutListadosInput = {
+  where: Prisma.CuadrillaWhereUniqueInput
+  create: Prisma.XOR<Prisma.CuadrillaCreateWithoutListadosInput, Prisma.CuadrillaUncheckedCreateWithoutListadosInput>
+}
+
+export type CuadrillaUpsertWithoutListadosInput = {
+  update: Prisma.XOR<Prisma.CuadrillaUpdateWithoutListadosInput, Prisma.CuadrillaUncheckedUpdateWithoutListadosInput>
+  create: Prisma.XOR<Prisma.CuadrillaCreateWithoutListadosInput, Prisma.CuadrillaUncheckedCreateWithoutListadosInput>
+  where?: Prisma.CuadrillaWhereInput
+}
+
+export type CuadrillaUpdateToOneWithWhereWithoutListadosInput = {
+  where?: Prisma.CuadrillaWhereInput
+  data: Prisma.XOR<Prisma.CuadrillaUpdateWithoutListadosInput, Prisma.CuadrillaUncheckedUpdateWithoutListadosInput>
+}
+
+export type CuadrillaUpdateWithoutListadosInput = {
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  usuarios?: Prisma.UsuarioUpdateManyWithoutCuadrillasNestedInput
+  usuariosSistema?: Prisma.UsuarioSistemaUpdateManyWithoutCuadrillaNestedInput
+}
+
+export type CuadrillaUncheckedUpdateWithoutListadosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutCuadrillasNestedInput
+  usuariosSistema?: Prisma.UsuarioSistemaUncheckedUpdateManyWithoutCuadrillaNestedInput
+}
+
 export type CuadrillaUpdateWithoutUsuariosInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  usuariosSistema?: Prisma.UsuarioSistemaUpdateManyWithoutCuadrillaNestedInput
+  listados?: Prisma.ListadoCuadrillaUpdateManyWithoutCuadrillaNestedInput
 }
 
 export type CuadrillaUncheckedUpdateWithoutUsuariosInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  usuariosSistema?: Prisma.UsuarioSistemaUncheckedUpdateManyWithoutCuadrillaNestedInput
+  listados?: Prisma.ListadoCuadrillaUncheckedUpdateManyWithoutCuadrillaNestedInput
 }
 
 export type CuadrillaUncheckedUpdateManyWithoutUsuariosInput = {
@@ -394,10 +540,14 @@ export type CuadrillaUncheckedUpdateManyWithoutUsuariosInput = {
 
 export type CuadrillaCountOutputType = {
   usuarios: number
+  usuariosSistema: number
+  listados: number
 }
 
 export type CuadrillaCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   usuarios?: boolean | CuadrillaCountOutputTypeCountUsuariosArgs
+  usuariosSistema?: boolean | CuadrillaCountOutputTypeCountUsuariosSistemaArgs
+  listados?: boolean | CuadrillaCountOutputTypeCountListadosArgs
 }
 
 /**
@@ -417,11 +567,27 @@ export type CuadrillaCountOutputTypeCountUsuariosArgs<ExtArgs extends runtime.Ty
   where?: Prisma.UsuarioWhereInput
 }
 
+/**
+ * CuadrillaCountOutputType without action
+ */
+export type CuadrillaCountOutputTypeCountUsuariosSistemaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UsuarioSistemaWhereInput
+}
+
+/**
+ * CuadrillaCountOutputType without action
+ */
+export type CuadrillaCountOutputTypeCountListadosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListadoCuadrillaWhereInput
+}
+
 
 export type CuadrillaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nombre?: boolean
   usuarios?: boolean | Prisma.Cuadrilla$usuariosArgs<ExtArgs>
+  usuariosSistema?: boolean | Prisma.Cuadrilla$usuariosSistemaArgs<ExtArgs>
+  listados?: boolean | Prisma.Cuadrilla$listadosArgs<ExtArgs>
   _count?: boolean | Prisma.CuadrillaCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["cuadrilla"]>
 
@@ -443,6 +609,8 @@ export type CuadrillaSelectScalar = {
 export type CuadrillaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre", ExtArgs["result"]["cuadrilla"]>
 export type CuadrillaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   usuarios?: boolean | Prisma.Cuadrilla$usuariosArgs<ExtArgs>
+  usuariosSistema?: boolean | Prisma.Cuadrilla$usuariosSistemaArgs<ExtArgs>
+  listados?: boolean | Prisma.Cuadrilla$listadosArgs<ExtArgs>
   _count?: boolean | Prisma.CuadrillaCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CuadrillaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -452,6 +620,8 @@ export type $CuadrillaPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   name: "Cuadrilla"
   objects: {
     usuarios: Prisma.$UsuarioPayload<ExtArgs>[]
+    usuariosSistema: Prisma.$UsuarioSistemaPayload<ExtArgs>[]
+    listados: Prisma.$ListadoCuadrillaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -851,6 +1021,8 @@ readonly fields: CuadrillaFieldRefs;
 export interface Prisma__CuadrillaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   usuarios<T extends Prisma.Cuadrilla$usuariosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Cuadrilla$usuariosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  usuariosSistema<T extends Prisma.Cuadrilla$usuariosSistemaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Cuadrilla$usuariosSistemaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsuarioSistemaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  listados<T extends Prisma.Cuadrilla$listadosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Cuadrilla$listadosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListadoCuadrillaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1296,6 +1468,54 @@ export type Cuadrilla$usuariosArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.UsuarioScalarFieldEnum | Prisma.UsuarioScalarFieldEnum[]
+}
+
+/**
+ * Cuadrilla.usuariosSistema
+ */
+export type Cuadrilla$usuariosSistemaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UsuarioSistema
+   */
+  select?: Prisma.UsuarioSistemaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UsuarioSistema
+   */
+  omit?: Prisma.UsuarioSistemaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsuarioSistemaInclude<ExtArgs> | null
+  where?: Prisma.UsuarioSistemaWhereInput
+  orderBy?: Prisma.UsuarioSistemaOrderByWithRelationInput | Prisma.UsuarioSistemaOrderByWithRelationInput[]
+  cursor?: Prisma.UsuarioSistemaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UsuarioSistemaScalarFieldEnum | Prisma.UsuarioSistemaScalarFieldEnum[]
+}
+
+/**
+ * Cuadrilla.listados
+ */
+export type Cuadrilla$listadosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListadoCuadrilla
+   */
+  select?: Prisma.ListadoCuadrillaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListadoCuadrilla
+   */
+  omit?: Prisma.ListadoCuadrillaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListadoCuadrillaInclude<ExtArgs> | null
+  where?: Prisma.ListadoCuadrillaWhereInput
+  orderBy?: Prisma.ListadoCuadrillaOrderByWithRelationInput | Prisma.ListadoCuadrillaOrderByWithRelationInput[]
+  cursor?: Prisma.ListadoCuadrillaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ListadoCuadrillaScalarFieldEnum | Prisma.ListadoCuadrillaScalarFieldEnum[]
 }
 
 /**

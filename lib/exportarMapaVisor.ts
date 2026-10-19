@@ -19,6 +19,7 @@ export interface UsuarioParaExportar {
     id: number;
     nombre: string;
   } | null;
+  imagenes?: Array<{ id?: number; url: string }> | null;
 }
 
 /**
@@ -99,6 +100,8 @@ function obtenerIconoYColorGoogleKml(configKey: string): { iconUrl: string; kmlC
  * EXPORTACIÓN KML OPTIMIZADA PARA GOOGLE MAPS / GOOGLE MY MAPS / GOOGLE EARTH:
  * - Genera estilos individuales para cada estado con sus íconos y colores oficiales (rojo, amarillo, naranja, celeste, piel, etc.).
  * - Agrega ExtendedData estructurada (Estado, N° Usuario, Titular, Domicilio, Medidor, Ruta, Vencimiento) para que en Google Maps no se mezclen los puntos y queden catalogados por categorías.
+ * - Incrusta las FOTOS DE INSPECCIÓN de cada usuario directamente dentro de los globos de información de Google Maps / Earth.
+ * - Incluye botón de navegación directa con Google Maps.
  * - Fuerza formato binario application/octet-stream para que Windows/Chrome descargue exactamente el archivo con extensión .kml.
  */
 export function exportarMapaKML({
@@ -120,6 +123,7 @@ export function exportarMapaKML({
     return false;
   }
 
+  const baseUrl = typeof window !== "undefined" ? window.location.origin : (process.env.NEXT_PUBLIC_APP_URL || "");
   const fechaArchivo = new Date().toISOString().slice(0, 10);
   const subtituloRuta = rutaActiva ? `Ruta ${rutaActiva}` : "Todas las Rutas";
 
@@ -171,7 +175,43 @@ export function exportarMapaKML({
       const lat = Number(u.latitud);
       const lng = Number(u.longitud);
 
-      // Ficha descriptiva en HTML con tabla estilizada
+      // Galería de fotos de inspección
+      let fotosHtml = "";
+      const listaFotosUrls: string[] = [];
+
+      if (u.imagenes && u.imagenes.length > 0) {
+        let itemsFotos = "";
+        u.imagenes.forEach((img, idx) => {
+          const rawUrl = img.url || "";
+          if (!rawUrl) return;
+          const fullUrl = rawUrl.startsWith("http") ? rawUrl : `${baseUrl}${rawUrl}`;
+          listaFotosUrls.push(fullUrl);
+
+          itemsFotos += `
+            <div style="margin-bottom: 8px; text-align: center;">
+              <a href="${escapeHtml(fullUrl)}" target="_blank" title="Ver foto completa en alta resolución">
+                <img src="${escapeHtml(fullUrl)}" style="width: 100%; max-width: 290px; max-height: 190px; object-fit: cover; border-radius: 6px; border: 1px solid #cbd5e1; display: block; margin: 0 auto;" alt="Foto #${idx + 1}" />
+              </a>
+              <div style="font-size: 10px; color: #64748b; margin-top: 3px;">
+                <a href="${escapeHtml(fullUrl)}" target="_blank" style="color: #0284c7; text-decoration: none; font-weight: 500;">🔍 Ampliar foto ${idx + 1}</a>
+              </div>
+            </div>
+          `;
+        });
+
+        if (itemsFotos) {
+          fotosHtml = `
+            <div style="margin-top: 10px; padding-top: 8px; border-top: 1px dashed #cbd5e1;">
+              <div style="font-weight: bold; color: #334155; font-size: 11px; margin-bottom: 6px;">
+                📸 FOTOS DE INSPECCIÓN (${u.imagenes.length}):
+              </div>
+              ${itemsFotos}
+            </div>
+          `;
+        }
+      }
+
+      // Ficha descriptiva en HTML con tabla estilizada y fotos
       const descripcionHtml = `
         <![CDATA[
           <div style="font-family: Arial, sans-serif; font-size: 13px; max-width: 320px; line-height: 1.5; color: #1e293b;">
@@ -187,9 +227,17 @@ export function exportarMapaKML({
               <tr><td style="color: #64748b; font-weight: bold; padding: 3px 0;">Vencimiento:</td><td style="color: #dc2626; font-weight: bold;">${escapeHtml(vto.texto)}</td></tr>
               ${u.observaciones ? `<tr><td style="color: #64748b; font-weight: bold; padding: 3px 0;">Obs:</td><td>${escapeHtml(u.observaciones)}</td></tr>` : ""}
             </table>
-            <div style="margin-top: 10px; padding-top: 6px; border-top: 1px solid #e2e8f0; font-size: 11px; color: #64748b;">
-              GPS: ${lat.toFixed(6)}, ${lng.toFixed(6)}<br/>
-              <a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank" style="color: #0284c7; font-weight: bold; text-decoration: none;">Abrir en Google Maps ↗</a>
+            ${fotosHtml}
+            <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid #e2e8f0; font-size: 11px; color: #64748b; text-align: center;">
+              <div style="margin-bottom: 6px;">GPS: ${lat.toFixed(6)}, ${lng.toFixed(6)}</div>
+              <div style="display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;">
+                <a href="${baseUrl}/ficha/${escapeHtml(u.nroUsuario)}" target="_blank" style="display: inline-block; background: #0f172a; color: #38bdf8; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 11.5px; border: 1px solid #38bdf8;">
+                  📸 Ficha y Fotos Online ↗
+                </a>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}" target="_blank" style="display: inline-block; background: #0284c7; color: #ffffff; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 11.5px;">
+                  🚗 Navegar en Google Maps
+                </a>
+              </div>
             </div>
           </div>
         ]]>
@@ -221,6 +269,11 @@ export function exportarMapaKML({
             <Data name="Vencimiento">
               <value>${escapeHtml(vto.texto)}</value>
             </Data>
+            ${listaFotosUrls.length > 0 ? `
+            <Data name="Fotos">
+              <value>${escapeHtml(listaFotosUrls.join(" | "))}</value>
+            </Data>
+            ` : ""}
           </ExtendedData>
           <description>${descripcionHtml}</description>
           <Point>

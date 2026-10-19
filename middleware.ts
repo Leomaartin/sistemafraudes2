@@ -15,7 +15,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // 2. Permitir rutas públicas de autenticación
+  // 2. Permitir rutas públicas de autenticación (/api/auth/...)
   const isAuthApi = pathname.startsWith("/api/auth");
   const isLoginPage = pathname === "/login" || pathname === "/Login";
 
@@ -24,8 +24,12 @@ export async function middleware(req: NextRequest) {
   let session = null;
   if (token) {
     session = await verifySessionToken(token);
-    // La sesión es válida si el token JWT está firmado y cuenta con rol de administrador
-    if (session && !session.esAdmin && session.role !== "administrador") {
+    // Verificar si el rol es válido (administrador o cuadrilla autorizada)
+    const isAutorizado =
+      session &&
+      (session.esAdmin || session.role === "administrador" || session.role === "cuadrilla");
+
+    if (!isAutorizado) {
       session = null;
     }
   }
@@ -40,12 +44,12 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // Permitir endpoints de autenticación (/api/auth/*)
+  // Permitir endpoints de autenticación (/api/auth/...)
   if (isAuthApi) {
     return NextResponse.next();
   }
 
-  // Para TODAS las demás páginas y APIs del sistema: requerir autenticación
+  // Para TODAS las demás páginas y APIs del sistema (incluida la ficha /ficha): requerir autenticación
   if (!isAuthenticated) {
     // Si es una petición de API interna, responder 401
     if (pathname.startsWith("/api")) {
@@ -55,12 +59,41 @@ export async function middleware(req: NextRequest) {
       );
     }
 
-    // Si es una navegación a página, redirigir al Login
+    // Si es una navegación a página, redirigir al Login preservando la URL de destino
     const loginUrl = new URL("/login", appOrigin);
     if (pathname !== "/") {
       loginUrl.searchParams.set("from", pathname);
     }
     return NextResponse.redirect(loginUrl);
+  }
+
+  // 4. Si el usuario está autenticado pero tiene rol "cuadrilla", restringir acceso a secciones de administración
+  const isCuadrilla = session?.role === "cuadrilla" && !session?.esAdmin;
+  if (isCuadrilla) {
+    const isAdminPage =
+      pathname.startsWith("/admin") ||
+      pathname.startsWith("/armar-listado") ||
+      pathname.startsWith("/estadisticas") ||
+      pathname.startsWith("/informe-general");
+
+    if (isAdminPage) {
+      return NextResponse.redirect(new URL("/usuarios", appOrigin));
+    }
+
+    // Restringir llamadas a APIs exclusivas de administración
+    const isAdminApi =
+      pathname.startsWith("/api/importar-excel") ||
+      (pathname.startsWith("/api/cuadrillasapi") && req.method !== "GET") ||
+      (pathname.startsWith("/api/estadosapi") && req.method !== "GET") ||
+      (pathname.startsWith("/api/tarifasapi") && req.method !== "GET") ||
+      (pathname.startsWith("/api/rubrosapi") && req.method !== "GET");
+
+    if (isAdminApi) {
+      return NextResponse.json(
+        { error: "Acceso denegado. Se requieren permisos de administrador." },
+        { status: 403 }
+      );
+    }
   }
 
   return NextResponse.next();

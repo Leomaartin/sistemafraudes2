@@ -2,12 +2,15 @@ import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 
 export interface SessionUser {
+  id?: number;
   email: string;
   name: string;
   picture?: string;
   sub?: string;
   role?: string;
   esAdmin?: boolean;
+  cuadrillaId?: number | null;
+  cuadrillaNombre?: string | null;
   iat?: number;
   exp?: number;
 }

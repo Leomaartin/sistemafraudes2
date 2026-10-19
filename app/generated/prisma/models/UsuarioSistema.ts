@@ -28,10 +28,12 @@ export type AggregateUsuarioSistema = {
 
 export type UsuarioSistemaAvgAggregateOutputType = {
   id: number | null
+  idCuadrilla: number | null
 }
 
 export type UsuarioSistemaSumAggregateOutputType = {
   id: number | null
+  idCuadrilla: number | null
 }
 
 export type UsuarioSistemaMinAggregateOutputType = {
@@ -44,6 +46,7 @@ export type UsuarioSistemaMinAggregateOutputType = {
   esAdmin: boolean | null
   fechaVto: Date | null
   activo: boolean | null
+  idCuadrilla: number | null
 }
 
 export type UsuarioSistemaMaxAggregateOutputType = {
@@ -56,6 +59,7 @@ export type UsuarioSistemaMaxAggregateOutputType = {
   esAdmin: boolean | null
   fechaVto: Date | null
   activo: boolean | null
+  idCuadrilla: number | null
 }
 
 export type UsuarioSistemaCountAggregateOutputType = {
@@ -68,16 +72,19 @@ export type UsuarioSistemaCountAggregateOutputType = {
   esAdmin: number
   fechaVto: number
   activo: number
+  idCuadrilla: number
   _all: number
 }
 
 
 export type UsuarioSistemaAvgAggregateInputType = {
   id?: true
+  idCuadrilla?: true
 }
 
 export type UsuarioSistemaSumAggregateInputType = {
   id?: true
+  idCuadrilla?: true
 }
 
 export type UsuarioSistemaMinAggregateInputType = {
@@ -90,6 +97,7 @@ export type UsuarioSistemaMinAggregateInputType = {
   esAdmin?: true
   fechaVto?: true
   activo?: true
+  idCuadrilla?: true
 }
 
 export type UsuarioSistemaMaxAggregateInputType = {
@@ -102,6 +110,7 @@ export type UsuarioSistemaMaxAggregateInputType = {
   esAdmin?: true
   fechaVto?: true
   activo?: true
+  idCuadrilla?: true
 }
 
 export type UsuarioSistemaCountAggregateInputType = {
@@ -114,6 +123,7 @@ export type UsuarioSistemaCountAggregateInputType = {
   esAdmin?: true
   fechaVto?: true
   activo?: true
+  idCuadrilla?: true
   _all?: true
 }
 
@@ -213,6 +223,7 @@ export type UsuarioSistemaGroupByOutputType = {
   esAdmin: boolean
   fechaVto: Date | null
   activo: boolean
+  idCuadrilla: number | null
   _count: UsuarioSistemaCountAggregateOutputType | null
   _avg: UsuarioSistemaAvgAggregateOutputType | null
   _sum: UsuarioSistemaSumAggregateOutputType | null
@@ -248,6 +259,8 @@ export type UsuarioSistemaWhereInput = {
   esAdmin?: Prisma.BoolFilter<"UsuarioSistema"> | boolean
   fechaVto?: Prisma.DateTimeNullableFilter<"UsuarioSistema"> | Date | string | null
   activo?: Prisma.BoolFilter<"UsuarioSistema"> | boolean
+  idCuadrilla?: Prisma.IntNullableFilter<"UsuarioSistema"> | number | null
+  cuadrilla?: Prisma.XOR<Prisma.CuadrillaNullableScalarRelationFilter, Prisma.CuadrillaWhereInput> | null
 }
 
 export type UsuarioSistemaOrderByWithRelationInput = {
@@ -260,6 +273,8 @@ export type UsuarioSistemaOrderByWithRelationInput = {
   esAdmin?: Prisma.SortOrder
   fechaVto?: Prisma.SortOrderInput | Prisma.SortOrder
   activo?: Prisma.SortOrder
+  idCuadrilla?: Prisma.SortOrderInput | Prisma.SortOrder
+  cuadrilla?: Prisma.CuadrillaOrderByWithRelationInput
 }
 
 export type UsuarioSistemaWhereUniqueInput = Prisma.AtLeast<{
@@ -275,6 +290,8 @@ export type UsuarioSistemaWhereUniqueInput = Prisma.AtLeast<{
   esAdmin?: Prisma.BoolFilter<"UsuarioSistema"> | boolean
   fechaVto?: Prisma.DateTimeNullableFilter<"UsuarioSistema"> | Date | string | null
   activo?: Prisma.BoolFilter<"UsuarioSistema"> | boolean
+  idCuadrilla?: Prisma.IntNullableFilter<"UsuarioSistema"> | number | null
+  cuadrilla?: Prisma.XOR<Prisma.CuadrillaNullableScalarRelationFilter, Prisma.CuadrillaWhereInput> | null
 }, "id" | "usuario" | "email">
 
 export type UsuarioSistemaOrderByWithAggregationInput = {
@@ -287,6 +304,7 @@ export type UsuarioSistemaOrderByWithAggregationInput = {
   esAdmin?: Prisma.SortOrder
   fechaVto?: Prisma.SortOrderInput | Prisma.SortOrder
   activo?: Prisma.SortOrder
+  idCuadrilla?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UsuarioSistemaCountOrderByAggregateInput
   _avg?: Prisma.UsuarioSistemaAvgOrderByAggregateInput
   _max?: Prisma.UsuarioSistemaMaxOrderByAggregateInput
@@ -307,6 +325,7 @@ export type UsuarioSistemaScalarWhereWithAggregatesInput = {
   esAdmin?: Prisma.BoolWithAggregatesFilter<"UsuarioSistema"> | boolean
   fechaVto?: Prisma.DateTimeNullableWithAggregatesFilter<"UsuarioSistema"> | Date | string | null
   activo?: Prisma.BoolWithAggregatesFilter<"UsuarioSistema"> | boolean
+  idCuadrilla?: Prisma.IntNullableWithAggregatesFilter<"UsuarioSistema"> | number | null
 }
 
 export type UsuarioSistemaCreateInput = {
@@ -318,6 +337,7 @@ export type UsuarioSistemaCreateInput = {
   esAdmin?: boolean
   fechaVto?: Date | string | null
   activo?: boolean
+  cuadrilla?: Prisma.CuadrillaCreateNestedOneWithoutUsuariosSistemaInput
 }
 
 export type UsuarioSistemaUncheckedCreateInput = {
@@ -330,6 +350,7 @@ export type UsuarioSistemaUncheckedCreateInput = {
   esAdmin?: boolean
   fechaVto?: Date | string | null
   activo?: boolean
+  idCuadrilla?: number | null
 }
 
 export type UsuarioSistemaUpdateInput = {
@@ -341,6 +362,7 @@ export type UsuarioSistemaUpdateInput = {
   esAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cuadrilla?: Prisma.CuadrillaUpdateOneWithoutUsuariosSistemaNestedInput
 }
 
 export type UsuarioSistemaUncheckedUpdateInput = {
@@ -353,6 +375,7 @@ export type UsuarioSistemaUncheckedUpdateInput = {
   esAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idCuadrilla?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type UsuarioSistemaCreateManyInput = {
@@ -365,6 +388,7 @@ export type UsuarioSistemaCreateManyInput = {
   esAdmin?: boolean
   fechaVto?: Date | string | null
   activo?: boolean
+  idCuadrilla?: number | null
 }
 
 export type UsuarioSistemaUpdateManyMutationInput = {
@@ -388,6 +412,17 @@ export type UsuarioSistemaUncheckedUpdateManyInput = {
   esAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idCuadrilla?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type UsuarioSistemaListRelationFilter = {
+  every?: Prisma.UsuarioSistemaWhereInput
+  some?: Prisma.UsuarioSistemaWhereInput
+  none?: Prisma.UsuarioSistemaWhereInput
+}
+
+export type UsuarioSistemaOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type UsuarioSistemaCountOrderByAggregateInput = {
@@ -400,10 +435,12 @@ export type UsuarioSistemaCountOrderByAggregateInput = {
   esAdmin?: Prisma.SortOrder
   fechaVto?: Prisma.SortOrder
   activo?: Prisma.SortOrder
+  idCuadrilla?: Prisma.SortOrder
 }
 
 export type UsuarioSistemaAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  idCuadrilla?: Prisma.SortOrder
 }
 
 export type UsuarioSistemaMaxOrderByAggregateInput = {
@@ -416,6 +453,7 @@ export type UsuarioSistemaMaxOrderByAggregateInput = {
   esAdmin?: Prisma.SortOrder
   fechaVto?: Prisma.SortOrder
   activo?: Prisma.SortOrder
+  idCuadrilla?: Prisma.SortOrder
 }
 
 export type UsuarioSistemaMinOrderByAggregateInput = {
@@ -428,10 +466,166 @@ export type UsuarioSistemaMinOrderByAggregateInput = {
   esAdmin?: Prisma.SortOrder
   fechaVto?: Prisma.SortOrder
   activo?: Prisma.SortOrder
+  idCuadrilla?: Prisma.SortOrder
 }
 
 export type UsuarioSistemaSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  idCuadrilla?: Prisma.SortOrder
+}
+
+export type UsuarioSistemaCreateNestedManyWithoutCuadrillaInput = {
+  create?: Prisma.XOR<Prisma.UsuarioSistemaCreateWithoutCuadrillaInput, Prisma.UsuarioSistemaUncheckedCreateWithoutCuadrillaInput> | Prisma.UsuarioSistemaCreateWithoutCuadrillaInput[] | Prisma.UsuarioSistemaUncheckedCreateWithoutCuadrillaInput[]
+  connectOrCreate?: Prisma.UsuarioSistemaCreateOrConnectWithoutCuadrillaInput | Prisma.UsuarioSistemaCreateOrConnectWithoutCuadrillaInput[]
+  createMany?: Prisma.UsuarioSistemaCreateManyCuadrillaInputEnvelope
+  connect?: Prisma.UsuarioSistemaWhereUniqueInput | Prisma.UsuarioSistemaWhereUniqueInput[]
+}
+
+export type UsuarioSistemaUncheckedCreateNestedManyWithoutCuadrillaInput = {
+  create?: Prisma.XOR<Prisma.UsuarioSistemaCreateWithoutCuadrillaInput, Prisma.UsuarioSistemaUncheckedCreateWithoutCuadrillaInput> | Prisma.UsuarioSistemaCreateWithoutCuadrillaInput[] | Prisma.UsuarioSistemaUncheckedCreateWithoutCuadrillaInput[]
+  connectOrCreate?: Prisma.UsuarioSistemaCreateOrConnectWithoutCuadrillaInput | Prisma.UsuarioSistemaCreateOrConnectWithoutCuadrillaInput[]
+  createMany?: Prisma.UsuarioSistemaCreateManyCuadrillaInputEnvelope
+  connect?: Prisma.UsuarioSistemaWhereUniqueInput | Prisma.UsuarioSistemaWhereUniqueInput[]
+}
+
+export type UsuarioSistemaUpdateManyWithoutCuadrillaNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioSistemaCreateWithoutCuadrillaInput, Prisma.UsuarioSistemaUncheckedCreateWithoutCuadrillaInput> | Prisma.UsuarioSistemaCreateWithoutCuadrillaInput[] | Prisma.UsuarioSistemaUncheckedCreateWithoutCuadrillaInput[]
+  connectOrCreate?: Prisma.UsuarioSistemaCreateOrConnectWithoutCuadrillaInput | Prisma.UsuarioSistemaCreateOrConnectWithoutCuadrillaInput[]
+  upsert?: Prisma.UsuarioSistemaUpsertWithWhereUniqueWithoutCuadrillaInput | Prisma.UsuarioSistemaUpsertWithWhereUniqueWithoutCuadrillaInput[]
+  createMany?: Prisma.UsuarioSistemaCreateManyCuadrillaInputEnvelope
+  set?: Prisma.UsuarioSistemaWhereUniqueInput | Prisma.UsuarioSistemaWhereUniqueInput[]
+  disconnect?: Prisma.UsuarioSistemaWhereUniqueInput | Prisma.UsuarioSistemaWhereUniqueInput[]
+  delete?: Prisma.UsuarioSistemaWhereUniqueInput | Prisma.UsuarioSistemaWhereUniqueInput[]
+  connect?: Prisma.UsuarioSistemaWhereUniqueInput | Prisma.UsuarioSistemaWhereUniqueInput[]
+  update?: Prisma.UsuarioSistemaUpdateWithWhereUniqueWithoutCuadrillaInput | Prisma.UsuarioSistemaUpdateWithWhereUniqueWithoutCuadrillaInput[]
+  updateMany?: Prisma.UsuarioSistemaUpdateManyWithWhereWithoutCuadrillaInput | Prisma.UsuarioSistemaUpdateManyWithWhereWithoutCuadrillaInput[]
+  deleteMany?: Prisma.UsuarioSistemaScalarWhereInput | Prisma.UsuarioSistemaScalarWhereInput[]
+}
+
+export type UsuarioSistemaUncheckedUpdateManyWithoutCuadrillaNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioSistemaCreateWithoutCuadrillaInput, Prisma.UsuarioSistemaUncheckedCreateWithoutCuadrillaInput> | Prisma.UsuarioSistemaCreateWithoutCuadrillaInput[] | Prisma.UsuarioSistemaUncheckedCreateWithoutCuadrillaInput[]
+  connectOrCreate?: Prisma.UsuarioSistemaCreateOrConnectWithoutCuadrillaInput | Prisma.UsuarioSistemaCreateOrConnectWithoutCuadrillaInput[]
+  upsert?: Prisma.UsuarioSistemaUpsertWithWhereUniqueWithoutCuadrillaInput | Prisma.UsuarioSistemaUpsertWithWhereUniqueWithoutCuadrillaInput[]
+  createMany?: Prisma.UsuarioSistemaCreateManyCuadrillaInputEnvelope
+  set?: Prisma.UsuarioSistemaWhereUniqueInput | Prisma.UsuarioSistemaWhereUniqueInput[]
+  disconnect?: Prisma.UsuarioSistemaWhereUniqueInput | Prisma.UsuarioSistemaWhereUniqueInput[]
+  delete?: Prisma.UsuarioSistemaWhereUniqueInput | Prisma.UsuarioSistemaWhereUniqueInput[]
+  connect?: Prisma.UsuarioSistemaWhereUniqueInput | Prisma.UsuarioSistemaWhereUniqueInput[]
+  update?: Prisma.UsuarioSistemaUpdateWithWhereUniqueWithoutCuadrillaInput | Prisma.UsuarioSistemaUpdateWithWhereUniqueWithoutCuadrillaInput[]
+  updateMany?: Prisma.UsuarioSistemaUpdateManyWithWhereWithoutCuadrillaInput | Prisma.UsuarioSistemaUpdateManyWithWhereWithoutCuadrillaInput[]
+  deleteMany?: Prisma.UsuarioSistemaScalarWhereInput | Prisma.UsuarioSistemaScalarWhereInput[]
+}
+
+export type UsuarioSistemaCreateWithoutCuadrillaInput = {
+  usuario: string
+  password?: string | null
+  nombre: string
+  email?: string | null
+  rol?: string
+  esAdmin?: boolean
+  fechaVto?: Date | string | null
+  activo?: boolean
+}
+
+export type UsuarioSistemaUncheckedCreateWithoutCuadrillaInput = {
+  id?: number
+  usuario: string
+  password?: string | null
+  nombre: string
+  email?: string | null
+  rol?: string
+  esAdmin?: boolean
+  fechaVto?: Date | string | null
+  activo?: boolean
+}
+
+export type UsuarioSistemaCreateOrConnectWithoutCuadrillaInput = {
+  where: Prisma.UsuarioSistemaWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioSistemaCreateWithoutCuadrillaInput, Prisma.UsuarioSistemaUncheckedCreateWithoutCuadrillaInput>
+}
+
+export type UsuarioSistemaCreateManyCuadrillaInputEnvelope = {
+  data: Prisma.UsuarioSistemaCreateManyCuadrillaInput | Prisma.UsuarioSistemaCreateManyCuadrillaInput[]
+  skipDuplicates?: boolean
+}
+
+export type UsuarioSistemaUpsertWithWhereUniqueWithoutCuadrillaInput = {
+  where: Prisma.UsuarioSistemaWhereUniqueInput
+  update: Prisma.XOR<Prisma.UsuarioSistemaUpdateWithoutCuadrillaInput, Prisma.UsuarioSistemaUncheckedUpdateWithoutCuadrillaInput>
+  create: Prisma.XOR<Prisma.UsuarioSistemaCreateWithoutCuadrillaInput, Prisma.UsuarioSistemaUncheckedCreateWithoutCuadrillaInput>
+}
+
+export type UsuarioSistemaUpdateWithWhereUniqueWithoutCuadrillaInput = {
+  where: Prisma.UsuarioSistemaWhereUniqueInput
+  data: Prisma.XOR<Prisma.UsuarioSistemaUpdateWithoutCuadrillaInput, Prisma.UsuarioSistemaUncheckedUpdateWithoutCuadrillaInput>
+}
+
+export type UsuarioSistemaUpdateManyWithWhereWithoutCuadrillaInput = {
+  where: Prisma.UsuarioSistemaScalarWhereInput
+  data: Prisma.XOR<Prisma.UsuarioSistemaUpdateManyMutationInput, Prisma.UsuarioSistemaUncheckedUpdateManyWithoutCuadrillaInput>
+}
+
+export type UsuarioSistemaScalarWhereInput = {
+  AND?: Prisma.UsuarioSistemaScalarWhereInput | Prisma.UsuarioSistemaScalarWhereInput[]
+  OR?: Prisma.UsuarioSistemaScalarWhereInput[]
+  NOT?: Prisma.UsuarioSistemaScalarWhereInput | Prisma.UsuarioSistemaScalarWhereInput[]
+  id?: Prisma.IntFilter<"UsuarioSistema"> | number
+  usuario?: Prisma.StringFilter<"UsuarioSistema"> | string
+  password?: Prisma.StringNullableFilter<"UsuarioSistema"> | string | null
+  nombre?: Prisma.StringFilter<"UsuarioSistema"> | string
+  email?: Prisma.StringNullableFilter<"UsuarioSistema"> | string | null
+  rol?: Prisma.StringFilter<"UsuarioSistema"> | string
+  esAdmin?: Prisma.BoolFilter<"UsuarioSistema"> | boolean
+  fechaVto?: Prisma.DateTimeNullableFilter<"UsuarioSistema"> | Date | string | null
+  activo?: Prisma.BoolFilter<"UsuarioSistema"> | boolean
+  idCuadrilla?: Prisma.IntNullableFilter<"UsuarioSistema"> | number | null
+}
+
+export type UsuarioSistemaCreateManyCuadrillaInput = {
+  id?: number
+  usuario: string
+  password?: string | null
+  nombre: string
+  email?: string | null
+  rol?: string
+  esAdmin?: boolean
+  fechaVto?: Date | string | null
+  activo?: boolean
+}
+
+export type UsuarioSistemaUpdateWithoutCuadrillaInput = {
+  usuario?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rol?: Prisma.StringFieldUpdateOperationsInput | string
+  esAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+}
+
+export type UsuarioSistemaUncheckedUpdateWithoutCuadrillaInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  usuario?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rol?: Prisma.StringFieldUpdateOperationsInput | string
+  esAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+}
+
+export type UsuarioSistemaUncheckedUpdateManyWithoutCuadrillaInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  usuario?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rol?: Prisma.StringFieldUpdateOperationsInput | string
+  esAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaVto?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -446,6 +640,8 @@ export type UsuarioSistemaSelect<ExtArgs extends runtime.Types.Extensions.Intern
   esAdmin?: boolean
   fechaVto?: boolean
   activo?: boolean
+  idCuadrilla?: boolean
+  cuadrilla?: boolean | Prisma.UsuarioSistema$cuadrillaArgs<ExtArgs>
 }, ExtArgs["result"]["usuarioSistema"]>
 
 export type UsuarioSistemaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -458,6 +654,8 @@ export type UsuarioSistemaSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   esAdmin?: boolean
   fechaVto?: boolean
   activo?: boolean
+  idCuadrilla?: boolean
+  cuadrilla?: boolean | Prisma.UsuarioSistema$cuadrillaArgs<ExtArgs>
 }, ExtArgs["result"]["usuarioSistema"]>
 
 export type UsuarioSistemaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -470,6 +668,8 @@ export type UsuarioSistemaSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   esAdmin?: boolean
   fechaVto?: boolean
   activo?: boolean
+  idCuadrilla?: boolean
+  cuadrilla?: boolean | Prisma.UsuarioSistema$cuadrillaArgs<ExtArgs>
 }, ExtArgs["result"]["usuarioSistema"]>
 
 export type UsuarioSistemaSelectScalar = {
@@ -482,13 +682,25 @@ export type UsuarioSistemaSelectScalar = {
   esAdmin?: boolean
   fechaVto?: boolean
   activo?: boolean
+  idCuadrilla?: boolean
 }
 
-export type UsuarioSistemaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "usuario" | "password" | "nombre" | "email" | "rol" | "esAdmin" | "fechaVto" | "activo", ExtArgs["result"]["usuarioSistema"]>
+export type UsuarioSistemaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "usuario" | "password" | "nombre" | "email" | "rol" | "esAdmin" | "fechaVto" | "activo" | "idCuadrilla", ExtArgs["result"]["usuarioSistema"]>
+export type UsuarioSistemaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  cuadrilla?: boolean | Prisma.UsuarioSistema$cuadrillaArgs<ExtArgs>
+}
+export type UsuarioSistemaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  cuadrilla?: boolean | Prisma.UsuarioSistema$cuadrillaArgs<ExtArgs>
+}
+export type UsuarioSistemaIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  cuadrilla?: boolean | Prisma.UsuarioSistema$cuadrillaArgs<ExtArgs>
+}
 
 export type $UsuarioSistemaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UsuarioSistema"
-  objects: {}
+  objects: {
+    cuadrilla: Prisma.$CuadrillaPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     usuario: string
@@ -499,6 +711,7 @@ export type $UsuarioSistemaPayload<ExtArgs extends runtime.Types.Extensions.Inte
     esAdmin: boolean
     fechaVto: Date | null
     activo: boolean
+    idCuadrilla: number | null
   }, ExtArgs["result"]["usuarioSistema"]>
   composites: {}
 }
@@ -893,6 +1106,7 @@ readonly fields: UsuarioSistemaFieldRefs;
  */
 export interface Prisma__UsuarioSistemaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  cuadrilla<T extends Prisma.UsuarioSistema$cuadrillaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioSistema$cuadrillaArgs<ExtArgs>>): Prisma.Prisma__CuadrillaClient<runtime.Types.Result.GetResult<Prisma.$CuadrillaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -931,6 +1145,7 @@ export interface UsuarioSistemaFieldRefs {
   readonly esAdmin: Prisma.FieldRef<"UsuarioSistema", 'Boolean'>
   readonly fechaVto: Prisma.FieldRef<"UsuarioSistema", 'DateTime'>
   readonly activo: Prisma.FieldRef<"UsuarioSistema", 'Boolean'>
+  readonly idCuadrilla: Prisma.FieldRef<"UsuarioSistema", 'Int'>
 }
     
 
@@ -947,6 +1162,10 @@ export type UsuarioSistemaFindUniqueArgs<ExtArgs extends runtime.Types.Extension
    * Omit specific fields from the UsuarioSistema
    */
   omit?: Prisma.UsuarioSistemaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsuarioSistemaInclude<ExtArgs> | null
   /**
    * Filter, which UsuarioSistema to fetch.
    */
@@ -966,6 +1185,10 @@ export type UsuarioSistemaFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Ex
    */
   omit?: Prisma.UsuarioSistemaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsuarioSistemaInclude<ExtArgs> | null
+  /**
    * Filter, which UsuarioSistema to fetch.
    */
   where: Prisma.UsuarioSistemaWhereUniqueInput
@@ -983,6 +1206,10 @@ export type UsuarioSistemaFindFirstArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the UsuarioSistema
    */
   omit?: Prisma.UsuarioSistemaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsuarioSistemaInclude<ExtArgs> | null
   /**
    * Filter, which UsuarioSistema to fetch.
    */
@@ -1032,6 +1259,10 @@ export type UsuarioSistemaFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Ext
    */
   omit?: Prisma.UsuarioSistemaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsuarioSistemaInclude<ExtArgs> | null
+  /**
    * Filter, which UsuarioSistema to fetch.
    */
   where?: Prisma.UsuarioSistemaWhereInput
@@ -1079,6 +1310,10 @@ export type UsuarioSistemaFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Omit specific fields from the UsuarioSistema
    */
   omit?: Prisma.UsuarioSistemaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsuarioSistemaInclude<ExtArgs> | null
   /**
    * Filter, which UsuarioSistemas to fetch.
    */
@@ -1128,6 +1363,10 @@ export type UsuarioSistemaCreateArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.UsuarioSistemaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsuarioSistemaInclude<ExtArgs> | null
+  /**
    * The data needed to create a UsuarioSistema.
    */
   data: Prisma.XOR<Prisma.UsuarioSistemaCreateInput, Prisma.UsuarioSistemaUncheckedCreateInput>
@@ -1161,6 +1400,10 @@ export type UsuarioSistemaCreateManyAndReturnArgs<ExtArgs extends runtime.Types.
    */
   data: Prisma.UsuarioSistemaCreateManyInput | Prisma.UsuarioSistemaCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsuarioSistemaIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1175,6 +1418,10 @@ export type UsuarioSistemaUpdateArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the UsuarioSistema
    */
   omit?: Prisma.UsuarioSistemaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsuarioSistemaInclude<ExtArgs> | null
   /**
    * The data needed to update a UsuarioSistema.
    */
@@ -1227,6 +1474,10 @@ export type UsuarioSistemaUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.
    * Limit how many UsuarioSistemas to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsuarioSistemaIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1241,6 +1492,10 @@ export type UsuarioSistemaUpsertArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the UsuarioSistema
    */
   omit?: Prisma.UsuarioSistemaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsuarioSistemaInclude<ExtArgs> | null
   /**
    * The filter to search for the UsuarioSistema to update in case it exists.
    */
@@ -1268,6 +1523,10 @@ export type UsuarioSistemaDeleteArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.UsuarioSistemaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsuarioSistemaInclude<ExtArgs> | null
+  /**
    * Filter which UsuarioSistema to delete.
    */
   where: Prisma.UsuarioSistemaWhereUniqueInput
@@ -1288,6 +1547,25 @@ export type UsuarioSistemaDeleteManyArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
+ * UsuarioSistema.cuadrilla
+ */
+export type UsuarioSistema$cuadrillaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Cuadrilla
+   */
+  select?: Prisma.CuadrillaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Cuadrilla
+   */
+  omit?: Prisma.CuadrillaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CuadrillaInclude<ExtArgs> | null
+  where?: Prisma.CuadrillaWhereInput
+}
+
+/**
  * UsuarioSistema without action
  */
 export type UsuarioSistemaDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1299,4 +1577,8 @@ export type UsuarioSistemaDefaultArgs<ExtArgs extends runtime.Types.Extensions.I
    * Omit specific fields from the UsuarioSistema
    */
   omit?: Prisma.UsuarioSistemaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsuarioSistemaInclude<ExtArgs> | null
 }

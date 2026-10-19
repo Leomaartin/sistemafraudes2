@@ -26,12 +26,14 @@ model Usuario {
   esDepartamento Boolean   @default(false)
   idEstadoDepto  Int?
   paraCorte      Boolean   @default(false)
+  completado     Boolean   @default(false)
 
   rubroComercio  String?
   idRubro        Int?
   nombreComercio String?
 
   cuadrillas    Cuadrilla[]
+  listadoItems  ListadoItem[]
   estado        Estado?    @relation("EstadoUsuario", fields: [idEstado], references: [id])
   estadoDepto   Estado?    @relation("EstadoDepto", fields: [idEstadoDepto], references: [id])
   tarifa        Tarifa?    @relation(fields: [idTarifa], references: [id])
@@ -45,9 +47,11 @@ model Rubro {
 }
 
 model Cuadrilla {
-  id       Int       @id @default(autoincrement())
-  nombre   String
-  usuarios Usuario[]
+  id              Int              @id @default(autoincrement())
+  nombre          String
+  usuarios        Usuario[]
+  usuariosSistema UsuarioSistema[]
+  listados        ListadoCuadrilla[]
 }
 
 model Estado {
@@ -63,15 +67,17 @@ model Tarifa {
   usuarios Usuario[]
 }
 model UsuarioSistema {
-  id       Int       @id @default(autoincrement())
-  usuario  String    @unique
-  password String?
-  nombre   String
-  email    String?   @unique
-  rol      String    @default("operador")
-  esAdmin  Boolean   @default(false)
-  fechaVto DateTime?
-  activo   Boolean   @default(true)
+  id          Int        @id @default(autoincrement())
+  usuario     String     @unique
+  password    String?
+  nombre      String
+  email       String?    @unique
+  rol         String     @default("operador")
+  esAdmin     Boolean    @default(false)
+  fechaVto    DateTime?
+  activo      Boolean    @default(true)
+  idCuadrilla Int?
+  cuadrilla   Cuadrilla? @relation(fields: [idCuadrilla], references: [id])
 }
 model Imagen {
   id        Int      @id @default(autoincrement())
@@ -79,4 +85,33 @@ model Imagen {
   usuarioId Int
   createdAt DateTime @default(now())
   usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+}
+
+model ListadoCuadrilla {
+  id              Int           @id @default(autoincrement())
+  titulo          String
+  descripcion     String?
+  idCuadrilla     Int
+  completado      Boolean       @default(false)
+  fechaCompletado DateTime?
+  terminado       Boolean       @default(false)
+  fechaTerminado  DateTime?
+  cuadrilla       Cuadrilla     @relation(fields: [idCuadrilla], references: [id], onDelete: Cascade)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  items           ListadoItem[]
+}
+
+model ListadoItem {
+  id              Int              @id @default(autoincrement())
+  idListado       Int
+  listado         ListadoCuadrilla @relation(fields: [idListado], references: [id], onDelete: Cascade)
+  idUsuario       Int
+  usuario         Usuario          @relation(fields: [idUsuario], references: [id], onDelete: Cascade)
+  titulo          String?
+  completado      Boolean          @default(false)
+  fechaCompletado DateTime?
+  orden           Int              @default(0)
+
+  @@unique([idListado, idUsuario])
 }

@@ -38,6 +38,8 @@ export async function GET(req: NextRequest) {
 
   console.log("[AUTH] Redirigiendo a Google OAuth:", googleAuthUrl);
 
+  const from = req.nextUrl.searchParams.get("from");
+
   const response = NextResponse.redirect(googleAuthUrl);
 
   // Guardar el state en una cookie temporal para verificar en el callback
@@ -48,6 +50,17 @@ export async function GET(req: NextRequest) {
     path: "/",
     maxAge: 60 * 10, // 10 minutos
   });
+
+  // Guardar la URL de retorno si vino con ?from=
+  if (from && from.startsWith("/")) {
+    response.cookies.set("cez_redirect_to", from, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 10,
+    });
+  }
 
   return response;
 }
