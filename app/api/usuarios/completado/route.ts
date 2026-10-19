@@ -26,7 +26,10 @@ export async function POST(req: NextRequest) {
       const asignado = await prisma.usuario.findFirst({
         where: {
           id,
-          cuadrillas: { some: { id: session.cuadrillaId } },
+          OR: [
+            { cuadrillas: { some: { id: session.cuadrillaId } } },
+            { listadoItems: { some: { listado: { idCuadrilla: session.cuadrillaId } } } },
+          ],
         },
       });
       if (!asignado) {

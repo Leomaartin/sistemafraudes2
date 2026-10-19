@@ -39,6 +39,18 @@ const OPCIONES_MENU: NavOption[] = [
     ),
   },
   {
+    label: "Armar Listado",
+    href: "/armar-listado",
+    description: "Crear recorridos y monitoreo de cuadrillas",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+        <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+        <path d="M9 14l2 2 4-4" />
+      </svg>
+    ),
+  },
+  {
     label: "Estadísticas del Sistema",
     href: "/estadisticas",
     description: "Estados, tarifas y asignación de cuadrillas",
@@ -48,18 +60,6 @@ const OPCIONES_MENU: NavOption[] = [
         <line x1="12" y1="20" x2="12" y2="4" />
         <line x1="6" y1="20" x2="6" y2="14" />
         <line x1="2" y1="20" x2="22" y2="20" />
-      </svg>
-    ),
-  },
-  {
-    label: "Armar Listado",
-    href: "/armar-listado",
-    description: "Crear recorridos y monitoreo en vivo de cuadrillas",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-        <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
-        <path d="M9 14l2 2 4-4" />
       </svg>
     ),
   },
@@ -92,14 +92,18 @@ interface AuthUser {
 export default function SidebarLateral() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState<AuthUser | null>(null);
+  const [loading, setLoading] = useState(true);
   const pathname = usePathname();
 
-  // Ocultar sidebar completamente si está en la página de login
   const isLoginPage = pathname === "/login" || pathname === "/Login";
+  const isFichaPage = pathname.startsWith("/ficha");
 
-  // Cargar información de la sesión
+  // Cargar sesión del usuario autenticado
   useEffect(() => {
-    if (isLoginPage) return;
+    if (isLoginPage) {
+      setLoading(false);
+      return;
+    }
     fetch("/api/auth/me")
       .then((res) => {
         if (res.ok) return res.json();
@@ -110,28 +114,11 @@ export default function SidebarLateral() {
           setUser(data.user);
         }
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => {
+        setLoading(false);
+      });
   }, [isLoginPage]);
-
-  // Si es un operador de cuadrilla (no admin), solo tiene acceso a sus usuarios asignados
-  const isCuadrilla = user?.role === "cuadrilla" && !user?.esAdmin;
-  const menuVisible = isCuadrilla
-    ? [
-        {
-          label: "Mis Asignaciones",
-          href: "/usuarios",
-          description: user.cuadrillaNombre || "Usuarios asignados a mi cuadrilla",
-          icon: (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-              <circle cx="9" cy="7" r="4" />
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
-          ),
-        },
-      ]
-    : OPCIONES_MENU;
 
   // Cerrar el sidebar con la tecla Escape
   useEffect(() => {
@@ -149,7 +136,14 @@ export default function SidebarLateral() {
     setIsOpen(false);
   }, [pathname]);
 
-  if (isLoginPage) {
+  // El menú lateral se oculta COMPLETAMENTE para las cuadrillas, login y fichas técnicas.
+  // Sólo los administradores tienen acceso al menú lateral de todo el sistema.
+  if (loading || isLoginPage || isFichaPage) {
+    return null;
+  }
+
+  const isCuadrilla = user?.role === "cuadrilla" && !user?.esAdmin;
+  if (isCuadrilla || !user) {
     return null;
   }
 
@@ -167,7 +161,7 @@ export default function SidebarLateral() {
 
   return (
     <>
-      {/* Botón flotante de 3 rayas arriba a la izquierda */}
+      {/* Botón flotante de 3 rayas arriba a la izquierda (Solo Administradores) */}
       <button
         type="button"
         id="btn-sidebar-hamburger"
@@ -217,11 +211,11 @@ export default function SidebarLateral() {
           </button>
         </div>
 
-        {/* Lista de navegación de 4 módulos */}
+        {/* Lista de navegación de módulos para el Administrador */}
         <div className="sidebar-body">
           <div className="sidebar-section-title">Módulos del Sistema</div>
           <ul className="sidebar-nav-list">
-            {menuVisible.map((item) => {
+            {OPCIONES_MENU.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <li key={item.href}>
@@ -264,17 +258,15 @@ export default function SidebarLateral() {
               )}
             </div>
             <div className="sidebar-user-details">
-              <span className="sidebar-user-name" title={user?.name || "Usuario"}>
-                {user?.name || (isCuadrilla ? "Cuadrilla" : "Administrador")}
+              <span className="sidebar-user-name" title={user?.name || "Administrador"}>
+                {user?.name || "Administración"}
               </span>
               <span className="sidebar-user-email" title={user?.email || ""}>
-                {isCuadrilla && user?.cuadrillaNombre
-                  ? user.cuadrillaNombre
-                  : user?.email || "En línea"}
+                {user?.email || "En línea"}
               </span>
             </div>
           </div>
-          
+
           <button
             type="button"
             onClick={handleLogout}

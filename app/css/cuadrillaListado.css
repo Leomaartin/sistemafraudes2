@@ -462,44 +462,102 @@
   transform: scale(0.98);
 }
 
-/* Adaptación móvil y tablet */
+/* Botón GPS Navegación */
+.cuadrilla-btn-gps {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  color: #ffffff !important;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 14.5px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.cuadrilla-btn-gps:hover {
+  background: linear-gradient(135deg, #0369a1, #075985);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.4);
+}
+
+.cuadrilla-btn-gps:active {
+  transform: scale(0.98);
+}
+
+/* Adaptación móvil y tablet - PRIORIZADO PARA CELULAR */
 @media (max-width: 768px) {
   .cuadrilla-view-container {
-    padding: 16px 12px 50px 12px;
+    padding: 12px 8px 45px 8px;
   }
 
   .cuadrilla-main-card {
-    padding: 20px 16px;
+    padding: 16px 12px;
     border-radius: 14px;
+  }
+
+  .cuadrilla-header-bar {
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    gap: 10px;
+  }
+
+  .cuadrilla-title-block h1 {
+    font-size: 20px;
+  }
+
+  .cuadrilla-subtitle {
+    font-size: 13px;
   }
 
   .cuadrilla-list-item {
     flex-direction: column;
     align-items: stretch;
-    gap: 14px;
-    padding: 16px;
+    gap: 12px;
+    padding: 14px 12px;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   }
 
   .cuadrilla-item-info {
     flex-direction: column;
     align-items: flex-start;
     gap: 6px;
+    width: 100%;
   }
 
   .cuadrilla-item-nombre {
     font-size: 17px;
+    line-height: 1.3;
   }
 
+  /* Acciones en celular: 2 botones (GPS + Ficha) arriba, y botón de Completar grande abajo */
   .cuadrilla-item-actions {
-    flex-direction: column-reverse;
-    width: 100%;
-    gap: 8px;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    width: 100% !important;
+    margin-top: 4px;
   }
 
-  .cuadrilla-btn-completar,
+  .cuadrilla-btn-completar {
+    grid-column: span 2 !important;
+    width: 100% !important;
+    min-height: 50px !important;
+    font-size: 15.5px !important;
+    font-weight: 800 !important;
+  }
+
+  .cuadrilla-btn-gps,
   .cuadrilla-btn-abrir-ficha {
-    width: 100%;
-    min-height: 48px;
-    font-size: 15px;
+    width: 100% !important;
+    min-height: 48px !important;
+    font-size: 14px !important;
+    padding: 10px 12px !important;
   }
 }

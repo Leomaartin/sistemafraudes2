@@ -40,6 +40,12 @@ export default async function FichaUsuarioPage({ params }: PageProps) {
     where: { OR: whereOr },
     include: {
       cuadrillas: true,
+      listadoItems: {
+        include: {
+          listado: true,
+        },
+        orderBy: { id: "desc" },
+      },
       estado: true,
       estadoDepto: true,
       tarifa: true,
@@ -75,11 +81,18 @@ export default async function FichaUsuarioPage({ params }: PageProps) {
   }
 
   // 2. Control de acceso por Cuadrilla:
-  // Si no es administrador y pertenece a una cuadrilla, verificar que el usuario esté asignado a dicha cuadrilla
+  // Permitir acceso si es administrador, si está en usuario.cuadrillas O si fue incluido en cualquier listado de su cuadrilla
   const esAdmin = !!session.esAdmin || session.role === "administrador";
+  let itemAsignadoCuadrilla: any = null;
+
   if (!esAdmin && session.role === "cuadrilla") {
-    const estaAsignado = usuario.cuadrillas.some((c) => c.id === session.cuadrillaId);
-    if (!estaAsignado) {
+    const estaEnCuadrilla = usuario.cuadrillas.some((c) => c.id === session.cuadrillaId);
+    itemAsignadoCuadrilla = usuario.listadoItems?.find(
+      (item) => item.listado?.idCuadrilla === session.cuadrillaId
+    );
+    const estaEnListado = !!itemAsignadoCuadrilla;
+
+    if (!estaEnCuadrilla && !estaEnListado) {
       return (
         <div style={{ minHeight: "100vh", background: "radial-gradient(circle at 50% 0%, #34966a 0%, #3eb187 60%, #3caf85 100%)", color: "#0f172a", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px", fontFamily: "'Plus Jakarta Sans', 'Outfit', system-ui, sans-serif" }}>
           <div style={{ maxWidth: "460px", width: "100%", background: "#ffffff", padding: "36px 28px", borderRadius: "18px", textAlign: "center", border: "1px solid rgba(226, 232, 240, 0.9)", boxShadow: "0 10px 35px rgba(0,0,0,0.22)" }}>
@@ -96,7 +109,7 @@ export default async function FichaUsuarioPage({ params }: PageProps) {
               Usuario no asignado a tu cuadrilla
             </h1>
             <p style={{ color: "#64748b", fontSize: "14px", lineHeight: "1.5", margin: "0 0 16px 0" }}>
-              El suministro <strong>#{usuario.nroUsuario}</strong> ({usuario.nombre || "Sin nombre"}) no forma parte de la hoja de ruta de tu cuadrilla.
+              El suministro <strong>#{usuario.nroUsuario}</strong> ({usuario.nombre || "Sin nombre"}) no forma parte de la hoja de ruta de tu cuadrilla ni ha sido asignado en ningún listado activo.
             </p>
             <div style={{ background: "#f8fafc", padding: "12px 14px", borderRadius: "12px", textAlign: "left", fontSize: "13px", color: "#334155", marginBottom: "20px", border: "1.5px solid #e2e8f0" }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
@@ -113,7 +126,7 @@ export default async function FichaUsuarioPage({ params }: PageProps) {
                 href="/usuarios"
                 style={{ display: "block", background: "linear-gradient(135deg, #1e293b, #0f172a)", color: "#ffffff", padding: "13px 20px", borderRadius: "12px", textDecoration: "none", fontWeight: 800, fontSize: "14px", boxShadow: "0 4px 14px rgba(15,23,42,0.25)" }}
               >
-                Ver mis usuarios asignados
+                Ver mis usuarios y listados
               </a>
               <a
                 href="/api/auth/logout"
@@ -126,6 +139,8 @@ export default async function FichaUsuarioPage({ params }: PageProps) {
         </div>
       );
     }
+  } else {
+    itemAsignadoCuadrilla = usuario.listadoItems?.[0] || null;
   }
 
   const configEstado = obtenerConfigEstadoPorUsuario(usuario.estado);
@@ -154,6 +169,11 @@ export default async function FichaUsuarioPage({ params }: PageProps) {
     tarifa: usuario.tarifa ? { id: usuario.tarifa.id, nombre: usuario.tarifa.nombre } : null,
     esDepartamento: usuario.esDepartamento,
     fechaVtoFormatted: vtoInfo ? vtoInfo.fechaFormateada : undefined,
+    tituloTarea: itemAsignadoCuadrilla?.titulo || null,
+    listadoTitulo: itemAsignadoCuadrilla?.listado?.titulo || null,
+    completado: itemAsignadoCuadrilla ? itemAsignadoCuadrilla.completado : usuario.completado,
+    idListadoItem: itemAsignadoCuadrilla?.id || null,
+    idListado: itemAsignadoCuadrilla?.idListado || null,
   };
 
   return (

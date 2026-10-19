@@ -11,6 +11,10 @@ export interface UsuarioItem {
   domicilio?: string | null;
   medidor?: string | null;
   ruta?: string | null;
+  latitud?: number | null;
+  longitud?: number | null;
+  maps?: string | null;
+  paraCorte?: boolean;
   completado?: boolean;
 }
 
@@ -56,6 +60,24 @@ interface VistaCuadrillaProps {
   usuarios: UsuarioItem[];
   cargando: boolean;
   onRefresh: () => void;
+}
+
+function getTituloBadgeStyle(titulo?: string | null) {
+  if (!titulo) return null;
+  const t = titulo.toLowerCase();
+  if (t.includes("corte")) {
+    return { bg: "#fee2e2", color: "#991b1b", border: "#fca5a5", icon: "✂️" };
+  }
+  if (t.includes("recon") || t.includes("rehab")) {
+    return { bg: "#e0f2fe", color: "#0369a1", border: "#7dd3fc", icon: "⚡" };
+  }
+  if (t.includes("retir")) {
+    return { bg: "#ffedd5", color: "#c2410c", border: "#fdba74", icon: "📦" };
+  }
+  if (t.includes("inspec") || t.includes("verif")) {
+    return { bg: "#dcfce7", color: "#166534", border: "#86efac", icon: "🔍" };
+  }
+  return { bg: "#f1f5f9", color: "#334155", border: "#cbd5e1", icon: "📋" };
 }
 
 export default function VistaCuadrilla({
@@ -628,6 +650,14 @@ export default function VistaCuadrilla({
                   ? completadosMap[u.id]
                   : !!u.completado;
               const fichaUrl = `/ficha/${encodeURIComponent(u.nroUsuario || String(u.id))}`;
+              const badgeStyle = getTituloBadgeStyle((u as any).tituloIndividual);
+              const navUrl = (u.latitud && u.longitud)
+                ? `https://www.google.com/maps?q=${u.latitud},${u.longitud}`
+                : u.maps && u.maps.startsWith("http")
+                ? u.maps
+                : u.domicilio
+                ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${u.domicilio}, Zarate, Buenos Aires`)}`
+                : null;
 
               return (
                 <div
@@ -635,35 +665,91 @@ export default function VistaCuadrilla({
                   className={`cuadrilla-list-item ${isCompletado ? "is-completado" : ""}`}
                 >
                   <div className="cuadrilla-item-info">
-                    <span className="cuadrilla-item-nro">
-                      Usuario #{u.nroUsuario || u.id}
-                    </span>
-                    {(u as any).tituloIndividual && (
-                      <span className="cuadrilla-badge-titulo-individual" title="Tarea o título asignado a este usuario">
-                        📋 {(u as any).tituloIndividual}
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap", width: "100%" }}>
+                      <span className="cuadrilla-item-nro">
+                        Usuario #{u.nroUsuario || u.id}
                       </span>
-                    )}
+                      {(u as any).tituloIndividual && badgeStyle && (
+                        <span
+                          className="cuadrilla-badge-titulo-individual"
+                          style={{
+                            background: badgeStyle.bg,
+                            color: badgeStyle.color,
+                            border: `1.5px solid ${badgeStyle.border}`,
+                            fontWeight: 800,
+                            padding: "4px 10px",
+                            borderRadius: "8px",
+                            fontSize: "12.5px",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "5px",
+                          }}
+                          title="Tarea asignada a este usuario"
+                        >
+                          <span>{badgeStyle.icon}</span>
+                          <span>{(u as any).tituloIndividual}</span>
+                        </span>
+                      )}
+                      {u.ruta && (
+                        <span style={{ fontSize: "11.5px", color: "#0369a1", background: "#e0f2fe", padding: "3px 8px", borderRadius: "6px", fontWeight: 800 }}>
+                          Ruta {u.ruta}
+                        </span>
+                      )}
+                      {isCompletado && (
+                        <span className="cuadrilla-badge-completado">
+                          ✓ Completado
+                        </span>
+                      )}
+                    </div>
+
                     <h2 className="cuadrilla-item-nombre">
                       {u.nombre || "Sin Nombre de Titular"}
                     </h2>
+
                     {u.domicilio && (
-                      <span style={{ fontSize: "13.5px", color: "#64748b", fontWeight: 600 }}>
-                        {u.domicilio}
+                      <span style={{ fontSize: "14px", color: "#475569", fontWeight: 600, display: "flex", alignItems: "center", gap: "5px" }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                          <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        <span>{u.domicilio}</span>
                       </span>
                     )}
-                    {u.ruta && (
-                      <span style={{ fontSize: "12px", color: "#0369a1", background: "#e0f2fe", padding: "2px 6px", borderRadius: "4px", fontWeight: 700 }}>
-                        Ruta {u.ruta}
-                      </span>
-                    )}
-                    {isCompletado && (
-                      <span className="cuadrilla-badge-completado">
-                        Completado
+
+                    {u.medidor && (
+                      <span style={{ fontSize: "12px", color: "#64748b", fontWeight: 600 }}>
+                        Medidor: <strong style={{ color: "#334155" }}>{u.medidor}</strong>
                       </span>
                     )}
                   </div>
 
                   <div className="cuadrilla-item-actions">
+                    {/* Botón Ver punto en Maps */}
+                    {navUrl && (
+                      <a
+                        href={navUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="cuadrilla-btn-gps"
+                        title="Ver punto en Google Maps"
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                          <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        <span>Ver punto en Maps</span>
+                      </a>
+                    )}
+
+                    {/* Botón Abrir Ficha */}
+                    <Link href={fichaUrl} className="cuadrilla-btn-abrir-ficha">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                        <circle cx="12" cy="13" r="4" />
+                      </svg>
+                      <span>Ver Ficha</span>
+                    </Link>
+
                     {/* Botón de Completado */}
                     <button
                       type="button"
@@ -678,12 +764,12 @@ export default function VistaCuadrilla({
                       }
                     >
                       <svg
-                        width="16"
-                        height="16"
+                        width="18"
+                        height="18"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
-                        strokeWidth="2.5"
+                        strokeWidth="2.8"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       >
@@ -693,26 +779,8 @@ export default function VistaCuadrilla({
                           <circle cx="12" cy="12" r="9" />
                         )}
                       </svg>
-                      <span>{isCompletado ? "Completado" : "Completar"}</span>
+                      <span>{isCompletado ? "✓ Realizado" : "Marcar Realizado"}</span>
                     </button>
-
-                    {/* Botón Abrir Ficha */}
-                    <Link href={fichaUrl} className="cuadrilla-btn-abrir-ficha">
-                      <span>Abrir Ficha</span>
-                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                        <polyline points="12 5 19 12 12 19" />
-                      </svg>
-                    </Link>
                   </div>
                 </div>
               );

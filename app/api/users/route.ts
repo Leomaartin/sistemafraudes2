@@ -53,6 +53,11 @@ export async function GET(req: NextRequest) {
             where: { id: Number(req.nextUrl.searchParams.get("id")) },
             include: {
                 cuadrillas: true,
+                listadoItems: {
+                    include: {
+                        listado: true,
+                    },
+                },
                 estado: true,
                 estadoDepto: true,
                 tarifa: true,
@@ -64,10 +69,13 @@ export async function GET(req: NextRequest) {
             return NextResponse.json(null);
         }
 
-        // Restricción para cuadrillas: sólo pueden ver usuarios asignados a su cuadrilla
+        // Restricción para cuadrillas: permitir si está asignado a su cuadrilla o en algún listado de su cuadrilla
         const isCuadrilla = session?.role === "cuadrilla" && !session?.esAdmin;
         if (isCuadrilla) {
-            const estaAsignado = usuario.cuadrillas.some((c) => c.id === session.cuadrillaId);
+            const estaAsignado =
+                usuario.cuadrillas.some((c) => c.id === session.cuadrillaId) ||
+                usuario.listadoItems?.some((item) => item.listado?.idCuadrilla === session.cuadrillaId);
+
             if (!estaAsignado) {
                 return NextResponse.json(
                     { error: "Acceso denegado. Este usuario no está asignado a tu cuadrilla." },

@@ -12,16 +12,18 @@ export async function GET(req: NextRequest) {
 
     const where: any = {};
 
-    // Si el usuario es de cuadrilla, filtrar EXCLUSIVAMENTE los usuarios que tiene asignados
+    // Si el usuario es de cuadrilla, filtrar usuarios que tiene asignados o en sus listados
     const isCuadrilla = session?.role === "cuadrilla" && !session?.esAdmin;
+    let cuadrillaFilter: any = null;
     if (isCuadrilla) {
       if (!session.cuadrillaId) {
         return NextResponse.json([]);
       }
-      where.cuadrillas = {
-        some: {
-          id: session.cuadrillaId,
-        },
+      cuadrillaFilter = {
+        OR: [
+          { cuadrillas: { some: { id: session.cuadrillaId } } },
+          { listadoItems: { some: { listado: { idCuadrilla: session.cuadrillaId } } } },
+        ],
       };
     }
 
@@ -35,12 +37,21 @@ export async function GET(req: NextRequest) {
 
     if (search && search.trim().length > 0) {
       const term = search.trim();
-      where.OR = [
-        { nroUsuario: { contains: term, mode: "insensitive" } },
-        { nombre: { contains: term, mode: "insensitive" } },
-        { domicilio: { contains: term, mode: "insensitive" } },
-        { medidor: { contains: term, mode: "insensitive" } },
-      ];
+      const searchFilter = {
+        OR: [
+          { nroUsuario: { contains: term, mode: "insensitive" } },
+          { nombre: { contains: term, mode: "insensitive" } },
+          { domicilio: { contains: term, mode: "insensitive" } },
+          { medidor: { contains: term, mode: "insensitive" } },
+        ],
+      };
+      if (cuadrillaFilter) {
+        where.AND = [cuadrillaFilter, searchFilter];
+      } else {
+        where.OR = searchFilter.OR;
+      }
+    } else if (cuadrillaFilter) {
+      where.OR = cuadrillaFilter.OR;
     }
 
     if (soloGeo) {

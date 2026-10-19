@@ -28,6 +28,11 @@ interface FichaClienteProps {
     tarifa?: { id: number; nombre: string } | null;
     esDepartamento?: boolean;
     fechaVtoFormatted?: string;
+    tituloTarea?: string | null;
+    listadoTitulo?: string | null;
+    completado?: boolean;
+    idListadoItem?: number | null;
+    idListado?: number | null;
   };
   configEstado: {
     key: string;
@@ -45,24 +50,32 @@ export default function FichaCliente({
   configEstado,
   imagenes,
 }: FichaClienteProps) {
-  const [selectedImage, setSelectedImage] = useState<ImagenItem | null>(null);
+  const [fotoIndex, setFotoIndex] = useState(0);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [copiado, setCopiado] = useState(false);
+  const [completado, setCompletado] = useState(!!usuario.completado);
+  const [guardandoCompletado, setGuardandoCompletado] = useState(false);
 
   const lat = usuario.latitud;
   const lon = usuario.longitud;
   const tieneCoords = lat !== null && lon !== null;
 
-  // URLs de Google Maps
-  const urlNavegacionGmaps = tieneCoords
-    ? `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`
-    : "";
+  // URL para ver punto en Google Maps (con coordenadas o búsqueda por dirección en Zárate)
   const urlPuntoGmaps = tieneCoords
     ? `https://www.google.com/maps?q=${lat},${lon}`
+    : usuario.domicilio
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${usuario.domicilio}, Zarate, Buenos Aires`)}`
     : "";
 
-  // Mensaje para compartir por WhatsApp
-  const shareText = `Inspección CEZ Zárate\nTitular: ${usuario.nombre}\nUsuario: #${usuario.nroUsuario}\nDomicilio: ${usuario.domicilio || "—"}\nMedidor: ${usuario.medidor || "—"}\nEstado: ${usuario.estado?.nombre || "—"}\n${tieneCoords ? `Navegación Google Maps: ${urlNavegacionGmaps}` : ""}`;
-  const urlWhatsApp = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+  const handlePrevFoto = () => {
+    if (imagenes.length <= 1) return;
+    setFotoIndex((prev) => (prev > 0 ? prev - 1 : imagenes.length - 1));
+  };
+
+  const handleNextFoto = () => {
+    if (imagenes.length <= 1) return;
+    setFotoIndex((prev) => (prev < imagenes.length - 1 ? prev + 1 : 0));
+  };
 
   const handleCopiarEnlace = async () => {
     try {
@@ -73,6 +86,37 @@ export default function FichaCliente({
       }
     } catch {
       // fallback
+    }
+  };
+
+  const handleToggleCompletado = async () => {
+    const nuevoEstado = !completado;
+    setCompletado(nuevoEstado);
+    setGuardandoCompletado(true);
+
+    try {
+      if (usuario.idListadoItem) {
+        await fetch("/api/listados/item", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            itemId: usuario.idListadoItem,
+            completado: nuevoEstado,
+          }),
+        });
+      }
+      await fetch("/api/usuarios/completado", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: usuario.id,
+          completado: nuevoEstado,
+        }),
+      });
+    } catch (e) {
+      console.error("Error al guardar estado de completado:", e);
+    } finally {
+      setGuardandoCompletado(false);
     }
   };
 
@@ -169,17 +213,74 @@ export default function FichaCliente({
           </button>
         </div>
 
+        {/* Banner de Tarea Asignada (si viene de un listado de cuadrilla) */}
+        {usuario.tituloTarea && (
+          <div
+            className="ficha-task-banner"
+            style={{
+              background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
+              color: "#ffffff",
+              padding: "16px 20px",
+              borderRadius: "16px",
+              marginBottom: "20px",
+              boxShadow: "0 8px 24px rgba(15, 23, 42, 0.25)",
+              border: "1.5px solid rgba(255, 255, 255, 0.12)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              gap: "12px",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+              <span style={{ fontSize: "24px" }}>📋</span>
+              <div>
+                <div style={{ fontSize: "11.5px", textTransform: "uppercase", letterSpacing: "0.8px", color: "#94a3b8", fontWeight: 800 }}>
+                  {usuario.listadoTitulo ? `Listado: ${usuario.listadoTitulo}` : "Tarea Asignada a Cuadrilla"}
+                </div>
+                <div style={{ fontSize: "18.5px", fontWeight: 900, color: "#38bdf8", letterSpacing: "0.3px" }}>
+                  {usuario.tituloTarea}
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              disabled={guardandoCompletado}
+              onClick={handleToggleCompletado}
+              style={{
+                background: completado ? "#16a34a" : "#ffffff",
+                color: completado ? "#ffffff" : "#0f172a",
+                border: completado ? "none" : "2px solid #cbd5e1",
+                padding: "11px 20px",
+                borderRadius: "12px",
+                fontWeight: 800,
+                fontSize: "14px",
+                cursor: guardandoCompletado ? "wait" : "pointer",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                boxShadow: completado ? "0 4px 14px rgba(22, 163, 74, 0.4)" : "none",
+                minHeight: "44px",
+              }}
+            >
+              <span>{completado ? "✓ TAREA REALIZADA" : "Marcar como Realizada"}</span>
+            </button>
+          </div>
+        )}
+
         {/* Layout en 2 columnas amplias */}
         <div
+          className="ficha-grid-layout"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(420px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
             gap: "24px",
             alignItems: "start",
           }}
         >
           {/* COLUMNA 1: Datos Principales del Usuario y Acciones */}
           <div
+            className="ficha-card-block"
             style={{
               background: "#ffffff",
               borderRadius: "18px",
@@ -317,9 +418,41 @@ export default function FichaCliente({
 
             {/* BOTONES DE ACCIÓN */}
             <div style={{ display: "grid", gap: "12px" }}>
-              {tieneCoords ? (
+              {/* Botón de Marcar como Realizado en la Ficha */}
+              <button
+                type="button"
+                disabled={guardandoCompletado}
+                onClick={handleToggleCompletado}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "10px",
+                  background: completado
+                    ? "linear-gradient(135deg, #15803d, #16a34a)"
+                    : "#ffffff",
+                  color: completado ? "#ffffff" : "#166534",
+                  border: completado ? "none" : "2px solid #86efac",
+                  padding: "16px 20px",
+                  borderRadius: "14px",
+                  fontWeight: "800",
+                  fontSize: "16px",
+                  cursor: guardandoCompletado ? "wait" : "pointer",
+                  boxShadow: completado ? "0 6px 18px rgba(22, 163, 74, 0.35)" : "none",
+                  transition: "all 0.15s ease",
+                  minHeight: "52px",
+                }}
+              >
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+                  {completado ? <path d="M20 6 9 17l-5-5" /> : <circle cx="12" cy="12" r="9" />}
+                </svg>
+                <span>{completado ? "✓ USUARIO / TAREA COMPLETADA" : "Marcar Usuario como Realizado"}</span>
+              </button>
+
+              {/* Botón Ver punto en Maps */}
+              {urlPuntoGmaps ? (
                 <a
-                  href={urlNavegacionGmaps}
+                  href={urlPuntoGmaps}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -327,22 +460,24 @@ export default function FichaCliente({
                     alignItems: "center",
                     justifyContent: "center",
                     gap: "10px",
-                    background: "linear-gradient(135deg, #1e293b, #0f172a)",
+                    background: "linear-gradient(135deg, #0284c7, #0369a1)",
                     color: "#ffffff",
                     padding: "16px 20px",
                     borderRadius: "14px",
                     fontWeight: "800",
                     fontSize: "15.5px",
                     textDecoration: "none",
-                    boxShadow: "0 6px 18px rgba(15, 23, 42, 0.25)",
+                    boxShadow: "0 6px 18px rgba(2, 132, 199, 0.25)",
                     transition: "all 0.15s ease",
                     textAlign: "center",
+                    minHeight: "52px",
                   }}
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <polygon points="3 11 22 2 13 21 11 13 3 11" />
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
                   </svg>
-                  <span>Iniciar Navegación en Google Maps</span>
+                  <span>Ver punto en Maps</span>
                 </a>
               ) : (
                 <div
@@ -357,69 +492,15 @@ export default function FichaCliente({
                     fontWeight: 700,
                   }}
                 >
-                  Este suministro no cuenta con coordenadas GPS cargadas.
+                  Este suministro no cuenta con dirección ni coordenadas GPS cargadas.
                 </div>
               )}
-
-              <div style={{ display: "grid", gridTemplateColumns: tieneCoords ? "1fr 1fr" : "1fr", gap: "10px" }}>
-                {tieneCoords && (
-                  <a
-                    href={urlPuntoGmaps}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      gap: "8px",
-                      background: "#f1f5f9",
-                      color: "#0f172a",
-                      padding: "12px 14px",
-                      borderRadius: "12px",
-                      fontWeight: "700",
-                      fontSize: "13.5px",
-                      textDecoration: "none",
-                      border: "1.5px solid #cbd5e1",
-                    }}
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                      <circle cx="12" cy="10" r="3" />
-                    </svg>
-                    <span>Ver punto Maps</span>
-                  </a>
-                )}
-
-                <a
-                  href={urlWhatsApp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "8px",
-                    background: "#15803d",
-                    color: "#ffffff",
-                    padding: "12px 14px",
-                    borderRadius: "12px",
-                    fontWeight: "700",
-                    fontSize: "13.5px",
-                    textDecoration: "none",
-                    boxShadow: "0 4px 12px rgba(21, 128, 61, 0.25)",
-                  }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-                  </svg>
-                  <span>Compartir WhatsApp</span>
-                </a>
-              </div>
             </div>
           </div>
 
-          {/* COLUMNA 2: Galería de Fotos de Inspección */}
+          {/* COLUMNA 2: Galería de Fotos con Botones Laterales en la Plantilla */}
           <div
+            className="ficha-card-block"
             style={{
               background: "#ffffff",
               borderRadius: "18px",
@@ -428,7 +509,7 @@ export default function FichaCliente({
               boxShadow: "0 10px 35px rgba(0, 0, 0, 0.22)",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "18px" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#107c41" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
@@ -472,56 +553,220 @@ export default function FichaCliente({
                 </div>
               </div>
             ) : (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))", gap: "12px" }}>
-                {imagenes.map((img, idx) => {
-                  return (
-                    <div
-                      key={img.id || idx}
-                      onClick={() => setSelectedImage(img)}
+              <div>
+                {/* VISOR PRINCIPAL CON BOTONES LATERALES */}
+                <div
+                  style={{
+                    position: "relative",
+                    width: "100%",
+                    height: "380px",
+                    borderRadius: "14px",
+                    overflow: "hidden",
+                    backgroundColor: "#0f172a",
+                    border: "1.5px solid #cbd5e1",
+                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.12)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {/* Foto actual */}
+                  {imagenes[fotoIndex] && (
+                    <Image
+                      src={imagenes[fotoIndex].url}
+                      alt={`Foto inspección ${fotoIndex + 1}`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 600px"
+                      style={{ objectFit: "contain", cursor: "pointer" }}
+                      onClick={() => setSelectedImageIndex(fotoIndex)}
+                      priority
+                    />
+                  )}
+
+                  {/* Botón Lateral Izquierdo (<) */}
+                  {imagenes.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={handlePrevFoto}
+                      aria-label="Foto anterior"
+                      title="Foto anterior"
                       style={{
-                        position: "relative",
-                        aspectRatio: "1",
-                        borderRadius: "12px",
-                        overflow: "hidden",
-                        border: "1.5px solid #e2e8f0",
+                        position: "absolute",
+                        left: "12px",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        background: "rgba(15, 23, 42, 0.8)",
+                        color: "#ffffff",
+                        border: "1.5px solid rgba(255, 255, 255, 0.35)",
+                        width: "48px",
+                        height: "48px",
+                        borderRadius: "50%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
                         cursor: "pointer",
-                        backgroundColor: "#f1f5f9",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
-                        transition: "transform 0.15s ease",
+                        backdropFilter: "blur(6px)",
+                        boxShadow: "0 4px 14px rgba(0, 0, 0, 0.4)",
+                        transition: "all 0.15s ease",
+                        zIndex: 10,
                       }}
                     >
-                      <Image
-                        src={img.url}
-                        alt={`Foto ${idx + 1}`}
-                        fill
-                        sizes="(max-width: 600px) 45vw, 200px"
-                        style={{ objectFit: "cover" }}
-                      />
-                      <div
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="15 18 9 12 15 6" />
+                      </svg>
+                    </button>
+                  )}
+
+                  {/* Botón Lateral Derecho (>) */}
+                  {imagenes.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={handleNextFoto}
+                      aria-label="Foto siguiente"
+                      title="Foto siguiente"
+                      style={{
+                        position: "absolute",
+                        right: "12px",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        background: "rgba(15, 23, 42, 0.8)",
+                        color: "#ffffff",
+                        border: "1.5px solid rgba(255, 255, 255, 0.35)",
+                        width: "48px",
+                        height: "48px",
+                        borderRadius: "50%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer",
+                        backdropFilter: "blur(6px)",
+                        boxShadow: "0 4px 14px rgba(0, 0, 0, 0.4)",
+                        transition: "all 0.15s ease",
+                        zIndex: 10,
+                      }}
+                    >
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="9 18 15 12 9 6" />
+                      </svg>
+                    </button>
+                  )}
+
+                  {/* Contador de foto */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "12px",
+                      left: "12px",
+                      background: "rgba(0, 0, 0, 0.72)",
+                      color: "#ffffff",
+                      padding: "5px 12px",
+                      borderRadius: "20px",
+                      fontSize: "12.5px",
+                      fontWeight: 800,
+                      backdropFilter: "blur(4px)",
+                      border: "1px solid rgba(255, 255, 255, 0.2)",
+                      zIndex: 10,
+                    }}
+                  >
+                    Foto {fotoIndex + 1} de {imagenes.length}
+                  </div>
+
+                  {/* Fecha de la foto */}
+                  {imagenes[fotoIndex]?.createdAt && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        bottom: "12px",
+                        left: "12px",
+                        background: "rgba(0, 0, 0, 0.72)",
+                        color: "#e2e8f0",
+                        padding: "5px 10px",
+                        borderRadius: "8px",
+                        fontSize: "11.5px",
+                        fontWeight: 600,
+                        backdropFilter: "blur(4px)",
+                        zIndex: 10,
+                      }}
+                    >
+                      {formatFechaImagen(imagenes[fotoIndex])}
+                    </div>
+                  )}
+
+                  {/* Botón Ampliar Pantalla Completa */}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedImageIndex(fotoIndex)}
+                    style={{
+                      position: "absolute",
+                      bottom: "12px",
+                      right: "12px",
+                      background: "rgba(0, 0, 0, 0.75)",
+                      color: "#ffffff",
+                      border: "1px solid rgba(255, 255, 255, 0.25)",
+                      padding: "7px 14px",
+                      borderRadius: "8px",
+                      fontSize: "12.5px",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      backdropFilter: "blur(4px)",
+                      zIndex: 10,
+                    }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <polyline points="15 3 21 3 21 9" />
+                      <polyline points="9 21 3 21 3 15" />
+                      <line x1="21" y1="3" x2="14" y2="10" />
+                      <line x1="3" y1="21" x2="10" y2="14" />
+                    </svg>
+                    <span>Ampliar</span>
+                  </button>
+                </div>
+
+                {/* Tira inferior de miniaturas */}
+                {imagenes.length > 1 && (
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "8px",
+                      overflowX: "auto",
+                      paddingTop: "12px",
+                      paddingBottom: "4px",
+                    }}
+                  >
+                    {imagenes.map((img, idx) => (
+                      <button
+                        key={img.id || idx}
+                        type="button"
+                        onClick={() => setFotoIndex(idx)}
                         style={{
-                          position: "absolute",
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          padding: "6px 8px",
-                          background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)",
-                          color: "#ffffff",
-                          fontSize: "11px",
-                          fontWeight: 700,
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
+                          position: "relative",
+                          width: "64px",
+                          height: "64px",
+                          flexShrink: 0,
+                          borderRadius: "10px",
+                          overflow: "hidden",
+                          border: idx === fotoIndex ? "3px solid #107c41" : "1.5px solid #cbd5e1",
+                          padding: 0,
+                          cursor: "pointer",
+                          background: "#0f172a",
+                          opacity: idx === fotoIndex ? 1 : 0.6,
+                          transition: "all 0.15s ease",
                         }}
                       >
-                        <span>Foto {idx + 1}</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                          <circle cx="11" cy="11" r="8" />
-                          <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                        </svg>
-                      </div>
-                    </div>
-                  );
-                })}
+                        <Image
+                          src={img.url}
+                          alt={`Miniatura ${idx + 1}`}
+                          fill
+                          sizes="64px"
+                          style={{ objectFit: "cover" }}
+                        />
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -529,10 +774,10 @@ export default function FichaCliente({
 
       </div>
 
-      {/* MODAL LIGHTBOX PANTALLA COMPLETA */}
-      {selectedImage && (
+      {/* MODAL LIGHTBOX PANTALLA COMPLETA CON BOTONES LATERALES */}
+      {selectedImageIndex !== null && imagenes[selectedImageIndex] && (
         <div
-          onClick={() => setSelectedImage(null)}
+          onClick={() => setSelectedImageIndex(null)}
           style={{
             position: "fixed",
             top: 0,
@@ -552,7 +797,7 @@ export default function FichaCliente({
           {/* Botón cerrar */}
           <button
             type="button"
-            onClick={() => setSelectedImage(null)}
+            onClick={() => setSelectedImageIndex(null)}
             style={{
               position: "absolute",
               top: "20px",
@@ -561,9 +806,9 @@ export default function FichaCliente({
               color: "#ffffff",
               border: "none",
               borderRadius: "50%",
-              width: "44px",
-              height: "44px",
-              fontSize: "20px",
+              width: "48px",
+              height: "48px",
+              fontSize: "22px",
               fontWeight: 800,
               cursor: "pointer",
               display: "flex",
@@ -575,13 +820,87 @@ export default function FichaCliente({
             ✕
           </button>
 
+          {/* Flecha Lateral Izquierda Fullscreen */}
+          {imagenes.length > 1 && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedImageIndex((prev) =>
+                  prev !== null ? (prev > 0 ? prev - 1 : imagenes.length - 1) : 0
+                );
+              }}
+              aria-label="Foto anterior"
+              style={{
+                position: "absolute",
+                left: "16px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                background: "rgba(255, 255, 255, 0.25)",
+                color: "#ffffff",
+                border: "none",
+                borderRadius: "50%",
+                width: "52px",
+                height: "52px",
+                fontSize: "24px",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                zIndex: 100000,
+                backdropFilter: "blur(6px)",
+              }}
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+          )}
+
+          {/* Flecha Lateral Derecha Fullscreen */}
+          {imagenes.length > 1 && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedImageIndex((prev) =>
+                  prev !== null ? (prev < imagenes.length - 1 ? prev + 1 : 0) : 0
+                );
+              }}
+              aria-label="Foto siguiente"
+              style={{
+                position: "absolute",
+                right: "16px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                background: "rgba(255, 255, 255, 0.25)",
+                color: "#ffffff",
+                border: "none",
+                borderRadius: "50%",
+                width: "52px",
+                height: "52px",
+                fontSize: "24px",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                zIndex: 100000,
+                backdropFilter: "blur(6px)",
+              }}
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          )}
+
           {/* Imagen en grande */}
           <div
             onClick={(e) => e.stopPropagation()}
             style={{ position: "relative", width: "100%", maxWidth: "1000px", height: "75vh", maxHeight: "750px" }}
           >
             <Image
-              src={selectedImage.url}
+              src={imagenes[selectedImageIndex].url}
               alt="Foto inspección en pantalla completa"
               fill
               sizes="100vw"
@@ -595,13 +914,16 @@ export default function FichaCliente({
             onClick={(e) => e.stopPropagation()}
             style={{ marginTop: "16px", textAlign: "center", color: "#e2e8f0", fontSize: "14px", display: "flex", gap: "14px", alignItems: "center" }}
           >
-            {selectedImage.createdAt && (
+            <span style={{ background: "rgba(255,255,255,0.2)", padding: "5px 14px", borderRadius: "20px", fontWeight: 800 }}>
+              Foto {selectedImageIndex + 1} de {imagenes.length}
+            </span>
+            {imagenes[selectedImageIndex].createdAt && (
               <span style={{ background: "rgba(255,255,255,0.15)", padding: "5px 14px", borderRadius: "20px", fontWeight: 600 }}>
-                Fecha: {formatFechaImagen(selectedImage)}
+                Fecha: {formatFechaImagen(imagenes[selectedImageIndex])}
               </span>
             )}
             <a
-              href={selectedImage.url}
+              href={imagenes[selectedImageIndex].url}
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: "#38bdf8", textDecoration: "underline", fontWeight: 700, fontSize: "13px" }}
@@ -611,6 +933,29 @@ export default function FichaCliente({
           </div>
         </div>
       )}
+
+      {/* Estilos responsive optimizados para celular */}
+      <style>{`
+        @media (max-width: 768px) {
+          .ficha-grid-layout {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
+          }
+          .ficha-card-block {
+            padding: 18px 14px !important;
+            border-radius: 14px !important;
+          }
+          .ficha-task-banner {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            padding: 14px 16px !important;
+          }
+          .ficha-task-banner button {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
