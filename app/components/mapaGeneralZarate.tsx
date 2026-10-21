@@ -533,6 +533,10 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
       setUsuarioSeparando(u);
     };
 
+    (window as any).crearEdificioDesdeUsuario = (id: number) => {
+      crearEdificioDesdeUsuario(id);
+    };
+
     (window as any).abrirFotoFullscreenEnMapa = (url: string) => {
       setFotoFullscreen(decodeURIComponent(url));
     };
@@ -548,6 +552,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
       delete (window as any).iniciarUnirPuntosAEdificio;
       delete (window as any).iniciarSepararUsuarioDeEdificio;
       delete (window as any).abrirFotoFullscreenEnMapa;
+      delete (window as any).crearEdificioDesdeUsuario;
     };
   }, [usuarios]);
 
@@ -1132,6 +1137,54 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
     }
   };
 
+  // Función para convertir un usuario individual en edificio
+  const crearEdificioDesdeUsuario = async (id: number) => {
+    const usuario = usuarios.find((u) => u.id === id);
+    if (!usuario) return;
+
+    try {
+      if (mapInstanceRef.current) mapInstanceRef.current.closePopup();
+      toast.info(`Convirtiendo usuario #${usuario.nroUsuario} en edificio...`, { autoClose: 2000 });
+
+      const res = await fetch(`/api/users?id=${usuario.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          esDepartamento: true,
+        }),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || "No se pudo actualizar el estado a edificio");
+      }
+
+      // Actualizar estado local inmediatamente
+      setUsuarios((prev) =>
+        prev.map((u) =>
+          u.id === usuario.id
+            ? {
+                ...u,
+                esDepartamento: true,
+              }
+            : u
+        )
+      );
+
+      toast.success(
+        `🏢 ¡Edificio creado para #${usuario.nroUsuario}! Ahora puedes unir más departamentos usando "+ Unir punto suelto".`
+      );
+
+      // Enfocar y abrir el nuevo edificio
+      setTimeout(() => {
+        enfocarMarcador(usuario.id);
+      }, 400);
+    } catch (error: any) {
+      console.error("Error al crear edificio:", error);
+      toast.error(error.message || "Error al crear edificio");
+    }
+  };
+
   // Ocultar todos los demás marcadores y capas del mapa mientras se mueve un punto para máxima precisión visual
   useEffect(() => {
     const map = mapInstanceRef.current;
@@ -1435,20 +1488,26 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
       const esDepto = tieneCheckEdificio(user);
       const dirBase = normalizarDireccionBase(user.domicilio);
 
-      if (esDepto && dirBase) {
-        const buildingKey = `edificio_${dirBase}`;
+      if (esDepto) {
+        // Agrupación de edificio: si tiene dirección base normalizada se agrupa por ella, de lo contrario por su domicilio o ID
+        const buildingKey = dirBase
+          ? `edificio_${dirBase}`
+          : (user.domicilio ? `edificio_${user.domicilio.trim().toLowerCase()}` : `edificio_user_${user.id}`);
+
         if (!mapaEdificios.has(buildingKey)) {
           // Generar nombre de título capitalizado (ej: "Mitre 302")
           const tituloEdificio = dirBase
-            .split(" ")
-            .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
-            .join(" ");
+            ? dirBase
+                .split(" ")
+                .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+                .join(" ")
+            : (user.domicilio || `Edificio #${user.nroUsuario}`);
 
           mapaEdificios.set(buildingKey, {
             lat,
             lng,
             usuarios: [],
-            esEdificio: false,
+            esEdificio: true,
             domicilioEdificio: tituloEdificio,
             buildingKey,
           });
@@ -1471,16 +1530,10 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
 
     const gruposParaRenderizar: GrupoMarcador[] = [];
 
-    // Edificios: solo se unifican como edificio con desplegable si tienen 2 o más departamentos/usuarios
+    // Todos los edificios de mapaEdificios se renderizan con la vista de edificio (permitiendo desplegar sus deptos y unir más)
     mapaEdificios.forEach((grupo) => {
-      if (grupo.usuarios.length > 1) {
-        grupo.esEdificio = true;
-        gruposParaRenderizar.push(grupo);
-      } else {
-        // Si hay solo 1 usuario con check en esa dirección, se renderiza como marcador individual
-        grupo.esEdificio = false;
-        gruposParaRenderizar.push(grupo);
-      }
+      grupo.esEdificio = true;
+      gruposParaRenderizar.push(grupo);
     });
 
     // Agregar todos los usuarios independientes
@@ -1581,7 +1634,6 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
                 : ""
               }
                   </div>
-                  ${estaEnRuta ? `<span class="edificio-en-ruta-badge">En Ruta #${ordenParada}</span>` : ""}
                 </div>
 
                 <div class="edificio-user-name">${u.nombre}</div>
@@ -1607,22 +1659,6 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
                 ` : ""}
 
                 <div class="edificio-user-actions">
-                  <button
-                    type="button"
-                    onclick="event.preventDefault(); event.stopPropagation(); window.fijarUsuarioInicioCorte(${u.id})"
-                    class="popup-btn-set-origin mini"
-                    title="Fijar como punto de inicio para el cálculo automático"
-                  >
-                    Fijar inicio
-                  </button>
-                  <button
-                    type="button"
-                    onclick="event.preventDefault(); event.stopPropagation(); window.toggleParadaManual(${u.id})"
-                    class="popup-btn-add-manual mini ${estaEnRuta ? "remove" : ""}"
-                    title="${estaEnRuta ? "Quitar de la ruta" : "Sumar este usuario a la ruta manual"}"
-                  >
-                    ${estaEnRuta ? "Quitar" : "+ Ruta manual"}
-                  </button>
                   <button
                     type="button"
                     onclick="event.preventDefault(); event.stopPropagation(); window.iniciarMoverPunto(${u.id})"
@@ -1882,27 +1918,11 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
               <div style="display: flex; gap: 6px; flex-wrap: wrap;">
                 <button
                   type="button"
-                  onclick="event.preventDefault(); event.stopPropagation(); window.fijarUsuarioInicioCorte(${user.id})"
-                  class="popup-btn-set-origin"
-                  title="Fijar como punto de inicio para el cálculo automático"
+                  onclick="event.preventDefault(); event.stopPropagation(); window.crearEdificioDesdeUsuario(${user.id})"
+                  class="popup-btn-crear-edificio"
+                  title="Crear un edificio con este punto para agrupar y unir más departamentos"
                 >
-                  Fijar inicio
-                </button>
-                <button
-                  type="button"
-                  onclick="event.preventDefault(); event.stopPropagation(); window.toggleParadaManual(${user.id})"
-                  class="popup-btn-add-manual"
-                  title="Sumar este fraude a la secuencia de paradas manuales"
-                >
-                  + Ruta manual
-                </button>
-                <button
-                  type="button"
-                  onclick="event.preventDefault(); event.stopPropagation(); window.iniciarMoverPunto(${user.id})"
-                  class="popup-btn-mover-punto"
-                  title="Mover punto: cambiar latitud y longitud directamente en el mapa"
-                >
-                  📍 Mover punto
+                  🏢 Crear edificio
                 </button>
                 <button
                   type="button"
@@ -1911,6 +1931,14 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
                   title="Combinar este punto suelto con un edificio u otro departamento"
                 >
                   🏢 Unir a edificio
+                </button>
+                <button
+                  type="button"
+                  onclick="event.preventDefault(); event.stopPropagation(); window.iniciarMoverPunto(${user.id})"
+                  class="popup-btn-mover-punto"
+                  title="Mover punto: cambiar latitud y longitud directamente en el mapa"
+                >
+                  📍 Mover punto
                 </button>
               </div>
               <div style="display: flex; align-items: center; gap: 6px;">
@@ -1960,10 +1988,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
             setPisoDeptoInput("");
             return;
           }
-          if (modoPlanificadorRef.current === "manual" && clickDirectoManualRef.current) {
-            L.DomEvent.stopPropagation(e);
-            (window as any).toggleParadaManual(user.id);
-          }
+
         });
 
         marker.bindPopup(popupHtml, {
@@ -2977,40 +3002,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
             )}
           </div>
 
-          {/* Botón Crear Ruta: Muestra / Oculta las opciones de ruta manual y automática */}
-          <button
-            type="button"
-            className={`btn-crear-ruta ${mostrarPlanificadorRuta ? "active" : ""}`}
-            onClick={() => {
-              setMostrarPlanificadorRuta((prev) => !prev);
-              setTimeout(() => {
-                if (mapInstanceRef.current) {
-                  mapInstanceRef.current.invalidateSize();
-                }
-              }, 200);
-            }}
-            title="Crear ruta de cortes (automática por cercanía o manual punto por punto)"
-          >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-            >
-              <polygon points="3 11 22 2 13 21 11 13 3 11" />
-            </svg>
-            <span>Crear ruta</span>
-            {resultadoRuta && (
-              <span className="ruta-badge">
-                {resultadoRuta.paradas.length} paradas
-              </span>
-            )}
-            <span style={{ fontSize: "11px", opacity: 0.85 }}>
-              {mostrarPlanificadorRuta ? "▲" : "▼"}
-            </span>
-          </button>
+
         </div>
       </div>
 
@@ -3279,359 +3271,7 @@ export default function MapaGeneralZarate({ refreshKey = 0 }: { refreshKey?: num
           </div>
         )}
 
-        {/* PANEL DE CONTROL: PLANIFICADOR DE CORTES (AUTOMÁTICO Y MANUAL) - DESPLEGABLE */}
-        {mostrarPlanificadorRuta && (
-          <div
-            className="planner-panel"
-            onWheel={(e) => e.stopPropagation()}
-            onMouseDown={(e) => e.stopPropagation()}
-            onTouchStart={(e) => e.stopPropagation()}
-          >
-            <div className="planner-panel-top-bar">
-              <span className="planner-panel-badge">
-                <span>⚡</span> Opciones de Creación de Ruta
-              </span>
-              <button
-                type="button"
-                className="planner-panel-close-btn"
-                onClick={() => {
-                  setMostrarPlanificadorRuta(false);
-                  setTimeout(() => {
-                    if (mapInstanceRef.current) {
-                      mapInstanceRef.current.invalidateSize();
-                    }
-                  }, 200);
-                }}
-                title="Ocultar opciones de ruta"
-              >
-                ✕ Cerrar opciones
-              </button>
-            </div>
 
-            {/* Pestañas de Modo */}
-            <div className="planner-tabs-bar">
-              <button
-                type="button"
-                className={`planner-tab-btn ${modoPlanificador === "automatico" ? "active" : ""}`}
-                onClick={() => {
-                  setModoPlanificador("automatico");
-                }}
-              >
-                Ruta Automática (Por cercanía)
-              </button>
-              <button
-                type="button"
-                className={`planner-tab-btn ${modoPlanificador === "manual" ? "active" : ""}`}
-                onClick={() => {
-                  setModoPlanificador("manual");
-                }}
-              >
-                Recorrido Manual (Punto por punto)
-              </button>
-            </div>
-
-            <div className="planner-controls-row">
-              {/* MODO 1: AUTOMÁTICO */}
-              {modoPlanificador === "automatico" && (
-                <div className="planner-inputs-group">
-                  {/* 1. Seleccionar Fraude Inicial */}
-                  <div className="planner-field">
-                    <label className="planner-field-label">
-                      1. Punto de Partida / Fraude Origen:
-                      {filtrosEstadoKeys.length > 0 && (
-                        <span style={{ color: "#2563eb", fontWeight: 700, marginLeft: "6px", textTransform: "none" }}>
-                          (Filtrado por {filtrosEstadoKeys.length} {filtrosEstadoKeys.length === 1 ? "estado" : "estados"})
-                        </span>
-                      )}
-                    </label>
-                    <select
-                      className="planner-select"
-                      value={usuarioInicioId ?? ""}
-                      onChange={(e) => setUsuarioInicioId(e.target.value ? Number(e.target.value) : null)}
-                    >
-                      <option value="">-- Seleccionar punto inicial --</option>
-                      {(filtrosEstadoKeys.length > 0 ? usuariosAMostrar : usuariosGeoreferenciados).map((u) => (
-                        <option key={u.id} value={u.id}>
-                          #{u.nroUsuario} - {u.nombre} ({u.estado?.nombre || "Zárate"})
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* 2. Cantidad de Cortes Cercanos */}
-                  <div className="planner-field">
-                    <label className="planner-field-label">2. Cortes Más Cercanos (N):</label>
-                    <input
-                      type="number"
-                      min={1}
-                      max={Math.max(1, (filtrosEstadoKeys.length > 0 ? usuariosAMostrar : usuariosGeoreferenciados).length)}
-                      className="planner-number-input"
-                      style={{ width: "110px", textAlign: "left", paddingLeft: "12px" }}
-                      placeholder="Ej: 5"
-                      value={cantidadCortes}
-                      onChange={(e) => setCantidadCortes(Math.max(1, parseInt(e.target.value || "1", 10)))}
-                    />
-                  </div>
-
-                  {/* Botón Calcular */}
-                  <div style={{ alignSelf: "flex-end" }}>
-                    <button
-                      type="button"
-                      className="planner-btn-calc"
-                      onClick={handleCalcularRuta}
-                      disabled={!usuarioInicioId}
-                    >
-                      <span>
-                        Calcular Ruta Óptima
-                        {filtrosEstadoKeys.length > 0 ? ` (${usuariosAMostrar.length} disponibles)` : ""}
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* MODO 2: RECORRIDO MANUAL */}
-              {modoPlanificador === "manual" && (
-                <div className="manual-route-builder">
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "10px", flex: 1, minWidth: "280px" }}>
-                      <label className="planner-field-label" style={{ whiteSpace: "nowrap" }}>
-                        Sumar fraude al recorrido:
-                      </label>
-                      <select
-                        className="planner-select"
-                        value=""
-                        onChange={(e) => {
-                          if (!e.target.value) return;
-                          const u = usuarios.find((user) => user.id === Number(e.target.value));
-                          if (u) agregarParadaManual(u);
-                        }}
-                      >
-                        <option value="">-- Seleccionar fraude para agregar --</option>
-                        {usuariosGeoreferenciados.map((u) => {
-                          const yaEnRuta = paradasManuales.some((p) => p.id === u.id);
-                          return (
-                            <option key={u.id} value={u.id} disabled={yaEnRuta}>
-                              #{u.nroUsuario} - {u.nombre} {yaEnRuta ? "(Ya en ruta)" : `(${u.domicilio || "Zárate"})`}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </div>
-
-                    {/* Switch de Click Directo en el Mapa */}
-                    <label className="manual-toggle-wrap" title="Si está activo, al hacer click en cualquier marcador del mapa se suma o quita directamente de la ruta manual">
-                      <input
-                        type="checkbox"
-                        checked={clickDirectoManual}
-                        onChange={(e) => setClickDirectoManual(e.target.checked)}
-                        className="manual-toggle-input"
-                      />
-                      <span>Click directo en el mapa para marcar paradas</span>
-                    </label>
-                  </div>
-
-                  {/* Barra de herramientas y resumen si hay paradas */}
-                  {paradasManuales.length > 0 && (
-                    <div className="manual-tools-bar">
-                      <div style={{ fontSize: "12px", color: "#334155", fontWeight: 600, display: "flex", alignItems: "center", gap: "6px" }}>
-                        <span>Paradas seleccionadas:</span>
-                        <strong style={{ background: "#eff6ff", color: "#1d4ed8", padding: "2px 8px", borderRadius: "12px" }}>
-                          {paradasManuales.length}
-                        </strong>
-                      </div>
-
-                      <div style={{ display: "flex", gap: "6px", alignItems: "center", flexWrap: "wrap" }}>
-                        <button
-                          type="button"
-                          className="manual-tool-btn"
-                          onClick={handleOptimizarOrdenManual}
-                          title="Reordenar las paradas seleccionadas por mínima distancia (algoritmo de cercanía)"
-                        >
-                          <span>Optimizar orden</span>
-                        </button>
-                        <button
-                          type="button"
-                          className="manual-tool-btn"
-                          onClick={handleInvertirOrdenManual}
-                          title="Invertir la dirección del recorrido"
-                        >
-                          <span>Invertir</span>
-                        </button>
-                        <button
-                          type="button"
-                          className="manual-tool-btn danger"
-                          onClick={handleLimpiarRuta}
-                          title="Quitar todas las paradas y limpiar el mapa"
-                        >
-                          <span>Limpiar paradas</span>
-                        </button>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Lista secuencial de paradas manuales */}
-                  {paradasManuales.length > 0 ? (
-                    <div className="manual-stops-list">
-                      {paradasManuales.map((u, idx) => (
-                        <div key={u.id} className={`manual-stop-chip ${idx === 0 ? "first" : ""}`}>
-                          <span className="manual-stop-badge">
-                            {idx === 0 ? "1. Inicio" : `${idx + 1}. Parada`}
-                          </span>
-                          <span style={{ fontWeight: 600 }}>#{u.nroUsuario}</span>
-                          <span style={{ color: "#64748b", fontSize: "11px" }}>{u.nombre}</span>
-                          <div className="manual-stop-actions">
-                            <button
-                              type="button"
-                              className="manual-stop-reorder-btn"
-                              onClick={() => moverParadaIndex(idx, -1)}
-                              disabled={idx === 0}
-                              title="Mover antes en la secuencia"
-                            >
-                              ↑
-                            </button>
-                            <button
-                              type="button"
-                              className="manual-stop-reorder-btn"
-                              onClick={() => moverParadaIndex(idx, 1)}
-                              disabled={idx === paradasManuales.length - 1}
-                              title="Mover después en la secuencia"
-                            >
-                              ↓
-                            </button>
-                            <button
-                              type="button"
-                              className="manual-stop-remove"
-                              onClick={() => removerParadaManual(u.id)}
-                              title="Quitar esta parada de la secuencia"
-                            >
-                              ✕
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div style={{ padding: "8px 12px", background: "#f8fafc", borderRadius: "8px", border: "1px dashed #cbd5e1", fontSize: "12px", color: "#64748b" }}>
-                      Haz click directamente en los marcadores del mapa o seleccionalos en el menú desplegable para ir armando el recorrido punto por punto en el orden deseado.
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Acciones si hay ruta calculada */}
-              {resultadoRuta && (
-                <div className="planner-actions-group">
-                  <button
-                    type="button"
-                    className="btn-export-excel"
-                    onClick={handleDescargarExcel}
-                    title="Descargar planilla Excel con la ruta de cortes y el padrón de fraudes"
-                  >
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                    <span>Descargar Excel (Ruta + Padrón)</span>
-                  </button>
-
-                  <a
-                    href={generarUrlGoogleMapsRuta(resultadoRuta.paradas)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-nav-gmaps"
-                    title="Abrir la ruta secuencial en Google Maps Navigation"
-                  >
-                    <span>Abrir en Google Maps</span>
-                  </a>
-
-                  <button
-                    type="button"
-                    className="btn-clear-route"
-                    onClick={handleLimpiarRuta}
-                    title="Quitar trazado de ruta del mapa"
-                  >
-                    ✕ Limpiar
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {/* Resumen de la Ruta Calculada */}
-            {resultadoRuta && (
-              <div className="route-summary-banner">
-                <div className="route-summary-stats">
-                  <div className="route-stat-item">
-                    <span>Cortes planificados:</span>
-                    <strong>{resultadoRuta.paradas.length}</strong>
-                  </div>
-                  <div className="route-stat-item">
-                    <span>Distancia total en calles:</span>
-                    <strong>{resultadoRuta.distanciaTotalFormateada}</strong>
-                  </div>
-                  <div className="route-stat-item">
-                    <span>Tiempo estimado de operativo:</span>
-                    <strong>~{resultadoRuta.tiempoEstimadoMinutos} min</strong>
-                  </div>
-                  <div className="route-stat-item">
-                    <span>Trazado vial:</span>
-                    <strong style={{ color: resultadoRuta.esRutaPorCalles ? "#059669" : "#0284c7" }}>
-                      {resultadoRuta.esRutaPorCalles ? "Por calles de Zárate (ajustado a calzada)" : "Calculando calles..."}
-                    </strong>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Asignación Masiva de Cuadrillas a la Ruta Completa */}
-            {resultadoRuta && (
-              <div className="route-cuadrillas-assignment-card">
-                <div className="route-cuadrillas-header">
-                  <div>
-                    <h4 className="route-cuadrillas-title">
-                      Asignar Cuadrillas a los {resultadoRuta.paradas.length} Cortes de la Ruta
-                    </h4>
-                    <p className="route-cuadrillas-desc">
-                      Selecciona una o más cuadrillas. Se asignarán a todos los usuarios de este recorrido, reemplazando su asignación anterior.
-                    </p>
-                  </div>
-
-                  <button
-                    type="button"
-                    className="btn-apply-cuadrillas"
-                    onClick={handleAsignarCuadrillasRuta}
-                    disabled={asignandoCuadrillas || cuadrillasSeleccionadasRuta.length === 0}
-                  >
-                    {asignandoCuadrillas ? "Asignando cuadrillas..." : "Guardar Asignación para toda la Ruta"}
-                  </button>
-                </div>
-
-                <div className="route-cuadrillas-chips">
-                  {cuadrillasDisponibles.map((c) => {
-                    const isSelected = cuadrillasSeleccionadasRuta.includes(c.id);
-                    return (
-                      <button
-                        key={c.id}
-                        type="button"
-                        onClick={() => toggleCuadrillaRuta(c.id)}
-                        className={`chip-cuadrilla-select ${isSelected ? "selected" : ""}`}
-                      >
-                        <span>{isSelected ? "✓" : "+"}</span>
-                        <span>{c.nombre}</span>
-                      </button>
-                    );
-                  })}
-                  {cuadrillasDisponibles.length === 0 && (
-                    <span style={{ fontSize: "12.5px", color: "#94a3b8" }}>
-                      No hay cuadrillas registradas en el sistema.
-                    </span>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
 
 
 

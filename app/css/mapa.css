@@ -3379,6 +3379,30 @@
    ESTILOS PARA COMBINAR PUNTOS SUELTOS CON EDIFICIOS / DEPTO
    ========================================================== */
 
+.popup-btn-crear-edificio {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #047857;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.popup-btn-crear-edificio:hover {
+  background: #d1fae5;
+  color: #065f46;
+  border-color: #6ee7b7;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.25);
+}
+
 .popup-btn-combinar-edificio {
   display: inline-flex;
   align-items: center;
