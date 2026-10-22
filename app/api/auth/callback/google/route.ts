@@ -150,10 +150,8 @@ export async function GET(req: NextRequest) {
 
     return successResponse;
   } catch (err: any) {
-    const errMsg = err?.message || String(err);
     console.error("Error procesando callback de Google:", err);
     loginUrl.searchParams.set("error", "internal_error");
-    loginUrl.searchParams.set("msg", encodeURIComponent(errMsg.slice(0, 160)));
     return NextResponse.redirect(loginUrl);
   }
 }

@@ -5,6 +5,13 @@ import { getSessionFromRequest } from "@/lib/auth";
 export async function GET(req: NextRequest) {
   try {
     const session = await getSessionFromRequest(req);
+    if (!session) {
+      return NextResponse.json(
+        { error: "No autorizado. Inicie sesión en el sistema." },
+        { status: 401 }
+      );
+    }
+
     const { searchParams } = new URL(req.url);
     const ruta = searchParams.get("ruta");
     const search = searchParams.get("search");
@@ -13,7 +20,7 @@ export async function GET(req: NextRequest) {
     const where: any = {};
 
     // Si el usuario es de cuadrilla, filtrar usuarios que tiene asignados o en sus listados
-    const isCuadrilla = session?.role === "cuadrilla" && !session?.esAdmin;
+    const isCuadrilla = session.role === "cuadrilla" && !session.esAdmin;
     let cuadrillaFilter: any = null;
     if (isCuadrilla) {
       if (!session.cuadrillaId) {

@@ -5,12 +5,18 @@ export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const appOrigin = getAppOrigin(req);
 
-  // 1. Permitir archivos estáticos y recursos internos de Next.js
+  // Bloquear de inmediato intentos de acceder a archivos confidenciales
+  if (pathname.includes("/.") || pathname.endsWith(".env") || pathname.includes(".git")) {
+    return new NextResponse("Acceso denegado", { status: 403 });
+  }
+
+  // 1. Permitir archivos estáticos reales y recursos internos de Next.js
+  const isStaticFile = /\.(ico|png|jpg|jpeg|svg|webp|gif|css|js|woff|woff2|ttf|eot|map|txt|webmanifest)$/i.test(pathname);
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/img") ||
     pathname.startsWith("/favicon.ico") ||
-    pathname.includes(".")
+    isStaticFile
   ) {
     return NextResponse.next();
   }

@@ -5,7 +5,13 @@ import { getSessionFromRequest } from "@/lib/auth";
 export async function DELETE(req: NextRequest) {
     try {
         const session = await getSessionFromRequest(req);
-        if (session?.role === "cuadrilla" && !session?.esAdmin) {
+        if (!session) {
+            return NextResponse.json(
+                { error: "No autorizado. Inicie sesión en el sistema." },
+                { status: 401 }
+            );
+        }
+        if (!session.esAdmin && session.role !== "administrador") {
             return NextResponse.json(
                 { error: "Acceso denegado. Se requieren permisos de administrador." },
                 { status: 403 }
@@ -49,6 +55,12 @@ export async function DELETE(req: NextRequest) {
 export async function GET(req: NextRequest) {
     try {
         const session = await getSessionFromRequest(req);
+        if (!session) {
+            return NextResponse.json(
+                { error: "No autorizado. Inicie sesión en el sistema." },
+                { status: 401 }
+            );
+        }
         const usuario = await prisma.usuario.findUnique({
             where: { id: Number(req.nextUrl.searchParams.get("id")) },
             include: {
@@ -97,7 +109,13 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
     try {
         const session = await getSessionFromRequest(req);
-        if (session?.role === "cuadrilla" && !session?.esAdmin) {
+        if (!session) {
+            return NextResponse.json(
+                { error: "No autorizado. Inicie sesión en el sistema." },
+                { status: 401 }
+            );
+        }
+        if (!session.esAdmin && session.role !== "administrador") {
             return NextResponse.json(
                 { error: "Acceso denegado. Se requieren permisos de administrador para crear usuarios." },
                 { status: 403 }
@@ -234,7 +252,13 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
     try {
         const session = await getSessionFromRequest(req);
-        if (session?.role === "cuadrilla" && !session?.esAdmin) {
+        if (!session) {
+            return NextResponse.json(
+                { error: "No autorizado. Inicie sesión en el sistema." },
+                { status: 401 }
+            );
+        }
+        if (!session.esAdmin && session.role !== "administrador") {
             return NextResponse.json(
                 { error: "Acceso denegado. Se requieren permisos de administrador para modificar usuarios." },
                 { status: 403 }
@@ -416,7 +440,13 @@ export async function PUT(req: NextRequest) {
 export async function PATCH(req: NextRequest) {
     try {
         const session = await getSessionFromRequest(req);
-        if (session?.role === "cuadrilla" && !session?.esAdmin) {
+        if (!session) {
+            return NextResponse.json(
+                { error: "No autorizado. Inicie sesión en el sistema." },
+                { status: 401 }
+            );
+        }
+        if (!session.esAdmin && session.role !== "administrador") {
             return NextResponse.json(
                 { error: "Acceso denegado. Se requieren permisos de administrador para reasignar o modificar usuarios." },
                 { status: 403 }

@@ -16,10 +16,16 @@ export interface SessionUser {
 }
 
 export const SESSION_COOKIE_NAME = "cez_session";
-const DEFAULT_SECRET = "cez_sistema_fraudes_secret_token_default_key_2026";
 
 function getSecretKey(): Uint8Array {
-  const secret = process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || DEFAULT_SECRET;
+  const secret = process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET;
+  if (!secret) {
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("FATAL: AUTH_SECRET no está configurada en las variables de entorno de producción.");
+    }
+    // Solo en entorno de desarrollo local si no se configuró .env
+    return new TextEncoder().encode("dev_local_only_secret_key_change_in_production_2026");
+  }
   return new TextEncoder().encode(secret);
 }
 

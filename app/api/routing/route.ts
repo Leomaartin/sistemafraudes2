@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getSessionFromRequest } from "@/lib/auth";
 
 interface Coordinate {
   lat: number;
@@ -7,6 +8,10 @@ interface Coordinate {
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await getSessionFromRequest(req);
+    if (!session) {
+      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    }
     const body = await req.json();
     const coordinates: Coordinate[] = body.coordinates;
 

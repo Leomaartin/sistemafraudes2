@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getSessionFromRequest } from "@/lib/auth";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const session = await getSessionFromRequest(req);
+    if (!session) {
+      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    }
+
     const estados = await prisma.estado.findMany({
       orderBy: { id: "asc" },
     });
@@ -18,6 +24,17 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await getSessionFromRequest(req);
+    if (!session) {
+      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    }
+    if (!session.esAdmin && session.role !== "administrador") {
+      return NextResponse.json(
+        { error: "Acceso denegado. Se requieren permisos de administrador." },
+        { status: 403 }
+      );
+    }
+
     const body = await req.json();
     const nombre = String(body.nombre || "").trim();
 
@@ -44,6 +61,17 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
+    const session = await getSessionFromRequest(req);
+    if (!session) {
+      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    }
+    if (!session.esAdmin && session.role !== "administrador") {
+      return NextResponse.json(
+        { error: "Acceso denegado. Se requieren permisos de administrador." },
+        { status: 403 }
+      );
+    }
+
     const body = await req.json();
     const id = Number(body.id);
     const nombre = String(body.nombre || "").trim();
@@ -72,6 +100,17 @@ export async function PUT(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
+    const session = await getSessionFromRequest(req);
+    if (!session) {
+      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    }
+    if (!session.esAdmin && session.role !== "administrador") {
+      return NextResponse.json(
+        { error: "Acceso denegado. Se requieren permisos de administrador." },
+        { status: 403 }
+      );
+    }
+
     const { searchParams } = new URL(req.url);
     const idParam = searchParams.get("id");
     const id = idParam ? Number(idParam) : null;
