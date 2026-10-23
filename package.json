@@ -19,6 +19,7 @@
     "geolocalizar": "tsx scripts/geolocalizarUsuarios.ts",
     "corregir-alturas": "tsx scripts/corregirAlturasCalles.ts",
     "limpiar:duplicados": "tsx scripts/eliminarDuplicados.ts",
+    "corregir:barrios": "tsx scripts/corregirDeptosBarrios.ts",
     "db:deploy": "prisma migrate deploy",
     "db:admin": "tsx scripts/habilitarAdminGmail.ts"
   },

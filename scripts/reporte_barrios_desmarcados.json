@@ -1,0 +1,4122 @@
+[
+  {
+    "id": 337,
+    "nroUsuario": "168522",
+    "nombre": "NUﾑEZ KAREN AYELEN",
+    "domicilio": "H.YRIGOYEN 855 L.2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 338,
+    "nroUsuario": "164723",
+    "nombre": "FERREYRA MYRIAN EDITH",
+    "domicilio": "H.YRIGOYEN 855  L.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 344,
+    "nroUsuario": "170182",
+    "nombre": "FRIAS JOSE ANTONIO",
+    "domicilio": "H.YRIGOYEN 889 L.4",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 474,
+    "nroUsuario": "154671",
+    "nombre": "ZARATE POR TRES GROUP",
+    "domicilio": "H. YRIGOYEN 889 L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 569,
+    "nroUsuario": "163467",
+    "nombre": "SUAREZ MARIA ALEJANDRA",
+    "domicilio": "B.LA FLORIDA 3 Y 4",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 609,
+    "nroUsuario": "159698",
+    "nombre": "ALI SANCHEZ JOSUE",
+    "domicilio": "R.NOYA 868 L.1 Y 2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 658,
+    "nroUsuario": "161361",
+    "nombre": "LEDESMA ANALIA BEATRIZ",
+    "domicilio": "R.NOYA 868  L.32",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 691,
+    "nroUsuario": "163210",
+    "nombre": "URRA MARCELO ABEL",
+    "domicilio": "R.NOYA 785 L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 1343,
+    "nroUsuario": "163420",
+    "nombre": "GOMEZ MARCELO EZEQUIEL",
+    "domicilio": "SAN MARTIN 377 L.2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 1392,
+    "nroUsuario": "71055",
+    "nombre": "VAZQUEZ EDUARDO",
+    "domicilio": "SAN MARTIN 237 L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 1406,
+    "nroUsuario": "150944",
+    "nombre": "JEANMAIRE MARIA MARTHA",
+    "domicilio": "SAN MARTIN 237 L.2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 1887,
+    "nroUsuario": "159403",
+    "nombre": "Mendieta Alejo",
+    "domicilio": "Avellaneda 24 L.2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 2936,
+    "nroUsuario": "162131",
+    "nombre": "CARUSSO SERGIO HECTOR",
+    "domicilio": "B.LA FLORIDA C.4",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 2937,
+    "nroUsuario": "149678",
+    "nombre": "GOMEZ PABLO MARTIN",
+    "domicilio": "L.MIRTILLOS II MZ.6 L.14",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 2946,
+    "nroUsuario": "153281",
+    "nombre": "APEZTEGUIA MATIAS FACUND",
+    "domicilio": "ESP.URBANO M.106 L15",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 2948,
+    "nroUsuario": "128234",
+    "nombre": "ASSELBORN MARIA CR",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 2950,
+    "nroUsuario": "146366",
+    "nombre": "BARDON JOSE OMAR",
+    "domicilio": "LA LEYLA L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 2960,
+    "nroUsuario": "151822",
+    "nombre": "BUSTOS DANIELA ELIZABETH",
+    "domicilio": "RUTA 9 KM 87.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 2966,
+    "nroUsuario": "155539",
+    "nombre": "CAVALIERE MAURO SEBASTIA",
+    "domicilio": "L.MIRTILLOS II MZ 4 L.4",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 2967,
+    "nroUsuario": "138989",
+    "nombre": "CEJAS VALERIA SOLEDAD",
+    "domicilio": "ESP.URBANO M.106 L.11",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 2973,
+    "nroUsuario": "154213",
+    "nombre": "DE LA CRUZ ANA MARGARITA",
+    "domicilio": "L.MIRTILLOS II M.6 L.16",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 2975,
+    "nroUsuario": "154075",
+    "nombre": "DELEDICQUE ESQUIVEL CRIS",
+    "domicilio": "FINCAS DE LA FLORIDA M.22C L",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 2976,
+    "nroUsuario": "161825",
+    "nombre": "DEVISUD S.A",
+    "domicilio": "RUTA 193 KM.13",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 2979,
+    "nroUsuario": "153271 / 169431",
+    "nombre": "DOMINGUEZ VERONICA MABEL",
+    "domicilio": "L.MIRTILLOS II M.4 L.2A",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 2980,
+    "nroUsuario": "131608",
+    "nombre": "DONATTERI ADRIAN",
+    "domicilio": "RUTA 9 KM 87",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 2986,
+    "nroUsuario": "157507",
+    "nombre": "FORLONG FACUNDO EZEQUIEL",
+    "domicilio": "L.MIRTILLOS II M.2 L.13",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 2989,
+    "nroUsuario": "165660",
+    "nombre": "GARCIA GERMAN AGUSTIN",
+    "domicilio": "RUTA 9 KM 87.500  L.PICADAS",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Las Picadas"
+  },
+  {
+    "id": 2996,
+    "nroUsuario": "161554",
+    "nombre": "GIMENEZ EMMANUELLE",
+    "domicilio": "F.DE LA FLORIDA M.22 G L.20",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3002,
+    "nroUsuario": "120715",
+    "nombre": "GOMEZ ROLANDO RICA",
+    "domicilio": "B.LA FLORIDA CALLE 13",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3006,
+    "nroUsuario": "155383",
+    "nombre": "GUIDI CAROLINA VIR",
+    "domicilio": "B.LA FLORIDA C 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3007,
+    "nroUsuario": "88276",
+    "nombre": "HE OR S.A",
+    "domicilio": "RUTA 9 KM. 82.500",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3008,
+    "nroUsuario": "149227",
+    "nombre": "HERNANDEZ OLIVA JOSE",
+    "domicilio": "L.MIRTILLOS II M.5 L.06",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3013,
+    "nroUsuario": "111920",
+    "nombre": "LEAL OSCAR",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3016,
+    "nroUsuario": "159942",
+    "nombre": "LOPEZ DANIEL ALEJANDRO",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3019,
+    "nroUsuario": "107393",
+    "nombre": "MAGNANI LOPEZ ANA",
+    "domicilio": "RUTA 9 KM 87",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3028,
+    "nroUsuario": "155179",
+    "nombre": "MOIRAGHI RUBEN EDUARDO",
+    "domicilio": "L.MIRTILLOS II MZ 3 L.21",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3031,
+    "nroUsuario": "155347",
+    "nombre": "MONTERO NICOLAS GABRIEL",
+    "domicilio": "FINCAS DE LA FLORIDA M.22K L",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3035,
+    "nroUsuario": "159289",
+    "nombre": "OLIVIERI PABLO HERNAN",
+    "domicilio": "L.MIRTILLOS II MZ.6 L.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3041,
+    "nroUsuario": "154294",
+    "nombre": "PEREZ GONZALO RUBEN",
+    "domicilio": "L.MIRTILLOS II MZ 4 L.2B",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3048,
+    "nroUsuario": "155933",
+    "nombre": "PORTILLO GLADYS ISABEL",
+    "domicilio": "LA CARONA II L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Carona"
+  },
+  {
+    "id": 3053,
+    "nroUsuario": "98569",
+    "nombre": "RODRIGUEZ ROLANDO",
+    "domicilio": "B.LA FLORIDA C 11 L 14",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3054,
+    "nroUsuario": "149180",
+    "nombre": "ROLON EMANUEL SEBASTIAN",
+    "domicilio": "L.MIRTILLOS II M.5 L.15",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3058,
+    "nroUsuario": "158932",
+    "nombre": "RONDAN MARCELA",
+    "domicilio": "B.LA FLORIDA CALLE 11 ESQUIN",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3060,
+    "nroUsuario": "152819",
+    "nombre": "RUIZ SABRINA VALERIA",
+    "domicilio": "FINCAS DE LA FLORIDA MZ.22F",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3064,
+    "nroUsuario": "107508 / 168427",
+    "nombre": "SANTINI ANGEL CARL",
+    "domicilio": "RUTA 9 KM 87",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3069,
+    "nroUsuario": "126154",
+    "nombre": "SIVIGLIA ESTELA MA",
+    "domicilio": "RUTA 9 KM 87",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3072,
+    "nroUsuario": "117382",
+    "nombre": "TARTARA JUAN JOSE",
+    "domicilio": "B.LA FLORIDA CALLE 15",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3081,
+    "nroUsuario": "112040",
+    "nombre": "VIVACQUA MARCELO A",
+    "domicilio": "B.LA FLORIDA CALLE 11",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3085,
+    "nroUsuario": "164839",
+    "nombre": "ALEJANDRO JONATHAN DAVID",
+    "domicilio": "L.ACACIOS I L.1 M.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 3094,
+    "nroUsuario": "102519",
+    "nombre": "ARBELO MIGUEL ANGE",
+    "domicilio": "RUTA 193 KM 10,500",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3096,
+    "nroUsuario": "132373",
+    "nombre": "ARREDONDO GASTON",
+    "domicilio": "RUTA 9 KM 87.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3097,
+    "nroUsuario": "102920",
+    "nombre": "AUN RAUL DAVID",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3107,
+    "nroUsuario": "148473",
+    "nombre": "BENITEZ GISELA NOELIA",
+    "domicilio": "B.LA CARONA 1 MZ.30E L.14",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Carona"
+  },
+  {
+    "id": 3108,
+    "nroUsuario": "155509",
+    "nombre": "BENITEZ MAURO ARIEL",
+    "domicilio": "F.DE LA FLORIDA M.22E L17",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3112,
+    "nroUsuario": "150665",
+    "nombre": "BOYKO KARINA MARCIA",
+    "domicilio": "RUTA 9 KM 88",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3116,
+    "nroUsuario": "151588",
+    "nombre": "M -   1535053",
+    "domicilio": "L.MIRTILLOS II MZ.6 L.11",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3117,
+    "nroUsuario": "163694",
+    "nombre": "CACERES FABIO ALAN BENJA",
+    "domicilio": "EL AMPARO L.8 LOC.2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 3133,
+    "nroUsuario": "158399",
+    "nombre": "CENTURION SILVANA NOEMI",
+    "domicilio": "RUTA 9 KM 87.500",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3134,
+    "nroUsuario": "138284",
+    "nombre": "CHIALINA REYNALDO",
+    "domicilio": "EL AMPARO L.8",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 3135,
+    "nroUsuario": "148550",
+    "nombre": "CIACCI VIVIANA ANDREA",
+    "domicilio": "RUTA 9 KM.87.500",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3137,
+    "nroUsuario": "150626",
+    "nombre": "CISMONDI MATIAS DAVID",
+    "domicilio": "L.MIRTILLOS M.15 L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3138,
+    "nroUsuario": "163093",
+    "nombre": "Cisnero Diego Rafael",
+    "domicilio": "Ruta 9 km 88,5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3141,
+    "nroUsuario": "156579",
+    "nombre": "CORDERO LIONEL MATIAS",
+    "domicilio": "F.DE LA FLORIDA MZ 22C L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3143,
+    "nroUsuario": "158935",
+    "nombre": "CORDOBA MATIAS",
+    "domicilio": "AIRE PAMPA L.182",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 3144,
+    "nroUsuario": "157250",
+    "nombre": "CORINALDESI ALFREDO DOMI",
+    "domicilio": "F.DE LA FLORIDA MZ.22 L.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3163,
+    "nroUsuario": "114078",
+    "nombre": "ENRIQUE MAXIMILIAN",
+    "domicilio": "RUTA 9 KM 87",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3167,
+    "nroUsuario": "136245",
+    "nombre": "FARIGNON YAMILA SA",
+    "domicilio": "RUTA 9 KM 87.5 C4 E 5 Y 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3184,
+    "nroUsuario": "150755",
+    "nombre": "Geuna Gabriel Mariano F",
+    "domicilio": "B. LA FLORIDA CALLE 8",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3187,
+    "nroUsuario": "155093",
+    "nombre": "GIL FACUNDO GABRIEL",
+    "domicilio": "RUTA 9 KM 88,500",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3189,
+    "nroUsuario": "154901",
+    "nombre": "GIMENEZ NELSON DANIEL",
+    "domicilio": "L.MIRTILLOS II MZ 1 L.16",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3190,
+    "nroUsuario": "166719",
+    "nombre": "GIMENEZ PABLO EDUARDO",
+    "domicilio": "RUTA 9 KM.87.5 15",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3192,
+    "nroUsuario": "156926",
+    "nombre": "GOMEZ CAMILA JULIETA",
+    "domicilio": "F.DE LA FLORIDA FR 1 L.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3193,
+    "nroUsuario": "155076",
+    "nombre": "GOMEZ OSCAR ALFREDO",
+    "domicilio": "LA CARONA II  L.27",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Carona"
+  },
+  {
+    "id": 3196,
+    "nroUsuario": "168234",
+    "nombre": "GONZALEZ MARIELA ELIZABE",
+    "domicilio": "F.DE LA FLORIDA MZ.22 L.13",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3199,
+    "nroUsuario": "72457",
+    "nombre": "Gonzalez Ricardo",
+    "domicilio": "B. La Florida calle 6 250",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3203,
+    "nroUsuario": "94098",
+    "nombre": "H F GRANT & CIA S",
+    "domicilio": "RUTA 9 KM 82,500",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3206,
+    "nroUsuario": "155859",
+    "nombre": "HENRICOT JULIO CESAR",
+    "domicilio": "L.MIRTILLOS M.15 L.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3209,
+    "nroUsuario": "146548",
+    "nombre": "HERRERA EDGARDO FABIAN",
+    "domicilio": "LA CANDELARIA L.18",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "La Candelaria"
+  },
+  {
+    "id": 3210,
+    "nroUsuario": "157762",
+    "nombre": "IAVICOLI MAXIMILIANO VIC",
+    "domicilio": "EL AMPARO L.8 LOCAL4",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 3216,
+    "nroUsuario": "158774",
+    "nombre": "LACOGNATA MARIA SALOME",
+    "domicilio": "LA CARONA II L.2 M.29E",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Carona"
+  },
+  {
+    "id": 3220,
+    "nroUsuario": "148542",
+    "nombre": "LOIACOMO CINTIA ANDREA",
+    "domicilio": "LA CARONA II MZ.29 L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Carona"
+  },
+  {
+    "id": 3225,
+    "nroUsuario": "155741",
+    "nombre": "LUQUE ERIKA LORENA",
+    "domicilio": "L.MIRTILLOS II M.6 L.10",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3229,
+    "nroUsuario": "155377",
+    "nombre": "MANNUCCHI MARIA ANTONIET",
+    "domicilio": "L.MIRTILLOS II MZ 7 L.14",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3231,
+    "nroUsuario": "126317",
+    "nombre": "Marina Alejo",
+    "domicilio": "Ruta 193 km 7,5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3232,
+    "nroUsuario": "149382",
+    "nombre": "MARTINEZ FROS JOEL DARIO",
+    "domicilio": "L.MIRTILLOS II M.1 L.2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3236,
+    "nroUsuario": "169903",
+    "nombre": "MATTOS GABRIELA MAGALI",
+    "domicilio": "AIRE PAMPA L.181",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 3245,
+    "nroUsuario": "161730",
+    "nombre": "More Jorge Martin",
+    "domicilio": "B. La Florida Calle 6 casa 4",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3252,
+    "nroUsuario": "163972",
+    "nombre": "NUÑEZ MARINA SOLEDAD",
+    "domicilio": "AIRE PAMPA L.16",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 3256,
+    "nroUsuario": "129571",
+    "nombre": "OSTA ANA INES",
+    "domicilio": "RUTA 9 KM.87",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3258,
+    "nroUsuario": "117463",
+    "nombre": "OVANDO NOELIA CARM",
+    "domicilio": "RUTA 9 KM 87",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3260,
+    "nroUsuario": "147803",
+    "nombre": "PANIAGUA ELENA GRACIELA",
+    "domicilio": "RUTA 9 KM 87.5 LAS PICADA",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3263,
+    "nroUsuario": "140707",
+    "nombre": "PASCUALE ROBLEDO PAOLA",
+    "domicilio": "LA CANDELARIA L.18",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "La Candelaria"
+  },
+  {
+    "id": 3266,
+    "nroUsuario": "158534",
+    "nombre": "PERA NATALIN SOLEDAD",
+    "domicilio": "RUTA 193 KM 7.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3286,
+    "nroUsuario": "159887",
+    "nombre": "RONDAN MARCELA",
+    "domicilio": "B.LA FLORIDA L.7 C4",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3288,
+    "nroUsuario": "149737",
+    "nombre": "RUPP DIEGO MARTIN",
+    "domicilio": "L.MIRTILLOS II MZ.2 L.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3302,
+    "nroUsuario": "135707",
+    "nombre": "SILVA MARIO LEONEL",
+    "domicilio": "B.LA CARONA L.17",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Carona"
+  },
+  {
+    "id": 3304,
+    "nroUsuario": "155376",
+    "nombre": "STEGEMANN BRIAN NAHUEL",
+    "domicilio": "L.MIRTILLOS II MZ 1 L. 19",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3311,
+    "nroUsuario": "151551",
+    "nombre": "TECNIGRUAS SA",
+    "domicilio": "RUTA 9 KM 88,5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3312,
+    "nroUsuario": "161222",
+    "nombre": "TEMUDIO HUGO ERNESTO",
+    "domicilio": "RUTA 9 KM 87.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3313,
+    "nroUsuario": "155783",
+    "nombre": "TOLOSA JUAN MANUEL",
+    "domicilio": "L.MIRTILLOS II MZ 8 L.13",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3320,
+    "nroUsuario": "144305",
+    "nombre": "TORRES SERGIO",
+    "domicilio": "RUTA 9 KM 87",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3326,
+    "nroUsuario": "108219",
+    "nombre": "VALLEJOS GABRIELA",
+    "domicilio": "RUTA 9 KM 87",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3330,
+    "nroUsuario": "145921",
+    "nombre": "VASQUEZ PABLO MARTIN",
+    "domicilio": "LA CARONA II MZ.29 L.11",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Carona"
+  },
+  {
+    "id": 3331,
+    "nroUsuario": "146222",
+    "nombre": "VELAZQUEZ INOCENCIA",
+    "domicilio": "LA CARONA II L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Carona"
+  },
+  {
+    "id": 3334,
+    "nroUsuario": "166569",
+    "nombre": "VERDE LUCIA SUSANA",
+    "domicilio": "LA CANDELARIA L.19",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "La Candelaria"
+  },
+  {
+    "id": 3335,
+    "nroUsuario": "136773",
+    "nombre": "VERGARA JESICA JAQ",
+    "domicilio": "RUTA 9 KM 87",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3336,
+    "nroUsuario": "150544",
+    "nombre": "VIDELA MARIA FERNANDA",
+    "domicilio": "L.MIRTILLOS II M.3 L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3347,
+    "nroUsuario": "150486",
+    "nombre": "ZELAYA FERNANDO ROMAN",
+    "domicilio": "L.MIRTILLOS II MZ.2 L.20",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3353,
+    "nroUsuario": "149166",
+    "nombre": "RAMIERI NICOLAS JOSE",
+    "domicilio": "L.MIRTILLOS L.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3360,
+    "nroUsuario": "70824",
+    "nombre": "DAL BO ARACELI",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3369,
+    "nroUsuario": "33796",
+    "nombre": "SANCHEZ VILMA A DE",
+    "domicilio": "LA FLORIDA CALLE 4 E/7Y9 L19",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3371,
+    "nroUsuario": "87716",
+    "nombre": "ROTONDO MAURICIO E",
+    "domicilio": "B.LA FLORIDA CALLE 4 E/ 7 Y ║",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3372,
+    "nroUsuario": "139169",
+    "nombre": "ROTONDO MAURICIO ESTEBAN",
+    "domicilio": "B.LA FLORIDA CALLE 4 E/ 7 Y",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3374,
+    "nroUsuario": "88629",
+    "nombre": "AOLITA HECTOR",
+    "domicilio": "B.LA FLORIDA CALLE 4 E/5Y3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3376,
+    "nroUsuario": "149349",
+    "nombre": "VERGARA AGUSTIN IGNACIO",
+    "domicilio": "B.LA FLORIDA 3 Y 4",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3377,
+    "nroUsuario": "152350",
+    "nombre": "SEMENZIN CARLOS",
+    "domicilio": "B.LA FLORIDA  CALLE 4 L5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3379,
+    "nroUsuario": "33783",
+    "nombre": "CAMPASTRI CARLOS",
+    "domicilio": "B. LA FLORIDA CALLE 4 L4",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3382,
+    "nroUsuario": "159336",
+    "nombre": "PAZ MARCELA GLORIA",
+    "domicilio": "RUTA 193 KM 7 P12",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3387,
+    "nroUsuario": "143349",
+    "nombre": "BATTISTA OSCAR",
+    "domicilio": "B.LA FLORIDA C.4 L.46",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3391,
+    "nroUsuario": "130822",
+    "nombre": "PASTORINO ANTONIO",
+    "domicilio": "LA FLORIDA CALLE 4 L 40",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3397,
+    "nroUsuario": "101875",
+    "nombre": "NIELLO GUSTAVO DAR",
+    "domicilio": "B. LA FLORIDA CALLE 6 L37",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3398,
+    "nroUsuario": "45668",
+    "nombre": "MANZI ALDO",
+    "domicilio": "B. LA FLORIDA CALLE 6 L36",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3399,
+    "nroUsuario": "170817",
+    "nombre": "TRIULCI  JUAN CARLOS",
+    "domicilio": "B.LA FLORIDA C.6 Y 15",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3402,
+    "nroUsuario": "149951",
+    "nombre": "JOANNAS PAULO ANDRES",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3403,
+    "nroUsuario": "110044",
+    "nombre": "CAMINITI MARIA",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3405,
+    "nroUsuario": "116505",
+    "nombre": "PATIÑO FORD SAUL MARCOS",
+    "domicilio": "B.LA FLORIDA C.6 ESQ.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3406,
+    "nroUsuario": "155142",
+    "nombre": "LEAL OSCAR ISMAEL",
+    "domicilio": "B.LA FLORIDA C.6  L.6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3412,
+    "nroUsuario": "121656",
+    "nombre": "VEGA LARROSA KARIN",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3413,
+    "nroUsuario": "123629",
+    "nombre": "BIELSA RUBEN",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3415,
+    "nroUsuario": "33755",
+    "nombre": "VETTORETTO C",
+    "domicilio": "B LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3416,
+    "nroUsuario": "65952",
+    "nombre": "GIORGETTI GUSTAVO",
+    "domicilio": "B LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3422,
+    "nroUsuario": "33745",
+    "nombre": "TURLO ANTONIO",
+    "domicilio": "B.LA FLORIDA   calle 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3423,
+    "nroUsuario": "126109",
+    "nombre": "FALOTICO AGUSTINA",
+    "domicilio": "B.LA FLORIDA   calle 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3425,
+    "nroUsuario": "125945",
+    "nombre": "SUAREZ GONZALO EZE",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3426,
+    "nroUsuario": "166846",
+    "nombre": "ALTAMIRANO JUAN IGNACIO",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3427,
+    "nroUsuario": "102109",
+    "nombre": "KRUMIN ESTEBAN",
+    "domicilio": "B.LA FLORIDA   calle 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3428,
+    "nroUsuario": "160050",
+    "nombre": "FIRPO MARIA ROSA",
+    "domicilio": "B.LA FLORIDA   calle 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3429,
+    "nroUsuario": "142765",
+    "nombre": "VERA CABRAL JIMENA",
+    "domicilio": "B.LA FLORIDA   calle 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3430,
+    "nroUsuario": "157644",
+    "nombre": "FIRPO JUAN FERNANDO",
+    "domicilio": "B.LA FLORIDA   calle 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3431,
+    "nroUsuario": "122003",
+    "nombre": "FIRPO RUBEN EMILIO",
+    "domicilio": "B.LA FLORIDA   calle 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3432,
+    "nroUsuario": "128166",
+    "nombre": "DIAZ NESTOR RICARD",
+    "domicilio": "B.LA FLORIDA   calle 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3434,
+    "nroUsuario": "171386",
+    "nombre": "RAMIREZ YOLANDA RAQUEL",
+    "domicilio": "B.LA FLORIDA CALLE 6  LOTE 1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3435,
+    "nroUsuario": "91494",
+    "nombre": "GIUFRIDA LORENA",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3436,
+    "nroUsuario": "154442",
+    "nombre": "SAYANES MARCELO CARLOS",
+    "domicilio": "B.LA FLORIDA C.6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3437,
+    "nroUsuario": "147274",
+    "nombre": "LESCANO MARCELO VICTOR",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3438,
+    "nroUsuario": "88627",
+    "nombre": "CORONEL ALBERTO",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3440,
+    "nroUsuario": "156287",
+    "nombre": "FRACCHIA PABLO ADRIAN",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3441,
+    "nroUsuario": "126603",
+    "nombre": "ILHARRAMONHO DIDIE",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3456,
+    "nroUsuario": "156125",
+    "nombre": "MARTINEZ MARIA ALEJANDRA",
+    "domicilio": "RUTA 193 KM 10,400",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3470,
+    "nroUsuario": "150098",
+    "nombre": "KRANEVITTER SILVIO HERNA",
+    "domicilio": "RUTA 193 KM 7.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3476,
+    "nroUsuario": "133840",
+    "nombre": "HENRICOT JUAN AGUS",
+    "domicilio": "RUTA 193 KM 7,5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3480,
+    "nroUsuario": "145744",
+    "nombre": "CHAMUSSY SILVINA NATALIA",
+    "domicilio": "B.LA CARONA L.8",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Carona"
+  },
+  {
+    "id": 3482,
+    "nroUsuario": "168114",
+    "nombre": "NAPOLITANO JUAN CARLOS",
+    "domicilio": "LA CARONA II L.2 MZ 29B",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Carona"
+  },
+  {
+    "id": 3483,
+    "nroUsuario": "150474",
+    "nombre": "INDA MARIA LAURA",
+    "domicilio": "B.LA CARONA L.17",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Carona"
+  },
+  {
+    "id": 3485,
+    "nroUsuario": "148844",
+    "nombre": "PAVIA AROSSA GUILLERMO A",
+    "domicilio": "B.LA CARONA 1 MZ.30C L.19",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Carona"
+  },
+  {
+    "id": 3488,
+    "nroUsuario": "138595",
+    "nombre": "BIANCUCHI JUAN MARTIN",
+    "domicilio": "B.LA CARONA L.17",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Carona"
+  },
+  {
+    "id": 3492,
+    "nroUsuario": "157582",
+    "nombre": "CHIAVELLI MARIA ALEJANDR",
+    "domicilio": "B.LA FLORIDA CALLE 4 Y L.OMB",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3500,
+    "nroUsuario": "169886",
+    "nombre": "CORVALAN DIEGO LEANDRO",
+    "domicilio": "B.LA FLORIDA CALLE 2 SN",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3509,
+    "nroUsuario": "166737",
+    "nombre": "GONCALVES COBRADO MARTIN",
+    "domicilio": "B.LA FLORIDA CALLE 4 L.",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3512,
+    "nroUsuario": "159847",
+    "nombre": "DIRUBE LUCILA",
+    "domicilio": "RUTA 193 KM. 13",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3518,
+    "nroUsuario": "112400",
+    "nombre": "VILLAGRA GRACIELA",
+    "domicilio": "B.LA FLORIDA CALLE 11 L10",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3519,
+    "nroUsuario": "100748",
+    "nombre": "BERNS CARLOS NESTO",
+    "domicilio": "B. LA FLORIDA CALLE 11 L8",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3523,
+    "nroUsuario": "107014",
+    "nombre": "DOELLO ANTONIO ROB",
+    "domicilio": "B. LA FLORIDA CALLE 11 L2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3528,
+    "nroUsuario": "142929",
+    "nombre": "CEBILE MAURICIO",
+    "domicilio": "B.LA FLORIDA C. 4 L. 55",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3531,
+    "nroUsuario": "77843",
+    "nombre": "CARMONA JUAN CARLO",
+    "domicilio": "B. LA FLORIDA CALLE 15 L12",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3532,
+    "nroUsuario": "94687",
+    "nombre": "IBERO FERNANDO",
+    "domicilio": "B. LA FLORIDA CALLE 15 L15",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3533,
+    "nroUsuario": "132508",
+    "nombre": "SALGADO ROBERTO DA",
+    "domicilio": "B. LA FLORIDA CALLE 8 L42",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3534,
+    "nroUsuario": "125615",
+    "nombre": "MULLER ALEJANDRO D",
+    "domicilio": "B. LA FLORIDA CALLE 8 L32   ║",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3535,
+    "nroUsuario": "149821",
+    "nombre": "MUSULIN MARTIN LEOPOLDO",
+    "domicilio": "B.LA FLORIDA CALLE 8 L38",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3537,
+    "nroUsuario": "154611",
+    "nombre": "CISTOLA LEONARDO GABRIEL",
+    "domicilio": "B.LA FLORIDA CALLE 7 ENTRE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3538,
+    "nroUsuario": "162086",
+    "nombre": "ADRADOS MARIA FLORENCIA",
+    "domicilio": "B. LA FLORIDA CALLE 7 LOTE 2║",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3546,
+    "nroUsuario": "118655",
+    "nombre": "LOPEZ RODRIGO JAVI",
+    "domicilio": "B. LA FLORIDA CALLE 8 L37",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3551,
+    "nroUsuario": "122794",
+    "nombre": "CARDENAS JUAN EDUA",
+    "domicilio": "B. LA FLORIDA CALLE 11 L26",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3552,
+    "nroUsuario": "115682",
+    "nombre": "JOANNAS LUIS ROBER",
+    "domicilio": "B.LA FLORIDA CALLE 11",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3554,
+    "nroUsuario": "134677",
+    "nombre": "BENITEZ ESTHER",
+    "domicilio": "B. LA FLORIDA CALLE 13 L20",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3555,
+    "nroUsuario": "147822",
+    "nombre": "TARTARA IGNACIO ORLANDO",
+    "domicilio": "B.LA FLORIDA CALLE 13 L18",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3557,
+    "nroUsuario": "160349",
+    "nombre": "ALVAREZ WALTER HECTOR",
+    "domicilio": "B.LA FLORIDA CALLE 13 L16",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3558,
+    "nroUsuario": "123849",
+    "nombre": "REYNOSO SARTORI EL",
+    "domicilio": "B.LA FLORIDA CALLE 13 L17",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3559,
+    "nroUsuario": "120419",
+    "nombre": "HORISBERGER SERGIO",
+    "domicilio": "B.LA FLORIDA CALLE 13",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3560,
+    "nroUsuario": "170781",
+    "nombre": "ROJAS DIEGO MANUEL",
+    "domicilio": "B.LA FLORIDA C.11 L.19",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3563,
+    "nroUsuario": "147138",
+    "nombre": "MOREYRA CARLOS FRANCISCO",
+    "domicilio": "B.LA FLORIDA CALLE 11 L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3567,
+    "nroUsuario": "146953",
+    "nombre": "BARTOLINI EMANUEL DAVID",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3568,
+    "nroUsuario": "157477",
+    "nombre": "GONZALEZ MANUEL",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3586,
+    "nroUsuario": "167219",
+    "nombre": "ESQUIVEL EZEQUIEL ADRIAN",
+    "domicilio": "F.DE LA FLORIDA M.22 E L.8",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3587,
+    "nroUsuario": "154415",
+    "nombre": "DI FLORIO KESSELER MARIA",
+    "domicilio": "F.DE LA FLORIDA M.22 L.14",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3592,
+    "nroUsuario": "152854",
+    "nombre": "PARULA FRANCO",
+    "domicilio": "FINCAS DE LA FLORIDA M.22C L",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3593,
+    "nroUsuario": "157218",
+    "nombre": "LACAPRA JONATAN NAHUEL",
+    "domicilio": "F.DE LA FLORIDA M.22A L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3598,
+    "nroUsuario": "152889",
+    "nombre": "MELO MIGUEL ANGEL",
+    "domicilio": "FINCAS DE LA FLORIDA M.22K L",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3603,
+    "nroUsuario": "152873",
+    "nombre": "SUAREZ OGALLAR IGNACIO J",
+    "domicilio": "FINCAS DE LA FLORIDA M.22K L",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 3613,
+    "nroUsuario": "89905",
+    "nombre": "CHELINI ALBERTO HO",
+    "domicilio": "RUTA 193 KM 10.500 CTEL 4 ES",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3619,
+    "nroUsuario": "152635",
+    "nombre": "LUNDA SOLEDAD PAMELA",
+    "domicilio": "L.MIRTILLOS II M.4 L13",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3620,
+    "nroUsuario": "154784",
+    "nombre": "LINA ANDRES FERNANDO",
+    "domicilio": "L.MIRTILLOS II MZ.4 L.20",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3622,
+    "nroUsuario": "151686",
+    "nombre": "MIÑO JORGE ADRIAN",
+    "domicilio": "L.MIRTILLOS II MZ.3 L.8",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3626,
+    "nroUsuario": "170514",
+    "nombre": "FANTILI JUAN CARLOS",
+    "domicilio": "L.MIRTILLOS II M.3 L18",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3627,
+    "nroUsuario": "153500",
+    "nombre": "MILAZZO JAVIER ESTEBAN",
+    "domicilio": "L.MIRTILLOS II M.3 L.20",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3630,
+    "nroUsuario": "149278",
+    "nombre": "ALTINIER PAPPALARDO NICO",
+    "domicilio": "L.MIRTILLOS II M.2 L.03",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3631,
+    "nroUsuario": "149344",
+    "nombre": "GALINDEZ CARLOS JULIAN",
+    "domicilio": "L.MIRTILLOS 2 MZ 2 L 4",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3632,
+    "nroUsuario": "152342",
+    "nombre": "DUQUE CRISTIAN GABRIEL",
+    "domicilio": "L.MIRTILLOS II M.2 L.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3633,
+    "nroUsuario": "159491",
+    "nombre": "LOPEZ SILVIA GLADYS",
+    "domicilio": "L.MIRTILLOS II M.2 L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3634,
+    "nroUsuario": "153129",
+    "nombre": "FLORES RAFAEL RODRIGO",
+    "domicilio": "L.MIRTILLOS II MZ 2 L.6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3635,
+    "nroUsuario": "149367",
+    "nombre": "CASTRO RODRIGO MAURICIO",
+    "domicilio": "L.MIRTILLOS 2 MZ.2 L.8 Y 9",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3636,
+    "nroUsuario": "151033",
+    "nombre": "PALACIO MAXIMILIANO",
+    "domicilio": "L.MIRTILLOS II MZ 2 L.10",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3637,
+    "nroUsuario": "157792",
+    "nombre": "SANCHEZ HECTOR OSVALDO",
+    "domicilio": "L.MIRTILLOS II MZ.2 L.11",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3638,
+    "nroUsuario": "149855",
+    "nombre": "COMAN FERNANDA CARMEN",
+    "domicilio": "L.MIRTILLOS II MZ.2 L.12",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3639,
+    "nroUsuario": "149198",
+    "nombre": "CLAUS SONIA BEATRIZ",
+    "domicilio": "L.MIRTILLOS II M.2 L.14 14",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3641,
+    "nroUsuario": "149811",
+    "nombre": "ARONA PAULA NOELIA",
+    "domicilio": "L.MIRTILLOS II M.2 L.17",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3642,
+    "nroUsuario": "150340",
+    "nombre": "VELA FACUNDO NAHUEL",
+    "domicilio": "L.MIRTILLOS II M.2  L.18",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3643,
+    "nroUsuario": "170859",
+    "nombre": "CORRO HECTOR ANDRES",
+    "domicilio": "L.MIRTILLOS II M.1 L.4",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3644,
+    "nroUsuario": "155006",
+    "nombre": "CORVALAN ANABELLA ALEJAN",
+    "domicilio": "L.MIRTILLOS II MZ.2 L.21",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3646,
+    "nroUsuario": "156520",
+    "nombre": "ALBERI LUIS MARIA",
+    "domicilio": "L.MIRTILLOS II MZ.1 L.8",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3649,
+    "nroUsuario": "154965",
+    "nombre": "VARGAS NAHUEL",
+    "domicilio": "L.MIRTILLOS II MZ.1 L.12",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3650,
+    "nroUsuario": "149522",
+    "nombre": "FERNANDEZ JUAN ESTEBAN",
+    "domicilio": "L.MIRTILLOS II M.1 L.13",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3651,
+    "nroUsuario": "149881",
+    "nombre": "CRESPIN DIEGO ESTEBAN",
+    "domicilio": "L.MIRTILLOS II M.1 L.14",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3652,
+    "nroUsuario": "149880",
+    "nombre": "RADOLCI LUIS ANDRES",
+    "domicilio": "L.MIRTILLOS II M.1 L.15",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3653,
+    "nroUsuario": "156144",
+    "nombre": "GUTIERREZ GRACIELA ANDRE",
+    "domicilio": "L.MIRTILLOS II M.8 L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3654,
+    "nroUsuario": "149870",
+    "nombre": "SILVA MIRTA INES",
+    "domicilio": "L.MIRTILLOS II MZ.8 L.14",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3655,
+    "nroUsuario": "149211",
+    "nombre": "ANSALONI SERGIO GERMAN",
+    "domicilio": "L.MIRTILLOS II M.8 L.09 9",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3656,
+    "nroUsuario": "160740",
+    "nombre": "PASQUALI LUCIO GABRIEL",
+    "domicilio": "L.MIRTILLOS II M.8 L.11",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3658,
+    "nroUsuario": "149248",
+    "nombre": "PEREZ RAUL ROBERTO",
+    "domicilio": "L.MIRTILLOS II M.8 L.01",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3661,
+    "nroUsuario": "156186",
+    "nombre": "VERA MONICA INES",
+    "domicilio": "L.MIRTILLOS II MZ.7 L.16",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3662,
+    "nroUsuario": "149315",
+    "nombre": "BRACONI DEBORA TICIANA",
+    "domicilio": "L.MIRTILLOS II M.6 L.17",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3663,
+    "nroUsuario": "149239",
+    "nombre": "DA COSTA SILVIO ANDRES",
+    "domicilio": "L.MIRTILLOS II M.5 L.13",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3674,
+    "nroUsuario": "170236",
+    "nombre": "CAVALIERE MAURO SEBASTIA",
+    "domicilio": "L.MIRTILLOS 2 M.4 L.4",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3675,
+    "nroUsuario": "161791",
+    "nombre": "PODESTA MARCELO ROGELIO",
+    "domicilio": "L.MIRTILLOS II MZ.4 L.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 3677,
+    "nroUsuario": "172448",
+    "nombre": "CHEN HUAMEI",
+    "domicilio": "RUTA 9 KM.88.600",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 3686,
+    "nroUsuario": "145001",
+    "nombre": "LEIVA LUCIANA YANET",
+    "domicilio": "LA PELUCHA CALLE 2 L.24",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 3687,
+    "nroUsuario": "161467",
+    "nombre": "RIQUELME DIEGO FERNANDO",
+    "domicilio": "L.ACACIOS I M.1 L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 3688,
+    "nroUsuario": "165670",
+    "nombre": "GONZALEZ ALEXIS EDGARDO",
+    "domicilio": "L.ACACIOS I M.1 L.8",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 3691,
+    "nroUsuario": "142989",
+    "nombre": "GOMEZ ESTER FABIANA",
+    "domicilio": "LA PELUCHA CALLE 2  L.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 3833,
+    "nroUsuario": "98177",
+    "nombre": "BALDONCINI MARIA J",
+    "domicilio": "CALLE 6 565 M.2 2A",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 3975,
+    "nroUsuario": "144083",
+    "nombre": "GEREZ JULIO ARGENTINO",
+    "domicilio": "LOS CEIBOS M.4 L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 3978,
+    "nroUsuario": "166938",
+    "nombre": "PAOLINELLI ALDANA DANIEL",
+    "domicilio": "LOS CEIBOS M.10 L.8",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 3981,
+    "nroUsuario": "160627",
+    "nombre": "RUIZ DIAZ DAVID ALBERTO",
+    "domicilio": "L.CEIBOS M.15 L.20",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 3986,
+    "nroUsuario": "125773",
+    "nombre": "ALMIRON JORGE",
+    "domicilio": "L.CEIBOS M.2 L.21",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 3991,
+    "nroUsuario": "153962",
+    "nombre": "ANTUNES JONATAN ALBERTO",
+    "domicilio": "L.CEIBOS M.11 L 8",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 3994,
+    "nroUsuario": "163993",
+    "nombre": "BARBOZA ELBIO JESUS",
+    "domicilio": "B.VICTORIA l.36",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Victoria"
+  },
+  {
+    "id": 3995,
+    "nroUsuario": "123355",
+    "nombre": "BASSO DAVID",
+    "domicilio": "L.CEIBOS M.21 L.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 3996,
+    "nroUsuario": "124577",
+    "nombre": "BENEGAS CLAUDIO",
+    "domicilio": "L.CEIBOS M.1 L.12",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 3999,
+    "nroUsuario": "145105",
+    "nombre": "BOSSI SERGIO ANDRES",
+    "domicilio": "L.NARANJOS L.20",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Los Naranjos"
+  },
+  {
+    "id": 4001,
+    "nroUsuario": "141047",
+    "nombre": "CABRERA MELISA GISELE",
+    "domicilio": "L.CEIBOS M.4 L.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4004,
+    "nroUsuario": "148214",
+    "nombre": "CAMPODONICO LEANDRO",
+    "domicilio": "B.LOS NARANJOS M.101 L 1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Los Naranjos"
+  },
+  {
+    "id": 4005,
+    "nroUsuario": "136891",
+    "nombre": "CAÑETE ROSA",
+    "domicilio": "L.CEIBOS M.16 L.16",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4007,
+    "nroUsuario": "158700",
+    "nombre": "CASSINO ALINA RITA",
+    "domicilio": "L.CEIBOS M.7 L.12",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4008,
+    "nroUsuario": "157303",
+    "nombre": "CASTRO FERNANDO JAVIER",
+    "domicilio": "LA CAMPIÑA 1 M.B L.8",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Campiña"
+  },
+  {
+    "id": 4012,
+    "nroUsuario": "157872",
+    "nombre": "CERRUDO VANINA SOLEDAD",
+    "domicilio": "L.CEIBOS M.2  L.15",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4015,
+    "nroUsuario": "166861",
+    "nombre": "CORREA CARLOS ADRIAN",
+    "domicilio": "L.CEIBOS M.8 L.16",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4017,
+    "nroUsuario": "151543",
+    "nombre": "CURA MARIA JIMENA",
+    "domicilio": "L.CEIBOS M.19 L.14",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4018,
+    "nroUsuario": "164552",
+    "nombre": "DE LUCCA CRISTIAN",
+    "domicilio": "LA CAMPIÑA II M.H L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Campiña"
+  },
+  {
+    "id": 4022,
+    "nroUsuario": "164628",
+    "nombre": "ESPERATTI EDGARDO",
+    "domicilio": "L.CEIBOS 26 DE AGOSTO 1435",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4033,
+    "nroUsuario": "150310",
+    "nombre": "GODOY LUIS CESAR",
+    "domicilio": "L.CEIBOS M.2 L.19",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4038,
+    "nroUsuario": "130973",
+    "nombre": "GOMEZ ROSA CRISTIN",
+    "domicilio": "L.CEIBOS M.12 L.18",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4041,
+    "nroUsuario": "124844",
+    "nombre": "GONZALEZ DIEGO",
+    "domicilio": "L.CEIBOS M.4 L.8",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4042,
+    "nroUsuario": "166127",
+    "nombre": "GONZALEZ EDUARDO",
+    "domicilio": "LA CAMPIÑA III MZ.J L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Campiña"
+  },
+  {
+    "id": 4043,
+    "nroUsuario": "163911",
+    "nombre": "GONZALEZ JUAN RAMON",
+    "domicilio": "A.DEL CASCO L.136",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 4044,
+    "nroUsuario": "127390",
+    "nombre": "GORIS ALEJANDRO (PENSIONADOS LOS CEIBOS)",
+    "domicilio": "L.CEIBOS M.3 L.6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4048,
+    "nroUsuario": "160021",
+    "nombre": "IRIBARNE DANIEL GERMAN",
+    "domicilio": "L.CEIBOS M.7 L.14",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4051,
+    "nroUsuario": "150613",
+    "nombre": "LEDESMA JORGE ISAAC",
+    "domicilio": "L.CEIBOS 7 CRIOLLOS 1467",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4052,
+    "nroUsuario": "160876",
+    "nombre": "LOPEZ ROSA MARIA",
+    "domicilio": "L.CEIBOS M.19 L.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4054,
+    "nroUsuario": "155236",
+    "nombre": "MAFFIOLY PAULA GABRIELA",
+    "domicilio": "L.CEIBOS M.3 L.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4056,
+    "nroUsuario": "124174",
+    "nombre": "MARTINEZ MIRIAM VA",
+    "domicilio": "L.CEIBOS M.7 L.10",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4058,
+    "nroUsuario": "127580",
+    "nombre": "MATTEO LORENA SOLE",
+    "domicilio": "L.CEIBOS M.16 L.15",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4062,
+    "nroUsuario": "124760",
+    "nombre": "MENGUCCI DANIEL",
+    "domicilio": "L.CEIBOS M.4 L.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4064,
+    "nroUsuario": "151259",
+    "nombre": "MOBILIO ALEJANDRO LEONEL",
+    "domicilio": "L.CEIBOS M.12 L.17",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4065,
+    "nroUsuario": "123262",
+    "nombre": "MODENA ADRIANA",
+    "domicilio": "L.CEIBOS M.19 L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4067,
+    "nroUsuario": "160010",
+    "nombre": "MONTERO FLAVIA VANINA",
+    "domicilio": "L.CEIBOS M.4 L.10",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4068,
+    "nroUsuario": "126721",
+    "nombre": "NADAL CAMILO ERNES",
+    "domicilio": "A.ARGENTINA 6600 lote 12 ALDEA SUIZA",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Aldea Suiza"
+  },
+  {
+    "id": 4069,
+    "nroUsuario": "167301",
+    "nombre": "NAVARRO FRANCO AGUSTIN",
+    "domicilio": "LOS CAMPOS DE FRESNOS L.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 4071,
+    "nroUsuario": "140181",
+    "nombre": "OCAMPO EMMANUEL RICARDO",
+    "domicilio": "L.CEIBOS M.9 L.15",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4073,
+    "nroUsuario": "125782",
+    "nombre": "OVIEDO MONICA PATR",
+    "domicilio": "A.ARG.6600 ALDEA SUIZA",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Aldea Suiza"
+  },
+  {
+    "id": 4077,
+    "nroUsuario": "131873",
+    "nombre": "PARAPUGNO ANALIA",
+    "domicilio": "A.DEL CASCO L.49",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 4088,
+    "nroUsuario": "126152",
+    "nombre": "RACHICH VERONICA",
+    "domicilio": "L.CEIBOS M.2 L.12",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4089,
+    "nroUsuario": "165468",
+    "nombre": "RAMIREZ LUCAS JULIAN",
+    "domicilio": "LA CAMPIÑA III MZ.I L.9",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Campiña"
+  },
+  {
+    "id": 4090,
+    "nroUsuario": "151179",
+    "nombre": "REDUTO CLAUDIO MARIANO",
+    "domicilio": "L.CEIBOS M.16 L.13",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4095,
+    "nroUsuario": "124828",
+    "nombre": "ROJO ELBA MARIA L",
+    "domicilio": "L.CEIBOS M.1 L.25",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4101,
+    "nroUsuario": "152970",
+    "nombre": "SOSA JONATAN MATIAS",
+    "domicilio": "L.CEIBOS M.1 L.18",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4105,
+    "nroUsuario": "157129",
+    "nombre": "VILLAR MIRIAM NOEMI",
+    "domicilio": "L.CEIBOS M.11 L.20",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4107,
+    "nroUsuario": "141001",
+    "nombre": "ZAPATA PABLO ERNESTO",
+    "domicilio": "L.CEIBOS M.15  L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4108,
+    "nroUsuario": "155361",
+    "nombre": "ADAMS MIGUEL ANGEL",
+    "domicilio": "LOS CEIBOS M.10 L.20",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4118,
+    "nroUsuario": "154435",
+    "nombre": "Alhuay Taipe Oscar Carlos",
+    "domicilio": "La campiña 1 Mz C L 16",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Campiña"
+  },
+  {
+    "id": 4121,
+    "nroUsuario": "156042",
+    "nombre": "ARAUJO MARIA AZUCENA",
+    "domicilio": "LA CAMPIÑA MZ.L L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Campiña"
+  },
+  {
+    "id": 4127,
+    "nroUsuario": "151710",
+    "nombre": "BARBIERI ERNESTO ALBERTO",
+    "domicilio": "EL CABURE CH.5 L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 4141,
+    "nroUsuario": "163031",
+    "nombre": "BORRO PABLO ZENON",
+    "domicilio": "B.VICTORIA L.34",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Victoria"
+  },
+  {
+    "id": 4151,
+    "nroUsuario": "157423",
+    "nombre": "CARABALLO MARIELA ALEJAN",
+    "domicilio": "L.CEIBOS M.4 L.29",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4158,
+    "nroUsuario": "165199",
+    "nombre": "CASTIGLIONI MICHEL",
+    "domicilio": "B.VICTORIA L.45",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Victoria"
+  },
+  {
+    "id": 4167,
+    "nroUsuario": "133505",
+    "nombre": "CONTE NOELIA",
+    "domicilio": "A.ARGENTINA 6600    ALDEA SUIZA",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Aldea Suiza"
+  },
+  {
+    "id": 4185,
+    "nroUsuario": "142349",
+    "nombre": "ENTREOLIVANO MARTIN",
+    "domicilio": "LOS CEIBOS M.4 LOT.14",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4197,
+    "nroUsuario": "133761",
+    "nombre": "FLORES MARIA PAULA",
+    "domicilio": "A.ARGENTINA 6600 L.16  ALDEA SUIZA",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Aldea Suiza"
+  },
+  {
+    "id": 4202,
+    "nroUsuario": "129876",
+    "nombre": "GALEANO ROBERTO OS",
+    "domicilio": "L.CEIBOS M.12 L.13",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4203,
+    "nroUsuario": "168185",
+    "nombre": "GALESIO GASTON GABRIEL",
+    "domicilio": "L.CEIBOS 26 DE AGT  1470",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4206,
+    "nroUsuario": "149804",
+    "nombre": "GIMENEZ JOSE MARIO",
+    "domicilio": "L.CEIBOS M.3 L.2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4217,
+    "nroUsuario": "146371",
+    "nombre": "GUZMAN MARIO MARTIN",
+    "domicilio": "A.ARGENTINA 6600 L.13  ALDEA SUIZA",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Aldea Suiza"
+  },
+  {
+    "id": 4227,
+    "nroUsuario": "165736",
+    "nombre": "KRUPEK JORGE HERNAN",
+    "domicilio": "LOS CEIBOS M.4 L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4231,
+    "nroUsuario": "151884",
+    "nombre": "LAZARTE SERGIO NORBERTO",
+    "domicilio": "L.CEIBOS M.21 L.12",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4238,
+    "nroUsuario": "159613",
+    "nombre": "LOS CAMPOS DE FRESNOS",
+    "domicilio": "LOS CAMPOS DE FRESNOS L.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 4243,
+    "nroUsuario": "136456",
+    "nombre": "LUNA MAXIMILIANO E",
+    "domicilio": "A.ARGENTINA 6600 L.10    ALDEA SUIZA",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Aldea Suiza"
+  },
+  {
+    "id": 4244,
+    "nroUsuario": "146701",
+    "nombre": "MAMANI GARCIA VILMA SOLE",
+    "domicilio": "RUTA 9 KM 91",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 4245,
+    "nroUsuario": "139002",
+    "nombre": "MAMANI GOMEZ ALEJANDRO",
+    "domicilio": "RUTA 9 KM 91",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 4253,
+    "nroUsuario": "126929",
+    "nombre": "MEDRANO YANINA MARCELA",
+    "domicilio": "L.CEIBOS M.2 L.27",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4265,
+    "nroUsuario": "160835",
+    "nombre": "MUNAFO MARIA SOLEDAD",
+    "domicilio": "A.ARGENTINA 6600  LOTE 5 ALDEA SUIZA",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Aldea Suiza"
+  },
+  {
+    "id": 4267,
+    "nroUsuario": "123503",
+    "nombre": "NEIRAS NELSON ARIE",
+    "domicilio": "L.CEIBOS M.8 L.6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4268,
+    "nroUsuario": "124199",
+    "nombre": "OCAMPO LEANDRO",
+    "domicilio": "L.CEIBOS M.9 L.19",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4269,
+    "nroUsuario": "159688",
+    "nombre": "OTERO LEONARDO JAVIER",
+    "domicilio": "L.CEIBOS 7 CRIOLLOS 1427",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4272,
+    "nroUsuario": "130620",
+    "nombre": "PANTANO KARINA LORENA",
+    "domicilio": "L.CEIBOS M.11 L.19",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4301,
+    "nroUsuario": "165394",
+    "nombre": "Sabtorsola Maximiliano",
+    "domicilio": "Los campos de fresnos L.38",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 4310,
+    "nroUsuario": "124573",
+    "nombre": "SANTAROSSA MARTIN",
+    "domicilio": "L.CEIBOS M.1 L.2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4311,
+    "nroUsuario": "149747",
+    "nombre": "SANTORO CLAUDIO",
+    "domicilio": "LA CAMPIÑA MZ J L 12",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Campiña"
+  },
+  {
+    "id": 4326,
+    "nroUsuario": "157327",
+    "nombre": "STADELMAN CARLOS DAMIAN",
+    "domicilio": "EL CABURE CH.5 L.2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 4332,
+    "nroUsuario": "168151",
+    "nombre": "TERESZCZUK ELIZABETH",
+    "domicilio": "L.CEIBOS M.12 L.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4336,
+    "nroUsuario": "161071",
+    "nombre": "TRONCOSO PABLO DANIEL",
+    "domicilio": "L.CEIBOS 7 CRIOLLOS 1423",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4337,
+    "nroUsuario": "125942",
+    "nombre": "TURINETTO GERMAN",
+    "domicilio": "L.CEIBOS M.2 L.14",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 4368,
+    "nroUsuario": "134524",
+    "nombre": "YACOBONE NATALIA V",
+    "domicilio": "B.VICTORIA L.29",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Victoria"
+  },
+  {
+    "id": 4369,
+    "nroUsuario": "133434",
+    "nombre": "DANIELE FABIAN ARM",
+    "domicilio": "B.VICTORIA L.35",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Victoria"
+  },
+  {
+    "id": 4370,
+    "nroUsuario": "127556",
+    "nombre": "TOURN LEONARDO SEB",
+    "domicilio": "CUARTEL 3 S/N",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Otras Zonas Independientes"
+  },
+  {
+    "id": 4374,
+    "nroUsuario": "167923",
+    "nombre": "GRECO GABRIELE",
+    "domicilio": "CUARTEL 3 S/N",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Otras Zonas Independientes"
+  },
+  {
+    "id": 4405,
+    "nroUsuario": "122934",
+    "nombre": "MONTERO FRISCO CRI",
+    "domicilio": "A.ARGENTINA 6600 L.29",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 4410,
+    "nroUsuario": "150679",
+    "nombre": "MAMANI JANCKO WALTER",
+    "domicilio": "RUTA 9 KM 91",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 4412,
+    "nroUsuario": "152943",
+    "nombre": "GIRARD MARIA CTISTINA",
+    "domicilio": "RUTA 9 KM 92.300",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 4413,
+    "nroUsuario": "164042",
+    "nombre": "CASTAÑO ERNESTO FABIAN",
+    "domicilio": "RUTA 9 KM 92",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 4414,
+    "nroUsuario": "153470",
+    "nombre": "ACOSTA ELBA ALEJANDRA",
+    "domicilio": "RUTA 9 KM 92",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 4415,
+    "nroUsuario": "166748",
+    "nombre": "SAVISKI OLGA NAIR",
+    "domicilio": "RUTA 9 km 92",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 4427,
+    "nroUsuario": "151279",
+    "nombre": "CAIRONE DEBORA SILVANA",
+    "domicilio": "L.ROBLES M.4 L.2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4431,
+    "nroUsuario": "151181",
+    "nombre": "LOPEZ CARMEN BEATRIZ",
+    "domicilio": "L.ROBLES M.2 L.6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4448,
+    "nroUsuario": "161700",
+    "nombre": "FERNANDEZ JESICA MARICEL",
+    "domicilio": "L.ROBLES M.5 L.6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4451,
+    "nroUsuario": "151076",
+    "nombre": "GAIERO LEANDRO MATIAS",
+    "domicilio": "L.ROBLES M.1 L.26",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4463,
+    "nroUsuario": "164406",
+    "nombre": "LOPEZ LOURDES ELIZABETH",
+    "domicilio": "L.ROBLES M.2 L.2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4497,
+    "nroUsuario": "153342",
+    "nombre": "SOLIS MARIO FERNANDO",
+    "domicilio": "L.ROBLES M.2 C.20",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4498,
+    "nroUsuario": "151102",
+    "nombre": "PIZZATTI VILLAMAYOR CRIS",
+    "domicilio": "L.ROBLES M.5 L.10",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4499,
+    "nroUsuario": "151182",
+    "nombre": "GAITAN VANESA ELENA",
+    "domicilio": "L.ROBLES M.1 C.28",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4500,
+    "nroUsuario": "154366",
+    "nombre": "PEREZ CAROLINA MARIANA",
+    "domicilio": "L.ROBLES M.1 L.9",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4501,
+    "nroUsuario": "151060",
+    "nombre": "LOILLE ESTEBAN NICOLAS",
+    "domicilio": "L.ROBLES M.1 C.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4502,
+    "nroUsuario": "151751",
+    "nombre": "OCAÑO YANINA MARIANELA",
+    "domicilio": "L.ROBLES M.2 L.21",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4503,
+    "nroUsuario": "153955",
+    "nombre": "AMICONE ANAHI",
+    "domicilio": "L.ROBLES M.3 L.6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4504,
+    "nroUsuario": "159707",
+    "nombre": "GOMEZ MONICA ARACELI",
+    "domicilio": "L.ROBLES M. 3 L.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4505,
+    "nroUsuario": "151990",
+    "nombre": "SOTTO CELIA SONIA",
+    "domicilio": "L.ROBLES M.2 L.8",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4508,
+    "nroUsuario": "151384",
+    "nombre": "PANELO SABRINA MOIRA",
+    "domicilio": "L.ROBLES M.2 C.11",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4509,
+    "nroUsuario": "151793",
+    "nombre": "DE SAN JOAQUIN LUCAS EZE",
+    "domicilio": "L.ROBLES MZ.2 L.16",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4510,
+    "nroUsuario": "158649",
+    "nombre": "OCHOA RODRIGO SEBASTIAN",
+    "domicilio": "L.ROBLES MZ 2 L.30",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4511,
+    "nroUsuario": "165782",
+    "nombre": "OCAMPO ROSA MILAGROS",
+    "domicilio": "L.ROBLES M.5 L.18",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4512,
+    "nroUsuario": "151300",
+    "nombre": "MEDINA HORACIO LORENZO",
+    "domicilio": "L.ROBLES M.4(CLUB.)",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4514,
+    "nroUsuario": "162823",
+    "nombre": "PALACIOS ANALIA MABEL",
+    "domicilio": "L.ROBLES M.5 L.30",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4517,
+    "nroUsuario": "151110",
+    "nombre": "GONZALEZ LUCIA LARA",
+    "domicilio": "L.ROBLES M.1 C.6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4519,
+    "nroUsuario": "151072",
+    "nombre": "KITTL ROBERTO ADRIAN",
+    "domicilio": "L.ROBLES M.1 L.16",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 4522,
+    "nroUsuario": "158644",
+    "nombre": "ANDRADE FALCO PAULA",
+    "domicilio": "L.ROBLES M.3 L.26",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Robles"
+  },
+  {
+    "id": 5318,
+    "nroUsuario": "126944",
+    "nombre": "DURRELS AMERICO FERNANDO",
+    "domicilio": "E.SMITHFIELD L.411",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 5321,
+    "nroUsuario": "156722",
+    "nombre": "LUCHETTI MONICA BEATRIZ",
+    "domicilio": "E.SMITHFIELD L.343",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 5323,
+    "nroUsuario": "139322",
+    "nombre": "MEGLIO OSVALDO ENRIQUE",
+    "domicilio": "E.SMITHFIELD L.263",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 5325,
+    "nroUsuario": "139041",
+    "nombre": "PARISI PABLO ANDRES",
+    "domicilio": "E.SMITHFIELD L.239",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 5327,
+    "nroUsuario": "159835",
+    "nombre": "ROSA MONTES OSCAR",
+    "domicilio": "E.SMITHFIELD L.55",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 5335,
+    "nroUsuario": "124189",
+    "nombre": "BORRELLI MARIEL IVON",
+    "domicilio": "E.SMITHFIELD L.351",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 5341,
+    "nroUsuario": "169041",
+    "nombre": "DE LA LLERA MATIAS EMANU",
+    "domicilio": "E.SMITHFIELD L.260",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 5343,
+    "nroUsuario": "129044",
+    "nombre": "DITGES RENATA CLAU",
+    "domicilio": "E.SMITHFIELD L.249",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 5344,
+    "nroUsuario": "155260",
+    "nombre": "DUARTE SERGIO PABLO",
+    "domicilio": "INT.LUIS DI PAOLO 2550 KM 82",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 5347,
+    "nroUsuario": "131261",
+    "nombre": "FERNANDEZ MARINA",
+    "domicilio": "E.SMITHFIELD L.431",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 5352,
+    "nroUsuario": "166897",
+    "nombre": "IBARRA RUBEN GUSTAVO",
+    "domicilio": "E.SMITHFIELD L.279",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 5353,
+    "nroUsuario": "162240",
+    "nombre": "INSUA JAVIER PABLO",
+    "domicilio": "E.SMITHFIELD L 233",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 5358,
+    "nroUsuario": "160217",
+    "nombre": "MORALES CRISTIAN GASTON",
+    "domicilio": "E.SMITHFIELD L.220",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 5359,
+    "nroUsuario": "140144",
+    "nombre": "ÑUTA SEBASTIAN RAUL",
+    "domicilio": "E.SMITHFIELD L.303",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 5362,
+    "nroUsuario": "133913",
+    "nombre": "PODESTA MIRIAM",
+    "domicilio": "E.SMITHFIELD L.433",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 5367,
+    "nroUsuario": "166006",
+    "nombre": "VALIENTE MARTIN GERARDO",
+    "domicilio": "E.SMITHFIELD L.305",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 5371,
+    "nroUsuario": "167374",
+    "nombre": "RUIZ VANESA FERNANDA",
+    "domicilio": "E.SMITHFIELD L.310",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 7170,
+    "nroUsuario": "158334",
+    "nombre": "FARIAS SILVINA MABEL",
+    "domicilio": "ALEM 1608 L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 7528,
+    "nroUsuario": "132498",
+    "nombre": "DILLON JUAN CARLOS",
+    "domicilio": "SARMIENTO 1410  L.6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 7623,
+    "nroUsuario": "125252",
+    "nombre": "NOSIGLIA DANIELA S",
+    "domicilio": "SARMIENTO 1410 L.2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 7624,
+    "nroUsuario": "114830",
+    "nombre": "GALIANO NOELIA ELI",
+    "domicilio": "SARMIENTO 1410 L.4",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 9021,
+    "nroUsuario": "135447",
+    "nombre": "DUARTE CARLA GIMEN",
+    "domicilio": "A.MELILLO 1100 L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 9108,
+    "nroUsuario": "162869",
+    "nombre": "LUGO HECTOR OSCAR",
+    "domicilio": "A.MELILLO 1100 L.19",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 9109,
+    "nroUsuario": "161769",
+    "nombre": "JONVAL ROBERTO DANIEL",
+    "domicilio": "A.MELILLO 1100 L.20",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 9469,
+    "nroUsuario": "166523",
+    "nombre": "ALMIRON MILAGROS MAGALI",
+    "domicilio": "A.ANTA 1598 L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 9470,
+    "nroUsuario": "163209",
+    "nombre": "ESQUIVEL GABRIELA SOLEDAD",
+    "domicilio": "A.ANTA 1598 L.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 9963,
+    "nroUsuario": "158697",
+    "nombre": "SELLA ROMINA ELIZABETH",
+    "domicilio": "M.23 2B UOM",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 9969,
+    "nroUsuario": "104125",
+    "nombre": "CIANCHETTA GEORGIN",
+    "domicilio": "M.25  3 D  FONAVI",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 9974,
+    "nroUsuario": "56251",
+    "nombre": "ROMAGNOLI RAUL",
+    "domicilio": "M.23 PB B  FONAVI",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 9987,
+    "nroUsuario": "101430",
+    "nombre": "SILVA MARIO",
+    "domicilio": "M.12 3 C  FONAVI",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 9988,
+    "nroUsuario": "48264",
+    "nombre": "VALIENTE ABEL",
+    "domicilio": "M.12  3 A  FONAVI",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 9989,
+    "nroUsuario": "41635",
+    "nombre": "RODRIGUEZ MARIO",
+    "domicilio": "M.10  2 A  FONAVI",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 9990,
+    "nroUsuario": "48231",
+    "nombre": "CONSORCIO MONOB 10",
+    "domicilio": "M.10 CONSORC.FONAVI",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 9991,
+    "nroUsuario": "127133",
+    "nombre": "FIGUEROA LUIS",
+    "domicilio": "B.FONAVI M.9 PB E",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 9992,
+    "nroUsuario": "153159",
+    "nombre": "PAVON LUCIANA CARLA",
+    "domicilio": "B.FONAVI M.9 3 C",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 9993,
+    "nroUsuario": "112054",
+    "nombre": "AGUILERA GABRIELA",
+    "domicilio": "B.FONAVI M.8 3B",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 9994,
+    "nroUsuario": "136639",
+    "nombre": "PINTO SUSANA MABEL",
+    "domicilio": "B.FONAVI M.8 1 B",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 9997,
+    "nroUsuario": "149221",
+    "nombre": "RIOS MARIA EVA",
+    "domicilio": "B.FONAVI M.5 3 E",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 9998,
+    "nroUsuario": "163018",
+    "nombre": "BONINA HORACIO SEBASTIAN",
+    "domicilio": "B.FONAVI M.5 2 C",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 9999,
+    "nroUsuario": "162644",
+    "nombre": "CAÑETE KARINA MARISOL",
+    "domicilio": "B.FONAVI M.5 PB A",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 10000,
+    "nroUsuario": "158228",
+    "nombre": "ISLA OFELIA ALICIA",
+    "domicilio": "B.FONAVI M.2 3B",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 10001,
+    "nroUsuario": "151404",
+    "nombre": "MEDINA MIRTA NOEMI",
+    "domicilio": "B.FONAVI M.2 1 C",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 10004,
+    "nroUsuario": "151217",
+    "nombre": "CABRERA AMANDA",
+    "domicilio": "B.FONAVI M.29 PB D",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 10005,
+    "nroUsuario": "99917",
+    "nombre": "LA FRATTA GUSTAVO",
+    "domicilio": "M.29 PB C  FONAVI",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 10006,
+    "nroUsuario": "106768",
+    "nombre": "SENF NORMA MERCEDE",
+    "domicilio": "M.29 PB E  FONAVI",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 10009,
+    "nroUsuario": "151664",
+    "nombre": "AYALA GABRIELA ALEJANDRA",
+    "domicilio": "B.FONAVI M.27 3 D",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 10011,
+    "nroUsuario": "151618",
+    "nombre": "GALLARDO MARIA VICTORIA",
+    "domicilio": "B.FONAVI M.27 PB A",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 10012,
+    "nroUsuario": "106365",
+    "nombre": "PORTICELLA ERMINDA",
+    "domicilio": "M.25  1 C  FONAVI",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 10013,
+    "nroUsuario": "79975",
+    "nombre": "QUEVEDO ESTER",
+    "domicilio": "M.25  1 A  FONAVI",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Manzanas y Sectores"
+  },
+  {
+    "id": 10172,
+    "nroUsuario": "143835",
+    "nombre": "ARRATIVEL VIRGINIA",
+    "domicilio": "CALLE 12 350 L.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 10216,
+    "nroUsuario": "168417",
+    "nombre": "HUAIRA GALA ALFREDO",
+    "domicilio": "CALLE 12 350 L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 10233,
+    "nroUsuario": "147948",
+    "nombre": "PEREZ WALTER ROBERTO",
+    "domicilio": "CALLE 12 350 L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 10409,
+    "nroUsuario": "151031",
+    "nombre": "FARIAS GISELA ELIZABETH",
+    "domicilio": "CALLE 9 625 L.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 10520,
+    "nroUsuario": "142029",
+    "nombre": "CABRERA EDUARDO",
+    "domicilio": "CALLE 13 630 L.2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 10525,
+    "nroUsuario": "166923",
+    "nombre": "FERNANDEZ WALTER ANTONIO",
+    "domicilio": "CALLE 13 630 L.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 10647,
+    "nroUsuario": "147480",
+    "nombre": "ARRATIVEL MAURO EZEQUIEL",
+    "domicilio": "CALLE 21 823 L.44",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 10654,
+    "nroUsuario": "148928",
+    "nombre": "GUTIERREZ MARIA SOLEDAD",
+    "domicilio": "CALLE 20 1051 L.39",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 10663,
+    "nroUsuario": "148158",
+    "nombre": "ZABALA EVELINA BETIANA",
+    "domicilio": "CALLE 21 681 L.69",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 10722,
+    "nroUsuario": "148298",
+    "nombre": "GUTIERREZ MARIA SOLEDAD",
+    "domicilio": "CALLE 20 1051 L.39",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 10930,
+    "nroUsuario": "141543",
+    "nombre": "CASTILLO ROCIO BELEN",
+    "domicilio": "GJA. 8 C. 60 L. 208",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 10966,
+    "nroUsuario": "147926",
+    "nombre": "VARGAS JESICA",
+    "domicilio": "GJA.8 C.56 L.98",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 10971,
+    "nroUsuario": "142101",
+    "nombre": "MONTIEL ALVAREZ DELMO",
+    "domicilio": "GJA 8 C.60 L.205",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 10972,
+    "nroUsuario": "141296",
+    "nombre": "RAMIREZ STELLA MARIS",
+    "domicilio": "GJA 8 C.60 L.206",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 11025,
+    "nroUsuario": "116335",
+    "nombre": "PETRONOR COMBUSTIBLES S.",
+    "domicilio": "RUTA 9 KM 100",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 11027,
+    "nroUsuario": "138321",
+    "nombre": "SANCHEZ MONICA PATRICIA",
+    "domicilio": "L.MARIAS C.9 L 18",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Las Marías / Las Mariñas"
+  },
+  {
+    "id": 11031,
+    "nroUsuario": "144769",
+    "nombre": "ARANDA PABLO JOSE",
+    "domicilio": "RUTA 9 KM.95",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 11032,
+    "nroUsuario": "135393",
+    "nombre": "Ariozzi Oscar E",
+    "domicilio": "Ruta 9 km 100",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 11036,
+    "nroUsuario": "138550",
+    "nombre": "CAPURRO RUBEN DARI",
+    "domicilio": "L.MARIAS C.9 L.44",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Las Marías / Las Mariñas"
+  },
+  {
+    "id": 11037,
+    "nroUsuario": "102918",
+    "nombre": "CARCHINI FERNANDO",
+    "domicilio": "RUTA 9 103",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 11038,
+    "nroUsuario": "99759",
+    "nombre": "Cekarvar SA",
+    "domicilio": "Ruta 9 103,5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 11039,
+    "nroUsuario": "121253",
+    "nombre": "COITINO MIGUEL ANGEL",
+    "domicilio": "RUTA 9 KM.95,2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 11044,
+    "nroUsuario": "136342",
+    "nombre": "EPPENSTEIN DIEGO ERNESTO",
+    "domicilio": "RUTA 9 KM 100,2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 11054,
+    "nroUsuario": "140848",
+    "nombre": "KASETA JUAN ANDRES",
+    "domicilio": "L.MARIAS C.9 L 40",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Las Marías / Las Mariñas"
+  },
+  {
+    "id": 11055,
+    "nroUsuario": "144716",
+    "nombre": "MANATINI LUCIA SERENA",
+    "domicilio": "L.MARIAS C.9 L.21",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Las Marías / Las Mariñas"
+  },
+  {
+    "id": 11058,
+    "nroUsuario": "154422",
+    "nombre": "MAURICIO ALICIA TERESA",
+    "domicilio": "L.María C.7 L.47",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 11062,
+    "nroUsuario": "144815",
+    "nombre": "SANDOVAL JOSE MAXIMILIAN",
+    "domicilio": "L.MARIAS C.9 L.17",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Las Marías / Las Mariñas"
+  },
+  {
+    "id": 11080,
+    "nroUsuario": "149145",
+    "nombre": "EPPENSTEIN DIEGO ERNESTO",
+    "domicilio": "RUTA 9 KM100.2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 11085,
+    "nroUsuario": "169221",
+    "nombre": "LOBATO FERRO NATALIA",
+    "domicilio": "RUTA 9 KM 95 COLEC.SUR",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 11088,
+    "nroUsuario": "141676",
+    "nombre": "RECALDE JUAN CARLOS JONA",
+    "domicilio": "L.MARIAS C.7 L.72",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Las Marías / Las Mariñas"
+  },
+  {
+    "id": 11089,
+    "nroUsuario": "142368",
+    "nombre": "COLAZO MIGUEL ANGEL",
+    "domicilio": "L.MARIAS C.7 L.73",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Las Marías / Las Mariñas"
+  },
+  {
+    "id": 11091,
+    "nroUsuario": "145644",
+    "nombre": "BRITOS NORMA PATRICIA",
+    "domicilio": "L.MARIAS C.7 L.49",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Las Marías / Las Mariñas"
+  },
+  {
+    "id": 11092,
+    "nroUsuario": "137583",
+    "nombre": "SALVETTI NATALIA GISELE",
+    "domicilio": "L.MARIAS C.7 L.74",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Las Marías / Las Mariñas"
+  },
+  {
+    "id": 11106,
+    "nroUsuario": "122976",
+    "nombre": "De la Fuente ariel",
+    "domicilio": "Ruta 9 km 99",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 11107,
+    "nroUsuario": "ACTA 6132 RECONEX CLANDESTINA MED APAGADO MIGUEL 122976",
+    "nombre": "De la Fuente ariel",
+    "domicilio": "Ruta 9 km 99",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 11119,
+    "nroUsuario": "136612",
+    "nombre": "Vicino María G",
+    "domicilio": "Ruta 9 km 100",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 11158,
+    "nroUsuario": "117253",
+    "nombre": "GOMEZ ELBA DORA",
+    "domicilio": "RUTA 9 KM 100",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 11161,
+    "nroUsuario": "171954",
+    "nombre": "ROSALES JOANA ELIZABETH",
+    "domicilio": "L.MIRTILLOS II MZ.7 L.11",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 11164,
+    "nroUsuario": "157309",
+    "nombre": "BARRERA NANCY CECILIA",
+    "domicilio": "RIVADAVIA 818 L.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 11201,
+    "nroUsuario": "169490",
+    "nombre": "TRAMAMONI PATRICIA MONIC",
+    "domicilio": "E.SMITHFIELD L.55",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 11252,
+    "nroUsuario": "172658",
+    "nombre": "MEDINA LUIS AVELINO  ( PARRILLA LA GALPONERA)",
+    "domicilio": "RUTA 9 KM 92.300",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 11263,
+    "nroUsuario": "150750",
+    "nombre": "ARRIGHI ROSANA SILVIA",
+    "domicilio": "CASTELLI 409 L.2",
+    "estadoDeptoAnterior": "NO TENEMOS LLAVE",
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 11964,
+    "nroUsuario": "160689",
+    "nombre": "BRUNO MARISOL",
+    "domicilio": "RUTA 9 KM 87.500",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 12004,
+    "nroUsuario": "170249",
+    "nombre": "TITO ARCE VIVIANA JULIET",
+    "domicilio": "SARMIENTO 1410 L.6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 12254,
+    "nroUsuario": "172740",
+    "nombre": "ESCADA RICARDO GABRIEL",
+    "domicilio": "E.SMITHFIELD L.279",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 12684,
+    "nroUsuario": "107393",
+    "nombre": "MAGNANI LOPEZ ANA",
+    "domicilio": "RUTA 9 KM 87",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 12686,
+    "nroUsuario": "166569",
+    "nombre": "VERDE LUCIA SUSANA",
+    "domicilio": "LA CANDELARIA L.19",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "La Candelaria"
+  },
+  {
+    "id": 12692,
+    "nroUsuario": "directo",
+    "nombre": "DIRECTO - b la florida calle 6 y 15",
+    "domicilio": "b la florida calle 6 y 15",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12693,
+    "nroUsuario": "directo",
+    "nombre": "DIRECTO - B.LA FLORIDA C.4 L.33",
+    "domicilio": "B.LA FLORIDA C.4 L.33",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12700,
+    "nroUsuario": "102920",
+    "nombre": "AUN RAUL DAVID",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12701,
+    "nroUsuario": "111920",
+    "nombre": "CHUNG FELIX ISMAEL",
+    "domicilio": "B.LA FLORIDA CALLE 6 Y",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12708,
+    "nroUsuario": "72457",
+    "nombre": "GONZALEZ RICARDO",
+    "domicilio": "B.LA FLORIDA CALLE 6 250",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12711,
+    "nroUsuario": "146366",
+    "nombre": "BARDON JOSE OMAR",
+    "domicilio": "LA LEYLA L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 12719,
+    "nroUsuario": "145921",
+    "nombre": "VASQUEZ PABLO MARTIN",
+    "domicilio": "LA CARONA II MZ.29 L.11",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Carona"
+  },
+  {
+    "id": 12720,
+    "nroUsuario": "155076",
+    "nombre": "GOMEZ OSCAR ALFREDO",
+    "domicilio": "LA CARONA II  L.27",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Carona"
+  },
+  {
+    "id": 12721,
+    "nroUsuario": "directo",
+    "nombre": "DIRECTO - B.LA CARONA L.8 CALL LOS OVEROS",
+    "domicilio": "B.LA CARONA L.8 CALL LOS OVEROS",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Carona"
+  },
+  {
+    "id": 12723,
+    "nroUsuario": "directo",
+    "nombre": "DIRECTO - B.LA FLORIDA CALLE 4 S7N",
+    "domicilio": "B.LA FLORIDA CALLE 4 S7N",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12726,
+    "nroUsuario": "98569",
+    "nombre": "RODRIGUEZ ROLANDO",
+    "domicilio": "B.LA FLORIDA C 11 L 14",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12728,
+    "nroUsuario": "159887",
+    "nombre": "RONDAN MARCELA",
+    "domicilio": "B.LA FLORIDA L.7 C4",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12729,
+    "nroUsuario": "130822",
+    "nombre": "PASTORINO ANTONIO",
+    "domicilio": "LA FLORIDA CALLE 4 L 40     ║",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12731,
+    "nroUsuario": "150755",
+    "nombre": "GEUNA GABRIEL MARIANO FR",
+    "domicilio": "B.LA FLORIDA CALLE 8",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12732,
+    "nroUsuario": "88276",
+    "nombre": "HE OR S.A.",
+    "domicilio": "RUTA 9 KM. 82.500",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 12733,
+    "nroUsuario": "156926",
+    "nombre": "GOMEZ CAMILA JULIETA",
+    "domicilio": "F.DE LA FLORIDA FR 1 L.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12734,
+    "nroUsuario": "156579",
+    "nombre": "CORDERO LIONEL MATIAS",
+    "domicilio": "F.DE LA FLORIDA MZ 22C L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12735,
+    "nroUsuario": "155509",
+    "nombre": "BENITEZ MAURO ARIEL",
+    "domicilio": "F.DE LA FLORIDA M.22E L17",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12736,
+    "nroUsuario": "157250",
+    "nombre": "LACAPRA JONATAN NAHUEL",
+    "domicilio": "F.DE LA FLORIDA M.22A L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12738,
+    "nroUsuario": "152819",
+    "nombre": "RUIZ SABRINA VALERIA",
+    "domicilio": "FINCAS DE LA FLORIDA MZ.22F",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12739,
+    "nroUsuario": "149737",
+    "nombre": "RUPP DIEGO MARTIN",
+    "domicilio": "L.MIRTILLOS II MZ.2 L.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 12740,
+    "nroUsuario": "154901",
+    "nombre": "GIMENEZ NELSON DANIEL",
+    "domicilio": "L.MIRTILLOS II MZ 1 L.16",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 12741,
+    "nroUsuario": "155783",
+    "nombre": "TOLOSA JUAN MANUEL",
+    "domicilio": "L.MIRTILLOS II MZ 8 L.13",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 12744,
+    "nroUsuario": "149166",
+    "nombre": "RAMIERI NICOLAS JOSE",
+    "domicilio": "L.MIRTILLOS L.5",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 12746,
+    "nroUsuario": "164839",
+    "nombre": "ALEJANDRO JONATHAN DAVID",
+    "domicilio": "L.ACACIOS I L.1 M.1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 12752,
+    "nroUsuario": "158935",
+    "nombre": "CORDOBA MATIAS",
+    "domicilio": "AIRE PAMPA L.182",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 12753,
+    "nroUsuario": "169903",
+    "nombre": "MATTOS GABRIELA MAGALI",
+    "domicilio": "AIRE PAMPA L.181",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 12754,
+    "nroUsuario": "163972",
+    "nombre": "NUÑEZ MARINA SOLEDAD",
+    "domicilio": "AIRE PAMPA L.16",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 12755,
+    "nroUsuario": "SIN USUARIO",
+    "nombre": "DIRECTO - B.LA FLORIDA CALLE 2 Y LAS GLICINAS",
+    "domicilio": "B.LA FLORIDA CALLE 2 Y LAS GLICINAS",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12757,
+    "nroUsuario": "SIN USUARIO",
+    "nombre": "DIRECTO - B.LA FLORIDA CALLE 6",
+    "domicilio": "B.LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12758,
+    "nroUsuario": "SIN USUARIO",
+    "nombre": "DIRECTO - B.LA FLORIDA CALLE 6 Y LAS GLICINAS",
+    "domicilio": "B.LA FLORIDA CALLE 6 Y LAS GLICINAS",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12759,
+    "nroUsuario": "33755",
+    "nombre": "VETTORETTO C",
+    "domicilio": "B LA FLORIDA CALLE 6",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Florida / Fincas"
+  },
+  {
+    "id": 12772,
+    "nroUsuario": "160010",
+    "nombre": "MONTERO FLAVIA VANINA",
+    "domicilio": "L.CEIBOS M.4 L.10",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 12774,
+    "nroUsuario": "126152",
+    "nombre": "RACHICH VERONICA M",
+    "domicilio": "L.CEIBOS M.2 L.12",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 12775,
+    "nroUsuario": "165468",
+    "nombre": "RAMIREZ LUCAS JULIAN",
+    "domicilio": "LA CAMPIÑA III MZ.I L.9",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Campiña"
+  },
+  {
+    "id": 12776,
+    "nroUsuario": "145105",
+    "nombre": "BOSSI SERGIO ANDRES",
+    "domicilio": "L.NARANJOS L.20",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Los Naranjos"
+  },
+  {
+    "id": 12777,
+    "nroUsuario": "148214",
+    "nombre": "CAMPODONICO LEANDRO GAST",
+    "domicilio": "B.LOS NARANJOS M.101 L 1",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Los Naranjos"
+  },
+  {
+    "id": 12779,
+    "nroUsuario": "166127",
+    "nombre": "GONZALEZ EDUARDO MAXIMIL",
+    "domicilio": "LA CAMPIÑA III MZ.J L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Campiña"
+  },
+  {
+    "id": 12780,
+    "nroUsuario": "163911",
+    "nombre": "GONZALEZ JUAN RAMON",
+    "domicilio": "A.DEL CASCO L.136",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 12782,
+    "nroUsuario": "127580",
+    "nombre": "MATTEO LORENA S",
+    "domicilio": "L.CEIBOS M.16 L.15",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Ceibos"
+  },
+  {
+    "id": 12784,
+    "nroUsuario": "163200",
+    "nombre": "PEÑALBA DEBORA PAOLA",
+    "domicilio": "A.ARGENTINA 6600 C.17   ALDEA SUIZA",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Aldea Suiza"
+  },
+  {
+    "id": 12785,
+    "nroUsuario": "165394",
+    "nombre": "Santorsola Maximiliano",
+    "domicilio": "Los Campos de Fresnos L. 38",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 12789,
+    "nroUsuario": "directo",
+    "nombre": "DIRECTO - A.ARGETINA 6600 CALLE 2 LOTE 1 A",
+    "domicilio": "A.ARGETINA 6600 CALLE 2 LOTE 1 A",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 12802,
+    "nroUsuario": "163993",
+    "nombre": "BARBOZA ELBIO JESUS",
+    "domicilio": "B.VICTORIA l.36",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Victoria"
+  },
+  {
+    "id": 12803,
+    "nroUsuario": "163031",
+    "nombre": "BORRO PABLO ZENON",
+    "domicilio": "B.VICTORIA L.34",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Victoria"
+  },
+  {
+    "id": 12804,
+    "nroUsuario": "131873",
+    "nombre": "PARAPUGNO ANALIA",
+    "domicilio": "A.DEL CASCO L.49",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 12806,
+    "nroUsuario": "164552",
+    "nombre": "DE LUCCA CRISTIAN",
+    "domicilio": "LA CAMPIÑA II M.H L.7",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Campiña"
+  },
+  {
+    "id": 12807,
+    "nroUsuario": "156042",
+    "nombre": "ARAUJO MARIA AZUCENA",
+    "domicilio": "LA CAMPIÑA MZ.L L.3",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Campiña"
+  },
+  {
+    "id": 12808,
+    "nroUsuario": "149747",
+    "nombre": "SANTORO CLAUDIO",
+    "domicilio": "LA CAMPIÑA MZ.J L.12",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio La Campiña"
+  },
+  {
+    "id": 12812,
+    "nroUsuario": "165199",
+    "nombre": "CASTIGLIONI MICHEL ADRIA",
+    "domicilio": "B.VICTORIA L.45",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Victoria"
+  },
+  {
+    "id": 12813,
+    "nroUsuario": "163031",
+    "nombre": "BORRO PABLO ZENON",
+    "domicilio": "B.VICTORIA L.34",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Victoria"
+  },
+  {
+    "id": 12814,
+    "nroUsuario": "133434",
+    "nombre": "DANIELE FABIAN ARM",
+    "domicilio": "B.VICTORIA L.35",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Victoria"
+  },
+  {
+    "id": 12815,
+    "nroUsuario": "134524",
+    "nombre": "YACOBONE NATALIA V",
+    "domicilio": "B.VICTORIA L.29",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Victoria"
+  },
+  {
+    "id": 13426,
+    "nroUsuario": "142029",
+    "nombre": "CABRERA EDUARDO",
+    "domicilio": "CALLE 13 630 L.2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 13453,
+    "nroUsuario": "144815",
+    "nombre": "SANDOVAL JOSE MAXIMILIAN",
+    "domicilio": "L.MARIAS C.9 L.17",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Las Marías / Las Mariñas"
+  },
+  {
+    "id": 13460,
+    "nroUsuario": "116335",
+    "nombre": "PETRONOR COMBUSTIBLES",
+    "domicilio": "RUTA 9 KM 100",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 13473,
+    "nroUsuario": "directo",
+    "nombre": "DIRECTO - A.ARGETINA 6600 CALLE 2 LOTE 3 A",
+    "domicilio": "A.ARGETINA 6600 CALLE 2 LOTE 3 A",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 13474,
+    "nroUsuario": "directo",
+    "nombre": "DIRECTO - A.ARG. 6600 CALLE 2 LOTE 31 ALDEA SUIZA",
+    "domicilio": "A.ARG. 6600 CALLE 2 LOTE 31 ALDEA SUIZA",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Aldea Suiza"
+  },
+  {
+    "id": 13504,
+    "nroUsuario": "directo",
+    "nombre": "DIRECTO - L.MIRTILLOS II M.6 L.15",
+    "domicilio": "L.MIRTILLOS II M.6 L.15",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Los Mirtillos I/II"
+  },
+  {
+    "id": 13676,
+    "nroUsuario": "DIRECTO",
+    "nombre": "DEPOSITO ( FRAUDE O. L )",
+    "domicilio": "Ruta 9 km 88",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Rutas y Parajes Rurales (Km)"
+  },
+  {
+    "id": 13697,
+    "nroUsuario": "125252",
+    "nombre": "NOSIGLIA DANIELA S",
+    "domicilio": "SARMIENTO 1410 L.2",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 13698,
+    "nroUsuario": "114830",
+    "nombre": "GALIANO NOELIA ELI",
+    "domicilio": "SARMIENTO 1410 L.4",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Loteos y Parcelas"
+  },
+  {
+    "id": 13746,
+    "nroUsuario": "160217",
+    "nombre": "MORALES CRISTIAN GASTON",
+    "domicilio": "E.SMITHFIELD L.220",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 13747,
+    "nroUsuario": "162240",
+    "nombre": "INSUA JAVIER PABLO",
+    "domicilio": "E.SMITHFIELD L 233",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 13748,
+    "nroUsuario": "139041",
+    "nombre": "PARISI PABLO ANDRES",
+    "domicilio": "E.SMITHFIELD L.239",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 13749,
+    "nroUsuario": "129044",
+    "nombre": "DITGES RENATA CLAU",
+    "domicilio": "E.SMITHFIELD L.249",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 13750,
+    "nroUsuario": "169041",
+    "nombre": "DE LA LLERA MATIAS EMANUEL",
+    "domicilio": "E.SMITHFIELD L.260",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 13751,
+    "nroUsuario": "139322",
+    "nombre": "MEGLIO OSVALDO ENRIQUE",
+    "domicilio": "E.SMITHFIELD L.263",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 13752,
+    "nroUsuario": "140144",
+    "nombre": "ﾑUTA SEBASTIAN RAUL LUJAN",
+    "domicilio": "E.SMITHFIELD L.303",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 13753,
+    "nroUsuario": "166006",
+    "nombre": "VALIENTE MARTIN GERARDO",
+    "domicilio": "E.SMITHFIELD L.305",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 13754,
+    "nroUsuario": "167374",
+    "nombre": "RUIZ VANESA FERNANDA",
+    "domicilio": "E.SMITHFIELD L.310",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 13755,
+    "nroUsuario": "156722",
+    "nombre": "LUCHETTI MONICA BEATRIZ",
+    "domicilio": "E.SMITHFIELD L.343",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 13756,
+    "nroUsuario": "124189",
+    "nombre": "BORRELLI MARIEL IVON",
+    "domicilio": "E.SMITHFIELD L.351",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 13757,
+    "nroUsuario": "126944",
+    "nombre": "DURRELS AMERICO FERNANDO",
+    "domicilio": "E.SMITHFIELD L.411",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 13758,
+    "nroUsuario": "131261",
+    "nombre": "FERNANDEZ MARINA",
+    "domicilio": "E.SMITHFIELD L.431",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  },
+  {
+    "id": 13759,
+    "nroUsuario": "133913",
+    "nombre": "PODESTA MIRIAM",
+    "domicilio": "E.SMITHFIELD L.433",
+    "estadoDeptoAnterior": null,
+    "categoriaBarrio": "Barrio Smithfield"
+  }
+]
